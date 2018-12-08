@@ -19,7 +19,7 @@ class TabulatorTest extends TestCase
             ->get(route('tabulator.create'))
             ->assertStatus(200)
             ->assertViewIs('tabulator.create')
-            ->assertSee('Tabulador de pagos CCP 2017-2019')
+            ->assertSee('Tabulador de cargos CCP 2017-2019')
             ->assertSee('Crear cargo');
     }
 }
