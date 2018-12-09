@@ -9,7 +9,9 @@ class TabulatorController extends Controller
 {
     public function index()
     {
-        return view('tabulator.index');
+        $tabulators = Tabulator::orderBy('id')->get();
+
+        return view('tabulator.index', compact('tabulators'));
     }
 
     public function create()

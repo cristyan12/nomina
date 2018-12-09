@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Tabulator;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -34,8 +35,6 @@ class TabulatorTest extends TestCase
     /** @test */
     public function a_user_can_create_a_new_position()
     {
-        $this->withoutExceptionHandling();
-
         $user = $this->someUser();
 
         $response = $this->actingAs($user)
@@ -50,5 +49,21 @@ class TabulatorTest extends TestCase
             'name' => 'PERFORADOR',
             'basic_salary' => '105324.30'
         ]);
+    }
+
+    /** @test */
+    public function a_user_can_show_a_list_of_positions()
+    {
+        $this->withoutExceptionHandling();
+
+        $positions = factory(\App\Tabulator::class, 10)->create();
+
+        $response = $this->get(route('tabulator.index'))
+            ->assertStatus(200);
+        foreach ($positions as $position) {
+            $response->assertSee($position->code);
+            $response->assertSee($position->name);
+            $response->assertSee($position->basic_salary);
+        }
     }
 }
