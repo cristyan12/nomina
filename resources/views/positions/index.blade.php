@@ -13,7 +13,7 @@
         </tr>
     </thead>
     <tbody>
-        @forelse($tabulators as $position)
+        @forelse($positions as $position)
             <tr>
                 <td>{{ $position->id }}</td>
                 <td>{{ $position->code }}</td>

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTabulatorsTable extends Migration
+class CreatePositionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateTabulatorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('tabulators', function (Blueprint $table) {
+        Schema::create('positions', function (Blueprint $table) {
             $table->increments('id');
 
             $table->string('code', 10);
@@ -31,6 +31,6 @@ class CreateTabulatorsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('tabulators');
+        Schema::dropIfExists('positions');
     }
 }
