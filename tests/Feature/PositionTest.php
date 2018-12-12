@@ -14,20 +14,16 @@ class PositionTest extends TestCase
     /** @test */
     public function a_user_can_load_the_creation_of_position_page()
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->actingAs($this->someUser())
             ->get(route('positions.create'))
             ->assertStatus(200)
             ->assertViewIs('positions.create')
-            ->assertSee('Crear cargo');
+            ->assertSee('Crear Cargo');
     }
 
     /** @test */
     public function a_user_can_show_a_list_of_positions()
     {
-        $this->withoutExceptionHandling();
-
         $positions = factory(Position::class, 10)->create();
 
         $response = $this->get(route('positions.index'))
@@ -64,5 +60,26 @@ class PositionTest extends TestCase
             'name' => 'PERFORADOR',
             'basic_salary' => '105324.30'
         ]);
+    }
+
+    /** @test */
+    public function a_user_can_loads_the_position_details()
+    {
+        $this->withoutExceptionhandling();
+
+        $position = $this->create(Position::class, [
+            'code' => 'OPE01',
+            'name' => 'PERFORADOR',
+            'basic_salary' => '105324.31'
+        ]);
+
+        $response = $this->actingAs($this->someUser())
+            ->get(route('positions.show', $position))
+            ->assertStatus(200)
+            ->assertViewIs('positions.show')
+            ->assertViewHas('position')
+            ->assertSee('OPE01')
+            ->assertSee('PERFORADOR')
+            ->assertSee('105324.31');
     }
 }

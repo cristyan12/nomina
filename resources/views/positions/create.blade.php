@@ -4,10 +4,16 @@
 
 @section('content')
 
-<div class="card mb-3" style="max-width: 18rem;">
-    <div class="card-header">Tabulador de cargos CCP 2017-2019</div>
-    <div class="card-body">
-        <a href="{{ route('positions.create') }}" class="card-link btn btn-dark">Crear cargo</a>
+<div class="col-md-6">
+    <div class="card mb-3">
+        <div class="card-header">Tabulador de cargos CCP 2017-2019</div>
+        <div class="card-body">
+            {{ Form::open(['route' => 'positions.store']) }}
+
+                @include('positions.partials.form')
+
+            {{ Form::close() }}
+        </div>
     </div>
 </div>
 @endsection

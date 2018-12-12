@@ -26,4 +26,9 @@ class PositionController extends Controller
         return redirect()->route('positions.index')
             ->with('info', 'Cargo creado con éxito!');
     }
+
+    public function show(Position $position)
+    {
+        return view('positions.show', compact('position'));
+    }
 }
