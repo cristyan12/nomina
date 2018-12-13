@@ -21,7 +21,21 @@ class PositionController extends Controller
 
     public function store(Request $request)
     {
-        Position::create($request->all());
+        $data = $request->validate([
+            'code' => 'required',
+            'name' => 'required',
+            'basic_salary' => 'required',
+        ], [
+            'code.required' => 'El campo código de SISDEM es requerido.',
+            'name.required' => 'El campo Nombre del Cargo es requerido.',
+            'basic_salary.required' => 'El campo Salario Básico es requerido.',
+        ]);
+
+        Position::create([
+            'code' => $data['code'],
+            'name' => $data['name'],
+            'basic_salary' => $data['basic_salary'],
+        ]);
 
         return redirect()->route('positions.index')
             ->with('info', 'Cargo creado con éxito!');

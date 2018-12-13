@@ -12,7 +12,7 @@ class PositionTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    public function a_user_can_load_the_creation_of_position_page()
+    function a_user_can_load_the_creation_of_position_page()
     {
         $response = $this->actingAs($this->someUser())
             ->get(route('positions.create'))
@@ -22,7 +22,7 @@ class PositionTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_show_a_list_of_positions()
+    function a_user_can_show_a_list_of_positions()
     {
         $positions = factory(Position::class, 10)->create();
 
@@ -37,7 +37,7 @@ class PositionTest extends TestCase
     }
 
     /** @test */
-    public function it_show_a_message_when_no_records_yet()
+    function it_show_a_message_when_no_records_yet()
     {
         $response = $this->actingAs($this->someUser())
             ->get(route('positions.index'))
@@ -46,7 +46,7 @@ class PositionTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_create_a_new_position()
+    function a_user_can_create_a_new_position()
     {
         $response = $this->actingAs($this->someUser())
             ->post(route('positions.store'), [
@@ -63,10 +63,8 @@ class PositionTest extends TestCase
     }
 
     /** @test */
-    public function a_user_can_loads_the_position_details()
+    function a_user_can_loads_the_position_details()
     {
-        $this->withoutExceptionhandling();
-
         $position = $this->create(Position::class, [
             'code' => 'OPE01',
             'name' => 'PERFORADOR',
@@ -81,5 +79,59 @@ class PositionTest extends TestCase
             ->assertSee('OPE01')
             ->assertSee('PERFORADOR')
             ->assertSee('105324.31');
+    }
+
+    /** @test */
+    function the_code_field_is_required()
+    {
+        $position = $this->create(Position::class);
+
+        $this->from(route('positions.index'))
+            ->actingAs($this->someUser())
+            ->post(route('positions.store'), [
+                'code' => '',
+                'name' => 'PERFORADOR',
+                'basic_salary' => '105324.30'
+            ])
+            ->assertRedirect(route('positions.store'))
+            ->assertSessionHasErrors(['code']);
+
+        $this->assertEquals(1, Position::count());
+    }
+
+    /** @test */
+    function the_name_field_is_required()
+    {
+        $position = $this->create(Position::class);
+
+        $this->from(route('positions.index'))
+            ->actingAs($this->someUser())
+            ->post(route('positions.store'), [
+                'code' => 'OPE01',
+                'name' => '',
+                'basic_salary' => '105324.30'
+            ])
+            ->assertRedirect(route('positions.store'))
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(1, Position::count());
+    }
+
+    /** @test */
+    function the_basic_salary_field_is_required()
+    {
+        $position = $this->create(Position::class);
+
+        $this->from(route('positions.index'))
+            ->actingAs($this->someUser())
+            ->post(route('positions.store'), [
+                'code' => 'OPE01',
+                'name' => 'PERFORADOR',
+                'basic_salary' => ''
+            ])
+            ->assertRedirect(route('positions.store'))
+            ->assertSessionHasErrors(['basic_salary']);
+
+        $this->assertEquals(1, Position::count());
     }
 }
