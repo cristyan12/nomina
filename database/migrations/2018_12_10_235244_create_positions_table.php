@@ -18,7 +18,7 @@ class CreatePositionsTable extends Migration
 
             $table->string('code', 10);
             $table->string('name');
-            $table->float('basic_salary', 8, 2);
+            $table->float('basic_salary', 10, 2);
 
             $table->timestamps();
         });

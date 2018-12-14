@@ -18,7 +18,7 @@ class PositionTest extends TestCase
             ->get(route('positions.create'))
             ->assertStatus(200)
             ->assertViewIs('positions.create')
-            ->assertSee('Crear Cargo');
+            ->assertSee('Nuevo Cargo');
     }
 
     /** @test */
@@ -133,5 +133,36 @@ class PositionTest extends TestCase
             ->assertSessionHasErrors(['basic_salary']);
 
         $this->assertEquals(1, Position::count());
+    }
+
+    /** @test */
+    function the_basic_salary_field_must_be_a_correct_float_number()
+    {
+        // $this->withoutExceptionHandling();
+
+        $this->from(route('positions.index'))
+            ->actingAs($this->someUser())
+            ->post(route('positions.store'), [
+                'code' => 'OPE01',
+                'name' => 'PERFORADOR',
+                'basic_salary' => '123456'
+            ])
+            ->assertRedirect(route('positions.store'))
+            ->assertSessionHasErrors(['basic_salary']);
+
+        $this->assertEquals(0, Position::count());
+    }
+
+    /** @test */
+    function the_basic_salary_is_show_with_correct_format()
+    {
+        $position = $this->create(Position::class, [
+            'basic_salary' => '123423.30',
+        ]);
+
+        $response = $this->actingAs($this->someUser())
+            ->get(route('positions.show', $position))
+            ->assertStatus(200)
+            ->assertSee('123.423,30');
     }
 }

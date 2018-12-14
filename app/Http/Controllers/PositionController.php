@@ -24,7 +24,7 @@ class PositionController extends Controller
         $data = $request->validate([
             'code' => 'required',
             'name' => 'required',
-            'basic_salary' => 'required',
+            'basic_salary' => 'required|numeric',
         ], [
             'code.required' => 'El campo código de SISDEM es requerido.',
             'name.required' => 'El campo Nombre del Cargo es requerido.',
