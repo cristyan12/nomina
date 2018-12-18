@@ -18,7 +18,7 @@ class PositionTest extends TestCase
             ->get(route('positions.create'))
             ->assertStatus(200)
             ->assertViewIs('positions.create')
-            ->assertSee('Nuevo Cargo');
+            ->assertSee('Crear Cargo');
     }
 
     /** @test */
@@ -32,7 +32,6 @@ class PositionTest extends TestCase
         foreach ($positions as $position) {
             $response->assertSee($position->code);
             $response->assertSee($position->name);
-            $response->assertSee($position->basic_salary);
         }
     }
 
@@ -78,21 +77,39 @@ class PositionTest extends TestCase
             ->assertViewHas('position')
             ->assertSee('OPE01')
             ->assertSee('PERFORADOR')
-            ->assertSee('105324.31');
+            ->assertSee('105.324,31');
     }
 
     /** @test */
     function the_code_field_is_required()
     {
-        $position = $this->create(Position::class);
-
-        $this->from(route('positions.index'))
-            ->actingAs($this->someUser())
+        $this->actingAs($this->someUser())
+            ->from(route('positions.index'))
             ->post(route('positions.store'), [
                 'code' => '',
                 'name' => 'PERFORADOR',
                 'basic_salary' => '105324.30'
             ])
+            ->assertRedirect(route('positions.store'))
+            ->assertSessionHasErrors(['code']);
+
+        $this->assertEquals(0, Position::count());
+    }
+
+    /** @test */
+    function the_code_field_must_be_unique()
+    {
+        $position = $this->create(Position::class, [
+            'code' => 'OPE01'
+        ]);
+
+        $this->actingAs($this->someUser())
+            ->from(route('positions.index'))
+            ->post(route('positions.store', [
+                'code' => 'OPE01',
+                'name' => 'PERFORADOR',
+                'basic_salary' => '105324.30'
+            ]))
             ->assertRedirect(route('positions.store'))
             ->assertSessionHasErrors(['code']);
 
@@ -136,24 +153,6 @@ class PositionTest extends TestCase
     }
 
     /** @test */
-    function the_basic_salary_field_must_be_a_correct_float_number()
-    {
-        // $this->withoutExceptionHandling();
-
-        $this->from(route('positions.index'))
-            ->actingAs($this->someUser())
-            ->post(route('positions.store'), [
-                'code' => 'OPE01',
-                'name' => 'PERFORADOR',
-                'basic_salary' => '123456'
-            ])
-            ->assertRedirect(route('positions.store'))
-            ->assertSessionHasErrors(['basic_salary']);
-
-        $this->assertEquals(0, Position::count());
-    }
-
-    /** @test */
     function the_basic_salary_is_show_with_correct_format()
     {
         $position = $this->create(Position::class, [
@@ -164,5 +163,26 @@ class PositionTest extends TestCase
             ->get(route('positions.show', $position))
             ->assertStatus(200)
             ->assertSee('123.423,30');
+    }
+
+    /** @test */
+    function a_user_can_update_the_position()
+    {
+        $this->withoutExceptionHandling();
+
+        $position = $this->create(Position::class);
+
+        $response = $this->actingAs($this->someUser())
+            ->put(route('positions.update', $position), [
+                'code' => 'OPE01',
+                'name' => 'PERFORADOR',
+                'basic_salary' => '123456.56'
+            ])
+            ->assertRedirect(route('positions.show', $position));
+
+        $position = Position::first();
+        $this->assertSame('OPE01', $position->code);
+        $this->assertSame('PERFORADOR', $position->name);
+        $this->assertSame(123456.56, $position->basic_salary);
     }
 }

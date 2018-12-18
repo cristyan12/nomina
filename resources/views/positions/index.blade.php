@@ -39,4 +39,5 @@
         @endforelse
     </tbody>
 </table>
+{{ $positions->render() }}
 @endsection

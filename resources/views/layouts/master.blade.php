@@ -46,20 +46,26 @@
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
-                  <span data-feather="shopping-cart"></span>
+                  <span data-feather="file"></span>
                   Sucursales
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="file"></span>
+                  Departamentos
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">
+                  <span data-feather="bar-chart-2"></span>
+                  Bancos
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="users"></span>
                   Empleados
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="bar-chart-2"></span>
-                  Reports
                 </a>
               </li>
               <li class="nav-item">
@@ -112,8 +118,8 @@
                 </h1>
             </div>
 
+            @include('layouts.messages')
             @yield('content')
-
         </main>
       </div>
     </div>
@@ -126,7 +132,7 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     <!-- Icons -->
-    <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
+    <script src="{{ asset('js/feather.min.js') }}"></script>
     <script>
       feather.replace()
     </script>
