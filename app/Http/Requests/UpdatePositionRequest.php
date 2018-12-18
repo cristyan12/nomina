@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdatePositionRequest extends CreatePositionRequest
+class UpdatePositionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,6 +25,18 @@ class UpdatePositionRequest extends CreatePositionRequest
     {
         return [
             'code' => 'required|unique:positions,code,'.$this->id,
+            'name' => 'required',
+            'basic_salary' => 'required|numeric',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'code.required' => 'El campo código de SISDEM es requerido.',
+            'code.unique' => 'El campo código de SISDEM debe ser único.',
+            'name.required' => 'El campo Nombre del Cargo es requerido.',
+            'basic_salary.required' => 'El campo Salario Básico es requerido.',
         ];
     }
 }

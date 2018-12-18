@@ -1,5 +1,3 @@
-
-
 <div class="form-group row">
     {{ Form::label('code', 'Código SISDEM', ['class' => 'col-sm-3 col-form-label']) }}
 

@@ -166,6 +166,27 @@ class PositionTest extends TestCase
     }
 
     /** @test */
+    function a_user_can_load_the_form_to_update_position()
+    {
+        $this->withoutExceptionHandling();
+
+        $position = $this->create(Position::class, [
+            'code' => 'OPE01',
+            'name' => 'PERFORADOR',
+            'basic_salary' => '123456.23'
+        ]);
+
+        $this->actingAs($this->someUser())
+            ->get("positions/{$position->id}/edit")
+            ->assertStatus(200)
+            ->assertViewIs('positions.edit')
+            ->assertViewHas('position')
+            ->assertSee('OPE01')
+            ->assertSee('PERFORADOR')
+            ->assertSee('123456.23');
+    }
+
+    /** @test */
     function a_user_can_update_the_position()
     {
         $this->withoutExceptionHandling();
@@ -184,5 +205,79 @@ class PositionTest extends TestCase
         $this->assertSame('OPE01', $position->code);
         $this->assertSame('PERFORADOR', $position->name);
         $this->assertSame(123456.56, $position->basic_salary);
+    }
+
+    /** @test */
+    function the_code_field_is_required_when_is_updated()
+    {
+        $position = $this->create(Position::class);
+
+        $this->actingAs($this->someUser())
+            ->from(route('positions.edit', $position->id))
+            ->put(route('positions.update', $position->id), [
+                'code' => '',
+                'name' => 'PERFORADOR',
+                'basic_salary' => '105324.30'
+            ])
+            ->assertRedirect(route('positions.edit', $position->id))
+            ->assertSessionHasErrors(['code']);
+
+        $this->assertEquals(1, Position::count());
+    }
+
+    /** @test */
+    function the_code_field_must_be_unique_when_is_updated()
+    {
+        $position = $this->create(Position::class, [
+            'code' => 'OPE01'
+        ]);
+
+        $this->actingAs($this->someUser())
+            ->from(route('positions.edit', $position->id))
+            ->put(route('positions.update', $position->id), [
+                'code' => 'OPE01',
+                'name' => 'PERFORADOR',
+                'basic_salary' => '105324.30'
+            ])
+            ->assertRedirect(route('positions.edit', $position->id))
+            ->assertSessionHasErrors(['code']);
+
+        $this->assertEquals(1, Position::count());
+    }
+
+    /** @test */
+    function the_name_field_is_required_when_is_updated()
+    {
+        $position = $this->create(Position::class);
+
+        $this->actingAs($this->someUser())
+            ->from(route('positions.edit', $position->id))
+            ->put(route('positions.update', $position->id), [
+                'code' => 'OPE01',
+                'name' => '',
+                'basic_salary' => '105324.30'
+            ])
+            ->assertRedirect(route('positions.edit', $position->id))
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(1, Position::count());
+    }
+
+    /** @test */
+    function the_basic_salary_field_is_required_when_is_updated()
+    {
+        $position = $this->create(Position::class);
+
+        $this->actingAs($this->someUser())
+            ->from(route('positions.edit', $position->id))
+            ->put(route('positions.update', $position->id), [
+                'code' => 'OPE01',
+                'name' => 'PERFORADOR',
+                'basic_salary' => ''
+            ])
+            ->assertRedirect(route('positions.edit', $position->id))
+            ->assertSessionHasErrors(['basic_salary']);
+
+        $this->assertEquals(1, Position::count());
     }
 }
