@@ -3,7 +3,7 @@
 @section('title')
 <div class="display-4">Sucursales</div>
 
-<a href="{{ route('positions.create') }}" class="btn btn-outline-primary">Crear Sucursal</a>
+<a href="{{ route('branches.create') }}" class="btn btn-outline-primary">Crear Sucursal</a>
 @endsection
 
 @section('content')

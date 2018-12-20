@@ -30,7 +30,7 @@ class PositionController extends Controller
         ]);
 
         return redirect()->route('positions.index')
-            ->with('info', 'Cargo creado con éxito!');
+            ->with('success', 'Cargo creado con éxito!');
     }
 
     public function show(Position $position)

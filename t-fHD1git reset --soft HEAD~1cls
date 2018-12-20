@@ -1,0 +1,65 @@
+[33mcommit 6508f8305dcef4bb19434611e694fb30f13bde20[m
+Author: = <numenor21@gmail.com>
+Date:   Tue Dec 18 18:56:17 2018 -0400
+
+    Updated Position 2
+
+[33mcommit 6ce80044a63a66f79d72a8ed25f1ca7482619317[m
+Author: = <numenor21@gmail.com>
+Date:   Mon Dec 17 20:00:51 2018 -0400
+
+    Update a given position
+
+[33mcommit 2b210508ef75b9572deced9cb490738a8b7a6eb1[m
+Author: = <numenor21@gmail.com>
+Date:   Fri Dec 14 19:32:16 2018 -0400
+
+    Correct format of the basic_salary field and add some styles
+
+[33mcommit 33bcdd275f465f44be8f80e14b57ae169974d59c[m
+Author: = <numenor21@gmail.com>
+Date:   Thu Dec 13 19:25:29 2018 -0400
+
+    Now show a message when a some field is required
+
+[33mcommit ed9fd92b8e41b12fbd6a25c16986ed51c2181c01[m
+Author: = <numenor21@gmail.com>
+Date:   Wed Dec 12 18:42:51 2018 -0400
+
+    Create positions, show details of positions and seed table of positions
+
+[33mcommit d13b397d4e91190bf75b520d6d01386233122340[m
+Author: = <numenor21@gmail.com>
+Date:   Mon Dec 10 20:14:38 2018 -0400
+
+    Change Tabulator by Position
+
+[33mcommit 3515457daa62bbff9eca91ed1080d12dfac35ba8[m
+Author: = <numenor21@gmail.com>
+Date:   Sun Dec 9 19:59:25 2018 -0400
+
+    Can show a list of positions of the tabulator
+
+[33mcommit d9545526325fd6e56ea798796dab97f5ad043f4b[m
+Author: = <numenor21@gmail.com>
+Date:   Sun Dec 9 18:46:26 2018 -0400
+
+    Can create Tabulator
+
+[33mcommit 007d37a6553f1258b2eeb02bc17e10a994491f66[m
+Author: = <numenor21@gmail.com>
+Date:   Sat Dec 8 18:22:42 2018 -0400
+
+    Add styles of cards to master page
+
+[33mcommit 081b9c93bc22212975d50b04595506de2916b741[m
+Author: = <numenor21@gmail.com>
+Date:   Thu Dec 6 20:18:14 2018 -0400
+
+    Add layout master page
+
+[33mcommit 4eda9ad7bd5cdd236c3180c15f708dafe3c2f08e[m
+Author: = <numenor21@gmail.com>
+Date:   Thu Dec 6 18:41:50 2018 -0400
+
+    Init commit

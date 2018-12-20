@@ -55,4 +55,21 @@ class BranchTest extends TestCase
             ->assertStatus(200)
             ->assertSee('No hay sucursales registradas aún.');
     }
+
+    // Validating
+
+    /** @test */
+    function a_name_field_is_required_when_create_a_new_branch_office()
+    {
+        $response = $this->actingAs($this->someUser())
+            ->from(route('branches.index'))
+            ->post(route('branches.store'), [
+                'name' => ''
+            ])
+            ->assertRedirect(route('branches.store'))
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(0, Branch::count());
+    }
+
 }

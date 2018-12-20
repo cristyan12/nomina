@@ -9,7 +9,7 @@ class BranchController extends Controller
 {
     public function index()
     {
-        $branches = Branch::all();
+        $branches = Branch::orderBy('id')->paginate(10);
 
         return view('branches.index', compact('branches'));
     }
@@ -21,9 +21,16 @@ class BranchController extends Controller
 
     public function store(Request $request)
     {
-        Branch::create($request->all());
+        $data = $request->validate([
+            'name' => 'required'
+        ]);
 
-        return redirect()->route('branches.index');
+        Branch::create([
+            'name' => $request['name']
+        ]);
+
+        return redirect()->route('branches.index')
+            ->with('success', 'Sucursal creada con éxito.');
     }
 
     public function show(Branch $branch)
