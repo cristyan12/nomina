@@ -28,7 +28,7 @@
                     </a>
                 </td>
                 <td>
-                    <a class="btn btn-secondary btn-sm" href="#">
+                    <a class="btn btn-secondary btn-sm" href="{{ route('branches.edit', $branch->id) }}">
                         Modificar
                     </a>
                 </td>

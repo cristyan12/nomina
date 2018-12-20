@@ -26,7 +26,7 @@
 
 <div class="form-group">
     <div class="col-sm-6">
-    {{ Form::submit('Crear Cargo', ['class' => 'btn btn-primary']) }}
+    {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
     </div>
 </div>
 
