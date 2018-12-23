@@ -49,7 +49,6 @@ class PositionController extends Controller
             'code' => [
                 'required', Rule::unique('positions')->ignore($position->id)
             ],
-            // 'code' => 'required|unique:positions,id,'.$position->id,
             'name' => 'required',
             'basic_salary' => 'required|numeric'
         ], [

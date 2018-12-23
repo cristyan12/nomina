@@ -44,7 +44,7 @@ class BranchTest extends TestCase
             ->assertStatus(200);
 
         foreach ($branches as $branch) {
-            $response->assertSee($branch->name);
+            $response->assertSee(e($branch->name));
         }
     }
 

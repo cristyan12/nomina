@@ -19,3 +19,10 @@ Route::post('/branches', 'BranchController@store')->name('branches.store');
 Route::get('branches/{branch}/edit', 'BranchController@edit')->name('branches.edit');
 Route::put('/branches/{branch}', 'BranchController@update')->name('branches.update');
 Route::get('/branches/{branch}', 'BranchController@show')->name('branches.show');
+
+Route::get('/departments', 'DepartmentController@index')->name('departments.index');
+Route::get('/departments/create', 'DepartmentController@create')->name('departments.create');
+Route::post('/departments', 'DepartmentController@store')->name('departments.store');
+Route::get('departments/{department}/edit', 'DepartmentController@edit')->name('departments.edit');
+Route::put('/departments/{department}', 'DepartmentController@update')->name('departments.update');
+Route::get('/departments/{department}', 'DepartmentController@show')->name('departments.show');
