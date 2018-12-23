@@ -24,7 +24,7 @@ class UpdatePositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|unique:positions,code,'.$this->id,
+            'code' => 'required|unique:positions,code',
             'name' => 'required',
             'basic_salary' => 'required|numeric',
         ];

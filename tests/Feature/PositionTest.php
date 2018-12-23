@@ -17,8 +17,7 @@ class PositionTest extends TestCase
         $response = $this->actingAs($this->someUser())
             ->get(route('positions.create'))
             ->assertStatus(200)
-            ->assertViewIs('positions.create')
-            ->assertSee('Crear Cargo');
+            ->assertViewIs('positions.create');
     }
 
     /** @test */
@@ -135,6 +134,26 @@ class PositionTest extends TestCase
     }
 
     /** @test */
+    function the_name_field_must_be_unique()
+    {
+        $position = $this->create(Position::class, [
+            'name' => 'PERFORADOR'
+        ]);
+
+        $this->actingAs($this->someUser())
+            ->from(route('positions.index'))
+            ->post(route('positions.store', [
+                'code' => 'OPE01',
+                'name' => 'PERFORADOR',
+                'basic_salary' => '105324.30'
+            ]))
+            ->assertRedirect(route('positions.store'))
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(1, Position::count());
+    }
+
+    /** @test */
     function the_basic_salary_field_is_required()
     {
         $position = $this->create(Position::class);
@@ -199,7 +218,7 @@ class PositionTest extends TestCase
                 'name' => 'PERFORADOR',
                 'basic_salary' => '123456.56'
             ])
-            ->assertRedirect(route('positions.show', $position));
+            ->assertRedirect(route('positions.edit', $position));
 
         $position = Position::first();
         $this->assertSame('OPE01', $position->code);
@@ -228,6 +247,12 @@ class PositionTest extends TestCase
     /** @test */
     function the_code_field_must_be_unique_when_is_updated()
     {
+        // $this->withoutExceptionHandling();
+
+        $this->create(Position::class, [
+            'code' => 'code1'
+        ]);
+
         $position = $this->create(Position::class, [
             'code' => 'OPE01'
         ]);
@@ -235,14 +260,14 @@ class PositionTest extends TestCase
         $this->actingAs($this->someUser())
             ->from(route('positions.edit', $position->id))
             ->put(route('positions.update', $position->id), [
-                'code' => 'OPE01',
+                'code' => 'code1',
                 'name' => 'PERFORADOR',
                 'basic_salary' => '105324.30'
             ])
             ->assertRedirect(route('positions.edit', $position->id))
             ->assertSessionHasErrors(['code']);
 
-        $this->assertEquals(1, Position::count());
+        // $this->assertEquals(1, Position::count());
     }
 
     /** @test */

@@ -14,6 +14,7 @@
 
             {{ Form::close() }}
         </div>
+        @include('positions.partials.card-footer')
     </div>
 </div>
 @endsection

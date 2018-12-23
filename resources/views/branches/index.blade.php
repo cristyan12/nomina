@@ -3,40 +3,44 @@
 @section('title')
 <div class="display-4">Sucursales</div>
 
-<a href="{{ route('branches.create') }}" class="btn btn-outline-primary">Crear Sucursal</a>
+<a href="{{ route('branches.create') }}" class="btn btn-outline-primary">Nueva Sucursal</a>
 @endsection
 
 @section('content')
-<table class="table table-striped table-hover">
-    <thead class="bg-dark text-white">
-        <tr>
+
+@if(! $branches->count() == 0)
+<table class="table table-borderless table-striped table-hover">
+    <tr>
+        <thead class="bg-dark text-white">
             <th><div class="lead">ID</div></th>
             <th><div class="lead">Sucursal</div></th>
-            <th colspan="3">
+            <th colspan="2">
                 &nbsp;
             </th>
-        </tr>
-    </thead>
+        </thead>
+    </tr>
     <tbody>
-        @forelse($branches as $branch)
-            <tr>
-                <td>{{ $branch->id }}</td>
-                <td>{{ $branch->name }}</td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="#">
-                        Ver detalle
-                    </a>
-                </td>
-                <td>
-                    <a class="btn btn-secondary btn-sm" href="{{ route('branches.edit', $branch->id) }}">
-                        Modificar
-                    </a>
-                </td>
-                <td>ACCIÓN: ?</td>
-            </tr>
-        @empty
-            <p class="lead">No hay sucursales registradas aún.</p>
-        @endforelse
+    @foreach($branches as $branch)
+        <tr>
+            <td>{{ $branch->id }}</td>
+            <td>{{ $branch->name }}</td>
+            <td>
+                <a class="btn btn-outline-info btn-sm" href="{{ route('branches.show', $branch) }}">
+                    Ver detalle
+                </a>
+            </td>
+            <td>
+                <a href="{{ route('branches.edit', $branch) }}" class="btn btn-outline-warning btn-sm">
+                    Editar
+                </a>
+            </td>
+        </tr>
+    @endforeach
     </tbody>
 </table>
+
+{{ $branches->render() }}
+@else
+    <p class="lead">No hay sucursales registradas aún.</p>
+@endif
 @endsection

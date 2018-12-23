@@ -35,7 +35,7 @@ class BranchController extends Controller
 
     public function show(Branch $branch)
     {
-        //
+        return view('branches.show', compact('branch'));
     }
 
     public function edit(Branch $branch)
@@ -47,7 +47,7 @@ class BranchController extends Controller
     {
         $branch->update($request->only('name'));
 
-        return redirect()->route('branches.index')
+        return redirect()->route('branches.show', $branch)
             ->with('success', 'Sucursal actualizada con éxito');
     }
 }

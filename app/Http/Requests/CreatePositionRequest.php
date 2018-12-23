@@ -25,7 +25,7 @@ class CreatePositionRequest extends FormRequest
     {
         return [
             'code' => 'required|unique:positions,code',
-            'name' => 'required',
+            'name' => 'required|unique:positions,name',
             'basic_salary' => 'required|numeric',
         ];
     }
@@ -35,8 +35,10 @@ class CreatePositionRequest extends FormRequest
         return [
             'code.required' => 'El campo código de SISDEM es requerido.',
             'code.unique' => 'El campo código de SISDEM debe ser único.',
-            'name.required' => 'El campo Nombre del Cargo es requerido.',
+            'name.required' => 'El campo Cargo es requerido.',
+            'name.unique' => 'El campo Cargo debe ser único.',
             'basic_salary.required' => 'El campo Salario Básico es requerido.',
+            'basic_salary.numeric' => 'El campo Salario Básico debe ser un número.',
         ];
     }
 }

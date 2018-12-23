@@ -7,37 +7,44 @@
 @endsection
 
 @section('content')
-<table class="table table-striped table-hover">
+
+@if(! $positions->count() == 0)
+<table class="table table-borderless table-striped table-hover">
     <thead class="bg-dark text-white">
         <tr>
             <th><div class="lead">ID</div></th>
             <th><div class="lead">Código SISDEM</div></th>
             <th><div class="lead">Nombre del cargo</div></th>
             <th><div class="lead">Salario Básico</div></th>
-            <th colspan="3">
+            <th colspan="2">
                 &nbsp;
             </th>
         </tr>
     </thead>
     <tbody>
-        @forelse($positions as $position)
-            <tr>
-                <td>{{ $position->id }}</td>
-                <td>{{ $position->code }}</td>
-                <td>{{ $position->name }}</td>
-                <td>{{ $position->format_salary }}</td>
-                <td>
-                    <a class="btn btn-info btn-sm" href="{{ route('positions.show', $position) }}">
-                        Ver detalle
-                    </a>
-                </td>
-                <td>ACCIÓN: MODIFICAR</td>
-                <td>ACCIÓN: ?</td>
-            </tr>
-        @empty
-            <p class="lead">No hay cargos registrados aún.</p>
-        @endforelse
+    @foreach($positions as $position)
+    <tr>
+        <td>{{ $position->id }}</td>
+        <td>{{ $position->code }}</td>
+        <td>{{ $position->name }}</td>
+        <td>{{ $position->format_salary }}</td>
+        <td>
+            <a class="btn btn-outline-info btn-sm" href="{{ route('positions.show', $position) }}">
+                Ver detalle
+            </a>
+        </td>
+        <td>
+            <a href="{{ route('positions.edit', $position) }}" class="btn btn-outline-warning btn-sm">
+                Editar
+            </a>
+        </td>
+    </tr>
+    @endforeach
     </tbody>
 </table>
+
 {{ $positions->render() }}
+@else
+    <p class="lead">No hay cargos registrados aún.</p>
+@endif
 @endsection

@@ -23,6 +23,13 @@
                 </div>
             </div>
         </div>
+        <div class="card-footer">
+            <div class="btn-group float-right">
+                <a href="{{ route('positions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+
+                <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-outline-warning btn-sm">Editar</a>
+            </div>
+        </div>
     </div>
 </div>
 @endsection
