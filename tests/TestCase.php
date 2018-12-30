@@ -8,9 +8,9 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
-    public function create($class, $attributes = [])
+    public function create($class, $times = null, $attributes = [])
     {
-        return factory($class)->create($attributes);
+        return factory($class, $times)->create($attributes);
     }
 
     public function someUser(array $attributes = [])

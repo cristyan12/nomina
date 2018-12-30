@@ -105,8 +105,6 @@ class DepartmentTest extends TestCase
     /** @test */
     function a_user_can_update_the_department()
     {
-        // $this->withoutExceptionHandling();
-
         $department = $this->create(Department::class);
 
         $response = $this->actingAs($this->someUser())
