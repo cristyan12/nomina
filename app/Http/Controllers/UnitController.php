@@ -21,7 +21,12 @@ class UnitController extends Controller
 
     public function store()
     {
-        Unit::create(request()->all());
+        Unit::create(request()->validate([
+            'name' => 'required|unique:units,name'
+        ], [
+            'name.required' => 'El nombre de la Unidad es obligatorio.',
+            'name.unique' => 'El nombre de la Unidad debe ser único.',
+        ]));
 
         return redirect()->route('units.index');
     }
@@ -33,6 +38,14 @@ class UnitController extends Controller
 
     public function edit(Unit $unit)
     {
-        # code...
+        return view('units.edit', compact('unit'));
+    }
+
+    public function update(Unit $unit)
+    {
+        $unit->update(request()->only('name'));
+
+        return redirect()->route('units.show', $unit)
+            ->with('success', 'Unidad actualizada con éxito');
     }
 }

@@ -23,7 +23,7 @@
             <div class="btn-group float-right">
                 <a href="{{ route('units.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
 
-                {{-- <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a> --}}
+                <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
             </div>
         </div>
     </div>

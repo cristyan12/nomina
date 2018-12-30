@@ -35,4 +35,5 @@ Route::get('/units', 'UnitController@index')->name('units.index');
 Route::get('units/create', 'UnitController@create')->name('units.create');
 Route::post('/units', 'UnitController@store')->name('units.store');
 Route::get('units/{unit}/edit', 'UnitController@edit')->name('units.edit');
+Route::put('/units/{unit}', 'UnitController@update')->name('units.update');
 Route::get('/units/{unit}', 'UnitController@show')->name('units.show');

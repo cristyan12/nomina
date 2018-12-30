@@ -1,20 +1,20 @@
 @extends('layouts.master')
 
-@section('title', 'Crear Sucursal')
+@section('title', 'Crear Unidad')
 
 @section('content')
 
 <div class="col-md-9">
     <div class="card mb-3">
-        <div class="card-header"><strong>Sucursales</strong></div>
+        <div class="card-header"><strong>Unidades</strong></div>
         <div class="card-body">
-            {{ Form::open(['route' => 'branches.store']) }}
+            {{ Form::open(['route' => 'units.store']) }}
 
-                @include('branches.partials.form')
+                @include('units.partials.form')
 
             {{ Form::close() }}
         </div>
-        @include('branches.partials.card-footer')
+        @include('units.partials.card-footer')
     </div>
 </div>
 @endsection

@@ -113,7 +113,7 @@ class BranchTest extends TestCase
         $branch = $this->create(Branch::class);
 
         $response = $this->actingAs($this->someUser())
-            ->put(route('branches.update', $branch), [
+            ->put(route('branches.update', $branch->id), [
                 'name' => 'Agencia Guanare II (107)',
             ])
             ->assertRedirect(route('branches.show', $branch));

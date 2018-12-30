@@ -30,7 +30,7 @@
                 </a>
             </td>
             <td>
-                <a href="{{ route('units.edit', $unit) }}" class="btn btn-outline-warning btn-sm">
+                <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>
             </td>
@@ -41,6 +41,6 @@
 
 {{ $units->render() }}
 @else
-    <p class="lead">No hay Unidades registradas aún.</p>
+    <p class="lead">No hay Unidades de producción registradas aún.</p>
 @endif
 @endsection

@@ -34,8 +34,6 @@ class DepartmentTest extends TestCase
     /** @test */
     function a_user_can_can_show_a_list_of_department()
     {
-        $this->withoutExceptionHandling();
-
         $departments = factory(Department::class, 10)->create();
 
         $response = $this->get(route('departments.index'))
@@ -71,8 +69,6 @@ class DepartmentTest extends TestCase
     /** @test */
     function a_user_can_load_the_page_of_details_of_department()
     {
-        $this->withoutExceptionHandling();
-
         $department = $this->create(Department::class, [
             'name' => 'Tecnología',
         ]);
@@ -88,8 +84,6 @@ class DepartmentTest extends TestCase
     /** @test */
     function a_user_can_load_the_form_to_update_department()
     {
-        $this->withoutExceptionHandling();
-
         $department = $this->create(Department::class, [
             'name' => 'Tecnología'
         ]);
