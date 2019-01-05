@@ -63,9 +63,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <span data-feather="users"></span>
-                  Empleados
+                <a class="nav-link" href="{{ route('professions.index') }}">
+                  <span data-feather="layers"></span>
+                  Profesiones
                 </a>
               </li>
               <li class="nav-item">
