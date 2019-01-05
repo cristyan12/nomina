@@ -37,3 +37,8 @@ Route::post('/units', 'UnitController@store')->name('units.store');
 Route::get('units/{unit}/edit', 'UnitController@edit')->name('units.edit');
 Route::put('/units/{unit}', 'UnitController@update')->name('units.update');
 Route::get('/units/{unit}', 'UnitController@show')->name('units.show');
+
+// Professions
+Route::get('/professions/create', 'ProfessionController@create')->name('professions.create');
+Route::post('/professions', 'ProfessionController@store')->name('professions.store');
+Route::get('/professions', 'ProfessionController@index')->name('professions.index');
