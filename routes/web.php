@@ -45,3 +45,11 @@ Route::get('/professions', 'ProfessionController@index')->name('professions.inde
 Route::get('/professions/{profession}', 'ProfessionController@show')->name('professions.show');
 Route::get('/professions/{profession}/edit', 'ProfessionController@edit')->name('professions.edit');
 Route::put('/professions/{profession}', 'ProfessionController@update')->name('professions.update');
+
+// Contracts
+Route::get('/contracts/create', 'ContractController@create')->name('contracts.create');
+Route::post('/contracts', 'ContractController@store')->name('contracts.store');
+Route::get('/contracts', 'ContractController@index')->name('contracts.index');
+Route::get('/contracts/{contract}', 'ContractController@show')->name('contracts.show');
+Route::get('/contracts/{contract}/edit', 'ContractController@edit')->name('contracts.edit');
+Route::put('/contracts/{contract}', 'ContractController@update')->name('contracts.update');
