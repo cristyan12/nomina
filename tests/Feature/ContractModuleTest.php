@@ -27,13 +27,13 @@ class ContractModuleTest extends TestCase
 
         $response = $this->actingAs($this->someUser())
             ->post(route('contracts.store'), [
-                'type' => 'CONTRATO INDEFINIDO',
+                'type' => 'INDEFINIDO',
                 'duration' => 'Indefinido',
             ])
             ->assertRedirect(route('contracts.index'));
 
         $this->assertDatabaseHas('contracts', [
-            'type' => 'CONTRATO INDEFINIDO',
+            'type' => 'INDEFINIDO',
             'duration' => 'Indefinido',
         ]);
     }
@@ -42,7 +42,7 @@ class ContractModuleTest extends TestCase
     function a_user_can_see_a_lists_of_contracts()
     {
         $contracts = factory(\App\Contract::class, 10)->create([
-            'type' => 'CONTRATO INDEFINIDO'
+            'type' => 'INDEFINIDO'
         ]);
 
         $response = $this->actingAs($this->someUser())
@@ -74,7 +74,7 @@ class ContractModuleTest extends TestCase
     function the_field_type_must_be_unique()
     {
         $contract = $this->create(\App\Contract::class, [
-            'type' => 'CONTRATO INDEFINIDO'
+            'type' => 'INDEFINIDO'
         ]);
 
         $this->actingAs($this->someUser())
@@ -95,7 +95,7 @@ class ContractModuleTest extends TestCase
         $this->actingAs($this->someUser())
             ->from(route('contracts.index'))
             ->post(route('contracts.store'), [
-                'type' => 'Contrato fijo',
+                'type' => 'TEMPORAL',
                 'duration' => '',
             ])
             ->assertRedirect(route('contracts.store'))
@@ -108,7 +108,7 @@ class ContractModuleTest extends TestCase
     function a_user_can_loads_the_contract_details()
     {
         $contract = $this->create(\App\Contract::class, [
-            'type' => 'CONTRATO INDEFINIDO'
+            'type' => 'INDEFINIDO'
         ]);
 
         $response = $this->actingAs($this->someUser())
@@ -123,7 +123,7 @@ class ContractModuleTest extends TestCase
     function a_user_can_load_the_edit_page_of_contract()
     {
         $contract = $this->create(\App\Contract::class, [
-            'type' => 'CONTRATO INDEFINIDO'
+            'type' => 'INDEFINIDO'
         ]);
 
         $response = $this->actingAs($this->someUser())
@@ -137,18 +137,18 @@ class ContractModuleTest extends TestCase
     function a_user_can_edit_a_contract()
     {
         $contract = $this->create(\App\Contract::class, [
-            'type' => 'CONTRATO INDEFINIDO'
+            'type' => 'INDEFINIDO'
         ]);
 
         $response = $this->actingAs($this->someUser())
             ->put(route('contracts.update', $contract), [
-                'type' => 'CONTRATO TEMPORAL',
+                'type' => 'TEMPORAL',
                 'duration' => 'Hasta cuando quiera'
             ])
             ->assertRedirect(route('contracts.show', $contract));
 
         $this->assertDatabaseHas('contracts', [
-            'type' => 'CONTRATO TEMPORAL',
+            'type' => 'TEMPORAL',
             'duration' => 'Hasta cuando quiera'
         ]);
     }
@@ -157,7 +157,7 @@ class ContractModuleTest extends TestCase
     function the_field_type_is_required_when_updating()
     {
         $contract = $this->create(\App\Contract::class, [
-            'type' => 'CONTRATO INDEFINIDO'
+            'type' => 'INDEFINIDO'
         ]);
 
         $this->actingAs($this->someUser())
@@ -176,17 +176,17 @@ class ContractModuleTest extends TestCase
     function the_field_type_must_be_unique_when_updating()
     {
         $this->create(\App\Contract::class, [
-            'type' => 'CONTRATO INDEFINIDO'
+            'type' => 'INDEFINIDO'
         ]);
 
         $contract = $this->create(\App\Contract::class, [
-            'type' => 'CONTRATO TEMPORAL'
+            'type' => 'TEMPORAL'
         ]);
 
         $this->actingAs($this->someUser())
             ->from(route('contracts.edit', $contract))
             ->put(route('contracts.update', $contract), [
-                'type' => 'CONTRATO INDEFINIDO',
+                'type' => 'INDEFINIDO',
                 // 'duration' => 'Hasta que quiera'
             ])
             ->assertRedirect(route('contracts.edit', $contract))

@@ -16,7 +16,7 @@ class CreateContractsTable extends Migration
         Schema::create('contracts', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->enum('type', ['CONTRATO INDEFINIDO', 'CONTRATO TEMPORAL'])->default('CONTRATO TEMPORAL');
+            $table->enum('type', ['INDEFINIDO', 'TEMPORAL'])->default('TEMPORAL');
             $table->string('duration');
 
             $table->timestamps();
