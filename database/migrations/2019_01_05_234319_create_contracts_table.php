@@ -17,7 +17,7 @@ class CreateContractsTable extends Migration
             $table->increments('id');
 
             $table->enum('type', ['INDEFINIDO', 'TEMPORAL'])->default('TEMPORAL');
-            $table->string('duration');
+            $table->string('duration')->default('temporal');
 
             $table->timestamps();
         });

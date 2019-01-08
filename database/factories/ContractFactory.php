@@ -5,7 +5,6 @@ use Illuminate\Support\Arr;
 
 $factory->define(App\Contract::class, function (Faker $faker) {
     return [
-        'type' => $faker->sentence,
-        'duration' => $faker->sentence
+        //
     ];
 });
