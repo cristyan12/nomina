@@ -53,3 +53,8 @@ Route::get('/contracts', 'ContractController@index')->name('contracts.index');
 Route::get('/contracts/{contract}', 'ContractController@show')->name('contracts.show');
 Route::get('/contracts/{contract}/edit', 'ContractController@edit')->name('contracts.edit');
 Route::put('/contracts/{contract}', 'ContractController@update')->name('contracts.update');
+
+// Employees
+Route::get('/empleados/crear', 'EmployeeController@create')->name('employees.create');
+Route::post('/empleados', 'EmployeeController@store')->name('employees.store');
+Route::get('/empleados', 'EmployeeController@index')->name('employees.index');
