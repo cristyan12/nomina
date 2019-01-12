@@ -34,7 +34,7 @@ class EmployeeModuleTest extends TestCase
             'born_at' => '1981-12-21',
             'marital_status' => 'Casado/a',
             'sex' => 'M',
-            'nationality' => 'Venezolana',
+            'nationality' => 'V',
             'city_of_born' => 'Guanare',
             'hired_at' => '2012-08-30',
             'profession_id' => $profession->id,

@@ -58,3 +58,7 @@ Route::put('/contracts/{contract}', 'ContractController@update')->name('contract
 Route::get('/empleados/crear', 'EmployeeController@create')->name('employees.create');
 Route::post('/empleados', 'EmployeeController@store')->name('employees.store');
 Route::get('/empleados', 'EmployeeController@index')->name('employees.index');
+
+// Banks
+Route::post('/bancos/crear', 'CreateBankController')->name('banks.store');
+Route::get('/bancos/', 'ListBankController@index')->name('banks.index');
