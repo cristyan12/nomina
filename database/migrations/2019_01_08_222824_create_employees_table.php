@@ -28,7 +28,7 @@ class CreateEmployeesTable extends Migration
             ])->default('Soltero/a');
 
             $table->enum('sex', ['M', 'F']);
-            $table->string('nationality')->default('Venezolana');
+            $table->enum('nationality', ['V', 'E'])->default('V');
             $table->string('city_of_born');
 
             $table->date('hired_at');
