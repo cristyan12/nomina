@@ -218,7 +218,7 @@ class PositionTest extends TestCase
                 'name' => 'PERFORADOR',
                 'basic_salary' => '123456.56'
             ])
-            ->assertRedirect(route('positions.edit', $position));
+            ->assertRedirect(route('positions.show', $position));
 
         $position = Position::first();
         $this->assertSame('OPE01', $position->code);

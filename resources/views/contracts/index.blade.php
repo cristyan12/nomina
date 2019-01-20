@@ -26,12 +26,12 @@
             <td>{{ $contract->id }}</td>
             <td>{{ $contract->type }}</td>
             <td>{{ $contract->duration }}</td>
-            <td>
+            <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('contracts.show', $contract) }}">
                     Ver detalle
                 </a>
             </td>
-            <td>
+            <td width="10px">
                 <a href="{{ route('contracts.edit', $contract) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>

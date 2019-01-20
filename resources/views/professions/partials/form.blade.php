@@ -2,7 +2,7 @@
     {{ Form::label('title', 'Título de la profesión:', ['class' => 'col-sm-3 col-form-label']) }}
 
     <div class="col-md-4">
-        {{ Form::text('title', null, ['class' => 'form-control', 'placeholder' => 'Ej.: Ingeniero']) }}
+        {{ Form::text('title', null, ['class' => 'form-control']) }}
     </div>
 </div>
 

@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Position;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
-use App\Http\Requests\CreatePositionRequest;
+use App\Http\Requests\{
+    CreatePositionRequest,
+    UpdatePositionRequest
+};
 
 class PositionController extends Controller
 {
@@ -43,21 +46,10 @@ class PositionController extends Controller
         return view('positions.edit', compact('position'));
     }
 
-    public function update(Position $position, Request $request)
+    public function update(Position $position, UpdatePositionRequest $request)
     {
-        $attributes = $request->validate([
-            'code' => [
-                'required', Rule::unique('positions')->ignore($position->id)
-            ],
-            'name' => 'required',
-            'basic_salary' => 'required|numeric'
-        ], [
-            'basic_salary.required' => 'El campo Salario Básico es requerido.',
-            'basic_salary.numeric' => 'El campo Salario Básico debe ser un número.',
-        ]);
+        $position->update($request->only('code', 'name', 'basic_salary'));
 
-        $position->update($attributes);
-
-        return redirect()->route('positions.edit', $position);
+        return redirect()->route('positions.show', $position);
     }
 }

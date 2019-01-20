@@ -24,12 +24,12 @@
         <tr>
             <td>{{ $profession->id }}</td>
             <td>{{ $profession->title }}</td>
-            <td>
+            <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('professions.show', $profession) }}">
                     Ver detalle
                 </a>
             </td>
-            <td>
+            <td width="10px">
                 <a href="{{ route('professions.edit', $profession) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>

@@ -108,8 +108,6 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_update_the_branch()
     {
-        // $this->withoutExceptionHandling();
-
         $branch = $this->create(Branch::class);
 
         $response = $this->actingAs($this->someUser())
@@ -120,5 +118,45 @@ class BranchTest extends TestCase
 
         $branch = Branch::first();
         $this->assertSame('Agencia Guanare II (107)', $branch->name);
+    }
+
+    /** @test */
+    function the_name_field_is_required_when_updating()
+    {
+        $branch = $this->create(Branch::class);
+
+        $response = $this->actingAs($this->someUser())
+            ->from(route('branches.edit', $branch))
+            ->put(route('branches.update', $branch), [
+                'name' => ''
+            ])
+            ->assertRedirect(route('branches.edit', $branch))
+            ->assertSessionHasErrors(['name']);
+
+        $sucursal = Branch::first();
+
+        $this->assertSame($branch->name, $sucursal->name);
+    }
+
+    /** @test */
+    function the_name_field_must_be_unique_when_updating()
+    {
+        //$this->withoutExceptionHandling();
+
+        $this->create(Branch::class, ['name' => 'NOMBRE ORIGINAL']);
+
+        $branch = $this->create(Branch::class, ['name' => 'OTRO NOMBRE']);
+
+        $response = $this->actingAs($this->someUser())
+            ->from(route('branches.edit', $branch))
+            ->put(route('branches.update', $branch), [
+                'name' => 'NOMBRE ORIGINAL'
+            ])
+            ->assertRedirect(route('branches.edit', $branch))
+            ->assertSessionHasErrors(['name']);
+
+        $sucursal = Branch::find(2);
+
+        $this->assertSame($branch->name, 'OTRO NOMBRE');
     }
 }

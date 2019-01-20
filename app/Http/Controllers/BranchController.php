@@ -45,7 +45,11 @@ class BranchController extends Controller
 
     public function update(Request $request, Branch $branch)
     {
-        $branch->update($request->only('name'));
+        $data = request()->validate([
+            'name' => 'required|unique:branches,name,' . $branch->id
+        ]);
+
+        $branch->update($data);
 
         return redirect()->route('branches.show', $branch)
             ->with('success', 'Sucursal actualizada con éxito');

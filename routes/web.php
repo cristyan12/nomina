@@ -61,4 +61,4 @@ Route::get('/empleados', 'EmployeeController@index')->name('employees.index');
 
 // Banks
 Route::post('/bancos/crear', 'CreateBankController')->name('banks.store');
-Route::get('/bancos/', 'ListBankController@index')->name('banks.index');
+Route::get('/bancos/', 'ListBankController')->name('banks.index');

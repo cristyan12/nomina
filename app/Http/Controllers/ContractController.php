@@ -23,12 +23,10 @@ class ContractController extends Controller
     public function store()
     {
         $data = request()->validate([
-            'type' => 'required|unique:contracts,type',
-            'duration' => 'required',
+            'type' => 'required',
+            'duration' => 'nullable',
         ], [
             'type.required' => 'El campo Tipo del contrato es requerido',
-            'type.unique' => 'El campo Tipo del contrato ya está en uso.',
-            'duration.required' => 'El campo Duración del contrato es requerido',
         ]);
 
         Contract::create([
@@ -52,12 +50,10 @@ class ContractController extends Controller
     public function update(Contract $contract)
     {
         $data = request()->validate([
-            'type' => 'required|unique:contracts,type,'.$contract->id,
-            'duration' => 'required',
+            'type' => 'required',
+            'duration' => 'nullable',
         ], [
             'type.required' => 'El campo Tipo del contrato es requerido',
-            'type.unique' => 'El campo Tipo del contrato ya está en uso.',
-            'duration.required' => 'El campo Duración del contrato es requerido',
         ]);
 
         $contract->update([
