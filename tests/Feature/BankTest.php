@@ -3,7 +3,7 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\{Employee, Position};
+use App\{Bank, Employee, Position};
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -12,10 +12,16 @@ class BankTest extends TestCase
     use WithFaker, RefreshDatabase;
 
     /** @test */
+    function it_show_a_message_when_no_records_yet()
+    {
+        $response = $this->get(route('banks.index'))
+            ->assertStatus(200)
+            ->assertSee('No hay bancos registrados aún.');
+    }
+
+    /** @test */
     function a_user_can_create_a_new_bank()
     {
-        $this->withoutExceptionHandling();
-
         $firstSignPosition = $this->create(Position::class, ['name' => 'Presidente']);
         $secondSignPosition = $this->create(Position::class, ['name' => 'Vice-Presidente']);
 
@@ -39,4 +45,21 @@ class BankTest extends TestCase
 
         $this->assertDatabaseHas('banks', $attributes);
     }
+
+    // /** @test */
+    // function a_user_can_show_the_list_of_banks()
+    // {
+    //     $this->withoutExceptionHandling();
+
+    //     $banks = factory(Bank::class, 10)->create();
+
+    //     $response = $this->get(route('banks.index'))
+    //         ->assertStatus(200);
+
+    //     foreach ($banks as $bank) {
+    //         $response->assertSee(e($bank->name))
+    //             ->assertSee(e($bank->account))
+    //             ->assertSee(e($bank->account_type));
+    //     }
+    // }
 }

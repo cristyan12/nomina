@@ -28,12 +28,12 @@
         <td>{{ $position->code }}</td>
         <td>{{ $position->name }}</td>
         <td>{{ $position->format_salary }}</td>
-        <td>
+        <td width="">
             <a class="btn btn-outline-info btn-sm" href="{{ route('positions.show', $position) }}">
                 Ver detalle
             </a>
         </td>
-        <td>
+        <td width="">
             <a href="{{ route('positions.edit', $position) }}" class="btn btn-outline-warning btn-sm">
                 Editar
             </a>

@@ -71,40 +71,6 @@ class ContractModuleTest extends TestCase
     }
 
     /** @test */
-    function the_field_type_must_be_unique()
-    {
-        $contract = $this->create(\App\Contract::class, [
-            'type' => 'INDEFINIDO'
-        ]);
-
-        $this->actingAs($this->someUser())
-            ->from(route('contracts.index'))
-            ->post(route('contracts.store'), [
-                'type' => $contract->type,
-                'duration' => 'Indefinido',
-            ])
-            ->assertRedirect(route('contracts.store'))
-            ->assertSessionHasErrors(['type']);
-
-        $this->assertEquals(1, \App\Contract::count());
-    }
-
-    /** @test */
-    function the_field_duration_is_required()
-    {
-        $this->actingAs($this->someUser())
-            ->from(route('contracts.index'))
-            ->post(route('contracts.store'), [
-                'type' => 'Contrato fijo',
-                'duration' => '',
-            ])
-            ->assertRedirect(route('contracts.store'))
-            ->assertSessionHasErrors(['duration']);
-
-        $this->assertEquals(0, \App\Contract::count());
-    }
-
-    /** @test */
     function a_user_can_loads_the_contract_details()
     {
         $contract = $this->create(\App\Contract::class, [
@@ -170,26 +136,5 @@ class ContractModuleTest extends TestCase
             ->assertSessionHasErrors(['type']);
 
         $this->assertEquals(1, \App\Contract::count());
-    }
-
-    /** @test */
-    function the_field_type_must_be_unique_when_updating()
-    {
-        $this->create(\App\Contract::class, [
-            'type' => 'INDEFINIDO'
-        ]);
-
-        $contract = $this->create(\App\Contract::class, [
-            'type' => 'TEMPORAL'
-        ]);
-
-        $this->actingAs($this->someUser())
-            ->from(route('contracts.edit', $contract))
-            ->put(route('contracts.update', $contract), [
-                'type' => 'INDEFINIDO',
-                // 'duration' => 'Hasta que quiera'
-            ])
-            ->assertRedirect(route('contracts.edit', $contract))
-            ->assertSessionHasErrors(['type']);
     }
 }

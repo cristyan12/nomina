@@ -1,1 +1,1 @@
-index.blade.php
+No hay bancos registrados aún.

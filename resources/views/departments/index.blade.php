@@ -24,12 +24,12 @@
         <tr>
             <td>{{ $department->id }}</td>
             <td>{{ $department->name }}</td>
-            <td>
+            <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('departments.show', $department) }}">
                     Ver detalle
                 </a>
             </td>
-            <td>
+            <td width="10px">
                 <a href="{{ route('departments.edit', $department) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>

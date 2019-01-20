@@ -24,12 +24,12 @@
         <tr>
             <td>{{ $unit->id }}</td>
             <td>{{ $unit->name }}</td>
-            <td>
+            <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('units.show', $unit) }}">
                     Ver detalle
                 </a>
             </td>
-            <td>
+            <td width="10px">
                 <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>

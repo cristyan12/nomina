@@ -24,12 +24,12 @@
         <tr>
             <td>{{ $branch->id }}</td>
             <td>{{ $branch->name }}</td>
-            <td>
+            <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('branches.show', $branch) }}">
                     Ver detalle
                 </a>
             </td>
-            <td>
+            <td width="10px">
                 <a href="{{ route('branches.edit', $branch) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdatePositionRequest extends FormRequest
@@ -24,7 +25,10 @@ class UpdatePositionRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required|unique:positions,code',
+            // 'code' => 'required|unique:positions,id,' . $this->position,
+            'code' => [
+                'required', Rule::unique('positions')->ignore($this->position)
+            ],
             'name' => 'required',
             'basic_salary' => 'required|numeric',
         ];
