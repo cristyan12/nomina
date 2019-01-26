@@ -14,6 +14,8 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_branch_office()
     {
+        $this->withoutExceptionHandling();
+        
         $response = $this->actingAs($this->someUser())
             ->get(route('branches.create'))
             ->assertStatus(200)

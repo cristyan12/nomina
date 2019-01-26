@@ -13,6 +13,8 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_employee_page()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get(route('employees.create'))
             ->assertStatus(200)
             ->assertViewIs('employees.create')
@@ -20,10 +22,19 @@ class EmployeeModuleTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_create_a_employee_with_data_personal()
+    function a_user_can_create_a_employee()
     {
+        $this->withoutExceptionHandling();
+
         $profession = $this->create(\App\Profession::class);
-        $contract = $this->create(\App\Contract::class);
+        $bankOfPay = $this->create(\App\BankOfPay::class, [
+            'code' => '0175',
+            'name' => 'Banco Bicentenario',
+        ]);
+        $branch = $this->create(\App\Branch::class);
+        $department = $this->create(\App\Department::class);
+        $unit = $this->create(\App\Unit::class);
+        $position = $this->create(\App\Position::class);
 
         $attributes = [
             'code' => '14996210',
@@ -38,14 +49,39 @@ class EmployeeModuleTest extends TestCase
             'city_of_born' => 'Guanare',
             'hired_at' => '2012-08-30',
             'profession_id' => $profession->id,
-            'contract_id' => $contract->id,
-            'status' => 'Activo'
+            'status' => 'Activo',
+            'bank_pay_id' => $bankOfPay->id,
+            'account_number' => '01750107160071661898',
+            'branch_id' => $branch->id,
+            'department_id' => $department->id,
+            'unit_id' => $unit->id,
+            'position_id' => $position->id,
         ];
 
         $response = $this->actingAs($this->someuser())
             ->post(route('employees.store'), $attributes)
             ->assertRedirect(route('employees.index'));
 
-        $this->assertDatabaseHas('employees', $attributes);
+        $this->assertDatabaseHas('employees', [
+            'code' => '14996210',
+            'last_name' => 'Valera Rodriguez',
+            'first_name' => 'Cristyan Josuan',
+            'born_at' => '1981-12-21',
+            'hired_at' => '2012-08-30',
+        ]);
+
+        $employee = \App\Employee::first();
+
+        $this->assertDatabaseHas('employee_profiles', [
+            'employee_id' => $employee->id,
+            'profession_id' => $profession->id,
+            'status' => 'Activo',
+            'bank_pay_id' => $bankOfPay->id,
+            'account_number' => '01750107160071661898',
+            'branch_id' => $branch->id,
+            'department_id' => $department->id,
+            'unit_id' => $unit->id,
+            'position_id' => $position->id,
+        ]);
     }
 }
