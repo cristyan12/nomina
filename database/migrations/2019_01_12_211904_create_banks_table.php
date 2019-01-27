@@ -20,6 +20,7 @@ class CreateBanksTable extends Migration
             $table->string('name');
             $table->string('account');
             $table->enum('account_type', ['Corriente', 'Ahorro'])->default('Corriente');
+            $table->string('description', 1000)->nullable();
 
             $table->unsignedInteger('first_sign_auth');
             $table->unsignedInteger('first_sign_position');

@@ -26,18 +26,15 @@ class CreateEmployeesTable extends Migration
             $table->enum('marital_status', [
                 'Casado/a', 'Soltero/a', 'Viudo/a'
             ])->default('Soltero/a');
-
+            
             $table->enum('sex', ['M', 'F']);
-            $table->enum('nationality', ['V', 'E'])->default('V');
+            
+            $table->enum('nationality', [
+                'V', 'E'
+            ])->default('V');
+            
             $table->string('city_of_born');
-
             $table->date('hired_at');
-            $table->unsignedInteger('profession_id');
-            $table->unsignedInteger('contract_id');
-
-            $table->enum('status', [
-                'Activo', 'Suspendido', 'Retirado'
-            ])->default('Activo');
 
             $table->timestamps();
         });

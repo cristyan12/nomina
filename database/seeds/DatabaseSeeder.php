@@ -12,13 +12,15 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->truncateTables([
-            'positions', 'branches', 'departments', 'units'
+            'positions', 'branches', 'departments',
+            'units', 'professions'
         ]);
 
         $this->call(PositionsTableSeeder::class);
         $this->call(BranchesTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
         $this->call(UnitsTableSeeder::class);
+        $this->call(ProfessionTableSeeder::class);
     }
 
     protected function truncateTables(array $tables)
