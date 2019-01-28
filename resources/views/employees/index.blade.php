@@ -12,7 +12,6 @@
 <table class="table table-borderless table-striped table-hover">
     <tr>
         <thead class="bg-dark text-white">
-            <th><div class="lead">ID</div></th>
             <th><div class="lead">Documento</div></th>
             <th><div class="lead">Apellido</div></th>
             <th><div class="lead">Nombre</div></th>
@@ -27,7 +26,6 @@
     <tbody>
     @foreach($employees as $employee)
         <tr>
-            <td>{{ $employee->id }}</td>
             <td>{{ $employee->document }}</td>
             <td>{{ $employee->last_name }}</td>
             <td>{{ $employee->first_name }}</td>
