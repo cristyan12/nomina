@@ -11,17 +11,21 @@
 
 	<div class="form-group col-md-4">
 	    {{ Form::label('nationality', 'Nacionalidad:*') }}
-	    {{ Form::select('nationality', ['V' => 'Venezolana', 'E' => 'Extranjera'], null, ['class' => 'custom-select']) }}
+	    {{ Form::select('nationality', ['V' => 'Venezolana', 'E' => 'Extranjera'], null, [
+	    	'class' => 'custom-select'
+	    ]) }}
 	</div>
 </div>
 
 <div class="form-row">
-	<div class="form-group col-md-6">
+	<div class="form-group col">
 	    {{ Form::label('last_name', 'Apellidos:*') }}
 	    {{ Form::text('last_name', null, ['class' => 'form-control']) }}
 	</div>
+</div>
 
-	<div class="form-group col-md-6">
+<div class="form-row">
+	<div class="form-group col">
 	    {{ Form::label('first_name', 'Nombres:*') }}
 	    {{ Form::text('first_name', null, ['class' => 'form-control']) }}
 	</div>
@@ -73,12 +77,75 @@
 <div class="form-row">
 	<div class="form-group col-md-6">
 	    {{ Form::label('profession_id', 'Profesión:*') }}
-	    {{ Form::select('profession_id', $professions, null, ['class' => 'custom-select']) }}
+	    {{ Form::select('profession_id', $professions, null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
 	</div>
 
 	<div class="form-group col-md-6">
-		{{ Form::label('contract_id', 'Tipo de contrato:*') }}
-	    {{ Form::select('contract_id', ['T' => 'Temporal', 'I' => 'Indefinido'], null, ['class' => 'custom-select']) }}
+		{{ Form::label('contract', 'Tipo de contrato:*') }}
+	    {{ Form::select('contract', ['T' => 'Temporal', 'I' => 'Indefinido'], null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
+	</div>
+</div>
+
+<div class="form-row">
+	<div class="form-group col-md-6">
+	    {{ Form::label('bank_pay_id', 'Banco:*') }}
+	    {{ Form::select('bank_pay_id', $bankOfPays, null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
+	</div>
+
+	<div class="form-group col-md-6">
+		{{ Form::label('account_number', 'Número de cuenta:*') }}
+		{{ Form::text('account_number', null, [
+			'class' => 'form-control'
+		]) }}
+	</div>
+</div>
+
+<div class="form-row">
+	<div class="form-group col">
+	    {{ Form::label('branch_id', 'Sucursal:*') }}
+	    {{ Form::select('branch_id', $branches, null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
+	</div>
+</div>
+
+<div class="form-row">
+	<div class="form-group col">
+	    {{ Form::label('department_id', 'Departamento:*') }}
+	    {{ Form::select('department_id', $departments, null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
+	</div>
+</div>
+
+<div class="form-row">
+	<div class="form-group col">
+	    {{ Form::label('unit_id', 'Unidad:*') }}
+	    {{ Form::select('unit_id', $units, null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
+	</div>
+</div>
+
+<div class="form-row">
+	<div class="form-group col">
+	    {{ Form::label('position_id', 'Cargo:*') }}
+	    {{ Form::select('position_id', $positions, null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
 	</div>
 </div>
 

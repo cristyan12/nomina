@@ -3,17 +3,44 @@
 namespace App\Http\Controllers;
 
 use App\{
-    Employee, EmployeeProfile, Profession,
+    BankOfPay,
+    Branch,
+    Department,
+    Employee,
+    EmployeeProfile,
+    Position,
+    Profession,
+    Unit
 };
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
+    public function index()
+    {
+        $employees = Employee::orderBy('id', 'DESC')->paginate(10);
+
+        return view('employees.index', compact('employees'));
+    }
+
     public function create()
     {
         $professions = Profession::orderBy('id')->pluck('title', 'id');
 
-        return view('employees.create', compact('professions'));
+        $branches = Branch::orderBy('id')->pluck('name', 'id');
+
+        $bankOfPays = BankOfPay::orderBy('id')->pluck('name', 'id');
+
+        $departments = Department::orderBy('id')->pluck('name', 'id');
+
+        $units = Unit::orderBy('id')->pluck('name', 'id');
+        
+        $positions = Position::orderBy('id')->pluck('name', 'id');
+
+        return view('employees.create', compact(
+            'professions', 'branches', 'bankOfPays',
+            'departments', 'units', 'positions'
+        ));
     }
 
     public function store()
@@ -25,7 +52,7 @@ class EmployeeController extends Controller
         ));
 
         $employee->profile()->create(request()->only(
-            'profession_id', 'contract_id', 'status', 'bank_pay_id',
+            'profession_id', 'contract', 'status', 'bank_pay_id',
             'account_number', 'branch_id', 'department_id', 'unit_id',
             'position_id'
         ));

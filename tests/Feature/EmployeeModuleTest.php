@@ -27,6 +27,7 @@ class EmployeeModuleTest extends TestCase
         $this->withoutExceptionHandling();
 
         $profession = $this->create(\App\Profession::class);
+
         $bankOfPay = $this->create(\App\BankOfPay::class, [
             'code' => '0175',
             'name' => 'Banco Bicentenario',
@@ -52,6 +53,7 @@ class EmployeeModuleTest extends TestCase
             'status' => 'Activo',
             'bank_pay_id' => $bankOfPay->id,
             'account_number' => '01750107160071661898',
+            'contract' => 'I',
             'branch_id' => $branch->id,
             'department_id' => $department->id,
             'unit_id' => $unit->id,
@@ -78,6 +80,7 @@ class EmployeeModuleTest extends TestCase
             'status' => 'Activo',
             'bank_pay_id' => $bankOfPay->id,
             'account_number' => '01750107160071661898',
+            'contract' => 'I',
             'branch_id' => $branch->id,
             'department_id' => $department->id,
             'unit_id' => $unit->id,
