@@ -47,10 +47,15 @@
 	<div class="form-group col-md-6">
 	    {{ Form::label('marital_status', 'Estado Civil:*') }}
 	    {{ Form::select('marital_status', [
-	    	'Casado/a', 'Soltero/a', 'Viudo/a'], null, [
+	    	'Casado/a' => 'Casado/a',
+	    	'Soltero/a' => 'Soltero/a',
+	    	'Viudo/a' => 'Viudo/a'
+	    ], 
+	    null, 
+	    [
 	    	'class' => 'custom-select',
 	    	'placeholder' => 'Seleccione una opción:'
-	    	]) }}
+	    ]) }}
 	</div>
 
 	<div class="form-group col-md-6">
