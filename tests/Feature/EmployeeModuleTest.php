@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Employee;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -24,8 +25,6 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_create_a_employee()
     {
-        $this->withoutExceptionHandling();
-
         $profession = $this->create(\App\Profession::class);
 
         $bankOfPay = $this->create(\App\BankOfPay::class, [
@@ -86,5 +85,35 @@ class EmployeeModuleTest extends TestCase
             'unit_id' => $unit->id,
             'position_id' => $position->id,
         ]);
+    }
+
+    /** @test */
+    function a_user_can_show_a_details_employee_data()
+    {
+        $this->markTestIncomplete();
+
+        return;
+        
+        $this->withoutExceptionHandling();
+
+        // Create a employee
+        $employee = $this->create(Employee::class);
+
+        // Get page of detail
+        $this->get(route('employees.show', $employee))
+            ->assertStatus(200)
+            ->assertViewIs('employees.show')
+            ->asertViewHas('employee')
+            ->assertSee('Detalle del empleado #'. $employee->id)
+            ->assertSee('Código del empleado: '. $employee->code)
+            ->assertSee('Número de cédula: '. $employee->document)
+            ->assertSee('Apellidos: '. $employee->last_name)
+            ->assertSee('Nombres: '. $employee->first_name)
+            ->assertSee('RIF: '. $employee->rif)
+            ->assertSee('Fecha de nacimiento: '. $employee->born_at)
+            ->assertSee('Género: '. $employee->sex)
+            ->assertSee('Ciudad de nacimiento: '. $employee->city);
+
+        // Show data of the employee created before
     }
 }
