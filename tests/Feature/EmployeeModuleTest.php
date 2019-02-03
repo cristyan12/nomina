@@ -90,9 +90,9 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_show_a_details_employee_data()
     {
-        $this->markTestIncomplete();
+        // $this->markTestIncomplete();
 
-        return;
+        // return;
         
         $this->withoutExceptionHandling();
 
@@ -103,16 +103,15 @@ class EmployeeModuleTest extends TestCase
         $this->get(route('employees.show', $employee))
             ->assertStatus(200)
             ->assertViewIs('employees.show')
-            ->asertViewHas('employee')
-            ->assertSee('Detalle del empleado #'. $employee->id)
-            ->assertSee('Código del empleado: '. $employee->code)
-            ->assertSee('Número de cédula: '. $employee->document)
-            ->assertSee('Apellidos: '. $employee->last_name)
-            ->assertSee('Nombres: '. $employee->first_name)
-            ->assertSee('RIF: '. $employee->rif)
-            ->assertSee('Fecha de nacimiento: '. $employee->born_at)
-            ->assertSee('Género: '. $employee->sex)
-            ->assertSee('Ciudad de nacimiento: '. $employee->city);
+            ->assertViewHas('employee')
+            ->assertSee($employee->code)
+            ->assertSee($employee->document)
+            ->assertSee($employee->last_name)
+            ->assertSee($employee->first_name)
+            ->assertSee($employee->rif)
+            ->assertSee($employee->born_at->format('d-m-Y'))
+            ->assertSee($employee->sex)
+            ->assertSee($employee->city);
 
         // Show data of the employee created before
     }

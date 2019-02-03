@@ -46,18 +46,11 @@ Route::get('/professions/{profession}', 'ProfessionController@show')->name('prof
 Route::get('/professions/{profession}/edit', 'ProfessionController@edit')->name('professions.edit');
 Route::put('/professions/{profession}', 'ProfessionController@update')->name('professions.update');
 
-// Contracts
-// Route::get('/contracts/create', 'ContractController@create')->name('contracts.create');
-// Route::post('/contracts', 'ContractController@store')->name('contracts.store');
-// Route::get('/contracts', 'ContractController@index')->name('contracts.index');
-// Route::get('/contracts/{contract}', 'ContractController@show')->name('contracts.show');
-// Route::get('/contracts/{contract}/edit', 'ContractController@edit')->name('contracts.edit');
-// Route::put('/contracts/{contract}', 'ContractController@update')->name('contracts.update');
-
 // Employees
 Route::get('/empleados/crear', 'EmployeeController@create')->name('employees.create');
 Route::post('/empleados', 'EmployeeController@store')->name('employees.store');
 Route::get('/empleados', 'EmployeeController@index')->name('employees.index');
+Route::get('/empleados/{employee}', 'EmployeeController@show')->name('employees.show');
 
 // Banks
 Route::post('/bancos/crear', 'CreateBankController')->name('banks.store');

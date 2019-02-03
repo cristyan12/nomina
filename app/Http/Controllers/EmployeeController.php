@@ -43,6 +43,11 @@ class EmployeeController extends Controller
         ));
     }
 
+    public function show(Employee $employee)
+    {
+        return view('employees.show', compact('employee'));
+    }
+
     public function store()
     {
         $employee = Employee::create(request()->only(

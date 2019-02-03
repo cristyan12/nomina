@@ -8,6 +8,8 @@ class Employee extends Model
 {
     protected $guarded = [];
 
+    protected $casts = ['born_at' => 'date'];
+
     public function position()
     {
     	return $this->belongsTo(Position::class);
