@@ -1,8 +1,8 @@
 <div class="form-group row">
-    {{ Form::label('name', 'Nombre del departamento', ['class' => 'col-sm-3 col-form-label']) }}
+    {{ Form::label('name', 'Departamento', ['class' => 'col-sm-3 col-form-label']) }}
 
     <div class="col-md-4">
-        {{ Form::text('name', null, ['class' => 'form-control', 'placeholder' => 'Ej.: Dept. de Nómina']) }}
+        {{ Form::text('name', null, ['class' => 'form-control']) }}
     </div>
 </div>
 

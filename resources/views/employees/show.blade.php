@@ -9,15 +9,15 @@
         <div class="card-header lead">Detalle del empleado #{{ $employee->id }}</div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3">
-                    <p><b>Código: </b></p>
-                    <p><b>Documento: </b></p>
-                    <p><b>Nombres: </b></p>
-                    <p><b>Apellidos: </b></p>
-                    <p><b>RIF: </b></p>
-                    <p><b>Nació el: </b></p>
-                    <p><b>Sexo: </b></p>
-                    <p><b>Ciudad de nacimiento: </b></p>
+                <div class="col-md-4 text-right">
+                    <p><strong>Código: </strong></p>
+                    <p><strong>Documento: </strong></p>
+                    <p><strong>Nombres: </strong></p>
+                    <p><strong>Apellidos: </strong></p>
+                    <p><strong>RIF: </strong></p>
+                    <p><strong>Nació el: </strong></p>
+                    <p><strong>Sexo: </strong></p>
+                    <p><strong>Ciudad de nacimiento: </strong></p>
                 </div>
                 <div class="col-md-8">
                     <p>{{ $employee->code }}</p>
