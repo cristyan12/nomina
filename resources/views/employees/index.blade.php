@@ -33,7 +33,7 @@
             <td>Departamento</td>
             <td>Cargo</td>
             <td width="10px">
-                <a class="btn btn-outline-info btn-sm" href="#">
+                <a class="btn btn-outline-info btn-sm" href="{{ route('employees.show', $employee) }}">
                     Ver detalle
                 </a>
             </td>
