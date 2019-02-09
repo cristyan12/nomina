@@ -109,7 +109,6 @@ class EmployeeModuleTest extends TestCase
             ->assertSee($employee->last_name)
             ->assertSee($employee->first_name)
             ->assertSee($employee->rif)
-            ->assertSee($employee->born_at->format('d-m-Y'))
             ->assertSee($employee->sex)
             ->assertSee($employee->city);
 
