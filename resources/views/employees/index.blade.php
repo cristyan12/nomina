@@ -29,7 +29,7 @@
             <td>{{ $employee->document }}</td>
             <td>{{ $employee->last_name }}</td>
             <td>{{ $employee->first_name }}</td>
-            <td>{{ $employee->hired_at }}</td>
+            <td>{{ $employee->hired_at->format('d-m-Y') }}</td>
             <td>Departamento</td>
             <td>Cargo</td>
             <td width="10px">
