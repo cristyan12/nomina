@@ -12,7 +12,7 @@
 <table class="table table-borderless table-striped table-hover">
     <tr>
         <thead class="bg-dark text-white">
-            <th><div class="lead">Documento</div></th>
+            <th><div class="lead">C. I.</div></th>
             <th><div class="lead">Apellido</div></th>
             <th><div class="lead">Nombre</div></th>
             <th><div class="lead">Contrat.</div></th>
@@ -26,12 +26,12 @@
     <tbody>
     @foreach($employees as $employee)
         <tr>
-            <td>{{ $employee->document }}</td>
+            <td width="10px">{{ $employee->document }}</td>
             <td>{{ $employee->last_name }}</td>
             <td>{{ $employee->first_name }}</td>
             <td>{{ $employee->hired_at->format('d-m-Y') }}</td>
-            <td>Departamento</td>
-            <td>Cargo</td>
+            <td width="10px">{{ $employee->profile->department->name }}</td>
+            <td width="10px">{{ $employee->profile->position->name }}</td>
             <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('employees.show', $employee) }}">
                     Ver detalle
