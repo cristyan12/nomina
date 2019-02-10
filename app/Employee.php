@@ -13,11 +13,6 @@ class Employee extends Model
         'hired_at' => 'date',
     ];
 
-    public function position()
-    {
-    	return $this->belongsTo(Position::class);
-    }
-
     public function profile()
     {
     	return $this->hasOne(EmployeeProfile::class);

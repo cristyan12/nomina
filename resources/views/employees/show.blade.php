@@ -9,6 +9,7 @@
         <div class="card-header lead">#{{ $employee->code }}, {{ $employee->full_name }}</div>
         <div class="card-body">
             <fieldset disabled>
+                <div class="form-group">EMPLEADO: <span class="lead">{{ strtoupper($employee->full_name) }}</span></div>
                 <div class="form-group row">
                     <div class="col">
                         <label>Código: </label>
