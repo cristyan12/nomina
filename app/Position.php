@@ -10,9 +10,9 @@ class Position extends Model
         'code', 'name', 'basic_salary'
     ];
 
-    public function employees()
+    public function profile()
     {
-    	return $this->hasMany(Employee::class);
+    	return $this->hasMany(EmployeeProfile::class);
     }
     
     public function getFormatSalaryAttribute()

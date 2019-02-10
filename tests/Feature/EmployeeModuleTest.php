@@ -14,8 +14,6 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_employee_page()
     {
-        $this->withoutExceptionHandling();
-
         $response = $this->get(route('employees.create'))
             ->assertStatus(200)
             ->assertViewIs('employees.create')
@@ -90,16 +88,8 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_show_a_details_employee_data()
     {
-        // $this->markTestIncomplete();
-
-        // return;
-        
-        $this->withoutExceptionHandling();
-
-        // Create a employee
         $employee = $this->create(Employee::class);
 
-        // Get page of detail
         $this->get(route('employees.show', $employee))
             ->assertStatus(200)
             ->assertViewIs('employees.show')
@@ -111,7 +101,5 @@ class EmployeeModuleTest extends TestCase
             ->assertSee($employee->rif)
             ->assertSee($employee->sex)
             ->assertSee($employee->city);
-
-        // Show data of the employee created before
     }
 }
