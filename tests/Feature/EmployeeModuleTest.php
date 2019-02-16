@@ -102,4 +102,17 @@ class EmployeeModuleTest extends TestCase
             ->assertSee($employee->sex)
             ->assertSee($employee->city);
     }
+
+    /** @test */
+    function a_user_can_show_a_antiquity_of_employee()
+    {
+        $employee = $this->create(Employee::class, [
+            'hired_at' => '2018-02-01'
+        ]);
+
+        $response = $this->get(route('employees.show', $employee));
+
+        $response->assertStatus(200)
+            ->assertSee('1 años, 0 meses, y 15 días');
+    }
 }
