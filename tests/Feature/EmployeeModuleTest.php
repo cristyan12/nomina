@@ -11,6 +11,32 @@ class EmployeeModuleTest extends TestCase
 {
     use RefreshDatabase;
 
+    // public function setUp()
+    // {
+    //     $this->attributes = [
+    //         'code' => '',
+    //         'document' => '14996210',
+    //         'last_name' => 'Valera Rodriguez',
+    //         'first_name' => 'Cristyan Josuan',
+    //         'rif' => 'V149962103',
+    //         'born_at' => '1981-12-21',
+    //         'marital_status' => 'Casado/a',
+    //         'sex' => 'M',
+    //         'nationality' => 'V',
+    //         'city_of_born' => 'Guanare',
+    //         'hired_at' => '2012-08-30',
+    //         'profession_id' => $profession->id,
+    //         'status' => 'Activo',
+    //         'bank_pay_id' => $bankOfPay->id,
+    //         'account_number' => '01750107160071661898',
+    //         'contract' => 'I',
+    //         'branch_id' => $branch->id,
+    //         'department_id' => $department->id,
+    //         'unit_id' => $unit->id,
+    //         'position_id' => $position->id,
+    //     ];
+    // }
+    
     /** @test */
     function a_user_can_load_the_new_employee_page()
     {
@@ -115,4 +141,20 @@ class EmployeeModuleTest extends TestCase
         $response->assertStatus(200)
             ->assertSee('1 años, 0 meses, y 15 días');
     }
+
+    // VALIDATION
+
+    /** @test */
+    // function the_code_field_is_required()
+    // {
+    //     $this->withoutExceptionhandling();
+
+    //     $this->actingAs($this->someUser())
+    //         ->from(route('employees.index'))
+    //         ->post(route('employees.store'), $attributes)
+    //         ->assertRedirect(route('employees.store'))
+    //         ->assertSessionHasErrors(['code']);
+
+    //     $this->assertEquals(0, Employee::count());
+    // }
 }

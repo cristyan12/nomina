@@ -16,14 +16,14 @@ class EmployeeTest extends TestCase
     /** @test */
     function calculate_the_antiquity_of_employees()
     {
-    	$employee = $this->create(Employee::class, [
-    		'hired_at' => '2018-02-01'
-    	]);
+    	$employee = $this->create(Employee::class);
 
     	$this->assertInstanceOf(Employee::class, $employee);
 
     	$diff = $employee->diffAntiquity();
 
-    	$this->assertSame('1 años, 0 meses, y 15 días', $diff);
+        $this->assertContains('años', $diff);
+        $this->assertContains('meses', $diff);
+    	$this->assertContains('días', $diff);
     }
 }

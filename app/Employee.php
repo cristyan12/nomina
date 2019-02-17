@@ -53,9 +53,7 @@ class Employee extends Model
     */
     public function diffAntiquity()
     {
-        $hired = new \DateTime($this->hired_at);
-
-        $interval = now()->diff($hired);
+        $interval = now()->diff($this->hired_at);
 
         return $interval->format('%y años, %m meses, y %d días');
     }
