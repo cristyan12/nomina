@@ -115,6 +115,7 @@ class EmployeeModuleTest extends TestCase
 
     // VALIDATION
 
+    /** @test */
     function the_code_field_is_required()
     {
         $replace = array_replace($this->attributes, ['code' => '']);
