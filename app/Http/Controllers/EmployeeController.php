@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\{
-    BankOfPay,
-    Branch,
-    Department,
-    Employee,
-    EmployeeProfile,
-    Position,
-    Profession,
-    Unit
-};
+use App\Unit;
+use App\Branch;
+use App\Position;
+use App\Employee;
+use App\BankOfPay;
+use App\Profession;
+use App\Department;
+use App\Http\Requests\CreateEmployeeRequest;
+
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -50,9 +49,9 @@ class EmployeeController extends Controller
         return view('employees.show', compact('employee'));
     }
 
-    public function store()
+    public function store(CreateEmployeeRequest $request)
     {
-        $employee = Employee::create(request()->only(
+        $employee = Employee::create($request->only(
             'code', 'document', 'last_name', 'first_name',
             'rif', 'born_at', 'marital_status', 'sex',
             'nationality', 'city_of_born', 'hired_at'

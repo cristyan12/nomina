@@ -68,6 +68,12 @@
                   Profesiones
                 </a>
               </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{{ route('employees.index') }}">
+                  <span data-feather="users"></span>
+                  Empleados
+                </a>
+              </li>
             </ul>
 
             <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
