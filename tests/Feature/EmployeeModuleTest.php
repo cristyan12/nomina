@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Employee;
+use App\{Employee, EmployeeProfile};
+
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class EmployeeModuleTest extends TestCase
@@ -41,6 +41,8 @@ class EmployeeModuleTest extends TestCase
             'unit_id' => $this->create(\App\Unit::class)->id,
             'position_id' => $this->create(\App\Position::class)->id,
         ];
+
+        // $this->withoutExceptionHandling();
     }
 
     /** @test */
@@ -128,5 +130,51 @@ class EmployeeModuleTest extends TestCase
             ->assertSessionHasErrors(['code']);
 
         $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_document_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['document' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['document']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_code_field_must_be_equal_to_the_document_field()
+    {
+        $replace = array_replace($this->attributes, [
+            'code' => '14996211'
+        ]);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['code']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_document_field_must_be_unique()
+    {
+        $employee = $this->create(Employee::class, [
+            'document' => '14996210'
+        ]);
+     
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $this->attributes)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['document']);
+
+        $this->assertEquals(1, Employee::count());
     }
 }

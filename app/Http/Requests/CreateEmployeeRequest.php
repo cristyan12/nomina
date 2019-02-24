@@ -24,7 +24,16 @@ class CreateEmployeeRequest extends FormRequest
     public function rules()
     {
         return [
-            'code' => 'required',
+            'code' => 'required|same:document',
+            'document' => 'required|unique:employees,document',
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'code.same' => 'El código y el documento de identidad deben coincidir.',
+            'document.unique' => 'El documento de identidad ya está en uso.'
         ];
     }
 }
