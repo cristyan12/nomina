@@ -22,7 +22,7 @@
       <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Sign out</a>
+          <a class="nav-link" href="#">Cerrar sesión</a>
         </li>
       </ul>
     </nav>
@@ -39,33 +39,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('positions.index') }}">
-                  <span data-feather="file"></span>
-                  Tabulador de cargos
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('branches.index') }}">
-                  <span data-feather="file"></span>
-                  Sucursales
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('departments.index') }}">
-                  <span data-feather="file"></span>
-                  Departamentos
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('units.index') }}">
-                  <span data-feather="bar-chart-2"></span>
-                  Unidades
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('professions.index') }}">
+                <a class="nav-link" href="{{ route('banks.index') }}">
                   <span data-feather="layers"></span>
-                  Profesiones
+                  Bancos
                 </a>
               </li>
               <li class="nav-item">
@@ -117,9 +93,11 @@
                     @yield('title', 'Dashboard')
                 </h1>
             </div>
-
-            @include('layouts.messages')
-            @yield('content')
+            
+            <div class="container">
+              @include('layouts.messages')
+              @yield('content')
+            </div>
         </main>
       </div>
     </div>
