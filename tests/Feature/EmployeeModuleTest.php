@@ -177,4 +177,158 @@ class EmployeeModuleTest extends TestCase
 
         $this->assertEquals(1, Employee::count());
     }
+
+    /** @test */
+    function the_last_name_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['last_name' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['last_name']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_first_name_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['first_name' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['first_name']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_rif_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['rif' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['rif']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_born_at_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['born_at' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['born_at']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_born_at_field_must_be_a_real_date()
+    {
+        $replace = array_replace($this->attributes, ['born_at' => '123456789']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['born_at']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_sex_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['sex' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['sex']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_city_of_born_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['city_of_born' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['city_of_born']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_hired_at_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['hired_at' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['hired_at']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_hired_at_field_must_be_a_real_date()
+    {
+        $replace = array_replace($this->attributes, ['hired_at' => 'abdfretfsd']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['hired_at']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_hired_at_field_must_be_a_different_of_born_at_field()
+    {
+        $replace = array_replace($this->attributes, ['hired_at' => '1981-12-21']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['hired_at']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_hired_at_field_must_be_a_after_of_born_at_field()
+    {
+        $replace = array_replace($this->attributes, ['hired_at' => '1980-12-21']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['hired_at']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
 }
