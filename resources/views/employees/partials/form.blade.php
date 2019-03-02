@@ -2,11 +2,17 @@
 	<div class="form-group col-md-4">
 	    {{ Form::label('code', 'Código:*') }}
 	    {{ Form::text('code', null, ['class' => 'form-control']) }}
+	    @if($errors->has('code'))
+	    	<p class="text-danger">{{ $errors->first('code') }}</p>
+	    @endif
 	</div>
 
 	<div class="form-group col-md-4">
 	    {{ Form::label('document', 'Documento de identidad:*') }}
 	    {{ Form::text('document', null, ['class' => 'form-control']) }}
+	    @if($errors->has('document'))
+	    	<p class="text-danger">{{ $errors->first('document') }}</p>
+	    @endif
 	</div>
 
 	<div class="form-group col-md-4">
@@ -14,6 +20,9 @@
 	    {{ Form::select('nationality', ['V' => 'Venezolana', 'E' => 'Extranjera'], null, [
 	    	'class' => 'custom-select'
 	    ]) }}
+	    @if($errors->has('nationality'))
+	    	<p class="text-danger">{{ $errors->first('nationality') }}</p>
+	    @endif
 	</div>
 </div>
 
@@ -21,6 +30,9 @@
 	<div class="form-group col">
 	    {{ Form::label('last_name', 'Apellidos:*') }}
 	    {{ Form::text('last_name', null, ['class' => 'form-control']) }}
+	    @if($errors->has('last_name'))
+	    	<p class="text-danger">{{ $errors->first('last_name') }}</p>
+	    @endif
 	</div>
 </div>
 
@@ -28,6 +40,9 @@
 	<div class="form-group col">
 	    {{ Form::label('first_name', 'Nombres:*') }}
 	    {{ Form::text('first_name', null, ['class' => 'form-control']) }}
+	    @if($errors->has('first_name'))
+	    	<p class="text-danger">{{ $errors->first('first_name') }}</p>
+	    @endif
 	</div>
 </div>
 
@@ -35,11 +50,17 @@
 	<div class="form-group col-md-6">
 	    {{ Form::label('rif', 'Registro de Información Fiscal (RIF):*') }}
 	    {{ Form::text('rif', null, ['class' => 'form-control']) }}
+	    @if($errors->has('rif'))
+	    	<p class="text-danger">{{ $errors->first('rif') }}</p>
+	    @endif
 	</div>
 
 	<div class="form-group col-md-6">
 	    {{ Form::label('born_at', 'Fecha de nacimiento:*') }}
 	    {{ Form::date('born_at', null, ['class' => 'form-control']) }}
+	    @if($errors->has('born_at'))
+	    	<p class="text-danger">{{ $errors->first('born_at') }}</p>
+	    @endif
 	</div>
 </div>
 
@@ -56,6 +77,9 @@
 	    	'class' => 'custom-select',
 	    	'placeholder' => 'Seleccione una opción:'
 	    ]) }}
+	    @if($errors->has('marital_status'))
+	    	<p class="text-danger">{{ $errors->first('marital_status') }}</p>
+	    @endif
 	</div>
 
 	<div class="form-group col-md-6">

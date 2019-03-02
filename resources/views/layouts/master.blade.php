@@ -95,7 +95,7 @@
             </div>
             
             <div class="container">
-              @include('layouts.messages')
+              {{-- @include('layouts.messages') --}}
               @yield('content')
             </div>
         </main>
