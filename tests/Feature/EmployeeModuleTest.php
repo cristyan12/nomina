@@ -102,21 +102,6 @@ class EmployeeModuleTest extends TestCase
             ->assertSee($employee->city);
     }
 
-    /** @test */
-    function a_user_can_show_a_antiquity_of_employee()
-    {
-        $this->markTestIncomplete();
-        
-        $employee = $this->create(Employee::class, [
-            'hired_at' => '2018-02-01'
-        ]);
-
-        $response = $this->get(route('employees.show', $employee));
-
-        $response->assertStatus(200)
-            ->assertSee('1 años, 0 meses, y 15 días');
-    }
-
     // VALIDATION
 
     /** @test */
@@ -327,6 +312,132 @@ class EmployeeModuleTest extends TestCase
             ->post(route('employees.store'), $replace)
             ->assertRedirect(route('employees.store'))
             ->assertSessionHasErrors(['hired_at']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_profession_id_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['profession_id' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['profession_id']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_contract_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['contract' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['contract']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_status_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['status' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['status']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_bank_pay_id_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['bank_pay_id' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['bank_pay_id']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_account_number_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['account_number' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['account_number']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_branch_id_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['branch_id' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['branch_id']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_department_id_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['department_id' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['department_id']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_unit_id_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['unit_id' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['unit_id']);
+
+        $this->assertEquals(0, Employee::count());
+        $this->assertEquals(0, EmployeeProfile::count());
+    }
+
+    /** @test */
+    function the_position_id_field_is_required()
+    {
+        $replace = array_replace($this->attributes, ['position_id' => '']);
+
+        $this->from(route('employees.index'))
+            ->post(route('employees.store'), $replace)
+            ->assertRedirect(route('employees.store'))
+            ->assertSessionHasErrors(['position_id']);
 
         $this->assertEquals(0, Employee::count());
         $this->assertEquals(0, EmployeeProfile::count());

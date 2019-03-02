@@ -32,7 +32,16 @@ class CreateEmployeeRequest extends FormRequest
             'born_at' => 'required|date',
             'sex' => 'required',
             'city_of_born' => 'required',
-            'hired_at' => 'required|date|after:born_at|different:born_at'
+            'hired_at' => 'required|date|after:born_at|different:born_at',
+            'profession_id' => 'required',
+            'contract' => 'required',
+            'status' => 'required',
+            'bank_pay_id' => 'required',
+            'account_number' => 'required',
+            'branch_id' => 'required',
+            'department_id' => 'required',
+            'unit_id' => 'required',
+            'position_id' => 'required',
         ];
     }
 
@@ -48,14 +57,22 @@ class CreateEmployeeRequest extends FormRequest
             'sex' => 'Sexo',
             'city_of_born' => 'Ciudad de nacimiento',
             'hired_at' => 'Fecha de contratación',
+            'profession_id' => 'Profesión',
+            'contract' => 'Contrato',
+            'bank_pay_id' => 'Banco',
+            'account_number' => 'Número de cuenta',
+            'branch_id' => 'Sucursal',
+            'department_id' => 'Departamento',
+            'unit_id' => 'Unidad',
+            'position_id' => 'Cargo',
         ];
     }
 
     public function messages()
     {
         return [
-            'code.same' => 'El código y el documento de identidad deben coincidir',
-            'document.unique' => 'El documento de identidad ya está en uso'
+            'code.same' => 'El código y la cédula de identidad deben coincidir',
+            'document.unique' => 'La Cédula de identidad ya está en uso',
         ];
     }
 }
