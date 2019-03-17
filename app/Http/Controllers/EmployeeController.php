@@ -66,4 +66,9 @@ class EmployeeController extends Controller
         return redirect()->route('employees.index')
             ->with('success', 'Empleado fue creado exitosamente');
     }
+
+    public function edit(Employee $employee)
+    {
+        return view('employees.edit', compact('employee'));
+    }
 }

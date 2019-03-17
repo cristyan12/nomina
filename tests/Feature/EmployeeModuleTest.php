@@ -442,4 +442,31 @@ class EmployeeModuleTest extends TestCase
         $this->assertEquals(0, Employee::count());
         $this->assertEquals(0, EmployeeProfile::count());
     }
+
+    /** @test */
+    function a_user_can_load_the_edit_page()
+    {
+        $employee = $this->create(Employee::class);
+
+        $response = $this->get(route('employees.edit', $employee))
+            ->assertStatus(200)
+            ->assertViewIs('employees.edit')
+            ->assertViewHas('employee')
+            ->assertSee($employee->full_name)
+            ->assertSee($employee->code)
+            ->assertSee($employee->document);
+    }
+
+    // /** @test */
+    // function a_user_can_update_a_employee()
+    // {
+    //     $employee = $this->create(Employee::class);
+
+    //     $profile = $this->create(EmployeeProfile::class, [
+    //         'employee_id' => $employee->id,
+    //     ]);
+
+    //     $response = $this->put(route('employees.update'), $this->attributes)
+    //         ->assertRedirect(route('employees.index'));
+    // }
 }

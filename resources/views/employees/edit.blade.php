@@ -1,18 +1,18 @@
 @extends('layouts.master')
 
-@section('title', 'Crear Empleado')
+@section('title', 'Empleados')
 
 @section('content')
 
-<div class="col-xs-9">
+<div class="col-md-9">
     <div class="card mb-3">
-        <div class="card-header"><strong>Empleados</strong></div>
+        <div class="card-header"><strong>Editar Empleado #{{ $employee->id }}: {{ $employee->full_name }}</strong></div>
         <div class="card-body">
-            {{ Form::open(['route' => 'employees.store']) }}
+            {!! Form::model($employee, ['route' => ['employees.update', $employee->id], 'method' => 'PUT']) !!}
 
                 @include('employees.partials.form')
 
-            {{ Form::close() }}
+            {!! Form::close() !!}
         </div>
         <div class="card-footer">
             <div class="btn-group float-right">

@@ -97,10 +97,10 @@
             <div class="container">
               <div class="row">
                 <div class="col-md-9">
-                  @include('layouts.messages')
+                    @include('layouts.messages')
                 </div>
               </div>
-              @yield('content')
+                @yield('content')
             </div>
         </main>
       </div>

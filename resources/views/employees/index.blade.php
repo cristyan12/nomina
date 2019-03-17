@@ -9,15 +9,14 @@
 @section('content')
 
 @if(! $employees->count() == 0)
-<table class="table table-borderless table-striped table-hover">
+<table class="table table-bordered table-striped table-hover">
     <tr>
         <thead class="bg-dark text-white">
-            <th><div class="lead">C. I.</div></th>
-            <th><div class="lead">Apellido</div></th>
-            <th><div class="lead">Nombre</div></th>
-            <th><div class="lead">Contrat.</div></th>
-            <th><div class="lead">Departamento</div></th>
-            <th><div class="lead">Cargo</div></th>
+            <th>C. I.</th>
+            <th>Nombre completo</th>
+            <th>Contratación</th>
+            <th>Departamento</th>
+            <th>Cargo</th>
             <th colspan="3">
                 &nbsp;
             </th>
@@ -26,19 +25,18 @@
     <tbody>
     @foreach($employees as $employee)
         <tr>
-            <td width="10px">{{ $employee->document }}</td>
-            <td>{{ $employee->last_name }}</td>
-            <td>{{ $employee->first_name }}</td>
+            <td>{{ $employee->document }}</td>
+            <td>{{ $employee->full_name }}</td>
             <td>{{ $employee->hired_at->format('d-m-Y') }}</td>
-            <td width="10px">{{ $employee->profile->department->name }}</td>
-            <td width="10px">{{ $employee->profile->position->name }}</td>
+            <td>{{ str_limit($employee->profile->department->name, 25) }}</td>
+            <td>{{ str_limit($employee->profile->position->name, 25) }}</td>
             <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('employees.show', $employee) }}">
                     Ver detalle
                 </a>
             </td>
             <td width="10px">
-                <a href="#" class="btn btn-outline-warning btn-sm">
+                <a href="{{ route('employees.edit', $employee) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>
             </td>

@@ -35,7 +35,6 @@ class CreateEmployeeRequest extends FormRequest
             'hired_at' => 'required|date|after:born_at|different:born_at',
             'profession_id' => 'required',
             'contract' => 'required',
-            'status' => 'required',
             'bank_pay_id' => 'required',
             'account_number' => 'required',
             'branch_id' => 'required',
