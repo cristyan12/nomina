@@ -72,8 +72,21 @@ class EmployeeController extends Controller
         return view('employees.edit', compact('employee'));
     }
 
-    public function update(Employee $employee)
+    public function update(Employee $employee, Request $request)
     {
-        return redirect()->route('employees.index');
+        $employee->update($request->only(
+            'code', 'document', 'last_name', 'first_name',
+            'rif', 'born_at', 'marital_status', 'sex',
+            'nationality', 'city_of_born', 'hired_at'
+        ));
+
+        $employee->profile()->create(request()->only(
+            'profession_id', 'contract', 'status', 'bank_pay_id',
+            'account_number', 'branch_id', 'department_id', 'unit_id',
+            'position_id'
+        ));
+
+        return redirect()->route('employees.index')
+            ->with('success', 'Empleado editado exitosamente.');
     }
 }

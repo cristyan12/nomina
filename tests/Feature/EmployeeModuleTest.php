@@ -445,7 +445,7 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_update_a_employee()
     {
-        // $this->withoutExceptionHandling();
+        $this->withoutExceptionHandling();
 
         $employee = $this->create(Employee::class);
 
@@ -455,5 +455,28 @@ class EmployeeModuleTest extends TestCase
 
         $response = $this->put(route('employees.update', $employee), $this->attributes)
             ->assertRedirect(route('employees.index'));
+
+        $this->assertDatabaseHas('employees', [
+            'code' => '14996210',
+            'last_name' => 'Valera Rodriguez',
+            'first_name' => 'Cristyan Josuan',
+            'born_at' => '1981-12-21',
+            'hired_at' => '2012-08-30',
+        ]);
+
+        $employee = Employee::first(); 
+
+        $this->assertDatabaseHas('employee_profiles', [
+            'employee_id' => $employee->id,
+            'profession_id' => $this->attributes['profession_id'],
+            'status' => 'Activo',
+            'bank_pay_id' => $this->attributes['bank_pay_id'],
+            'account_number' => '01750107160071661898',
+            'contract' => 'I',
+            'branch_id' => $this->attributes['branch_id'],
+            'department_id' => $this->attributes['department_id'],
+            'unit_id' => $this->attributes['unit_id'],
+            'position_id' => $this->attributes['position_id'],
+        ]);
     }
 }
