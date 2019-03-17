@@ -346,20 +346,6 @@ class EmployeeModuleTest extends TestCase
     }
 
     /** @test */
-    function the_status_field_is_required()
-    {
-        $replace = array_replace($this->attributes, ['status' => '']);
-
-        $this->from(route('employees.index'))
-            ->post(route('employees.store'), $replace)
-            ->assertRedirect(route('employees.store'))
-            ->assertSessionHasErrors(['status']);
-
-        $this->assertEquals(0, Employee::count());
-        $this->assertEquals(0, EmployeeProfile::count());
-    }
-
-    /** @test */
     function the_bank_pay_id_field_is_required()
     {
         $replace = array_replace($this->attributes, ['bank_pay_id' => '']);
@@ -452,21 +438,22 @@ class EmployeeModuleTest extends TestCase
             ->assertStatus(200)
             ->assertViewIs('employees.edit')
             ->assertViewHas('employee')
-            ->assertSee($employee->full_name)
-            ->assertSee($employee->code)
-            ->assertSee($employee->document);
+            ->assertSee($employee->id)
+            ->assertSee($employee->full_name);
     }
 
-    // /** @test */
-    // function a_user_can_update_a_employee()
-    // {
-    //     $employee = $this->create(Employee::class);
+    /** @test */
+    function a_user_can_update_a_employee()
+    {
+        // $this->withoutExceptionHandling();
 
-    //     $profile = $this->create(EmployeeProfile::class, [
-    //         'employee_id' => $employee->id,
-    //     ]);
+        $employee = $this->create(Employee::class);
 
-    //     $response = $this->put(route('employees.update'), $this->attributes)
-    //         ->assertRedirect(route('employees.index'));
-    // }
+        $profile = $this->create(EmployeeProfile::class, [
+            'employee_id' => $employee->id,
+        ]);
+
+        $response = $this->put(route('employees.update', $employee), $this->attributes)
+            ->assertRedirect(route('employees.index'));
+    }
 }

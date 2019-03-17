@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div class="col-md-9">
+<div class="col-xs-9">
     <div class="card mb-3 shadow-sm">
         <div class="card-header lead">#{{ $employee->code }}, {{ $employee->full_name }}</div>
         <div class="card-body">

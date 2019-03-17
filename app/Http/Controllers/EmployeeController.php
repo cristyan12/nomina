@@ -71,4 +71,9 @@ class EmployeeController extends Controller
     {
         return view('employees.edit', compact('employee'));
     }
+
+    public function update(Employee $employee)
+    {
+        return redirect()->route('employees.index');
+    }
 }

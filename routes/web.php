@@ -52,6 +52,7 @@ Route::post('/empleados', 'EmployeeController@store')->name('employees.store');
 Route::get('/empleados', 'EmployeeController@index')->name('employees.index');
 Route::get('/empleados/{employee}', 'EmployeeController@show')->name('employees.show');
 Route::get('/empleados/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
+Route::put('/empleados/{employee}', 'EmployeeController@update')->name('employees.update');
 
 // Banks
 Route::post('/bancos/crear', 'CreateBankController')->name('banks.store');
