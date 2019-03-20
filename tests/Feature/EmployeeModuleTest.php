@@ -432,7 +432,13 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_load_the_edit_page()
     {
+        $this->withoutExceptionHandling();
+
         $employee = $this->create(Employee::class);
+
+        $profile = $this->create(EmployeeProfile::class, [
+            'employee_id' => $employee->id,
+        ]);
 
         $response = $this->get(route('employees.edit', $employee))
             ->assertStatus(200)

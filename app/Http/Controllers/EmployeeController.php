@@ -69,7 +69,22 @@ class EmployeeController extends Controller
 
     public function edit(Employee $employee)
     {
-        return view('employees.edit', compact('employee'));
+        $professions = Profession::orderBy('id')->pluck('title', 'id');
+
+        $branches = Branch::orderBy('id')->pluck('name', 'id');
+
+        $bankOfPays = BankOfPay::orderBy('id')->pluck('name', 'id');
+
+        $departments = Department::orderBy('id')->pluck('name', 'id');
+
+        $units = Unit::orderBy('id')->pluck('name', 'id');
+        
+        $positions = Position::orderBy('id')->pluck('name', 'id');
+
+        return view('employees.edit', compact(
+            'employee', 'professions', 'branches', 
+            'bankOfPays', 'departments', 'units', 'positions'
+        ));
     }
 
     public function update(Employee $employee, Request $request)
@@ -80,7 +95,7 @@ class EmployeeController extends Controller
             'nationality', 'city_of_born', 'hired_at'
         ));
 
-        $employee->profile()->create(request()->only(
+        $employee->profile()->update(request()->only(
             'profession_id', 'contract', 'status', 'bank_pay_id',
             'account_number', 'branch_id', 'department_id', 'unit_id',
             'position_id'
