@@ -16,7 +16,17 @@
                 <div class="form-row">
                     <div class="form-group col-md-4">
                         <label for="code">Código:*</label>
-                        <input type="text" name="code" id="code" class="form-control" value="{{ $employee->code }}">
+                        <input type="text" id="code" name="code"
+                            class="form-control{{ $errors->has('code') ? ' is-invalid' : ''}}"
+                            value="{{ $employee->code }}"
+                        >
+                        @if($errors->has('code'))
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $errors->first('code') }}</strong>
+                            </span>
+                        @endif
+                        {{-- <label for="code">Código:*</label>
+                        <input type="text" name="code" id="code" class="form-control" value="{{ $employee->code }}"> --}}
                     </div>
                     <div class="form-group col-md-4">
                         <label for="document">Documento de identidad:*</label>

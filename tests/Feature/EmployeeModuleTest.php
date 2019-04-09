@@ -451,8 +451,6 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function a_user_can_update_a_employee()
     {
-        $this->withoutExceptionHandling();
-
         $employee = $this->create(Employee::class);
 
         $profile = $this->create(EmployeeProfile::class, [
@@ -484,5 +482,26 @@ class EmployeeModuleTest extends TestCase
             'unit_id' => $this->attributes['unit_id'],
             'position_id' => $this->attributes['position_id'],
         ]);
+    }
+
+    /** @test */
+    function the_code_field_is_required_when_updating()
+    {
+        // $this->withoutExceptionHandling();
+
+        $employee = $this->create(Employee::class);
+
+        $profile = $this->create(EmployeeProfile::class, [
+            'employee_id' => $employee->id,
+        ]);
+
+        $replace = array_replace($this->attributes, ['code' => '']);
+
+        $this->from(route('employees.edit', $employee))
+            ->put(route('employees.update', $employee), $replace)
+            ->assertRedirect(route('employees.edit', $employee))
+            ->assertSessionHasErrors(['code']);
+
+        $this->assertEquals(2, Employee::count());
     }
 }

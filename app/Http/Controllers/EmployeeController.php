@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Unit;
-use App\Branch;
-use App\Position;
-use App\Employee;
-use App\BankOfPay;
-use App\Profession;
-use App\Department;
-use App\Http\Requests\CreateEmployeeRequest;
+use App\{
+    Unit, Branch, Position, Employee,
+    BankOfPay, Profession, Department
+};
+use App\Http\Requests\{
+    CreateEmployeeRequest, UpdateEmployeeRequest
+};
 
 use Illuminate\Http\Request;
 
@@ -87,7 +86,7 @@ class EmployeeController extends Controller
         ));
     }
 
-    public function update(Employee $employee, Request $request)
+    public function update(Employee $employee, UpdateEmployeeRequest $request)
     {
         $employee->update($request->only(
             'code', 'document', 'last_name', 'first_name',
