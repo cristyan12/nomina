@@ -9,7 +9,7 @@
 @section('content')
 
 @if(! $employees->count() == 0)
-<table class="table table-bordered table-striped table-hover">
+<table class="table table-striped table-hover">
     <tr>
         <thead class="bg-dark text-white">
             <th>C. I.</th>

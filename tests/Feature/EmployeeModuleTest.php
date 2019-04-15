@@ -487,8 +487,6 @@ class EmployeeModuleTest extends TestCase
     /** @test */
     function the_code_field_is_required_when_updating()
     {
-        // $this->withoutExceptionHandling();
-
         $employee = $this->create(Employee::class);
 
         $profile = $this->create(EmployeeProfile::class, [

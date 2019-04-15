@@ -15,6 +15,10 @@
             {{ Form::close() }}
         </div>
         <div class="card-footer">
+            <blockquote class="blockquote-footer mt-3 mb-0">
+                Los campos marcados con (*) son obligatorios.
+            </blockquote>
+            
             <div class="btn-group float-right">
                 <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary btn-sm">
                     Ir al listado

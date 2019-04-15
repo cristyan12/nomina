@@ -1,8 +1,13 @@
 <div class="form-group row">
     {{ Form::label('name', 'Nombre de Sucursal', ['class' => 'col-sm-3 col-form-label']) }}
 
-    <div class="col-md-4">
+    <div class="col">
         {{ Form::text('name', null, ['class' => 'form-control']) }}
+        @if($errors->has('name'))
+            <span class="text-danger">
+                <strong>{{ $errors->first('name') }}</strong>
+            </span>
+        @endif
     </div>
 </div>
 

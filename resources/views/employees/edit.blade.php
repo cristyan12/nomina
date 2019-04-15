@@ -25,8 +25,6 @@
                                 <strong>{{ $errors->first('code') }}</strong>
                             </span>
                         @endif
-                        {{-- <label for="code">Código:*</label>
-                        <input type="text" name="code" id="code" class="form-control" value="{{ $employee->code }}"> --}}
                     </div>
                     <div class="form-group col-md-4">
                         <label for="document">Documento de identidad:*</label>
@@ -34,7 +32,10 @@
                     </div>
                     <div class="form-group col-md-4">
                         <label for="nationality">Nacionalidad:</label>
-                        {{ Form::select('nationality', ['V' => 'Venezolana', 'E' => 'Extranjera'], null, ['class' => 'custom-select' ]) }}
+                        {{ Form::select('nationality', ['V' => 'Venezolana', 'E' => 'Extranjera'], 
+                            null,
+                            ['class' => 'custom-select' ]
+                        ) }}
                     </div>
                 </div>
 

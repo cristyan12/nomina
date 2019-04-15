@@ -25,8 +25,8 @@ class DepartmentController extends Controller
         $data = $request->validate([
             'name' => 'required|unique:departments,name'
         ], [
-            'name.required' => 'El campo Nombre es requerido.',
-            'name.unique' => 'El campo Nombre ya está siendo utilizado.',
+            'name.required' => 'El campo Departamento es requerido.',
+            'name.unique' => 'El campo Departamento ya está siendo utilizado.',
         ]);
 
         Department::create([
@@ -54,8 +54,8 @@ class DepartmentController extends Controller
                 'required', Rule::unique('departments')->ignore($department->id)
             ]
         ], [
-            'name.required' => 'El campo Nombre es requerido.',
-            'name.unique' => 'El campo Nombre ya está siendo utilizado.',
+            'name.required' => 'El campo Departamento es requerido.',
+            'name.unique' => 'El campo Departamento ya está siendo utilizado.',
         ]);
 
         $department->update($attributes);
