@@ -6,11 +6,9 @@ use App\{
     Unit, Branch, Position, Employee,
     BankOfPay, Profession, Department
 };
-use App\Http\Requests\{
-    CreateEmployeeRequest, UpdateEmployeeRequest
-};
-
 use Illuminate\Http\Request;
+use App\Http\Requests\CreateEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {
@@ -94,7 +92,7 @@ class EmployeeController extends Controller
             'nationality', 'city_of_born', 'hired_at'
         ));
 
-        $employee->profile()->update(request()->only(
+        $employee->profile()->update($request->only(
             'profession_id', 'contract', 'status', 'bank_pay_id',
             'account_number', 'branch_id', 'department_id', 'unit_id',
             'position_id'

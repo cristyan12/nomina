@@ -7,7 +7,7 @@ use App\{Employee, EmployeeProfile};
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class EmployeeModuleTest extends TestCase
+class CreateEmployeeTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -427,79 +427,5 @@ class EmployeeModuleTest extends TestCase
 
         $this->assertEquals(0, Employee::count());
         $this->assertEquals(0, EmployeeProfile::count());
-    }
-
-    /** @test */
-    function a_user_can_load_the_edit_page()
-    {
-        $this->withoutExceptionHandling();
-
-        $employee = $this->create(Employee::class);
-
-        $profile = $this->create(EmployeeProfile::class, [
-            'employee_id' => $employee->id,
-        ]);
-
-        $response = $this->get(route('employees.edit', $employee))
-            ->assertStatus(200)
-            ->assertViewIs('employees.edit')
-            ->assertViewHas('employee')
-            ->assertSee($employee->id)
-            ->assertSee($employee->full_name);
-    }
-
-    /** @test */
-    function a_user_can_update_a_employee()
-    {
-        $employee = $this->create(Employee::class);
-
-        $profile = $this->create(EmployeeProfile::class, [
-            'employee_id' => $employee->id,
-        ]);
-
-        $response = $this->put(route('employees.update', $employee), $this->attributes)
-            ->assertRedirect(route('employees.index'));
-
-        $this->assertDatabaseHas('employees', [
-            'code' => '14996210',
-            'last_name' => 'Valera Rodriguez',
-            'first_name' => 'Cristyan Josuan',
-            'born_at' => '1981-12-21',
-            'hired_at' => '2012-08-30',
-        ]);
-
-        $employee = Employee::first(); 
-
-        $this->assertDatabaseHas('employee_profiles', [
-            'employee_id' => $employee->id,
-            'profession_id' => $this->attributes['profession_id'],
-            'status' => 'Activo',
-            'bank_pay_id' => $this->attributes['bank_pay_id'],
-            'account_number' => '01750107160071661898',
-            'contract' => 'I',
-            'branch_id' => $this->attributes['branch_id'],
-            'department_id' => $this->attributes['department_id'],
-            'unit_id' => $this->attributes['unit_id'],
-            'position_id' => $this->attributes['position_id'],
-        ]);
-    }
-
-    /** @test */
-    function the_code_field_is_required_when_updating()
-    {
-        $employee = $this->create(Employee::class);
-
-        $profile = $this->create(EmployeeProfile::class, [
-            'employee_id' => $employee->id,
-        ]);
-
-        $replace = array_replace($this->attributes, ['code' => '']);
-
-        $this->from(route('employees.edit', $employee))
-            ->put(route('employees.update', $employee), $replace)
-            ->assertRedirect(route('employees.edit', $employee))
-            ->assertSessionHasErrors(['code']);
-
-        $this->assertEquals(2, Employee::count());
     }
 }
