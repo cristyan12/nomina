@@ -3,7 +3,7 @@
 use Faker\Generator as Faker;
 
 $factory->define(App\Bank::class, function (Faker $faker) {
-	$employee = factory(App\Employee::class)->create();
+	$firstEmployee = factory(App\Employee::class)->create();
 
 	$secondEmployee = factory(App\Employee::class)->create();
 
@@ -12,8 +12,8 @@ $factory->define(App\Bank::class, function (Faker $faker) {
         'name' => $faker->company,
         'account' => $faker->bankAccountNumber,
         'account_type' => $faker->randomElement(['Corriente', 'Ahorro']),
-        'first_sign_auth' => $employee,
-        'first_sign_position' => $employee->position,
+        'first_sign_auth' => $firstEmployee->id,
+        'first_sign_position' => $firstEmployee->position,
         'second_sign_auth' => $secondEmployee->id,
         'second_sign_position' => $secondEmployee->position
     ];

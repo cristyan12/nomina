@@ -7,9 +7,14 @@ use Illuminate\Http\Request;
 
 class CreateBankController extends Controller
 {
-	public function __invoke()
+	public function create()
 	{
-		Bank::create(request()->all());
+		return view('banks.create');
+	}
+
+	public function store(Request $request)
+	{
+		Bank::create($request()->all());
 
 		return redirect()
 			->route('banks.index')

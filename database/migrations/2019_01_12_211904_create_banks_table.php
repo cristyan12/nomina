@@ -16,7 +16,7 @@ class CreateBanksTable extends Migration
         Schema::create('banks', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->tinyInteger('code');
+            $table->string('code');
             $table->string('name');
             $table->string('account');
             $table->enum('account_type', ['Corriente', 'Ahorro'])->default('Corriente');
