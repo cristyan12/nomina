@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\{
     Unit, Branch, Position, Employee,
-    BankOfPay, Profession, Department
+    Bank, Profession, Department
 };
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateEmployeeRequest;
@@ -27,7 +27,7 @@ class EmployeeController extends Controller
 
         $branches = Branch::orderBy('id')->pluck('name', 'id');
 
-        $bankOfPays = BankOfPay::orderBy('id')->pluck('name', 'id');
+        $banks = Bank::orderBy('id')->pluck('name', 'id');
 
         $departments = Department::orderBy('id')->pluck('name', 'id');
 
@@ -36,7 +36,7 @@ class EmployeeController extends Controller
         $positions = Position::orderBy('id')->pluck('name', 'id');
 
         return view('employees.create', compact(
-            'professions', 'branches', 'bankOfPays',
+            'professions', 'branches', 'banks',
             'departments', 'units', 'positions'
         ));
     }
@@ -55,7 +55,7 @@ class EmployeeController extends Controller
         ));
 
         $employee->profile()->create(request()->only(
-            'profession_id', 'contract', 'status', 'bank_pay_id',
+            'profession_id', 'contract', 'status', 'bank_id',
             'account_number', 'branch_id', 'department_id', 'unit_id',
             'position_id'
         ));
@@ -70,7 +70,7 @@ class EmployeeController extends Controller
 
         $branches = Branch::orderBy('id')->pluck('name', 'id');
 
-        $bankOfPays = BankOfPay::orderBy('id')->pluck('name', 'id');
+        $banks = Bank::orderBy('id')->pluck('name', 'id');
 
         $departments = Department::orderBy('id')->pluck('name', 'id');
 
@@ -80,7 +80,7 @@ class EmployeeController extends Controller
 
         return view('employees.edit', compact(
             'employee', 'professions', 'branches', 
-            'bankOfPays', 'departments', 'units', 'positions'
+            'banks', 'departments', 'units', 'positions'
         ));
     }
 
@@ -93,7 +93,7 @@ class EmployeeController extends Controller
         ));
 
         $employee->profile()->update($request->only(
-            'profession_id', 'contract', 'status', 'bank_pay_id',
+            'profession_id', 'contract', 'status', 'bank_id',
             'account_number', 'branch_id', 'department_id', 'unit_id',
             'position_id'
         ));

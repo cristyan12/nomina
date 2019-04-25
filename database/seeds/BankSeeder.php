@@ -2,9 +2,9 @@
 
 use Illuminate\Database\Seeder;
 
-use App\BankOfPay;
+use App\Bank;
 
-class BanksOfPaySeeder extends Seeder
+class BankSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -13,27 +13,27 @@ class BanksOfPaySeeder extends Seeder
      */
     public function run()
     {
-        BankOfPay::create([
+        Bank::create([
         	'code' => '0102',
         	'name' => 'Banco de Venezuela'
         ]);
 
-        BankOfPay::create([
+        Bank::create([
         	'code' => '0105',
         	'name' => 'Banco Mercantil'
         ]);
 
-        BankOfPay::create([
+        Bank::create([
         	'code' => '0108',
         	'name' => 'Banco Provincial'
         ]);
 
-        BankOfPay::create([
+        Bank::create([
         	'code' => '0114',
         	'name' => 'BOD'
         ]);
 
-        BankOfPay::create([
+        Bank::create([
         	'code' => '0175',
         	'name' => 'Banco Bicentenario del Pueblo'
         ]);

@@ -18,21 +18,6 @@ class CreateBanksTable extends Migration
 
             $table->string('code');
             $table->string('name');
-            $table->string('account');
-            $table->enum('account_type', ['Corriente', 'Ahorro'])->default('Corriente');
-            $table->string('description', 1000)->nullable();
-
-            $table->unsignedInteger('first_sign_auth');
-            $table->unsignedInteger('first_sign_position');
-
-            $table->unsignedInteger('second_sign_auth')->unique();
-            $table->unsignedInteger('second_sign_position')->unique();
-
-            $table->foreign('first_sign_auth')->references('id')->on('employees');
-            $table->foreign('second_sign_auth')->references('id')->on('employees');
-            
-            $table->foreign('first_sign_position')->references('id')->on('positions');
-            $table->foreign('second_sign_position')->references('id')->on('positions');
 
             $table->timestamps();
         });

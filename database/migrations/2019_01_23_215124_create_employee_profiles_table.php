@@ -25,7 +25,7 @@ class CreateEmployeeProfilesTable extends Migration
                 'Activo', 'Vacaciones', 'Reposo'
             ])->default('Activo');
 
-            $table->unsignedInteger('bank_pay_id');
+            $table->unsignedInteger('bank_id');
             $table->string('account_number');
 
             $table->unsignedInteger('branch_id');
@@ -36,7 +36,7 @@ class CreateEmployeeProfilesTable extends Migration
             // Foreigns
             $table->foreign('employee_id')->references('id')->on('employees');
             $table->foreign('profession_id')->references('id')->on('professions');
-            $table->foreign('bank_pay_id')->references('id')->on('bank_of_pays');
+            $table->foreign('bank_id')->references('id')->on('banks');
             $table->foreign('branch_id')->references('id')->on('branches');
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('unit_id')->references('id')->on('units');

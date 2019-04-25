@@ -38,12 +38,12 @@
                   Dashboard <span class="sr-only">(current)</span>
                 </a>
               </li>
-              <li class="nav-item">
+              {{-- <li class="nav-item">
                 <a class="nav-link" href="{{ route('banks.index') }}">
                   <span data-feather="layers"></span>
                   Bancos
                 </a>
-              </li>
+              </li> --}}
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('employees.index') }}">
                   <span data-feather="users"></span>

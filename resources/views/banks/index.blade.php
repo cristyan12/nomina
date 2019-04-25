@@ -1,1 +1,0 @@
-No hay bancos registrados aún.

@@ -33,7 +33,7 @@ class CreateEmployeeTest extends TestCase
             'hired_at' => '2012-08-30',
             'profession_id' => $this->create(\App\Profession::class)->id,
             'status' => 'Activo',
-            'bank_pay_id' => $this->create(\App\BankOfPay::class)->id,
+            'bank_id' => $this->create(\App\Bank::class)->id,
             'account_number' => '01750107160071661898',
             'contract' => 'I',
             'branch_id' => $this->create(\App\Branch::class)->id,
@@ -74,7 +74,7 @@ class CreateEmployeeTest extends TestCase
             'employee_id' => $empleado->id,
             'profession_id' => $this->attributes['profession_id'],
             'status' => 'Activo',
-            'bank_pay_id' => $this->attributes['bank_pay_id'],
+            'bank_id' => $this->attributes['bank_id'],
             'account_number' => '01750107160071661898',
             'contract' => 'I',
             'branch_id' => $this->attributes['branch_id'],
@@ -346,14 +346,14 @@ class CreateEmployeeTest extends TestCase
     }
 
     /** @test */
-    function the_bank_pay_id_field_is_required()
+    function the_bank_id_field_is_required()
     {
-        $replace = array_replace($this->attributes, ['bank_pay_id' => '']);
+        $replace = array_replace($this->attributes, ['bank_id' => '']);
 
         $this->from(route('employees.index'))
             ->post(route('employees.store'), $replace)
             ->assertRedirect(route('employees.store'))
-            ->assertSessionHasErrors(['bank_pay_id']);
+            ->assertSessionHasErrors(['bank_id']);
 
         $this->assertEquals(0, Employee::count());
         $this->assertEquals(0, EmployeeProfile::count());

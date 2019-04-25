@@ -187,14 +187,14 @@
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        {{ Form::label('bank_pay_id', 'Banco:*') }}
-                        {{ Form::select('bank_pay_id', $bankOfPays, $employee->profile->bank_pay_id, [
+                        {{ Form::label('bank_id', 'Banco:*') }}
+                        {{ Form::select('bank_id', $banks, $employee->profile->bank_id, [
                             'class' => 'custom-select',
                             'placeholder' => 'Seleccione una opción:'
                         ]) }}
-                        @if($errors->has('bank_pay_id'))
+                        @if($errors->has('bank_id'))
                             <span class="text-danger">
-                                <p>{{ $errors->first('bank_pay_id') }}</p>
+                                <p>{{ $errors->first('bank_id') }}</p>
                             </span>
                         @endif
                     </div>

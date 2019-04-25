@@ -32,7 +32,7 @@ class UpdateEmployeeTest extends TestCase
             'hired_at' => '2012-08-30',
             'profession_id' => $this->create(\App\Profession::class)->id,
             'status' => 'Activo',
-            'bank_pay_id' => $this->create(\App\BankOfPay::class)->id,
+            'bank_id' => $this->create(\App\Bank::class)->id,
             'account_number' => '01750107160071661898',
             'contract' => 'I',
             'branch_id' => $this->create(\App\Branch::class)->id,
@@ -46,6 +46,8 @@ class UpdateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_load_the_edit_page()
     {
+        $this->withoutExceptionHandling();
+        
         $employee = $this->create(Employee::class);
 
         $profile = $this->create(EmployeeProfile::class, [
@@ -86,7 +88,7 @@ class UpdateEmployeeTest extends TestCase
             'employee_id' => $employee->id,
             'profession_id' => $this->attributes['profession_id'],
             'status' => 'Activo',
-            'bank_pay_id' => $this->attributes['bank_pay_id'],
+            'bank_id' => $this->attributes['bank_id'],
             'account_number' => '01750107160071661898',
             'contract' => 'I',
             'branch_id' => $this->attributes['branch_id'],
@@ -516,7 +518,7 @@ class UpdateEmployeeTest extends TestCase
     }
 
     /** @test */
-    function the_bank_pay_id_field_is_required_when_updating()
+    function the_bank_id_field_is_required_when_updating()
     {
         $employee = $this->create(Employee::class);
 
@@ -524,12 +526,12 @@ class UpdateEmployeeTest extends TestCase
             'employee_id' => $employee->id,
         ]);
 
-        $replace = array_replace($this->attributes, ['bank_pay_id' => '']);
+        $replace = array_replace($this->attributes, ['bank_id' => '']);
 
         $this->from(route('employees.edit', $employee->id))
             ->put(route('employees.update', $employee->id), $replace)
             ->assertRedirect(route('employees.edit', $employee->id))
-            ->assertSessionHasErrors(['bank_pay_id']);
+            ->assertSessionHasErrors(['bank_id']);
 
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'

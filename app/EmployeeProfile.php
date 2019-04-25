@@ -8,6 +8,11 @@ class EmployeeProfile extends Model
 {
     protected $guarded = [];
 
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
+
     public function employees()
     {
     	return $this->hasMany(Employee::class);
