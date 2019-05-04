@@ -25,7 +25,7 @@ class UpdateEmployeeRequest extends CreateEmployeeRequest
             'profession_id' => 'required|integer',
             'contract' => 'required',
             'bank_id' => 'required|integer',
-            'account_number' => 'required',
+            'account_number' => 'required|min:20|max:20',
             'branch_id' => 'required|integer',
             'department_id' => 'required|integer',
             'unit_id' => 'required|integer',

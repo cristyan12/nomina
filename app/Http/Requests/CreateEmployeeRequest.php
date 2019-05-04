@@ -36,7 +36,7 @@ class CreateEmployeeRequest extends FormRequest
             'profession_id' => 'required',
             'contract' => 'required',
             'bank_id' => 'required',
-            'account_number' => 'required',
+            'account_number' => 'required|min:20|max:20',
             'branch_id' => 'required',
             'department_id' => 'required',
             'unit_id' => 'required',

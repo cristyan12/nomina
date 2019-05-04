@@ -567,6 +567,62 @@ class UpdateEmployeeTest extends TestCase
         ]);
     }
 
+    /** 
+    * @test 
+    * @testdox El número de cuenta debe tener un máximo de 20 carácteres
+    */
+    function the_account_number_field_must_contain_a_max_20_characters_when_updating()
+    {
+        $employee = $this->create(Employee::class);
+
+        $profile = $this->create(EmployeeProfile::class, [
+            'employee_id' => $employee->id,
+        ]);
+
+        $replace = array_replace($this->attributes, ['account_number' => '017501071600716618981']);
+
+        $this->from(route('employees.edit', $employee->id))
+            ->put(route('employees.update', $employee->id), $replace)
+            ->assertRedirect(route('employees.edit', $employee->id))
+            ->assertSessionHasErrors(['account_number']);
+
+        $this->assertDatabaseMissing('employees', [
+            'first_name' => 'Cristyan Josuan'
+        ]);
+        
+        $this->assertDatabaseMissing('employee_profiles', [
+            'account_number' => '017501071600716618981'
+        ]);
+    }
+
+    /** 
+    * @test 
+    * @testdox El número de cuenta debe tener 20 carácteres en total.
+    */
+    function the_account_number_must_have_a_20_characters_in_total_when_updating()
+    {
+        $employee = $this->create(Employee::class);
+
+        $profile = $this->create(EmployeeProfile::class, [
+            'employee_id' => $employee->id,
+        ]);
+
+        $replace = array_replace($this->attributes, ['account_number' => '0175010716007166189']);
+
+        $this->from(route('employees.edit', $employee->id))
+            ->put(route('employees.update', $employee->id), $replace)
+            ->assertRedirect(route('employees.edit', $employee->id))
+            ->assertSessionHasErrors(['account_number']);
+
+        $this->assertDatabaseMissing('employees', [
+            'first_name' => 'Cristyan Josuan'
+        ]);
+        
+        $this->assertDatabaseMissing('employee_profiles', [
+            'account_number' => '017501071600716618981'
+        ]);
+    }
+
     /** @test */
     function the_branch_id_field_is_required_when_updating()
     {
