@@ -192,5 +192,36 @@ class PermissionsTableSeeder extends Seeder
             'slug' => 'professions.edit',
             'description' => 'Podría editar cualquier dato de un Profeción',
         ]);
+
+        // Employees (Empleados)
+        Permission::create([
+            'name' => 'Listar Empleados',
+            'slug' => 'employees.index',
+            'description' => 'Lista todas los Empleados',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver detalle del Empleado',
+            'slug' => 'employees.show',
+            'description' => 'Ver en detalle los datos de cada Empleado',
+        ]);
+
+        Permission::create([
+            'name' => 'Creación de Empleados',
+            'slug' => 'employees.create',
+            'description' => 'Podría crear nuevos Empleados',
+        ]);
+
+        Permission::create([
+            'name' => 'Edición de Empleados',
+            'slug' => 'employees.edit',
+            'description' => 'Podría editar cualquier dato de un Empleado',
+        ]);
+
+        Permission::create([
+            'name' => 'Eliminación de Empleados',
+            'slug' => 'employees.destroy',
+            'description' => 'Podría eliminar cualquier Empleado',
+        ]);
     }
 }

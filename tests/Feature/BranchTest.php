@@ -15,9 +15,12 @@ class BranchTest extends TestCase
     function a_user_can_load_the_new_branch_office()
     {
         $this->withoutExceptionHandling();
+
+        $user = factory('App\User')->create();
         
-        $response = $this->actingAs($this->someUser())
-            ->get(route('branches.create'))
+        $this->userSignIn($user);
+
+        $response = $this->get(route('branches.create'))
             ->assertStatus(200)
             ->assertViewIs('branches.create')
             ->assertSee('Sucursales')
