@@ -51,8 +51,6 @@
 		</div>
 	</div>
 
-	<hr>
-
 	<div class="card-deck">
 		<div class="card text-white bg-info mb-3" >
 			<div class="card-header">

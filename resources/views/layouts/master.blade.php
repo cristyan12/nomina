@@ -43,10 +43,10 @@
         @include('layouts._navSidebar')
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-end pt-3 pb-2 mt-4 mb-3 border-bottom">
-                <h1 class="h2">
+            <div class="d-flex justify-content-between pt-3 pb-2 mb-3">
+                <div class="display-4">
                     @yield('title', 'Dashboard')
-                </h1>
+                </div>
             </div>
             
             <div class="container">

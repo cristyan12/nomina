@@ -52,17 +52,21 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label>Ciudad de nacimiento:</label>
                             <input type="text" class="form-control" value="{{ $employee->city_of_born }}">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label>Contratado el:</label>
                             <input type="text" class="form-control" value="{{ $employee->hired_at->format('d-m-Y') }}">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label>Antiguedad:</label>
                             <input type="text" class="form-control" value="{{ $employee->diffAntiquity() }}">
+                        </div>
+                        <div class="col-md-3">
+                            <label>Cargo:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->position->name }}">
                         </div>
                     </div>
                 </fieldset>
