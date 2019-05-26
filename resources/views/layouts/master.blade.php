@@ -40,7 +40,7 @@
     <div class="container-fluid">
       <div class="row">
 
-        @include('layouts._navSidebar')
+        @include('layouts._sidebar')
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
             <div class="d-flex justify-content-between pt-3 pb-2 mb-3">
@@ -50,11 +50,7 @@
             </div>
             
             <div class="container">
-              <div class="row">
-                <div class="col-md-9">
-                    @include('layouts.messages')
-                </div>
-              </div>
+              
                 @yield('content')
             </div>
         </main>

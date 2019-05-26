@@ -3,18 +3,21 @@
 @section('title', 'Tabulador')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header"><strong>Tabulador de cargos CCP 2017-2019</strong></div>
+		        <div class="card-body">
+		            {{ Form::open(['route' => 'positions.store']) }}
 
-<div class="col-xs-9">
-    <div class="card mb-3">
-        <div class="card-header"><strong>Tabulador de cargos CCP 2017-2019</strong></div>
-        <div class="card-body">
-            {{ Form::open(['route' => 'positions.store']) }}
+		                @include('positions.partials.form')
 
-                @include('positions.partials.form')
-
-            {{ Form::close() }}
-        </div>
-        @include('positions.partials.card-footer')
-    </div>
+		            {{ Form::close() }}
+		        </div>
+        		@include('positions.partials.card-footer')
+    		</div>
+		</div>
+	</div>
 </div>
 @endsection

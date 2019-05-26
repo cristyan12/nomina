@@ -6,8 +6,7 @@ use App\Position;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use App\Http\Requests\{
-    CreatePositionRequest,
-    UpdatePositionRequest
+    CreatePositionRequest, UpdatePositionRequest
 };
 
 class PositionController extends Controller

@@ -3,27 +3,40 @@
 @section('title', 'Detalle del departamento')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header lead"><strong>Departamento #{{ $department->id }}</strong></div>
+                <div class="card-body">
+                    <fieldset disabled>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Departamento:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $department->name }}</p>
+                            </div>
+                        </div>
 
-<div class="col-md-9">
-    <div class="card mb-3">
-        <div class="card-header lead">Departamento #{{ $department->id }}</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <p><b>Departamento de: </b></p>
-                    <p><b>Última actualización: </b></p>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Última actualización:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $department->updated_at->format('d-m-Y') }}</p>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="col-md-8">
-                    <p>{{ $department->name }}</p>
-                    <p>{{ $department->updated_at->format('d-m-Y') }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="btn-group float-right">
-                <a href="{{ route('departments.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
 
-                <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                <div class="card-footer">
+                    <div class="btn-group float-right">
+                        <a href="{{ route('departments.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+
+                        <a href="{{ route('departments.edit', $department->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

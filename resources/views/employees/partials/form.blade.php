@@ -2,7 +2,7 @@
 	<div class="form-group col-md-4">
 		<label for="code">Código:*</label>
 		<input type="text" id="code" name="code"
-			class="form-control{{ $errors->has('code') ? ' is-invalid' : ''}}" value="{{ old('code') }}"
+			class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" value="{{ old('code') }}"
 		>
 	    @if($errors->has('code'))
 	    	<span class="invalid-feedback" role="alert">
@@ -14,7 +14,7 @@
 	<div class="form-group col-md-4">
 	    <label for="document">Documento de identidad:*</label>
 		<input type="text" id="document" name="document"
-			class="form-control{{ $errors->has('document') ? ' is-invalid' : ''}}" value="{{ old('document') }}"
+			class="form-control{{ $errors->has('document') ? ' is-invalid' : '' }}" value="{{ old('document') }}"
 		>
 	    @if($errors->has('document'))
 	    	<span class="invalid-feedback" role="alert">
@@ -252,8 +252,8 @@
 
 <hr>
 
-<div class="form-group">
-    <div class="col-sm-6">
+<div class="form-group row mb-0">
+    <div class="col-md-8 offset-md-4">
         {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
     </div>
 </div>

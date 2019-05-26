@@ -3,18 +3,21 @@
 @section('title', 'Departamentos')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header"><strong>Departamentos</strong></div>
+		        <div class="card-body">
+		            {!! Form::model($department, ['route' => ['departments.update', $department->id], 'method' => 'PUT']) !!}
 
-<div class="col-md-9">
-    <div class="card mb-3">
-        <div class="card-header"><strong>Departamentos</strong></div>
-        <div class="card-body">
-            {!! Form::model($department, ['route' => ['departments.update', $department->id], 'method' => 'PUT']) !!}
+		                @include('departments.partials.form')
 
-                @include('departments.partials.form')
-
-            {!! Form::close() !!}
-        </div>
-        @include('departments.partials.card-footer')
+		            {!! Form::close() !!}
+		        </div>
+		        @include('departments.partials.card-footer')
+		    </div>
+		</div>
     </div>
 </div>
 @endsection
