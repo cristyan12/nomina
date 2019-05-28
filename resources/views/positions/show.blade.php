@@ -3,31 +3,57 @@
 @section('title', 'Detalle del cargo')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header lead">Cargo #{{ $position->id }}</div>
+                <div class="card-body">
+                    <fieldset disabled>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Código SISDEM:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $position->code }}</p>
+                            </div>
+                        </div>
 
-<div class="col-md-9">
-    <div class="card mb-3">
-        <div class="card-header lead">Cargo #{{ $position->id }}</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <p><b>Código SISDEM: </b></p>
-                    <p><b>Nombre del Cargo: </b></p>
-                    <p><b>Salario Básico: </b></p>
-                    <p><b>Última actualización: </b></p>
-                </div>
-                <div class="col-md-8">
-                    <p>{{ $position->code }}</p>
-                    <p>{{ $position->name }}</p>
-                    <p>{{ $position->format_salary }}</p>
-                    <p>{{ $position->updated_at->format('d-m-Y') }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="btn-group float-right">
-                <a href="{{ route('positions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Nombre del Cargo:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $position->name }}</p>
+                            </div>
+                        </div>
 
-                <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-outline-warning btn-sm">Editar</a>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Salario Básico:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $position->format_salary }}</p>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Última actualización:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $position->updated_at->format('d-m-Y') }}</p>
+                            </div>
+                        </div>
+                    </fieldset>
+                </div>
+                <div class="card-footer">
+                    <div class="btn-group float-right">
+                        <a href="{{ route('positions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+
+                        <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-outline-warning btn-sm">Editar</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -18,7 +18,11 @@
 
   <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-        <span class="navbar-brand mb-0 h1">Sistema de nómina</span>
+        <span class="navbar-brand mb-0 h1">
+            <a class="navbar-brand" href="{{ url('/') }}">
+                Sistema de nómina
+            </a>
+        </span>
         <button class="navbar-toggler" 
             type="button" 
             data-toggle="collapse" 

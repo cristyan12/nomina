@@ -13,10 +13,11 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col">
+        <div class="col-md-12">
             <div class="card">
                 @if(! $positions->count() == 0)
-                <table class="table table-borderless table-striped table-hover">
+                <div class="table-responsive">
+                <table class="table table-borderless table-hover table-striped">
                     <thead class="bg-dark text-white">
                         <tr>
                             <th><div class="lead">ID</div></th>
@@ -49,6 +50,8 @@
                     @endforeach
                     </tbody>
                 </table>
+                    
+                </div>
 
                 {{ $positions->render() }}
                 

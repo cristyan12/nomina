@@ -9,35 +9,40 @@
 @section('content')
 
 @if(! $units->count() == 0)
-<table class="table table-borderless table-striped table-hover">
-    <tr>
-        <thead class="bg-dark text-white">
-            <th><div class="lead">ID</div></th>
-            <th><div class="lead">Unidad</div></th>
-            <th colspan="2">
-                &nbsp;
-            </th>
-        </thead>
-    </tr>
-    <tbody>
-    @foreach($units as $unit)
+
+<div class="table-responsive">
+    <table class="table table-borderless table-striped table-hover">
         <tr>
-            <td>{{ $unit->id }}</td>
-            <td>{{ $unit->name }}</td>
-            <td width="10px">
-                <a class="btn btn-outline-info btn-sm" href="{{ route('units.show', $unit) }}">
-                    Ver detalle
-                </a>
-            </td>
-            <td width="10px">
-                <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-warning btn-sm">
-                    Editar
-                </a>
-            </td>
+            <thead class="bg-dark text-white">
+                <th><div class="lead">ID</div></th>
+                <th><div class="lead">Unidad</div></th>
+                <th><div class="lead">Última actualización</div></th>
+                <th colspan="2">
+                    &nbsp;
+                </th>
+            </thead>
         </tr>
-    @endforeach
-    </tbody>
-</table>
+        <tbody>
+        @foreach($units as $unit)
+            <tr>
+                <td>{{ $unit->id }}</td>
+                <td>{{ $unit->name }}</td>
+                <td>{{ $unit->updated_at->diffForHumans() }}</td>
+                <td width="10px">
+                    <a class="btn btn-outline-info btn-sm" href="{{ route('units.show', $unit) }}">
+                        Ver detalle
+                    </a>
+                </td>
+                <td width="10px">
+                    <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-warning btn-sm">
+                        Editar
+                    </a>
+                </td>
+            </tr>
+        @endforeach
+        </tbody>
+    </table>
+</div>
 
 {{ $units->render() }}
 @else

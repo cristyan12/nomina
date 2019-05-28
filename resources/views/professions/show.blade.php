@@ -3,27 +3,39 @@
 @section('title', 'Detalle de la profesión')
 
 @section('content')
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header lead">#{{ $profession->id }} {{ $profession->title }}</div>
+                <div class="card-body">
+                    <fieldset disabled>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Profesión:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $profession->title }}</p>
+                            </div>
+                        </div>
 
-<div class="col-md-9">
-    <div class="card mb-3">
-        <div class="card-header lead">Profesión #{{ $profession->id }}</div>
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-3">
-                    <p><b>Profesión: </b></p>
-                    <p><b>Última actualización: </b></p>
+                        <div class="form-group row">
+                            <label class="col-md-4 col-form-label text-md-right">
+                                <strong>Última actualización:</strong>
+                            </label>
+                            <div class="col-md-6">
+                                <p class="form-control-plaintext">{{ $profession->updated_at->format('d-m-Y') }}</p>
+                            </div>
+                        </div>
+                    </fieldset>
                 </div>
-                <div class="col-md-8">
-                    <p>{{ $profession->title }}</p>
-                    <p>{{ $profession->updated_at->format('d-m-Y') }}</p>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer">
-            <div class="btn-group float-right">
-                <a href="{{ route('professions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+                <div class="card-footer">
+                    <div class="btn-group float-right">
+                        <a href="{{ route('professions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
 
-                <a href="{{ route('professions.edit', $profession) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                        <a href="{{ route('professions.edit', $profession) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
