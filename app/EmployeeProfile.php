@@ -18,6 +18,11 @@ class EmployeeProfile extends Model
     	return $this->belongsTo(Employee::class);
     }
 
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     public function department()
     {
         return $this->belongsTo(Department::class);
@@ -26,5 +31,18 @@ class EmployeeProfile extends Model
     public function position()
     {
     	return $this->belongsTo(Position::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
+
+    public function getContractTypeAttribute()
+    {
+        if ($this->contract == 'I') {
+            return 'Indefinido';
+        }
+        return 'Temporal';
     }
 }

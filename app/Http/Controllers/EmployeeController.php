@@ -43,7 +43,7 @@ class EmployeeController extends Controller
 
     public function show(Employee $employee)
     {
-        return view('employees.show', compact('employee'));
+        return view('employees.show', compact('employee', 'profile'));
     }
 
     public function store(CreateEmployeeRequest $request)

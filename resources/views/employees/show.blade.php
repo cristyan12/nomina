@@ -6,11 +6,14 @@
 
 <div class="col-xs-9">
     <div class="card mb-3 shadow-sm">
-        <div class="card-header lead">#{{ $employee->code }}, {{ $employee->full_name }}</div>
+        <div class="card-header lead font-weight-bold">#{{ $employee->code }}, {{ strtoupper($employee->full_name) }}</div>
         <div class="card-body">
             <div>
                 <fieldset disabled>
-                    <div class="form-group"><b>EMPLEADO:</b> <span class="lead">{{ strtoupper($employee->full_name) }}</span></div>
+                    <div class="form-group">
+                        <span class="lead font-weight-bold">Datos personales</span>
+                    </div>
+                    <hr>
                     <div class="form-group row">
                         <div class="col-md-4">
                             <label>Código: </label>
@@ -41,32 +44,68 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label>Estado civil:</label>
                             <input type="text" class="form-control" value="{{ $employee->marital_status }}">
                         </div>
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                             <label>Sexo:</label>
                             <input type="text" class="form-control" value="{{ $employee->full_sex }}">
                         </div>
-                    </div>
-
-                    <div class="form-group row">
                         <div class="col-md-3">
                             <label>Ciudad de nacimiento:</label>
                             <input type="text" class="form-control" value="{{ $employee->city_of_born }}">
                         </div>
-                        <div class="col-md-3">
+                    </div>
+
+                    <div class="form-group">
+                        <span class="lead font-weight-bold">Datos laborales</span>
+                    </div>
+
+                    <hr>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Departamento:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->department->name }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Sucursal:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->branch->name }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Unidad:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->unit->name }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Status:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->status }}">
+                        </div>
+                        <div class="col-md-4">
                             <label>Contratado el:</label>
                             <input type="text" class="form-control" value="{{ $employee->hired_at->format('d-m-Y') }}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label>Antiguedad:</label>
                             <input type="text" class="form-control" value="{{ $employee->diffAntiquity() }}">
                         </div>
-                        <div class="col-md-3">
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
                             <label>Cargo:</label>
                             <input type="text" class="form-control" value="{{ $employee->profile->position->name }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Salario básico:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->position->format_salary }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Tipo de contrato:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->contract_type }}">
                         </div>
                     </div>
                 </fieldset>
