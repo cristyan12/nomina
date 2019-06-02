@@ -1,9 +1,10 @@
 @extends('layouts.master')
 
 @section('title')
-<div class="display-4">Sucursales</div>
-
-<a href="{{ route('branches.create') }}" class="btn btn-outline-primary">Nueva Sucursal</a>
+<h1 class="pb-1 display-4">Sucursales</h1>
+<p>
+    <a href="{{ route('branches.create') }}" class="btn btn-outline-primary">Nueva Sucursal</a>
+</p>
 @endsection
 
 @section('content')
@@ -14,6 +15,7 @@
         <thead class="bg-dark text-white">
             <th><div class="lead">ID</div></th>
             <th><div class="lead">Sucursal</div></th>
+            <th><div class="lead">Actualización</div></th>
             <th colspan="2">
                 &nbsp;
             </th>
@@ -24,9 +26,10 @@
         <tr>
             <td>{{ $branch->id }}</td>
             <td>{{ $branch->name }}</td>
+            <td>{{ $branch->updated_at->diffForHumans() }}</td>
             <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('branches.show', $branch) }}">
-                    Ver detalle
+                    Detalle
                 </a>
             </td>
             <td width="10px">

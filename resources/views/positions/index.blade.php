@@ -1,12 +1,14 @@
 @extends('layouts.master')
 
 @section('title')
-<div class="display-4">Tabulador de cargos CCP 2017-2019</div>
+<h1 class="pb-1">Tabulador de cargos CCP 2017-2019</h1>
 
 @can('positions.create')
-    <a href="{{ route('positions.create') }}" class="btn btn-outline-primary">
-        Nuevo Cargo
-    </a>
+    <p>
+        <a href="{{ route('positions.create') }}" class="btn btn-outline-primary">
+            Nuevo Cargo
+        </a>
+    </p>
 @endcan
 @endsection
 
@@ -38,7 +40,7 @@
                         <td>{{ $position->format_salary }}</td>
                         <td width="">
                             <a class="btn btn-outline-info btn-sm" href="{{ route('positions.show', $position) }}">
-                                Ver detalle
+                                Detalle
                             </a>
                         </td>
                         <td width="">

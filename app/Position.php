@@ -17,6 +17,16 @@ class Position extends Model
     
     public function getFormatSalaryAttribute()
     {
-        return number_format($this->basic_salary, 2, ',', '.');
+        return $this->numericFormat($this->basic_salary);
+    }
+
+    public function getNominaQuincenalAttribute()
+    {
+        return $this->numericFormat($this->basic_salary * 15);   
+    }
+
+    protected function numericFormat($field)
+    {
+        return number_format($field, 2, ',', '.');   
     }
 }

@@ -7,6 +7,22 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::middleware(['auth'])->group(function() {
+	// Users
+	Route::get('users', 'UserController@index')->name('users.index')
+		->middleware('permission:users.index');
+
+	Route::get('users/{user}', 'UserController@show')->name('users.show')
+		->middleware('permission:users.show');
+
+	Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit')
+		->middleware('permission:users.edit');
+
+	Route::put('users/{user}', 'UserController@update')->name('users.edit')
+		->middleware('permission:users.edit');
+
+	Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy')
+		->middleware('permission:users.destroy');
+
 	// Roles
 	Route::post('roles/store', 'RoleController@store')
 		->name('roles.store')

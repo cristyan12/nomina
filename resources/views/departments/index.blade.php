@@ -14,6 +14,7 @@
         <thead class="bg-dark text-white">
             <th><div class="lead">ID</div></th>
             <th><div class="lead">Departamento</div></th>
+            <th><div class="lead">Actualización</div></th>
             <th colspan="2">
                 &nbsp;
             </th>
@@ -24,9 +25,10 @@
         <tr>
             <td>{{ $department->id }}</td>
             <td>{{ $department->name }}</td>
+            <td>{{ $department->updated_at->diffForHumans() }}</td>
             <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('departments.show', $department) }}">
-                    Ver detalle
+                    Detalle
                 </a>
             </td>
             <td width="10px">

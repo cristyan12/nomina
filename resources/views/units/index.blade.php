@@ -1,9 +1,10 @@
 @extends('layouts.master')
 
 @section('title')
-<div class="display-4">Unidades</div>
-
-<a href="{{ route('units.create') }}" class="btn btn-outline-primary">Nueva Unidad</a>
+<h1 class="pb-1">Unidades</h1>
+<p>
+    <a href="{{ route('units.create') }}" class="btn btn-outline-primary">Nuevo unidad</a>
+</p>
 @endsection
 
 @section('content')
@@ -16,7 +17,7 @@
             <thead class="bg-dark text-white">
                 <th><div class="lead">ID</div></th>
                 <th><div class="lead">Unidad</div></th>
-                <th><div class="lead">Última actualización</div></th>
+                <th><div class="lead">Actualización</div></th>
                 <th colspan="2">
                     &nbsp;
                 </th>
@@ -30,7 +31,7 @@
                 <td>{{ $unit->updated_at->diffForHumans() }}</td>
                 <td width="10px">
                     <a class="btn btn-outline-info btn-sm" href="{{ route('units.show', $unit) }}">
-                        Ver detalle
+                        Detalle
                     </a>
                 </td>
                 <td width="10px">

@@ -52,7 +52,7 @@
                             <label>Sexo:</label>
                             <input type="text" class="form-control" value="{{ $employee->full_sex }}">
                         </div>
-                        <div class="col-md-3">
+                        <div class="col-md-4">
                             <label>Ciudad de nacimiento:</label>
                             <input type="text" class="form-control" value="{{ $employee->city_of_born }}">
                         </div>
@@ -95,17 +95,36 @@
                     </div>
 
                     <div class="form-group row">
-                        <div class="col-md-4">
+                        <div class="col-md-3">
                             <label>Cargo:</label>
                             <input type="text" class="form-control" value="{{ $employee->profile->position->name }}">
                         </div>
-                        <div class="col-md-4">
-                            <label>Salario básico:</label>
+                        <div class="col-md-3">
+                            <label>Salario base diario:</label>
                             <input type="text" class="form-control" value="{{ $employee->profile->position->format_salary }}">
                         </div>
-                        <div class="col-md-4">
+                        <div class="col-md-3">
+                            <label>Salario base quincenal:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->position->nomina_quincenal }}">
+                        </div>
+                        <div class="col-md-3">
                             <label>Tipo de contrato:</label>
                             <input type="text" class="form-control" value="{{ $employee->profile->contract_type }}">
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <div class="col-md-4">
+                            <label>Profesión:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->profession->title }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Banco:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->bank->name }}">
+                        </div>
+                        <div class="col-md-4">
+                            <label>Número de cuenta:</label>
+                            <input type="text" class="form-control" value="{{ $employee->profile->account_number }}">
                         </div>
                     </div>
                 </fieldset>

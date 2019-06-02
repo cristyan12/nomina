@@ -9,7 +9,7 @@ class BranchController extends Controller
 {
     public function index()
     {
-        $branches = Branch::orderBy('id')->paginate(10);
+        $branches = Branch::orderBy('id', 'DESC')->paginate(10);
 
         return view('branches.index', compact('branches'));
     }
@@ -25,9 +25,7 @@ class BranchController extends Controller
             'name' => 'required'
         ]);
 
-        Branch::create([
-            'name' => $request['name']
-        ]);
+        Branch::create($data);
 
         return redirect()->route('branches.index')
             ->with('success', 'Sucursal creada con éxito.');

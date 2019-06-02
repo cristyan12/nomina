@@ -15,7 +15,7 @@
             <thead class="bg-dark text-white">
                 <th><div class="lead">ID</div></th>
                 <th><div class="lead">Profesión</div></th>
-                <th><div class="lead">Última actualización</div></th>
+                <th><div class="lead">Actualización</div></th>
                 <th colspan="2">
                     &nbsp;
                 </th>
@@ -29,7 +29,7 @@
                 <td>{{ $profession->updated_at->diffForHumans() }}</td>
                 <td width="10px">
                     <a class="btn btn-outline-info btn-sm" href="{{ route('professions.show', $profession) }}">
-                        Ver detalle
+                        Detalle
                     </a>
                 </td>
                 <td width="10px">

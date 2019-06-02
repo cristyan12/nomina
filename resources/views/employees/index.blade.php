@@ -1,9 +1,10 @@
 @extends('layouts.master')
 
 @section('title')
-<div class="display-4">Empleados</div>
-
-<a href="{{ route('employees.create') }}" class="btn btn-outline-primary">Nuevo Empleado</a>
+<h1 class="pb-1 display-4">Empleados</h1>
+<p>
+    <a href="{{ route('employees.create') }}" class="btn btn-outline-primary">Nuevo Empleado</a>
+</p>
 @endsection
 
 @section('content')
@@ -32,7 +33,7 @@
             <td>{{ str_limit($employee->profile->position->name, 25) }}</td>
             <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('employees.show', $employee) }}">
-                    Ver detalle
+                    Detalle
                 </a>
             </td>
             <td width="10px">
