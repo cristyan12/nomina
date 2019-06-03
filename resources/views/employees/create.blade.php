@@ -1,12 +1,10 @@
 @extends('layouts.master')
 
-@section('title', 'Crear Empleado')
-
 @section('content')
 
 <div class="col-xs-9">
     <div class="card mb-3">
-        <div class="card-header"><strong>Empleados</strong></div>
+        <div class="card-header"><strong>Registrar Empleado</strong></div>
         <div class="card-body">
             {{ Form::open(['route' => 'employees.store']) }}
 

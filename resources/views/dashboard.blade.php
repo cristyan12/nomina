@@ -113,6 +113,24 @@
 					</div>
 				</div>
 			@endcan
+
+			@can('users.index')
+				<div class="card mb-3" >
+					<div class="card-header">
+						<strong>Usuarios</strong>
+					</div>
+					<div class="card-body">
+						<p class="card-text">
+							Usuarios
+						</p>
+					</div>
+					<div class="card-footer">
+						<a href="{{ route('users.index') }}" class="btn btn-outline-dark stretched-link">
+							Ver lista
+						</a>
+					</div>
+				</div>
+			@endcan
 		</div>		
 	</div>
 </div>

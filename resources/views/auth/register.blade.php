@@ -1,13 +1,11 @@
 @extends('layouts.master')
 
-@section('title', 'Registro')
-
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header"><strong>Registrar</strong></div>
+                <div class="card-header"><strong>Registro</strong></div>
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">

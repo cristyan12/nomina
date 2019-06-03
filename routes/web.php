@@ -11,13 +11,13 @@ Route::middleware(['auth'])->group(function() {
 	Route::get('users', 'UserController@index')->name('users.index')
 		->middleware('permission:users.index');
 
-	Route::get('users/{user}', 'UserController@show')->name('users.show')
-		->middleware('permission:users.show');
-
 	Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit')
 		->middleware('permission:users.edit');
 
-	Route::put('users/{user}', 'UserController@update')->name('users.edit')
+	Route::get('users/{user}', 'UserController@show')->name('users.show')
+		->middleware('permission:users.show');
+
+	Route::put('users/{user}', 'UserController@update')->name('users.update')
 		->middleware('permission:users.edit');
 
 	Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy')

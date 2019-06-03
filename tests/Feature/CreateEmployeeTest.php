@@ -51,7 +51,7 @@ class CreateEmployeeTest extends TestCase
         $response = $this->get(route('employees.create'))
             ->assertStatus(200)
             ->assertViewIs('employees.create')
-            ->assertSee('Crear Empleado');
+            ->assertSee('Registrar Empleado');
     }
 
     /** @test */

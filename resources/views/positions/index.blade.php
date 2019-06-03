@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-<h1 class="pb-1">Tabulador de cargos CCP 2017-2019</h1>
+<h1 class="pb-1">Tabulador CCP</h1>
 
 @can('positions.create')
     <p>
