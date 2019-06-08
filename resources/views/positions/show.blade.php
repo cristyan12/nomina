@@ -1,61 +1,55 @@
 @extends('layouts.master')
 
-@section('title', 'Detalle del cargo')
-
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header lead">Cargo #{{ $position->id }}</div>
-                <div class="card-body">
-                    <fieldset disabled>
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right">
-                                <strong>Código SISDEM:</strong>
-                            </label>
-                            <div class="col-md-6">
-                                <p class="form-control-plaintext">{{ $position->code }}</p>
-                            </div>
-                        </div>
 
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right">
-                                <strong>Nombre del Cargo:</strong>
-                            </label>
-                            <div class="col-md-6">
-                                <p class="form-control-plaintext">{{ $position->name }}</p>
-                            </div>
-                        </div>
+@component('layouts.components._show')
+    @slot('cardHeader')
+        Detalle del cargo #{{ $position->id }}
+    @endslot
 
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right">
-                                <strong>Salario Básico:</strong>
-                            </label>
-                            <div class="col-md-6">
-                                <p class="form-control-plaintext">{{ $position->format_salary }}</p>
-                            </div>
-                        </div>
+    @slot('image')
+        <img src="{{ asset('img/no-image.png') }}" class="card-img">
+    @endslot
 
-                        <div class="form-group row">
-                            <label class="col-md-4 col-form-label text-md-right">
-                                <strong>Última actualización:</strong>
-                            </label>
-                            <div class="col-md-6">
-                                <p class="form-control-plaintext">{{ $position->updated_at->format('d-m-Y') }}</p>
-                            </div>
-                        </div>
-                    </fieldset>
+    @slot('cardTitle')
+        <span class="lead">Cargo: </span><span class="lead"><strong>{{ $position->name }}</strong></span>
+    @endslot
+
+    @slot('fields')
+        <ul class="list-group list-group-flush mt-3">
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Código SISDEM:</span>
+                    <span class="lead"><strong>{{ $position->code }}</strong></span>
                 </div>
-                <div class="card-footer">
-                    <div class="btn-group float-right">
-                        <a href="{{ route('positions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
-
-                        <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-outline-warning btn-sm">Editar</a>
-                    </div>
+            </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Nombre del cargo:</span>
+                    <span class="lead"><strong>{{ $position->name }}</strong></span>
                 </div>
-            </div>
+            </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Salario Básico:</span>
+                    <span class="lead"><strong>{{ $position->format_salary }}</strong></span>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Ultima modificación:</span>
+                    <span class="lead"><strong>{{ $position->updated_at->diffForHumans() }}</strong></span>
+                </div>
+            </li>
+        </ul>
+    @endslot
+
+    <div class="card-footer">
+        <div class="btn-group float-right">
+            <a href="{{ route('positions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+
+            <a href="{{ route('positions.edit', $position->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
         </div>
     </div>
-</div>
+@endcomponent
 @endsection
