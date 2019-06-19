@@ -36,7 +36,8 @@ class DepartmentTest extends TestCase
     {
         $departments = factory(Department::class, 10)->create();
 
-        $response = $this->get(route('departments.index'))
+        $response = $this->actingAs($this->someUser())
+            ->get(route('departments.index'))
             ->assertStatus(200);
 
         foreach ($departments as $department) {
@@ -47,7 +48,8 @@ class DepartmentTest extends TestCase
     /** @test */
     function it_show_a_message_when_no_records_yet()
     {
-        $response = $this->get(route('departments.index'))
+        $response = $this->actingAs($this->someUser())
+            ->get(route('departments.index'))
             ->assertStatus(200)
             ->assertSee('No hay Departamentos registrados aún.');
     }

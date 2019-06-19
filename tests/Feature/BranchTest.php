@@ -16,9 +16,7 @@ class BranchTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = factory('App\User')->create();
-        
-        $this->userSignIn($user);
+        $this->be($this->someUser());
 
         $response = $this->get(route('branches.create'))
             ->assertStatus(200)
@@ -30,8 +28,7 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_create_a_new_branch_office()
     {
-        $response = $this->actingAs($this->someUser())
-            ->post(route('branches.store'), [
+        $response = $this->post(route('branches.store'), [
                 'name' => 'Sucursal 1'
             ])->assertRedirect(route('branches.index'));
 
@@ -64,8 +61,7 @@ class BranchTest extends TestCase
     /** @test */
     function a_name_field_is_required_when_create_a_new_branch_office()
     {
-        $response = $this->actingAs($this->someUser())
-            ->from(route('branches.index'))
+        $response = $this->from(route('branches.index'))
             ->post(route('branches.store'), [
                 'name' => ''
             ])
@@ -84,8 +80,7 @@ class BranchTest extends TestCase
             'name' => 'PRINCIPAL',
         ]);
 
-        $this->actingAs($this->someUser())
-            ->get(route('branches.show', $branch->id))
+        $this->get(route('branches.show', $branch->id))
             ->assertStatus(200)
             ->assertViewIs('branches.show')
             ->assertViewHas('branch')
@@ -102,8 +97,7 @@ class BranchTest extends TestCase
             'name' => 'Agencia Guanare II (107)'
         ]);
 
-        $this->actingAs($this->someUser())
-            ->get(route('branches.edit', $branch->id))
+        $this->get(route('branches.edit', $branch->id))
             ->assertStatus(200)
             ->assertViewIs('branches.edit')
             ->assertViewHas('branch')
@@ -115,8 +109,7 @@ class BranchTest extends TestCase
     {
         $branch = $this->create(Branch::class);
 
-        $response = $this->actingAs($this->someUser())
-            ->put(route('branches.update', $branch->id), [
+        $response = $this->put(route('branches.update', $branch->id), [
                 'name' => 'Agencia Guanare II (107)',
             ])
             ->assertRedirect(route('branches.show', $branch));
@@ -130,8 +123,7 @@ class BranchTest extends TestCase
     {
         $branch = $this->create(Branch::class);
 
-        $response = $this->actingAs($this->someUser())
-            ->from(route('branches.edit', $branch))
+        $response = $this->from(route('branches.edit', $branch))
             ->put(route('branches.update', $branch), [
                 'name' => ''
             ])
@@ -152,8 +144,7 @@ class BranchTest extends TestCase
 
         $branch = $this->create(Branch::class, ['name' => 'OTRO NOMBRE']);
 
-        $response = $this->actingAs($this->someUser())
-            ->from(route('branches.edit', $branch))
+        $response = $this->from(route('branches.edit', $branch))
             ->put(route('branches.update', $branch), [
                 'name' => 'NOMBRE ORIGINAL'
             ])

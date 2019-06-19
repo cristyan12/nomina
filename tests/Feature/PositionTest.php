@@ -25,7 +25,8 @@ class PositionTest extends TestCase
     {
         $positions = factory(Position::class, 10)->create();
 
-        $response = $this->get(route('positions.index'))
+        $response = $this->actingAs($this->someUser())
+            ->get(route('positions.index'))
             ->assertStatus(200);
 
         foreach ($positions as $position) {

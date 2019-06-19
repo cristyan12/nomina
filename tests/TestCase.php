@@ -17,9 +17,4 @@ abstract class TestCase extends BaseTestCase
     {
         return factory(\App\User::class)->create($attributes);
     }
-
-    public function userSignIn($user)
-    {
-        \Auth::loginUsingId($user->id);
-    }
 }

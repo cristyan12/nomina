@@ -77,7 +77,8 @@ class UnitModuleTest extends TestCase
     /** @test */
     function it_show_a_message_when_no_records_yet()
     {
-        $response = $this->get(route('units.index'))
+        $response = $this->actingAs($this->someUser())
+            ->get(route('units.index'))
             ->assertStatus(200)
             ->assertSee('No hay Unidades de producción registradas aún.');
     }
