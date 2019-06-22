@@ -13,7 +13,7 @@
     <table class="table table-borderless table-striped table-hover">
         <tr>
             <thead class="bg-dark text-white">
-                <th><div class="lead">ID</div></th>
+                <th scope="col"><div class="lead">#</div></th>
                 <th><div class="lead">Profesión</div></th>
                 <th><div class="lead">Actualización</div></th>
                 <th colspan="2">

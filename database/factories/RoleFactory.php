@@ -8,6 +8,7 @@ $factory->define(Role::class, function (Faker $faker) {
         'name' => $faker->name,
         'slug' => $faker->unique()->slug,
         'description' => $faker->sentence,
+        'special' => $faker->randomElement(['all-access', 'no-access']),
     ];
 });
 

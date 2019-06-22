@@ -1,7 +1,5 @@
 @extends('layouts.master')
 
-@section('title', 'Sucursales')
-
 @section('content')
 
 <div class="col-md-9">

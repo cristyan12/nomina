@@ -10,7 +10,7 @@ class ProfessionController extends Controller
 {
     public function index()
     {
-        $professions = Profession::orderBy('id')->paginate(10);
+        $professions = Profession::orderBy('id', 'desc')->paginate(10);
 
         return view('professions.index', compact('professions'));
     }

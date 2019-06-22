@@ -13,6 +13,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Correo</th>
+                <th scope="col">Modificado</th>
                 <th colspan="3">Acciones</th>
             </tr>
             </thead>
@@ -22,14 +23,15 @@
                 <th scope="row">{{ $user->id }}</th>
                 <td>{{ $user->name }}</td>
                 <td>{{ $user->email }}</td>
+                <td>{{ $user->updated_at->diffForHumans() }}</td>
                 <td width="10px">
                     @can('users.show')
-                        <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-primary">Detalle</a>
+                        <a href="{{ route('users.show', $user) }}" class="btn btn-sm btn-outline-primary">Detalle</a>
                     @endcan
                 </td>
                 <td width="10px">
                     @can('users.edit')
-                        <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{{ route('users.edit', $user) }}" class="btn btn-sm btn-outline-warning">Editar</a>
                     @endcan
                 </td>
                 <td width="10px">

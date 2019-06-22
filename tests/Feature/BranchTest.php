@@ -11,18 +11,20 @@ class BranchTest extends TestCase
 {
     use RefreshDatabase;
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->be($this->someUser());
+    }
+
     /** @test */
     function a_user_can_load_the_new_branch_office()
     {
-        $this->withoutExceptionHandling();
-
-        $this->be($this->someUser());
-
         $response = $this->get(route('branches.create'))
             ->assertStatus(200)
             ->assertViewIs('branches.create')
-            ->assertSee('Sucursales')
-            ->assertSee('Crear Sucursal');
+            ->assertSee('Sucursales');
     }
 
     /** @test */
@@ -38,8 +40,6 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_can_show_a_list_of_branch_offices()
     {
-        $this->withoutExceptionHandling();
-
         $branches = factory(Branch::class, 10)->create();
 
         $response = $this->get(route('branches.index'))
@@ -74,8 +74,6 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_load_the_page_of_details_of_branch()
     {
-        $this->withoutExceptionHandling();
-
         $branch = $this->create(Branch::class, [
             'name' => 'PRINCIPAL',
         ]);
@@ -91,8 +89,6 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_load_the_form_to_update_branch()
     {
-        $this->withoutExceptionHandling();
-
         $branch = $this->create(Branch::class, [
             'name' => 'Agencia Guanare II (107)'
         ]);
@@ -138,8 +134,6 @@ class BranchTest extends TestCase
     /** @test */
     function the_name_field_must_be_unique_when_updating()
     {
-        //$this->withoutExceptionHandling();
-
         $this->create(Branch::class, ['name' => 'NOMBRE ORIGINAL']);
 
         $branch = $this->create(Branch::class, ['name' => 'OTRO NOMBRE']);

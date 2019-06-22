@@ -50,9 +50,18 @@ class UserController extends Controller
      */
     public function update(UpdateUserRequest $request, User $user)
     {
-        $user->update($request->validate());
+        $user->fill([
+            'name' => $request->name,
+            'email' => $request->email,
+        ]);
 
-        return redirect()->route('users.edit', $user)
+        if ($request->password != null) {
+            $user->password = bcrypt($request->password);
+        }
+
+        $user->save();
+
+        return redirect()->route('users.show', $user)
             ->with('info', 'Actualizado correctamente');
     }
 

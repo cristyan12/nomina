@@ -18,7 +18,7 @@ class UpdateEmployeeTest extends TestCase
 
         // $this->withoutMiddleware();
 
-        $this->actingAs($this->someuser());
+        $this->actingAs($this->someUser());
 
         $this->attributes = [
             'code' => '14996210',
