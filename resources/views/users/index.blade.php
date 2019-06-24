@@ -2,6 +2,11 @@
 
 @section('title')
 <h1 class="pb-1 display-4">Usuarios</h1>
+@can('users.create')
+<p>
+    <a href="{{ route('users.create') }}" class="btn btn-outline-primary">Nuevo Usuario</a>
+</p>
+@endcan
 @endsection
 
 @section('content')

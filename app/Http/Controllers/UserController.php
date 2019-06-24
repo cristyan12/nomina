@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\SaveUserRequest;
 
 class UserController extends Controller
 {
@@ -17,6 +17,19 @@ class UserController extends Controller
         $users = User::paginate(10);
 
         return view('users.index', compact('users'));
+    }
+
+    public function create()
+    {
+        return view('users.create');
+    }
+
+    public function store(SaveUserRequest $request)
+    {
+        User::create($request->validated());
+
+        return redirect()->route('users.index')
+            ->with('info', 'Creado correctamente');
     }
 
     /**
@@ -44,11 +57,11 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateUserRequest  $request
+     * @param  \App\Http\Requests\SaveUserRequest  $request
      * @param  \App\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateUserRequest $request, User $user)
+    public function update(SaveUserRequest $request, User $user)
     {
         $user->fill([
             'name' => $request->name,

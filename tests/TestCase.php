@@ -10,8 +10,8 @@ abstract class TestCase extends BaseTestCase
 
     public function admin()
     {
-		$user = factory(\App\User::class)->create();
-		$role = factory(\Caffeinated\Shinobi\Models\Role::class)->create([
+		$user = factory(\App\User::class)->make();
+		$role = factory(\Caffeinated\Shinobi\Models\Role::class)->make([
 			'name' => 'admin',
 			'special' => 'all-access',
 		]);

@@ -33,6 +33,27 @@ class UserControllerTest extends TestCase
     }
 
     /**
+     * @testdox Un administrador puede crear un usuario
+     * @test 
+     */
+    function a_admin_can_create_a_user()
+    {
+        $this->be($this->someUser());
+
+        $response = $this->post(route('users.store'), [
+                'name' => 'UN USUARIO',
+                'email' => 'UN_USUARIO@MAIL.COM',
+                'password' => '123456',
+            ])
+            ->assertRedirect(route('users.index'));
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'UN USUARIO',
+            'email' => 'UN_USUARIO@MAIL.COM',
+        ]);
+    }
+
+    /**
      * @testdox Un usuario administrador puede ver la lista de usuarios
      * @test 
      */
@@ -59,8 +80,6 @@ class UserControllerTest extends TestCase
      */
     function a_admin_can_edit_a_user()
     {
-        $this->withoutExceptionHandling();
-
         $user = $this->create(User::class);
 
         $this->be($this->someUser());

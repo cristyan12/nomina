@@ -22,8 +22,8 @@ class UsersTableSeeder extends Seeder
         $role = Role::create([
             'name' => 'Admin',
             'slug' => 'admin',
-            'description' => 'Usuario administador'
-            'special' => 'all-access'
+            'description' => 'Usuario administador',
+            'special' => 'all-access',
         ]);
 
         RoleUser::create([
