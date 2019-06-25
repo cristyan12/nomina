@@ -26,7 +26,13 @@ class UserController extends Controller
 
     public function store(SaveUserRequest $request)
     {
-        User::create($request->validated());
+        $data = $request->validated();
+
+        User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
 
         return redirect()->route('users.index')
             ->with('info', 'Creado correctamente');

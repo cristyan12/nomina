@@ -1,7 +1,5 @@
 @extends('layouts.master')
 
-@section('title', 'Detalle del empleado')
-
 @section('content')
 
 <div class="col-xs-9">

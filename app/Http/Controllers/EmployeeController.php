@@ -23,22 +23,14 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        $professions = Profession::orderBy('id')->pluck('title', 'id');
-
-        $branches = Branch::orderBy('id')->pluck('name', 'id');
-
-        $banks = Bank::orderBy('id')->pluck('name', 'id');
-
-        $departments = Department::orderBy('id')->pluck('name', 'id');
-
-        $units = Unit::orderBy('id')->pluck('name', 'id');
-        
-        $positions = Position::orderBy('id')->pluck('name', 'id');
-
-        return view('employees.create', compact(
-            'professions', 'branches', 'banks',
-            'departments', 'units', 'positions'
-        ));
+        return view('employees.create', [
+            'professions'   => Profession::orderBy('id')->pluck('title', 'id'),
+            'branches'      => Branch::orderBy('id')->pluck('name', 'id'),
+            'banks'         => Bank::orderBy('id')->pluck('name', 'id'),
+            'departments'   => Department::orderBy('id')->pluck('name', 'id'),
+            'units'         => Unit::orderBy('id')->pluck('name', 'id'),        
+            'positions'     => Position::orderBy('id')->pluck('name', 'id'),
+        ]);
     }
 
     public function show(Employee $employee)
