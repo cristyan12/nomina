@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Nomina;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,16 +28,40 @@ class CreateNominaTest extends TestCase
     	$response = $this->post(route('nomina.store'), [
     		'name' => 'Nomina Semanal',
     		'type' => 'Semanal',
-    		'periods' => '52',
-    		'first_period_at' => '2019-01-01',
     	])
     	->assertRedirect(route('nomina.index'));
 
     	$this->assertDatabaseHas('nominas', [
     		'name' => 'Nomina Semanal',
     		'type' => 'Semanal',
-    		'periods' => '52',
-    		'first_period_at' => '2019-01-01',
     	]);
+    }
+
+    /** @test */
+    function field_name_must_require()
+    {
+        $response = $this->from('nominas/create')
+            ->post(route('nomina.store'), [
+                'name' => '',
+                'type' => 'Semanal',
+            ])
+            ->assertRedirect(route('nomina.create'))
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(0, Nomina::count());
+    }
+
+    /** @test */
+    function field_type_must_require()
+    {
+        $response = $this->from('nominas/create')
+            ->post(route('nomina.store'), [
+                'name' => 'Nomina X',
+                'type' => '',
+            ])
+            ->assertRedirect(route('nomina.create'))
+            ->assertSessionHasErrors(['type']);
+
+        $this->assertEquals(0, Nomina::count());
     }
 }

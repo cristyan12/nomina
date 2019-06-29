@@ -7,8 +7,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::view('/', 'dashboard')->name('dashboard');
 
 // Nominas
-Route::get('nomina/create', 'CreateNominaController@create')->name('nomina.create');
-Route::post('nomina/store', 'CreateNominaController@store')->name('nomina.store');
+Route::get('nominas/create', 'CreateNominaController@create')->name('nomina.create');
+Route::post('nominas/store', 'CreateNominaController@store')->name('nomina.store');
 Route::get('nominas', 'ListNominaController')->name('nomina.index');
 
 
