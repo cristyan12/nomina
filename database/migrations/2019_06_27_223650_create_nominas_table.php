@@ -18,6 +18,8 @@ class CreateNominasTable extends Migration
 
             $table->string('name')->unique();
             $table->enum('type', ['Semanal', 'Quincenal', 'Mensual', 'Otros']);
+            $table->integer('periods')->nullable();
+            $table->date('first_period')->nullable();
 
             $table->timestamps();
         });

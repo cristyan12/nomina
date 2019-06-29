@@ -9,21 +9,24 @@ class CreateNominaController extends Controller
 {
     public function create()
     {
-    	return view('nomina.create');
+        return view('nomina.create');
     }
 
     public function store(Request $request)
     {
-    	$data = $this->validate($request, [
-    		'name' => 'required',
-    		'type' => 'required',
-    	], [
-    		'name.required' => 'El Nombre de la nómina es obligatorio',
-    		'type.required' => 'El Tipo de la nómina es obligatorio',
-    	]);
+        $data = $this->validate($request, [
+            'name' => 'required|unique:nominas',
+            'type' => 'required',
+            'periods' => '',
+            'first_period' => '',
+        ], [
+            'name.required' => 'El Nombre de la nómina es obligatorio',
+            'name.unique' => 'El Nombre ya está en uso, por favor use otro',
+            'type.required' => 'El Tipo de la nómina es obligatorio',
+        ]);
 
-    	Nomina::create($data);
+        Nomina::create($data);
 
-    	return redirect()->route('nomina.index');
+        return redirect()->route('nomina.index');
     }
 }

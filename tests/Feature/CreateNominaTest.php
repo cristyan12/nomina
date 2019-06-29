@@ -6,10 +6,11 @@ use App\Nomina;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateNominaTest extends TestCase
 {
-	use RefreshDatabase;
+	use DatabaseTransactions;
 
 	/** @test */
     function it_load_the_page_of_create_nomina()
@@ -17,7 +18,7 @@ class CreateNominaTest extends TestCase
     	$response = $this->get(route('nomina.create'))
     		->assertOk()
     		->assertViewIs('nomina.create')
-    		->assertSee('Crear nomina');
+    		->assertSee('Crear nómina');
     }
 
     /** @test */
@@ -28,12 +29,16 @@ class CreateNominaTest extends TestCase
     	$response = $this->post(route('nomina.store'), [
     		'name' => 'Nomina Semanal',
     		'type' => 'Semanal',
+            'periods' => '52',
+            'first_period' => '2019-01-01',
     	])
     	->assertRedirect(route('nomina.index'));
 
     	$this->assertDatabaseHas('nominas', [
     		'name' => 'Nomina Semanal',
     		'type' => 'Semanal',
+            'periods' => '52',
+            'first_period' => '2019-01-01',
     	]);
     }
 
@@ -49,6 +54,24 @@ class CreateNominaTest extends TestCase
             ->assertSessionHasErrors(['name']);
 
         $this->assertEquals(0, Nomina::count());
+    }
+
+    /** @test */
+    function field_name_must_be_unique()
+    {
+        $nomina = $this->create('App\Nomina', [
+            'name' => 'NOMINA 1',
+        ]);
+
+        $response = $this->from('nominas/create')
+            ->post(route('nomina.store'), [
+                'name' => 'NOMINA 1',
+                'type' => 'Semanal',
+            ])
+            ->assertRedirect(route('nomina.create'))
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(1, Nomina::count());
     }
 
     /** @test */
