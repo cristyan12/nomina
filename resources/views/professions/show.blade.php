@@ -29,9 +29,12 @@
 
     <div class="card-footer">
         <div class="btn-group float-right">
-            <a href="{{ route('professions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
-
-            <a href="{{ route('professions.edit', $profession->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+            @can('professions.index')
+                <a href="{{ route('professions.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+            @endcan
+            @can('professions.edit')
+                <a href="{{ route('professions.edit', $profession->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+            @endcan
         </div>
     </div>
 @endcomponent

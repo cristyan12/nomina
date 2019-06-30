@@ -38,16 +38,20 @@
                         <td>{{ $position->code }}</td>
                         <td>{{ $position->name }}</td>
                         <td>{{ $position->format_salary }}</td>
-                        <td width="">
+                        @can('positions.show')
+                        <td width="10px">
                             <a class="btn btn-outline-info btn-sm" href="{{ route('positions.show', $position) }}">
                                 Detalle
                             </a>
                         </td>
-                        <td width="">
+                        @endcan
+                        @can('positions.edit')
+                        <td width="10px">
                             <a href="{{ route('positions.edit', $position) }}" class="btn btn-outline-warning btn-sm">
                                 Editar
                             </a>
                         </td>
+                        @endcan
                     </tr>
                     @endforeach
                     </tbody>

@@ -42,9 +42,13 @@
 
     <div class="card-footer">
         <div class="btn-group float-right">
-            <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+            @can('roles.index')
+                <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+            @endcan
 
-            <a href="{{ route('roles.edit', $role) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+            @can('roles.edit')
+                <a href="{{ route('roles.edit', $role) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+            @endcan
         </div>
     </div>
 @endcomponent

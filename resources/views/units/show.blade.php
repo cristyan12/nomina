@@ -29,9 +29,13 @@
 
     <div class="card-footer">
         <div class="btn-group float-right">
-            <a href="{{ route('units.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+            @can('units.index')
+                <a href="{{ route('units.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+            @endcan
 
-            <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+            @can('units.edit')
+                <a href="{{ route('units.edit', $unit->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+            @endcan
         </div>
     </div>
 @endcomponent

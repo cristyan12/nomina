@@ -2,9 +2,11 @@
 
 @section('title')
 <h1 class="pb-1 display-4">Empleados</h1>
+@can('employees.create')
 <p>
     <a href="{{ route('employees.create') }}" class="btn btn-outline-primary">Nuevo Empleado</a>
 </p>
+@endcan
 @endsection
 
 @section('content')
@@ -31,21 +33,27 @@
             <td>{{ $employee->hired_at->format('d-m-Y') }}</td>
             <td>{{ str_limit($employee->profile->department->name, 25) }}</td>
             <td>{{ str_limit($employee->profile->position->name, 25) }}</td>
+            @can('employees.show')
             <td width="10px">
                 <a class="btn btn-outline-info btn-sm" href="{{ route('employees.show', $employee) }}">
                     Detalle
                 </a>
             </td>
+            @endcan
+            @can('employees.edit')
             <td width="10px">
                 <a href="{{ route('employees.edit', $employee) }}" class="btn btn-outline-warning btn-sm">
                     Editar
                 </a>
             </td>
+            @endcan
+            @can('employees.destroy')
             <td width="10px">
                 <a href="#" class="btn btn-outline-danger btn-sm">
                     Eliminar
                 </a>
             </td>
+            @endcan
         </tr>
     @endforeach
     </tbody>

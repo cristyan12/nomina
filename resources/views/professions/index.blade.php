@@ -3,7 +3,9 @@
 @section('title')
 <div class="display-4">Profesiones</div>
 
-<a href="{{ route('professions.create') }}" class="btn btn-outline-primary">Nueva Profesión</a>
+@can('professions.create')
+    <a href="{{ route('professions.create') }}" class="btn btn-outline-primary">Nueva Profesión</a>
+@endcan
 @endsection
 
 @section('content')
@@ -27,16 +29,20 @@
                 <td>{{ $profession->id }}</td>
                 <td>{{ $profession->title }}</td>
                 <td>{{ $profession->updated_at->diffForHumans() }}</td>
+                @can('professions.show')
                 <td width="10px">
                     <a class="btn btn-outline-info btn-sm" href="{{ route('professions.show', $profession) }}">
                         Detalle
                     </a>
                 </td>
+                @endcan
+                @can('professions.edit')
                 <td width="10px">
                     <a href="{{ route('professions.edit', $profession) }}" class="btn btn-outline-warning btn-sm">
                         Editar
                     </a>
                 </td>
+                @endcan
             </tr>
         @endforeach
         </tbody>

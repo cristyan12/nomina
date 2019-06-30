@@ -10,8 +10,8 @@
 @endif --}}
 
 @if (session('info'))
-    <div class="alert alert-success">
-        <ul>
+    <div class="alert alert-success" role="alert">
+        <ul class="list-unstyled">
             <li>{{ session('info') }}</li>
         </ul>
     </div>

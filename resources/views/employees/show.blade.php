@@ -130,9 +130,12 @@
         </div> {{-- .card-body --}}
         <div class="card-footer">
             <div class="btn-group float-right">
-                <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
-
-                <a href="{{ route('employees.edit', $employee) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                @can('employees.index')
+                    <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
+                @endcan
+                @can('employees.edit')
+                    <a href="{{ route('employees.edit', $employee) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
+                @endcan
             </div>
         </div>
     </div>

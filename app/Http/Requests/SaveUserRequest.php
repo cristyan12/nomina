@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class SaveUserRequest extends FormRequest
@@ -25,7 +26,10 @@ class SaveUserRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'email' => [
+                'required', 'string', 'email', 'max:255', 
+                Rule::unique('users')->ignore($this->user)
+            ],
             'password' => '',
         ];
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use Caffeinated\Shinobi\Models\Role;
 use App\Http\Requests\SaveUserRequest;
 
 class UserController extends Controller
@@ -21,7 +22,9 @@ class UserController extends Controller
 
     public function create()
     {
-        return view('users.create');
+        $user = new User;
+
+        return view('users.create', compact('user'));
     }
 
     public function store(SaveUserRequest $request)
@@ -57,7 +60,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('users.edit', compact('user'));
+        $roles = Role::get();
+
+        return view('users.edit', compact('user', 'roles'));
     }
 
     /**
@@ -79,6 +84,8 @@ class UserController extends Controller
         }
 
         $user->save();
+
+        $user->roles()->sync($request->get('roles'));
 
         return redirect()->route('users.show', $user)
             ->with('info', 'Actualizado correctamente');
