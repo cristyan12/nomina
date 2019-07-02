@@ -15,11 +15,11 @@
                         @include('roles.partials._form')
                     </form>
                 </div>
-                <div class="card-footer">
-                    <div class="btn-group float-right">
-                        <a href="{{ route('roles.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
-                    </div>
-                </div>
+                @can('roles.index')
+                    @component('layouts.components._card_footer')
+                        {{ route('roles.index') }}
+                    @endcomponent
+                @endcan
             </div>
         </div>
     </div>

@@ -1,146 +1,34 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="row justify-content-center">
-    <div class="col">
-        <div class="card-deck">
-            @can('positions.index')
-                <div class="card text-white bg-secondary mb-3" >
-                    <div class="card-header">
-                        <strong>Tabulador CCP 2017-2019</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Escala salarial de los diferentes cargos
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('positions.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-3">
+                <div class="card-header">
+                    <strong>Registro</strong>
                 </div>
-            @endcan
-
-            @can('professions.index')
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-header">
-                        <strong>Profesiones</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Las profesiones de los empleados
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('professions.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
+                <div class="card-body">
+                    <p class="card-text lead">
+                        Acceso a los módulos de registro.
+                    </p>
                 </div>
-            @endcan
-            
-            @can('branches.index')
-                <div class="card bg-warning mb-3">
-                    <div class="card-header">
-                        <strong>Sucursales</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Sucursales
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('branches.index') }}" class="btn btn-outline-dark stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
+                <div class="card-footer">
+                    <a href="{{ route('records') }}" class="btn btn-outline-dark stretched-link">
+                        Ir
+                    </a>
                 </div>
-            @endcan
+            </div>
         </div>
 
-        <div class="card-deck">
-            @can('departments.index')
-                <div class="card text-white bg-info mb-3" >
-                    <div class="card-header">
-                        <strong>Departamentos</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Departamentos
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('departments.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
-                </div>
-            @endcan
-
-            @can('units.index')
-                <div class="card text-white bg-danger mb-3">
-                    <div class="card-header">
-                        <strong>Unidades</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Unidades
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('units.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
-                </div>
-            @endcan
-            
-            @can('employees.index')
-                <div class="card text-white bg-dark mb-3" >
-                    <div class="card-header">
-                        <strong>Empleados</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Empleados
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('employees.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
-                </div>
-            @endcan
-        </div>
-
-        <div class="card-deck">
-            @can('users.index')
-                <div class="card text-white bg-success mb-3">
-                    <div class="card-header">
-                        <strong>Usuarios</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text">
-                            Usuarios
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('users.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
-                </div>
-            @endcan
-
+        <div class="col-md-4">
             @can('roles.index')
                 <div class="card bg-warning mb-3">
                     <div class="card-header">
                         <strong>Roles</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text lead">
                             Roles
                         </p>
                     </div>
@@ -151,7 +39,48 @@
                     </div>
                 </div>
             @endcan
-        </div>  
+        </div>
+
+        <div class="col-md-4">
+            @can('users.index')
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">
+                        <strong>Usuarios</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text lead">
+                            Usuarios
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('users.index') }}" class="btn btn-outline-light stretched-link">
+                            Ver lista
+                        </a>
+                    </div>
+                </div>
+            @endcan
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4">
+            @can('users.index')
+                <div class="card text-white bg-primary mb-3">
+                    <div class="card-header">
+                        <strong>Tipos de Nóminas</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text lead">
+                            Tipos de Nóminas
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('nomina.index') }}" class="btn btn-outline-light stretched-link">
+                            Ver lista
+                        </a>
+                    </div>
+                </div>
+            @endcan
+        </div>
     </div>
 </div>
 @endsection

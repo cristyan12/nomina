@@ -14,11 +14,11 @@
                         @include('nomina.partials._form')
                     </form>
                 </div>
-                <div class="card-footer">
-                    <div class="btn-group float-right">
-                        <a href="{{ route('nomina.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
-                    </div>
-                </div>
+                @can('nomina.index')
+                    @component('layouts.components._card_footer')
+                        {{ route('nomina.index') }}
+                    @endcomponent
+                @endcan
             </div>
         </div>
     </div>

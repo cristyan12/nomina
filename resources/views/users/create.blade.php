@@ -69,11 +69,11 @@
                         </div>
                     </form>
                 </div>
-                <div class="card-footer">
-                    <div class="btn-group float-right">
-                        <a href="{{ route('users.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
-                    </div>
-                </div>
+                @can('users.index')
+                    @component('layouts.components._card_footer')
+                        {{ route('users.index') }}
+                    @endcomponent
+                @endcan
             </div>
         </div>
     </div>

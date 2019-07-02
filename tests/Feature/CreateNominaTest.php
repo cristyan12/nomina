@@ -12,6 +12,13 @@ class CreateNominaTest extends TestCase
 {
 	use DatabaseTransactions;
 
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->be($this->someUser());
+    }
+
 	/** @test */
     function it_load_the_page_of_create_nomina()
     {
@@ -24,8 +31,6 @@ class CreateNominaTest extends TestCase
     /** @test */
     function a_user_can_create_a_nomina()
     {
-    	$this->be($this->someUser());
-
     	$response = $this->post(route('nomina.store'), [
     		'name' => 'Nomina Semanal',
     		'type' => 'Semanal',
@@ -87,4 +92,39 @@ class CreateNominaTest extends TestCase
 
         $this->assertEquals(0, Nomina::count());
     }
+
+    /** @test */
+    function a_user_can_loads_the_edit_page()
+    {
+        $nomina = $this->create('App\Nomina');
+
+        $response = $this->get(route('nomina.edit', $nomina->id))
+            ->assertOk()
+            ->assertViewis('nomina.edit')
+            ->assertSee('Editar nómina')
+            ->assertViewHas('nomina', function ($viewNomina) use ($nomina) {
+                return $viewNomina->id === $nomina->id;
+            });
+    }
+
+    /** @test */
+    function a_user_can_update_a_nomina()
+    {
+        $nomina = $this->create('App\Nomina');
+
+        $response = $this->put(route('nomina.update', $nomina->id), [
+            'name' => 'Quincenal',
+            'type' => 'Quincenal',
+            'periods' => '24',
+            'first_period' => '2020-01-01',
+        ])
+        ->assertRedirect(route('nomina.index'));
+
+        $this->assertDatabaseHas('nominas', [
+            'name' => 'Quincenal',
+            'type' => 'Quincenal',
+        ]);
+    }
+
+    // TODO: Refactorizar el código de la actualización
 }

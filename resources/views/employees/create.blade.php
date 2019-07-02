@@ -17,11 +17,11 @@
                 Los campos marcados con (*) son obligatorios.
             </blockquote>
             
-            <div class="btn-group float-right">
-                <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary btn-sm">
-                    Ir al listado
-                </a>
-            </div>
+            @can('employees.index')
+                @component('layouts.components._card_footer')
+                    {{ route('employees.index') }}
+                @endcomponent
+            @endcan
         </div>
     </div>
 </div>

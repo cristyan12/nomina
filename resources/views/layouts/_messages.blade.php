@@ -11,8 +11,6 @@
 
 @if (session('info'))
     <div class="alert alert-success" role="alert">
-        <ul class="list-unstyled">
-            <li>{{ session('info') }}</li>
-        </ul>
+         {{ session('info') }}
     </div>
 @endif

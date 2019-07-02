@@ -19,8 +19,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Nº de períodos</th>
-                <th scope="col">Primer período</th>
-                <th colspan="1">Acciones</th>
+                <th colspan="2">Acciones</th>
             </tr>
             </thead>
             <tbody>
@@ -30,7 +29,6 @@
                 <td>{{ $nomina->name }}</td>
                 <td>{{ $nomina->type }}</td>
                 <td>{{ $nomina->numbers_periods }} </td>
-                <td>{{ $nomina->first_date_periods }}</td>
                 <td width="10px">
                     {{-- @can('nominas.edit') --}}
                         <a href="#" class="btn btn-sm btn-outline-warning">Editar</a>

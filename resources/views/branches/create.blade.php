@@ -13,7 +13,11 @@
 
 		            {{ Form::close() }}
 		        </div>
-        		@include('branches.partials.card-footer')
+                @can('branches.index')
+                    @component('layouts.components._card_footer')
+                        {{ route('branches.index') }}
+                    @endcomponent
+                @endcan
     		</div>
 		</div>
 	</div>

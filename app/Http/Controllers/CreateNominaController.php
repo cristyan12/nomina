@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Nomina;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateNominaRequest;
 
 class CreateNominaController extends Controller
 {
@@ -12,21 +12,23 @@ class CreateNominaController extends Controller
         return view('nomina.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateNominaRequest $request)
     {
-        $data = $this->validate($request, [
-            'name' => 'required|unique:nominas',
-            'type' => 'required',
-            'periods' => '',
-            'first_period' => '',
-        ], [
-            'name.required' => 'El Nombre de la nómina es obligatorio',
-            'name.unique' => 'El Nombre ya está en uso, por favor use otro',
-            'type.required' => 'El Tipo de la nómina es obligatorio',
-        ]);
+        Nomina::create($request->validated());
 
-        Nomina::create($data);
+        return redirect()->route('nomina.index')
+            ->with('info', 'Nómina creada correctamente');
+    }
 
+    public function edit(Nomina $nomina)
+    {
+        return view('nomina.edit', compact('nomina'));
+    }
+
+    public function update(Nomina $nomina)
+    {
+        $nomina->update(request()->all());
+        
         return redirect()->route('nomina.index');
     }
 }

@@ -40,7 +40,7 @@ class RoleController extends Controller
     {
         return view('roles.edit', [
             'role' => $role,
-            'permissions' => Permission::get(),
+            'permissions' => Permission::orderBy('id')->get(),
         ]);
     }
 
