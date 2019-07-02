@@ -10,16 +10,21 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateNominaTest extends TestCase
 {
-	use DatabaseTransactions;
+	use RefreshDatabase;
 
     public function setUp()
     {
         parent::setUp();
 
         $this->be($this->someUser());
+
+        // $this->withoutExceptionHandling();
     }
 
-	/** @test */
+    /** 
+     *  @test 
+     *  @testdox Se puede cargar la página de creación de una nomina
+    */
     function it_load_the_page_of_create_nomina()
     {
     	$response = $this->get(route('nomina.create'))
@@ -28,7 +33,10 @@ class CreateNominaTest extends TestCase
     		->assertSee('Crear nómina');
     }
 
-    /** @test */
+    /** 
+     *  @test 
+     *  @testdox Un usuario puede crear una nomina
+    */
     function a_user_can_create_a_nomina()
     {
     	$response = $this->post(route('nomina.store'), [
@@ -47,7 +55,10 @@ class CreateNominaTest extends TestCase
     	]);
     }
 
-    /** @test */
+    /** 
+     *  @test 
+     *  @testdox El campo "nombre" es obligatorio
+    */
     function field_name_must_require()
     {
         $response = $this->from('nominas/create')
@@ -61,7 +72,10 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** @test */
+    /** 
+     *  @test 
+     *  @testdox El campo "nombre" debe ser único en la tabla de nominas
+    */
     function field_name_must_be_unique()
     {
         $nomina = $this->create('App\Nomina', [
@@ -79,7 +93,10 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(1, Nomina::count());
     }
 
-    /** @test */
+    /** 
+     *  @test 
+     *  @testdox El campo "tipo" es obligatorio
+    */
     function field_type_must_require()
     {
         $response = $this->from('nominas/create')
@@ -93,7 +110,10 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** @test */
+    /** 
+     *  @test 
+     *  @testdox Un usuario puede cargar la página de edición de nominas
+    */
     function a_user_can_loads_the_edit_page()
     {
         $nomina = $this->create('App\Nomina');
@@ -107,7 +127,10 @@ class CreateNominaTest extends TestCase
             });
     }
 
-    /** @test */
+    /** 
+     *  @test 
+     *  @testdox Un usuario puede actualizar un registro de nomina
+    */
     function a_user_can_update_a_nomina()
     {
         $nomina = $this->create('App\Nomina');
@@ -126,5 +149,43 @@ class CreateNominaTest extends TestCase
         ]);
     }
 
-    // TODO: Refactorizar el código de la actualización
+    /** 
+     *  @test 
+     *  @testdox El campo "nombre" es obligatorio cuando se actualiza
+    */
+    function field_name_must_require_when_updating()
+    {
+        $nomina = $this->create('App\Nomina');
+
+        $response = $this->from(route('nomina.edit', $nomina->id))
+            ->put(route('nomina.update', $nomina->id), [
+                'name' => '',
+                'type' => 'Semanal',
+            ])
+            ->assertRedirect(route('nomina.edit', $nomina->id))
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(1, Nomina::count());
+    }
+
+    /** 
+     *  @test 
+     *  @testdox El campo "nombre" debe ser único en la tabla de nominas cuando se actualiza
+    */
+    function field_name_must_be_unique_when_updating()
+    {
+        $this->create('App\Nomina', [
+            'name' => 'NOMBRE INICIAL'
+        ]);
+
+        $nomina = $this->create('App\Nomina');
+
+        $response = $this->from(route('nomina.edit', $nomina->id))
+            ->put(route('nomina.update', $nomina->id), [
+                'name' => 'NOMBRE INICIAL',
+                'type' => 'Semanal',
+            ])
+            ->assertRedirect(route('nomina.edit', $nomina->id))
+            ->assertSessionHasErrors(['name']);
+    }
 }

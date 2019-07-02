@@ -3,7 +3,7 @@
     <div class="col-md-10">
         <input type="text" name="name" id="name"
             class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" 
-            value="{{ old('name') }}"
+            value="{{ old('name', $nomina->name) }}"
         >
         @if($errors->has('name'))
             <span class="text-danger">
@@ -24,7 +24,7 @@
                     name="type"
                     id="type_{{ $type }}"
                     value="{{ $type }}"
-                     {{ old('type') == $type ? 'checked' : '' }}>
+                     {{ old('type', $nomina->type) == $type ? 'checked' : '' }}>
                 <label class="form-check-label" for="type_{{ $type }}">{{ $name }}</label>
             </div>
         @endforeach
@@ -41,12 +41,22 @@
 <div class="form-group row">
     <label for="periods" class="col-sm-2 col-form-label text-md-right">Períodos:</label>    
     <div class="col-md-2">
-        <input type="text" class="form-control" id="periods" name="periods" value="{{ old('periods') }}">
+        <input type="text" 
+            class="form-control" 
+            id="periods" 
+            name="periods" 
+            value="{{ old('periods', $nomina->periods) }}"ç
+        >
     </div>
 
     <label for="first_period" class="col-sm-3 col-form-label text-md-right">Fecha del primer período:</label>
     <div class="col-md-5">
-        <input type="date" class="form-control" id="first_period" name="first_period" value="{{ old('first_period') }}">
+        <input type="date" 
+            class="form-control" 
+            id="first_period" 
+            name="first_period" 
+            value="{{ old('first_period', $nomina->first_date_period) }}"
+        >
     </div>
 </div>
 <hr>

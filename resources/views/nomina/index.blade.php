@@ -18,7 +18,7 @@
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Tipo</th>
-                <th scope="col">Nº de períodos</th>
+                <th scope="col">Modificada</th>
                 <th colspan="2">Acciones</th>
             </tr>
             </thead>
@@ -28,21 +28,12 @@
                 <th scope="row">{{ $nomina->id }}</th>
                 <td>{{ $nomina->name }}</td>
                 <td>{{ $nomina->type }}</td>
-                <td>{{ $nomina->numbers_periods }} </td>
+                <td>{{ $nomina->updated_at->diffForHumans() }} </td>
                 <td width="10px">
                     {{-- @can('nominas.edit') --}}
-                        <a href="#" class="btn btn-sm btn-outline-warning">Editar</a>
+                        <a href="{{ route('nomina.edit', $nomina) }}" class="btn btn-sm btn-outline-warning">Editar</a>
                     {{-- @endcan --}}
                 </td>
-                {{-- <td width="10px">
-                    <form action="{{ route('nominas.destroy', $nomina) }}" method="POST">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
-                        @can('nominas.destroy')
-                            <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                        @endcan
-                    </form>
-                </td> --}}
             </tr>
             @endforeach
             </tbody>

@@ -4,22 +4,21 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::view('/archivos', 'registry')->name('records');
-
-Route::view('/', 'dashboard')->name('dashboard');
-
 // Nominas
+Route::get('nominas', 'ListNominaController')->name('nomina.index');
+
 Route::get('nominas/create', 'CreateNominaController@create')->name('nomina.create');
 Route::post('nominas/store', 'CreateNominaController@store')->name('nomina.store');
 
 Route::get('nominas/{nomina}/edit', 'CreateNominaController@edit')->name('nomina.edit');
 Route::put('nominas/{nomina}', 'CreateNominaController@update')->name('nomina.update');
 
-Route::get('nominas', 'ListNominaController')->name('nomina.index');
-
-
-
+// Permissions
 Route::middleware(['auth'])->group(function() {
+    
+    Route::view('/', 'dashboard')->name('dashboard');
+    Route::view('/archivos', 'registry')->name('records');
+    
     Route::get('users', 'UserController@index')
         ->name('users.index')
         ->middleware('permission:users.index');
