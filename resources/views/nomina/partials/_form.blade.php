@@ -45,7 +45,7 @@
             class="form-control" 
             id="periods" 
             name="periods" 
-            value="{{ old('periods', $nomina->periods) }}"ç
+            value="{{ old('periods', $nomina->periods) }}"
         >
     </div>
 

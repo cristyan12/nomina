@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CreateNominaTest extends TestCase
 {
-	use RefreshDatabase;
+	use DatabaseTransactions;
 
     public function setUp()
     {
@@ -175,10 +175,12 @@ class CreateNominaTest extends TestCase
     function field_name_must_be_unique_when_updating()
     {
         $this->create('App\Nomina', [
-            'name' => 'NOMBRE INICIAL'
+            'name' => 'NOMBRE INICIAL',
         ]);
 
-        $nomina = $this->create('App\Nomina');
+        $nomina = $this->create('App\Nomina', [
+            'name' => 'OTRO NOMBRE',
+        ]);
 
         $response = $this->from(route('nomina.edit', $nomina->id))
             ->put(route('nomina.update', $nomina->id), [
@@ -187,5 +189,27 @@ class CreateNominaTest extends TestCase
             ])
             ->assertRedirect(route('nomina.edit', $nomina->id))
             ->assertSessionHasErrors(['name']);
+
+        $nomina = Nomina::find($nomina->id);
+        $this->assertSame('OTRO NOMBRE', $nomina->name);
+    }
+
+    /** 
+     *  @test 
+     *  @testdox El campo "tipo" es obligatorio cuando se actualiza
+    */
+    function field_type_must_require_when_updating()
+    {
+        $nomina = $this->create('App\Nomina');
+
+        $response = $this->from(route('nomina.edit', $nomina->id))
+            ->put(route('nomina.update', $nomina->id), [
+                'name' => 'NOMINA',
+                'type' => '',
+            ])
+            ->assertRedirect(route('nomina.edit', $nomina->id))
+            ->assertSessionHasErrors(['type']);
+
+        $this->assertEquals(1, Nomina::count());
     }
 }

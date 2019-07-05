@@ -13,7 +13,19 @@ Route::post('nominas/store', 'CreateNominaController@store')->name('nomina.store
 Route::get('nominas/{nomina}/edit', 'CreateNominaController@edit')->name('nomina.edit');
 Route::put('nominas/{nomina}', 'CreateNominaController@update')->name('nomina.update');
 
+Route::get('nominas/{nomina}', 'ShowNominaController')->name('nomina.show');
+
 // Permissions
+Route::get('permissions', 'PermissionController@index')->name('permissions.index');
+Route::get('permissions/{permission}', 'PermissionController@show')->name('permissions.show');
+
+Route::get('permissions/create', 'PermissionController@create')->name('permissions.create');
+Route::post('permissions/store', 'PermissionController@store')->name('permissions.store');
+
+Route::get('permissions/{permission}/edit', 'PermissionController@edit')->name('permissions.edit');
+Route::put('permissions/{permission}', 'PermissionController@update')->name('permissions.update');
+
+// Rutas con permisos
 Route::middleware(['auth'])->group(function() {
     
     Route::view('/', 'dashboard')->name('dashboard');
@@ -58,19 +70,19 @@ Route::middleware(['auth'])->group(function() {
         ->name('roles.create')
         ->middleware('permission:roles.create');
     
-    Route::put('roles/{role}', 'RoleController@update')
+    Route::put('roles/{permission}', 'RoleController@update')
         ->name('roles.update')
         ->middleware('permission:roles.edit');
     
-    Route::get('roles/{role}', 'RoleController@show')
+    Route::get('roles/{permission}', 'RoleController@show')
         ->name('roles.show')
         ->middleware('permission:roles.show');
     
-    Route::delete('roles/{role}', 'RoleController@destroy')
+    Route::delete('roles/{permission}', 'RoleController@destroy')
         ->name('roles.destroy')
         ->middleware('permission:roles.destroy');
     
-    Route::get('roles/{role}/edit', 'RoleController@edit')
+    Route::get('roles/{permission}/edit', 'RoleController@edit')
         ->name('roles.edit')
         ->middleware('permission:roles.edit');
 
@@ -255,33 +267,33 @@ Route::middleware(['auth'])->group(function () {
      // ->middleware('permission:users.destroy');
 
     // Roles
-    Route::post('roles/store', 'RoleController@store')
-     ->name('roles.store');
-     // ->middleware('permission:roles.create');
+    Route::post('permissions/store', 'RoleController@store')
+     ->name('permissions.store');
+     // ->middleware('permission:permissions.create');
 
-    Route::get('roles', 'RoleController@index')
-     ->name('roles.index');
-     // ->middleware('permission:roles.index');
+    Route::get('permissions', 'RoleController@index')
+     ->name('permissions.index');
+     // ->middleware('permission:permissions.index');
     
-    Route::get('roles/create', 'RoleController@create')
-     ->name('roles.create');
-     // ->middleware('permission:roles.create');
+    Route::get('permissions/create', 'RoleController@create')
+     ->name('permissions.create');
+     // ->middleware('permission:permissions.create');
     
-    Route::put('roles/{role}', 'RoleController@update')
-     ->name('roles.edit');
-     // ->middleware('permission:roles.edit');
+    Route::put('permissions/{permission}', 'RoleController@update')
+     ->name('permissions.edit');
+     // ->middleware('permission:permissions.edit');
     
-    Route::get('roles/{role}', 'RoleController@show')
-     ->name('roles.show');
-     // ->middleware('permission:roles.show');
+    Route::get('permissions/{permission}', 'RoleController@show')
+     ->name('permissions.show');
+     // ->middleware('permission:permissions.show');
     
-    Route::delete('roles/{role}', 'RoleController@destroy')
-     ->name('roles.destroy');
-     // ->middleware('permission:roles.destroy');
+    Route::delete('permissions/{permission}', 'RoleController@destroy')
+     ->name('permissions.destroy');
+     // ->middleware('permission:permissions.destroy');
     
-    Route::get('roles/{role}/edit', 'RoleController@edit')
-     ->name('roles.edit');
-     // ->middleware('permission:roles.edit');
+    Route::get('permissions/{permission}/edit', 'RoleController@edit')
+     ->name('permissions.edit');
+     // ->middleware('permission:permissions.edit');
 
     // Positions (Cargos)
     Route::get('/positions', 'PositionController@index')

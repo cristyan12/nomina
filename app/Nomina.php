@@ -25,10 +25,10 @@ class Nomina extends Model
         return 'N/D';
     }
 
-    public function getFirstDatePeriodsAttribute()
+    public function getFirstDatePeriodAttribute()
     {
         if (! $this->first_period == '' ) {
-            return $this->first_period->format('d-m-Y');
+            return $this->first_period->toDateString();
         }
 
         return 'N/D';

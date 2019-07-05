@@ -31,6 +31,11 @@
                 <td>{{ $nomina->updated_at->diffForHumans() }} </td>
                 <td width="10px">
                     {{-- @can('nominas.edit') --}}
+                        <a href="{{ route('nomina.show', $nomina) }}" class="btn btn-sm btn-outline-info">Detalle</a>
+                    {{-- @endcan --}}
+                </td>
+                <td width="10px">
+                    {{-- @can('nominas.edit') --}}
                         <a href="{{ route('nomina.edit', $nomina) }}" class="btn btn-sm btn-outline-warning">Editar</a>
                     {{-- @endcan --}}
                 </td>
