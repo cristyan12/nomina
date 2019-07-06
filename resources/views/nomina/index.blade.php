@@ -2,11 +2,11 @@
 
 @section('title')
 <h1 class="pb-1 display-4">Nóminas</h1>
-{{-- @can('nominas.create') --}}
+@can('nominas.create')
 <p>
     <a href="{{ route('nomina.create') }}" class="btn btn-outline-primary">Crear nómina</a>
 </p>
-{{-- @endcan --}}
+@endcan
 @endsection
 
 @section('content')
@@ -30,14 +30,14 @@
                 <td>{{ $nomina->type }}</td>
                 <td>{{ $nomina->updated_at->diffForHumans() }} </td>
                 <td width="10px">
-                    {{-- @can('nominas.edit') --}}
+                    @can('nominas.show')
                         <a href="{{ route('nomina.show', $nomina) }}" class="btn btn-sm btn-outline-info">Detalle</a>
-                    {{-- @endcan --}}
+                    @endcan
                 </td>
                 <td width="10px">
-                    {{-- @can('nominas.edit') --}}
+                    @can('nominas.edit')
                         <a href="{{ route('nomina.edit', $nomina) }}" class="btn btn-sm btn-outline-warning">Editar</a>
-                    {{-- @endcan --}}
+                    @endcan
                 </td>
             </tr>
             @endforeach

@@ -2,11 +2,11 @@
 
 @section('title')
 <h1 class="pb-1 display-4">Permisos</h1>
-{{-- @can('permissions.create') --}}
+@can('permissions.create')
 <p>
     <a href="{{ route('permissions.create') }}" class="btn btn-outline-primary">Crear permiso</a>
 </p>
-{{-- @endcan --}}
+@endcan
 @endsection
 
 @section('content')
@@ -27,12 +27,16 @@
                 <th scope="row">{{ $permission->id }}</th>
                 <td>{{ $permission->name }}</td>
                 <td>{{ $permission->slug }}</td>
-                <td>{{ $permission->resume_description }}</td>
-                <td width="10px">
-                    {{-- @can('permissions.edit') --}}
+                @can('permissions.show')
+                    <td width="10px">
+                        <a href="{{ route('permissions.show', $permission) }}" class="btn btn-sm btn-outline-info">Detalle</a>
+                    </td>
+                @endcan
+                @can('permissions.edit')
+                    <td width="10px">
                         <a href="{{ route('permissions.edit', $permission) }}" class="btn btn-sm btn-outline-warning">Editar</a>
-                    {{-- @endcan --}}
-                </td>
+                    </td>
+                @endcan
             </tr>
             @endforeach
             </tbody>
@@ -41,6 +45,6 @@
 
     {{ $permissions->render() }}
     @else
-        <p>No hay nóminas registrados.</p>
+        <p>No hay permisos registrados.</p>
     @endif
 @endsection

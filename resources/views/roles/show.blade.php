@@ -19,22 +19,26 @@
         <ul class="list-group list-group-flush mt-3">
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
-                    <span class="lead">URL Amigable:</span><span class="lead"><strong>{{ $role->slug }}</strong></span>
+                    <span class="lead">URL Amigable:</span>
+                    <span class="lead"><strong>{{ $role->slug }}</strong></span>
                 </div>
             </li>
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
-                    <span class="lead">Descripción:</span><span class="lead"><strong>{{ $role->description }}</strong></span>
+                    <span class="lead">Descripción:</span>
+                    <span class="lead"><strong>{{ $role->description }}</strong></span>
                 </div>
             </li>
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
-                    <span class="lead">Permiso especial:</span><span class="lead"><strong>{{ $role->special }}</strong></span>
+                    <span class="lead">Permiso especial:</span>
+                    <span class="lead"><strong>{{ $role->special }}</strong></span>
                 </div>
             </li>
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
-                    <span class="lead">Actualización:</span><span class="lead"><strong>{{ $role->updated_at->diffForHumans() }}</strong></span>
+                    <span class="lead">Actualización:</span>
+                    <span class="lead"><strong>{{ $role->updated_at->diffForHumans() }}</strong></span>
                 </div>
             </li>
         </ul>

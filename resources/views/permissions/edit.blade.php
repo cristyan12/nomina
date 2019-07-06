@@ -7,18 +7,17 @@
             <div class="card">
                 <div class="card-header"><strong>Editar permiso #{{ $permission->id }}</strong></div>
                 <div class="card-body">
-                    <form action="{{ route('permissions.update', $permission->id) }}" method="POST">
-                        @csrf
-                        @method('PUT')
-                        
-                        @include('permission.partials._form')
-                    </form>
+                    {!! Form::model($permission, ['route' => ['permissions.update', $permission->id], 'method' => 'PUT']) !!}
+
+                        @include('permissions.partials._form')
+
+                    {!! Form::close() !!}
                 </div>
-                {{-- @can('users.index') --}}
+                @can('permissions.index')
                     @component('layouts.components._card_footer')
-                        {{ route('permission.index') }}
+                        {{ route('permissions.index') }}
                     @endcomponent
-                {{-- @endcan --}}
+                @endcan
             </div>
         </div>
     </div>
