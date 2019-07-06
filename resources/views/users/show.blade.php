@@ -28,7 +28,11 @@
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
                     <span class="lead">Rol Activo:</span>
-                    <span class="lead"><strong>{{ $role->name }}</strong></span>
+                    <span class="lead"><strong>
+                        <a href="{{ route('roles.show', $role) }}">
+                            {{ $role->name }}
+                        </a>
+                    </strong></span>
                 </div>
             </li>
             @endforeach
