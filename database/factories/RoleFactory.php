@@ -11,11 +11,3 @@ $factory->define(Role::class, function (Faker $faker) {
         'special' => $faker->randomElement(['all-access', 'no-access']),
     ];
 });
-
-// $factory->define(Role::class, function (Faker $faker) {
-//     return [
-//         'name' => 'admin',
-//         'slug' => 'all-access',
-//         'description' => $faker->sentence,
-//     ];
-// });

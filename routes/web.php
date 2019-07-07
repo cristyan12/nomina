@@ -4,36 +4,42 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+// Companies
+Route::get('companies', 'CompaniesController@index')->name('companies.index');
+Route::get('companies/create', 'CompaniesController@create')->name('companies.create');
+Route::post('companies/store', 'CompaniesController@store')->name('companies.store');
+
 // Rutas con permisos
 Route::middleware(['auth'])->group(function() {
     
     Route::view('/', 'dashboard')->name('dashboard');
     Route::view('/archivos', 'registry')->name('records');
+    Route::view('/security', 'security')->name('security');
 
     // Nominas
     Route::get('nominas', 'ListNominaController')
-        ->name('nomina.index')
-        ->middleware('permission:nomina.index');
+        ->name('nomina.index');
+        // ->middleware('permission:nomina.index');
 
     Route::get('nominas/create', 'CreateNominaController@create')
-        ->name('nomina.create')
-        ->middleware('permission:nomina.create');
+        ->name('nomina.create');
+        // ->middleware('permission:nomina.create');
 
     Route::post('nominas/store', 'CreateNominaController@store')
-        ->name('nomina.store')
-        ->middleware('permission:nomina.create');
+        ->name('nomina.store');
+        // ->middleware('permission:nomina.create');
 
     Route::get('nominas/{nomina}/edit', 'CreateNominaController@edit')
-        ->name('nomina.edit')
-        ->middleware('permission:nomina.edit');
+        ->name('nomina.edit');
+        // ->middleware('permission:nomina.edit');
 
     Route::put('nominas/{nomina}', 'CreateNominaController@update')
-        ->name('nomina.update')
-        ->middleware('permission:nomina.edit');
+        ->name('nomina.update');
+        // ->middleware('permission:nomina.edit');
 
     Route::get('nominas/{nomina}', 'ShowNominaController')
-        ->name('nomina.show')
-        ->middleware('permission:nomina.show');
+        ->name('nomina.show');
+        // ->middleware('permission:nomina.show');
 
     // Users
     Route::get('users', 'UserController@index')

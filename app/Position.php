@@ -20,7 +20,7 @@ class Position extends Model
         return $this->numericFormat($this->basic_salary);
     }
 
-    public function getNominaQuincenalAttribute()
+    public function getNominaQuincenalAttribute() // nomina_quincenal
     {
         return $this->numericFormat($this->basic_salary * 15);   
     }

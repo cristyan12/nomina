@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePositionsTable extends Migration
+class CreateCompaniesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,16 @@ class CreatePositionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('positions', function (Blueprint $table) {
+        Schema::create('companies', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->string('code', 10);
-            $table->string('name');
-            $table->float('basic_salary', 10, 2); // TODO: Cambiar basic_salary por salario base diario
-
+            $table->string('name')->unique();  
+            $table->string('rif')->unique();
+            $table->string('address')->nullable();
+            $table->string('phone_number');
+            $table->string('email');
+            $table->string('city');
+            
             $table->timestamps();
         });
     }
@@ -31,6 +34,6 @@ class CreatePositionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('positions');
+        Schema::dropIfExists('companies');
     }
 }
