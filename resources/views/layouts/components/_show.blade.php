@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">
+            <div class="card border-info">
+                <div class="card-header border-info">
                     <span class="lead font-weight-bold">{{ $cardHeader }}</span>
                 </div>
                 

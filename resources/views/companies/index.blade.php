@@ -33,7 +33,7 @@
                 <td>{{ $company->updated_at->diffForHumans() }}</td>
                 {{-- @can('companies.show') --}}
                 <td width="10px">
-                        <a href="#" class="btn btn-sm btn-outline-primary">Detalle</a>
+                    <a href="{{ route('companies.show', $company) }}" class="btn btn-sm btn-outline-primary">Detalle</a>
                 </td>
                 {{-- @endcan --}}
                 {{-- @can('companies.edit') --}}
