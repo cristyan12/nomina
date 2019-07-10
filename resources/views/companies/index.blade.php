@@ -38,17 +38,7 @@
                 {{-- @endcan --}}
                 {{-- @can('companies.edit') --}}
                 <td width="10px">
-                        <a href="#" class="btn btn-sm btn-outline-warning">Editar</a>
-                </td>
-                {{-- @endcan --}}
-                {{-- @can('companies.destroy') --}}
-                <td width="10px">
-                    <form action="#" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        
-                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
-                    </form>
+                    <a href="{{ route('companies.edit', $company) }}" class="btn btn-sm btn-outline-warning">Editar</a>
                 </td>
                 {{-- @endcan --}}
             </tr>

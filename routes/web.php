@@ -8,6 +8,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('companies', 'CompaniesController@index')->name('companies.index');
 Route::get('companies/create', 'CompaniesController@create')->name('companies.create');
 Route::post('companies/store', 'CompaniesController@store')->name('companies.store');
+Route::get('companies/{company}/edit', 'UpdateCompanyController@edit')->name('companies.edit');
+Route::put('companies/{company}', 'UpdateCompanyController@update')->name('companies.update');
 Route::get('companies/{company}', 'ShowCompanyController')->name('companies.show');
 
 // Rutas con permisos
