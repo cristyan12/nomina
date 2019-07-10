@@ -4,7 +4,7 @@
     <div class="col-md-6">
         <input id="name" type="text" name="name" 
             class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" 
-            value="{{ old('name', $company->name) }}" required
+            value="{{ old('name', $company->name) }}" 
         >
 
         @if ($errors->has('name'))
@@ -20,7 +20,7 @@
     <div class="col-md-6">
         <input id="rif" type="text" name="rif" 
             class="form-control{{ $errors->has('rif') ? ' is-invalid' : '' }}" 
-            value="{{ old('rif', $company->rif) }}" required
+            value="{{ old('rif', $company->rif) }}" 
         >
 
         @if ($errors->has('rif'))
@@ -34,7 +34,7 @@
     <label for="address" class="col-md-4 col-form-label text-md-right">Dirección:</label>
 
     <div class="col-md-6">
-        <textarea name="address" class="form-control" id="address" cols="30" rows="10">
+        <textarea name="address" class="form-control" id="address" cols="50" rows="3">
             {{ old('address', $company->address) }}
         </textarea>
 
