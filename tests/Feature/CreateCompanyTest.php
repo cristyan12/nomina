@@ -2,15 +2,15 @@
 
 namespace Tests\Feature;
 
+use App\Company;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\{
     DatabaseTransactions, RefreshDatabase
 };
 
 class CreateCompanyTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected $attributes = [];
 
@@ -27,12 +27,13 @@ class CreateCompanyTest extends TestCase
             'city' => 'Guanare',
         ];
 
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
+        // $this->handleValidationExceptions();
     }
 
     /** 
-     * @testdox Un usuario registrado puede cargar la página de crear nueva compañia
      * @test 
+     * @testdox Un usuario registrado puede cargar la página de crear nueva compañia
     */
     function a_user_can_load_the_page_of_create_a_company()
     {
@@ -43,25 +44,80 @@ class CreateCompanyTest extends TestCase
     }
 
     /** 
-     * @testdox Un usuario registrado puede crear una nueva compañia
      * @test 
+     * @testdox Un usuario registrado puede crear una nueva compañia
     */
     function a_user_can_create_a_company()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->post(route('companies.store', $this->attributes))
-        ->assertRedirect('companies');
+            ->assertRedirect('companies');
 
         $this->assertDatabaseHas('companies', $this->attributes);
     }
 
     /** 
-     * @testdox Muestra un mensaje "No hay registros aún" cuando no hay registros
      * @test 
+     * @testdox El campo "Nombre" es obligatorio
     */
-    function it_show_a_message_when_no_records_yet()
+    function the_field_name_is_required()
     {
-        $response = $this->get(route('companies.index'))
-            ->assertOk()
-            ->assertSee('No hay registros aún');
+        $replace = array_replace($this->attributes, ['name' => '']);
+
+        $this->from(route('companies.create'))
+            ->post(route('companies.store'), $replace)
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(0, Company::count());
+    }
+
+    /** 
+     * @test 
+     * @testdox El campo "Nombre" debe ser único
+    */
+    function the_field_name_must_be_unique()
+    {
+        $firstCompany = $this->create('App\Company', [
+            'name' => 'Acme, Ltd'
+        ]);
+
+        $this->from(route('companies.create'))
+            ->post(route('companies.store'), $this->attributes)
+            ->assertSessionHasErrors(['name']);
+
+        $this->assertEquals(1, Company::count());
+    }
+
+    /** 
+     * @test 
+     * @testdox El campo "RIF" es obligatorio
+    */
+    function the_field_rif_is_required()
+    {
+        $replace = array_replace($this->attributes, ['rif' => '']);
+
+        $this->from(route('companies.create'))
+            ->post(route('companies.store'), $replace)
+            ->assertSessionHasErrors(['rif']);
+
+        $this->assertEquals(0, Company::count());
+    }
+
+    /** 
+     * @test 
+     * @testdox El campo "Dirección" es opcional
+    */
+    function the_field_address_is_optional()
+    {
+        $replace = array_replace($this->attributes, ['address' => null]);
+
+        $response = $this->post(route('companies.store'), $replace)
+            ->assertRedirect('companies');
+
+        $this->assertDatabaseHas('companies', [
+            'address' => null,
+            'phone_number' => '0257-2513656',
+        ]);
     }
 }

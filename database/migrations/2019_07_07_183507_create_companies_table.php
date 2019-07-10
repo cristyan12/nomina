@@ -19,9 +19,9 @@ class CreateCompaniesTable extends Migration
             $table->string('name')->unique();  
             $table->string('rif')->unique();
             $table->string('address')->nullable();
-            $table->string('phone_number');
-            $table->string('email');
-            $table->string('city');
+            $table->string('phone_number')->nullable();
+            $table->string('email')->nullable();
+            $table->string('city')->nullable();
             
             $table->timestamps();
         });

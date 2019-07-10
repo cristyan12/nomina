@@ -51,7 +51,7 @@
     <div class="col-md-6">
         <input id="phone_number" type="text" name="phone_number" 
             class="form-control{{ $errors->has('phone_number') ? ' is-invalid' : '' }}" 
-            value="{{ old('phone_number', $company->phone_number) }}" required
+            value="{{ old('phone_number', $company->phone_number) }}"
         >
 
         @if ($errors->has('phone_number'))
@@ -67,7 +67,7 @@
     <div class="col-md-6">
         <input id="email" type="text" name="email" 
             class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" 
-            value="{{ old('email', $company->email) }}" required
+            value="{{ old('email', $company->email) }}"
         >
 
         @if ($errors->has('email'))
@@ -83,7 +83,7 @@
     <div class="col-md-6">
         <input id="city" type="text" name="city" 
             class="form-control{{ $errors->has('city') ? ' is-invalid' : '' }}" 
-            value="{{ old('city', $company->city) }}" required
+            value="{{ old('city', $company->city) }}"
         >
 
         @if ($errors->has('city'))
