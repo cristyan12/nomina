@@ -120,4 +120,52 @@ class CreateCompanyTest extends TestCase
             'phone_number' => '0257-2513656',
         ]);
     }
+
+    /** 
+     * @test 
+     * @testdox El campo "Teléfono" es opcional
+    */
+    function the_field_phone_number_is_optional()
+    {
+        $replace = array_replace($this->attributes, ['phone_number' => null]);
+
+        $response = $this->post(route('companies.store'), $replace)
+            ->assertRedirect('companies');
+
+        $this->assertDatabaseHas('companies', [
+            'phone_number' => null,
+        ]);
+    }
+
+    /** 
+     * @test 
+     * @testdox El campo "Correo" es opcional
+    */
+    function the_field_email_is_optional()
+    {
+        $replace = array_replace($this->attributes, ['email' => null]);
+
+        $response = $this->post(route('companies.store'), $replace)
+            ->assertRedirect('companies');
+
+        $this->assertDatabaseHas('companies', [
+            'email' => null,
+        ]);
+    }
+
+    /** 
+     * @test 
+     * @testdox El campo "Correo" es opcional
+    */
+    function the_field_city_is_optional()
+    {
+        $replace = array_replace($this->attributes, ['city' => null]);
+
+        $response = $this->post(route('companies.store'), $replace)
+            ->assertRedirect('companies');
+
+        $this->assertDatabaseHas('companies', [
+            'city' => null,
+        ]);
+    }
 }
