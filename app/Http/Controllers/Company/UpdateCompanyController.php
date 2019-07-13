@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Company;
 
 use App\{
     Company,
+    Http\Controllers\Controller,
     Http\Requests\UpdateCompanyRequest
 };
 

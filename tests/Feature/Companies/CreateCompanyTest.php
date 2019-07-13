@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class CreateCompanyTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected $attributes = [];
 
@@ -39,6 +39,8 @@ class CreateCompanyTest extends TestCase
     */
     function a_user_can_load_the_page_of_create_a_company()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get(route('companies.create'))
             ->assertOk()
             ->assertViewIs('companies.create')

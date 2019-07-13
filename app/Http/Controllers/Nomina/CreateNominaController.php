@@ -1,8 +1,9 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Nomina;
 
 use App\Nomina;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\{
     CreateNominaRequest, UpdateNominaRequest
 };
