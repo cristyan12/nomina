@@ -4,20 +4,20 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-// Companies
-Route::get('companies', 'CompaniesController@index')->name('companies.index');
-Route::get('companies/create', 'CompaniesController@create')->name('companies.create');
-Route::post('companies/store', 'CompaniesController@store')->name('companies.store');
-Route::get('companies/{company}/edit', 'UpdateCompanyController@edit')->name('companies.edit');
-Route::put('companies/{company}', 'UpdateCompanyController@update')->name('companies.update');
-Route::get('companies/{company}', 'ShowCompanyController')->name('companies.show');
-
 // Rutas con permisos
 Route::middleware(['auth'])->group(function() {
     
     Route::view('/', 'dashboard')->name('dashboard');
     Route::view('/archivos', 'registry')->name('records');
     Route::view('/security', 'security')->name('security');
+
+    // Companies
+    Route::get('companies', 'CompaniesController@index')->name('companies.index');
+    Route::get('companies/create', 'CompaniesController@create')->name('companies.create');
+    Route::post('companies/store', 'CompaniesController@store')->name('companies.store');
+    Route::get('companies/{company}/edit', 'UpdateCompanyController@edit')->name('companies.edit');
+    Route::put('companies/{company}', 'UpdateCompanyController@update')->name('companies.update');
+    Route::get('companies/{company}', 'ShowCompanyController')->name('companies.show');
 
     // Nominas
     Route::get('nominas', 'ListNominaController')

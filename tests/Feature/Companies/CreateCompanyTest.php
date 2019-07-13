@@ -18,6 +18,8 @@ class CreateCompanyTest extends TestCase
     {
         parent::setUp();
 
+        $this->be($this->someUser());
+
         $this->attributes = [
             'name' => 'Acme, Ltd',
             'rif' => 'J-20009148-7',

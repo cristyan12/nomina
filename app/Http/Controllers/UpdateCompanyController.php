@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
-use Illuminate\Http\Request;
+use App\{
+    Company,
+    Http\Requests\UpdateCompanyRequest
+};
 
 class UpdateCompanyController extends Controller
 {
@@ -12,9 +14,9 @@ class UpdateCompanyController extends Controller
         return view('companies.edit', compact('company'));
     }
 
-    public function update(Request $request, Company $company)
+    public function update(UpdateCompanyRequest $request, Company $company)
     {
-        $company->update($request->all());
+        $company->update($request->validated());
         
         return redirect()->route('companies.show', $company)
             ->with('info', 'Empresa actualizada con éxito');

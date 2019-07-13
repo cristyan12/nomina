@@ -11,6 +11,13 @@ class ShowCompaniesTest extends TestCase
 {
     use DatabaseTransactions;
 
+    public function setUp()
+    {
+        parent::setUp();
+        
+        $this->be($this->someUser());
+    }
+
     /** 
      * @test 
      * @testdox Un usuario puede ver el listado de compañias

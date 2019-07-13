@@ -62,7 +62,7 @@
                 <a href="{{ route('companies.index') }}" class="btn btn-outline-info btn-sm">Ir al listado</a>
             {{-- @endcan --}}
             {{-- @can('companys.edit') --}}
-                {{-- <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a> --}}
+                <a href="{{ route('companies.edit', $company->id) }}" class="btn btn-outline-info btn-sm">Editar</a>
             {{-- @endcan --}}
         </div>
     </div>
