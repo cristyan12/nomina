@@ -12,17 +12,11 @@
 
             {{ Form::close() }}
         </div>
-        <div class="card-footer">
-            <blockquote class="blockquote-footer mt-3 mb-0">
-                Los campos marcados con (*) son obligatorios.
-            </blockquote>
-            
-            @can('employees.index')
-                @component('layouts.components._card_footer')
-                    {{ route('employees.index') }}
-                @endcomponent
-            @endcan
-        </div>
+        @can('employees.index')
+            @component('layouts.components._card_footer')
+                {{ route('employees.index') }}
+            @endcomponent
+        @endcan
     </div>
 </div>
 @endsection
