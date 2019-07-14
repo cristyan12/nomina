@@ -49,14 +49,37 @@
         >
     </div>
 
-    <label for="first_period" class="col-sm-3 col-form-label text-md-right">Fecha del primer período:</label>
+    <label for="first_period_at" class="col-sm-3 col-form-label text-md-right">Fecha del primer período:</label>
     <div class="col-md-5">
         <input type="date" 
-            class="form-control" 
-            id="first_period" 
-            name="first_period" 
-            value="{{ old('first_period', $nomina->first_date_period) }}"
+            id="first_period_at" 
+            name="first_period_at" 
+            class="form-control{{ $errors->has('first_period_at') ? ' is-invalid' : '' }}" 
+            value="{{ old('first_period_at', $nomina->first_date_period) }}"
         >
+        @if($errors->has('first_period_at'))
+            <span class="text-danger">
+                <strong>{{ $errors->first('first_period_at') }}</strong>
+            </span>
+        @endif
+    </div>
+</div>
+<div class="form-group row">
+    <div class="col-md-4"></div>
+    
+    <label for="last_period_at" class="col-sm-3 col-form-label text-md-right">Fecha del último período:</label>
+    <div class="col-md-5">
+        <input type="date" 
+            id="last_period_at" 
+            name="last_period_at" 
+            class="form-control{{ $errors->has('last_period_at') ? ' is-invalid' : '' }}" 
+            value="{{ old('last_period_at', $nomina->last_period_at) }}"
+        >
+        @if($errors->has('last_period_at'))
+            <span class="text-danger">
+                <strong>{{ $errors->first('last_period_at') }}</strong>
+            </span>
+        @endif
     </div>
 </div>
 <hr>

@@ -9,6 +9,7 @@ $factory->define(App\Nomina::class, function (Faker $faker) {
             'Semanal', 'Quincenal', 'Mensual', 'Otros',
         ]),
         'periods' => $faker->randomNumber(2),
-        'first_period' => $faker->date(),
+        'first_period_at' => $faker->date(),
+        'last_period_at' => $faker->date(),
     ];
 });

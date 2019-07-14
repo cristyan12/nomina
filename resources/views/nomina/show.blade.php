@@ -35,6 +35,12 @@
                     <span class="lead"><strong>{{ $nomina->first_date_period }}</strong></span>
                 </div>
             </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Fecha de Últ. período:</span>
+                    <span class="lead"><strong>{{ $nomina->last_date_period }}</strong></span>
+                </div>
+            </li>
         </ul>
     @endslot
 
