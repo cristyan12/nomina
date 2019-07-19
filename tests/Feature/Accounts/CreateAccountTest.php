@@ -22,6 +22,7 @@ class CreateAccountTest extends TestCase
 
         $this->attributes = [
             'company_id' => $this->create('App\Company')->id,
+            'bank_id' => $this->create('App\Bank')->id,
             'number' => '12345678901234567891', // 20 digitos *SOLAMENTE*
             'type' => 'Corriente',
             'auth_sign_1' => $this->create('App\Employee')->id, 
@@ -30,6 +31,17 @@ class CreateAccountTest extends TestCase
 
         $this->withoutExceptionHandling();
         // $this->handleValidationExceptions();
+    }
+
+    /** 
+     * @test 
+     * @testdox Se muestra un mensaje en pantalla si no hay registros
+    */
+    function it_show_a_message_when_no_records()
+    {
+        $response = $this->get(route('accounts.index'))
+            ->assertStatus(200)
+            ->assertSee('No hay cuentas bancarias registradas aún.');
     }
 
     /** 
@@ -69,6 +81,7 @@ class CreateAccountTest extends TestCase
 
         $this->assertDatabaseHas('accounts', [
             'company_id' => $this->attributes['company_id'],
+            'bank_id' => $this->attributes['bank_id'],
             'number' => '12345678901234567891',
             'type' => 'Corriente',
             'auth_sign_1' => $this->attributes['auth_sign_1'],

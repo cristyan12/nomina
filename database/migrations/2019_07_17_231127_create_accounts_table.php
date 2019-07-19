@@ -21,6 +21,7 @@ class CreateAccountsTable extends Migration
             $table->unsignedInteger('auth_sign_1');
             $table->unsignedInteger('auth_sign_2');
             $table->unsignedInteger('company_id');
+            $table->unsignedInteger('bank_id');
 
             $table->timestamps();
         });

@@ -114,6 +114,24 @@
                 </div>
             @endcan
         </div>
+
+        <div class="card-deck">
+            <div class="card text-white bg-dark mb-3" >
+                <div class="card-header">
+                    <strong>Cuentas Bancarias</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        Cuentas Bancarias
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ route('accounts.index') }}" class="btn btn-outline-light stretched-link">
+                        Ver lista
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 @endsection

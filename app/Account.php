@@ -9,4 +9,14 @@ class Account extends Model
     protected $fillable = [
         'number', 'type', 'auth_sign_1', 'auth_sign_2', 'company_id',
     ];
+
+    public function bank()
+    {
+        return $this->belongsTo(Bank::class);
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(Company::class);
+    }
 }

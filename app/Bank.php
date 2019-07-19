@@ -12,4 +12,9 @@ class Bank extends Model
     {
     	return $this->hasMany(EmployeeProfile::class);
     }
+
+    public function accounts()
+    {
+        return $this->hasMany(Account::class);
+    }
 }
