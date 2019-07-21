@@ -8,6 +8,8 @@ abstract class TestCase extends BaseTestCase
 {
     use CreatesApplication;
 
+    protected $someUser;
+
     public function create($class, $attributes = [])
     {
         return factory($class)->create($attributes);
@@ -15,6 +17,10 @@ abstract class TestCase extends BaseTestCase
 
     public function someUser(array $attributes = [])
     {
-        return factory('App\User')->create($attributes);
+        if ($this->someUser) {
+            return $this->someUser;
+        }
+
+        return $this->someUser = factory('App\User')->create($attributes);
     }
 }

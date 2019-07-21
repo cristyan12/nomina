@@ -12,7 +12,7 @@ class CreateAccountTest extends TestCase
 {
     use RefreshDatabase;
 
-    protected $attributes = [];
+    protected $attributes;
 
     public function setUp()
     {
@@ -27,6 +27,7 @@ class CreateAccountTest extends TestCase
             'type' => 'Corriente',
             'auth_sign_1' => $this->create('App\Employee')->id, 
             'auth_sign_2' => $this->create('App\Employee')->id,
+            'user_id' => $this->someUser()->id
         ];
 
         $this->withoutExceptionHandling();
@@ -76,16 +77,33 @@ class CreateAccountTest extends TestCase
     */
     function a_user_can_create_a_new_bank_account()
     {
-        $response = $this->post(route('accounts.store'), $this->attributes)
+        $company = $this->create('App\Company');
+        $bank = $this->create('App\Bank');
+        
+        $emp1 = $this->create('App\Employee');
+        $auth1 = $this->create('App\EmployeeProfile', ['employee_id' => $emp1->id]);
+        $emp2 = $this->create('App\Employee');
+        $auth2 = $this->create('App\EmployeeProfile', ['employee_id' => $emp2->id]);
+
+        $response = $this->actingAs($user = $this->someUser())
+            ->post(route('accounts.store'), [
+                'company_id' => $company->id,
+                'bank_id' => $bank->id,
+                'number' => '12345678901234567891',
+                'type' => 'Corriente',
+                'auth_1' => $auth1->id, 
+                'auth_2' => $auth2->id,
+            ])
             ->assertRedirect(route('accounts.index'));
 
         $this->assertDatabaseHas('accounts', [
-            'company_id' => $this->attributes['company_id'],
-            'bank_id' => $this->attributes['bank_id'],
+            'company_id' => $company->id,
+            'bank_id' => $bank->id,
             'number' => '12345678901234567891',
             'type' => 'Corriente',
-            'auth_sign_1' => $this->attributes['auth_sign_1'],
-            'auth_sign_2' => $this->attributes['auth_sign_2'],
+            'auth_1' => $auth1->id, 
+            'auth_2' => $auth2->id,
+            'user_id' => $user->id
         ]);
     }
 }

@@ -22,12 +22,16 @@ class AccountController extends Controller
         $employees = Employee::orderBy('last_name', 'ASC')->get();
         $positions = Position::orderBy('id', 'ASC')->get();
 
-        return view('accounts.create', compact('companies', 'employees', 'positions'));
+        $account = new Account;
+
+        return view('accounts.create', compact('account', 'companies', 'employees', 'positions'));
     }
 
     public function store(Request $request)
     {
-        $account = Account::create($request->all());
+        $account = new Account($request->all());
+
+        auth()->user()->accounts()->save($account);
         
         return redirect()->route('accounts.index')
             ->with('info', 'Cuenta bancaria creada con éxito');
