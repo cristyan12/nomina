@@ -10,12 +10,12 @@ abstract class TestCase extends BaseTestCase
 
     protected $someUser;
 
-    public function create($class, $attributes = [])
+    protected function create($class, $attributes = [])
     {
         return factory($class)->create($attributes);
     }
 
-    public function someUser(array $attributes = [])
+    protected function someUser(array $attributes = [])
     {
         if ($this->someUser) {
             return $this->someUser;

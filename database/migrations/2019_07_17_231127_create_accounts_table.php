@@ -15,11 +15,11 @@ class CreateAccountsTable extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->increments('id');
-
+            
+            $table->unsignedInteger('company_id');
+            $table->unsignedInteger('bank_id');
             $table->string('number', 20)->unique();
             $table->enum('type', ['Ahorro', 'Corriente'])->default('Corriente');
-            $table->unsignedInteger('bank_id');
-            $table->unsignedInteger('company_id');
             $table->unsignedInteger('auth_1');
             $table->unsignedInteger('auth_2')->nullable();
             $table->unsignedInteger('user_id');
