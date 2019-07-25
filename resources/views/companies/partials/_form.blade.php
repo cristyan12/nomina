@@ -1,5 +1,5 @@
 <div class="form-group row">
-    <label for="name" class="col-md-4 col-form-label text-md-right">Nombre:</label>
+    <label for="name" class="col-md-4 col-form-label text-md-right">Nombre*:</label>
 
     <div class="col-md-6">
         <input id="name" type="text" name="name" 
@@ -15,7 +15,7 @@
     </div>
 </div>
 <div class="form-group row">
-    <label for="rif" class="col-md-4 col-form-label text-md-right">RIF:</label>
+    <label for="rif" class="col-md-4 col-form-label text-md-right">RIF*:</label>
 
     <div class="col-md-6">
         <input id="rif" type="text" name="rif" 
@@ -34,9 +34,7 @@
     <label for="address" class="col-md-4 col-form-label text-md-right">Dirección:</label>
 
     <div class="col-md-6">
-        <textarea name="address" class="form-control" id="address" cols="50" rows="3">
-            {{ old('address', $company->address) }}
-        </textarea>
+        <textarea name="address" class="form-control">{{ old('address', $company->address) }}</textarea>
 
         @if ($errors->has('address'))
             <span class="invalid-feedback" role="alert">

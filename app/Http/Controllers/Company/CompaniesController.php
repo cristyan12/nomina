@@ -28,9 +28,9 @@ class CompaniesController extends Controller
             'name' => 'required|unique:companies',
             'rif' => 'required',
             'address' => 'nullable',
-            'phone_number' => '',
-            'email' => '',
-            'city' => ''
+            'phone_number' => 'nullable',
+            'email' => 'nullable',
+            'city' => 'nullable'
         ]));
 
         return redirect()->route('companies.index')

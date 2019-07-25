@@ -12,6 +12,13 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(Company::class)->create();
+        Company::create([
+            'name' => 'Beleriand Services, C.A.',
+            'rif' => 'V-14996210-3',
+            'address' => 'Calle principal del barrio Buenos Aires, S/N',
+            'phone_number' => '+5841205295490',
+            'email' => 'contact@beleriandservices.com',
+            'city' => 'Guanare',
+        ]);
     }
 }
