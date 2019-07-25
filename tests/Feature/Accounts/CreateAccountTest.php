@@ -31,10 +31,18 @@ class CreateAccountTest extends TestCase
     */
     function a_user_can_load_the_index_page()
     {
+        $accounts = factory('App\Account', 3)->create();
+
         $response = $this->get(route('accounts.index'))
             ->assertOk()
             ->assertViewIs('accounts.index')
-            ->assertViewHas('accounts');    
+            ->assertViewHas('accounts');
+
+        foreach ($accounts as $account) {
+            $response->assertSee(e($account->bank->name))
+                ->assertSee(e($account->type))
+                ->assertSee(e($account->number));
+        }
     }
 
     /** 

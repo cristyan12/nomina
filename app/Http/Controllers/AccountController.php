@@ -17,7 +17,7 @@ class AccountController extends Controller
     public function create()
     {
         $banks = Bank::orderBy('id')->get();
-        $company = Company::orderBy('id')->get();
+        $company = Company::first();
         $auth1 = Employee::orderBy('id')->get();
         $auth2 = Employee::orderBy('id')->get();
 
