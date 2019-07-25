@@ -51,6 +51,8 @@ class CreateAccountTest extends TestCase
     */
     function a_user_can_load_the_page_of_the_new_accounts()
     {
+        $company = $this->create('App\Company');
+        
         $response = $this->get(route('accounts.create'))
             ->assertOk()
             ->assertViewIs('accounts.create')
