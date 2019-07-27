@@ -21,7 +21,9 @@ class AccountController extends Controller
         $auth1 = Employee::orderBy('id')->get();
         $auth2 = Employee::orderBy('id')->get();
 
-        return view('accounts.create', compact('banks', 'company', 'auth1', 'auth2'));
+        $account = new Account();
+
+        return view('accounts.create', compact('banks', 'company', 'auth1', 'auth2', 'account'));
     }
 
     public function store(Request $request)
