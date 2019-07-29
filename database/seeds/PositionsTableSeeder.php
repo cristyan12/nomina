@@ -13,6 +13,12 @@ class PositionsTableSeeder extends Seeder
     public function run()
     {
         Position::create([
+            'code' => 'OOO1PRES',
+            'name' => 'Presidente',
+            'basic_salary' => '235689.43',
+        ]);
+
+        Position::create([
             'code' => 'OPEO1',
             'name' => 'Perforador',
             'basic_salary' => '105324.30',

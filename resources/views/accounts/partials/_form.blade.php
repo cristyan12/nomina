@@ -1,11 +1,11 @@
 <div class="form-group row">
-    <label for="name" class="col-md-4 col-form-label text-md-right">Banco:*</label>
+    <label for="bank_id" class="col-md-4 col-form-label text-md-right">Banco:*</label>
 
     <div class="col-md-6">
-        <select name="bank_id" class="custom-select">
+        <select name="bank_id" id="bank_id" class="custom-select{{ $errors->has('bank_id') ? ' is-invalid' : '' }}">
             <option></option>
             @foreach($banks as $bank)
-                <option value="{{ $bank->id }}">{{ $bank->name }}</option>
+            <option value="{{ $bank->id }}"{{ old('bank_id', $account->bank_id) == $bank->id ? ' selected' : '' }}>{{ $bank->name }}</option>
             @endforeach
         </select>
 
@@ -21,7 +21,9 @@
     <label for="name" class="col-md-4 col-form-label text-md-right">Número de cuenta:*</label>
 
     <div class="col-md-6">
-        <input type="text" name="number" class="form-control" value="{{ old('number', $account->number) }}">
+        <input type="text" name="number" 
+        class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" 
+        value="{{ old('number', $account->number) }}">
 
         @if ($errors->has('number'))
             <span class="invalid-feedback" role="alert">
@@ -36,7 +38,6 @@
 
     <div class="col-md-6">
         <select name="type" class="custom-select">
-            <option></option>
             <option value="Corriente">Corriente</option>
             <option value="Ahorro">Ahorro</option>
         </select>
@@ -54,7 +55,7 @@
     <label for="name" class="col-md-4 col-form-label text-md-right">Primer autorizado:*</label>
 
     <div class="col-md-6">
-        <select name="auth_1" class="custom-select">
+        <select name="auth_1" class="custom-select{{ $errors->has('auth_1') ? ' is-invalid' : '' }}">
             <option></option>
             @foreach($auth1 as $firstAuth)
                 <option value="{{ $firstAuth->id }}">{{ $firstAuth->full_name }}</option>

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Account;
 
+use App\Account;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\{
     DatabaseTransactions, RefreshDatabase
@@ -22,7 +23,7 @@ class CreateAccountTest extends TestCase
         $this->attributes = [
         ];
 
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
     }
 
     /** 
@@ -105,5 +106,128 @@ class CreateAccountTest extends TestCase
             'auth_2' => $auth2->id,
             'user_id' => $user->id,
         ]);
+    }
+
+    /** 
+     * @testdox El Banco es requerido
+     * @test
+    */
+    function the_bank_id_is_required()
+    {
+        $company = $this->create('App\Company');
+
+        $response = $this->post(route('accounts.store'), [
+            'bank_id' => '',
+            'number' => '12345678912345678912',
+            'type' => 'Corriente',
+            'auth_1' => 1,
+            'auth_2' => 2,  
+        ])
+        ->assertSessionHasErrors(['bank_id']);
+
+        $this->assertEquals(0, Account::count());
+    }
+
+    /** 
+     * @testdox El número de cuenta es requerido
+     * @test
+    */
+    function the_number_is_required()
+    {
+        $company = $this->create('App\Company');
+
+        $response = $this->post(route('accounts.store'), [
+            'bank_id' => '1',
+            'number' => '',
+            'type' => 'Corriente',
+            'auth_1' => 1,
+            'auth_2' => 2,  
+        ])
+        ->assertSessionHasErrors(['number']);
+
+        $this->assertEquals(0, Account::count());
+    }
+
+    /** 
+     * @testdox El número de cuenta debe ser único
+     * @test
+    */
+    function the_number_must_be_unique()
+    {
+        $company = $this->create('App\Company');
+        $account = $this->create('App\Account', [
+            'number' => '12345678912345678912'
+        ]);
+
+        $response = $this->post(route('accounts.store'), [
+            'bank_id' => '1',
+            'number' => $account->number,
+            'type' => 'Corriente',
+            'auth_1' => 1,
+            'auth_2' => 2,  
+        ])
+        ->assertSessionHasErrors(['number']);
+
+        $this->assertEquals(1, Account::count());
+    }
+
+    /** 
+     * @testdox El número de cuenta debe ser de 20 caracteres
+     * @test
+    */
+    function the_number_must_be_20_chars()
+    {
+        $company = $this->create('App\Company');
+
+        $response = $this->post(route('accounts.store'), [
+            'bank_id' => '1',
+            'number' => '123',
+            'type' => 'Corriente',
+            'auth_1' => 1,
+            'auth_2' => 2,  
+        ])
+        ->assertSessionHasErrors(['number']);
+
+        $this->assertEquals(0, Account::count());
+    }
+
+    /** 
+     * @testdox El número de cuenta debe ser de 20 caracteres maximo
+     * @test
+    */
+    function the_number_must_be_20_chars_max()
+    {
+        $company = $this->create('App\Company');
+
+        $response = $this->post(route('accounts.store'), [
+            'bank_id' => '1',
+            'number' => '123453321265+89+123123463431374854216342135',
+            'type' => 'Corriente',
+            'auth_1' => 1,
+            'auth_2' => 2,  
+        ])
+        ->assertSessionHasErrors(['number']);
+
+        $this->assertEquals(0, Account::count());
+    }
+
+    /** 
+     * @testdox La firma autorizada Nº 1 es requerida
+     * @test
+    */
+    function the_auth_sign_1_is_required()
+    {
+        $company = $this->create('App\Company');
+
+        $response = $this->post(route('accounts.store'), [
+            'bank_id' => '1',
+            'number' => '12345679823233232655',
+            'type' => 'Corriente',
+            'auth_1' => '',
+            'auth_2' => 2,  
+        ])
+        ->assertSessionHasErrors(['auth_1']);
+
+        $this->assertEquals(0, Account::count());
     }
 }

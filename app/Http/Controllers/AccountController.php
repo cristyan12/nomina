@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\{Account, Bank, Company, Employee};
 use Illuminate\Http\Request;
+use App\{Account, Bank, Company, Employee};
+use App\Http\Requests\CreateAccountRequest;
 
 class AccountController extends Controller
 {
@@ -26,11 +27,11 @@ class AccountController extends Controller
         return view('accounts.create', compact('banks', 'company', 'auth1', 'auth2', 'account'));
     }
 
-    public function store(Request $request)
+    public function store(CreateAccountRequest $request)
     {
         $company = Company::first();
 
-        $account = new Account($request->all());
+        $account = new Account($request->validated());
 
         $account->fill(['company_id' => $company->id]);
 
