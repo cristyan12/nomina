@@ -15,6 +15,10 @@ Route::middleware(['auth'])->group(function() {
     Route::get('accounts', 'AccountController@index')->name('accounts.index');
     Route::get('accounts/create', 'AccountController@create')->name('accounts.create');
     Route::post('accounts/store', 'AccountController@store')->name('accounts.store');
+    Route::get('accounts/{account}/edit', 'AccountController@edit')->name('accounts.edit');
+    Route::put('accounts/{account}', 'AccountController@update')->name('accounts.update');
+    Route::get('accounts/{account}', 'AccountController@show')->name('accounts.show');
+
 
     // Companies
     Route::namespace('Company')->group(function () {

@@ -38,7 +38,7 @@
                 </td>
                 <td width="10px">
                     @can('accounts.edit')
-                        <a href="" class="btn btn-sm btn-outline-warning">Editar</a>
+                        <a href="{{ route('accounts.edit', $account) }}" class="btn btn-sm btn-outline-warning">Editar</a>
                     @endcan
                 </td>
             </tr>

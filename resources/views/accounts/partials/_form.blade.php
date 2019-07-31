@@ -58,7 +58,11 @@
         <select name="auth_1" class="custom-select{{ $errors->has('auth_1') ? ' is-invalid' : '' }}">
             <option></option>
             @foreach($auth1 as $firstAuth)
-                <option value="{{ $firstAuth->id }}">{{ $firstAuth->full_name }}</option>
+                <option 
+                    value="{{ $firstAuth->id }}"{{ old('auth_1', $account->auth_1) == $firstAuth->id ? ' selected' : '' }}>
+                    {{ $firstAuth->full_name }}
+                </option>
+                {{-- <option value="{{ $firstAuth->id }}">{{ $firstAuth->full_name }}</option> --}}
             @endforeach
         </select>
 
@@ -77,7 +81,11 @@
         <select name="auth_2" class="custom-select">
             <option></option>
             @foreach($auth2 as $secondAuth)
-                <option value="{{ $secondAuth->id }}">{{ $secondAuth->full_name }}</option>
+                <option 
+                    value="{{ $secondAuth->id }}"{{ old('auth_2', $account->auth_2) == $secondAuth->id ? ' selected' : '' }}>
+                    {{ $secondAuth->full_name }}
+                </option>
+                {{-- <option value="{{ $secondAuth->id }}">{{ $secondAuth->full_name }}</option> --}}
             @endforeach
         </select>
 

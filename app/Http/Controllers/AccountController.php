@@ -43,17 +43,25 @@ class AccountController extends Controller
 
     public function show(Account $account)
     {
-        //
+        return view('accounts.show', compact('account'));
     }
 
     public function edit(Account $account)
     {
-        //
+        $banks = Bank::orderBy('id')->get();
+        $company = Company::first();
+        $auth1 = Employee::orderBy('id')->get();
+        $auth2 = Employee::orderBy('id')->get();
+
+        return view('accounts.edit', compact('account', 'company', 'banks', 'auth1', 'auth2'));
     }
 
     public function update(Request $request, Account $account)
     {
-        //
+        $account->update($request->only('auth_1', 'auth_2'));
+        
+        return redirect()->route('accounts.show', $account)
+            ->with('info', 'Cuenta actualizada con éxito');
     }
 
     public function destroy(Account $account)
