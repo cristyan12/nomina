@@ -12,16 +12,11 @@ class UpdateAccountTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $attributes = [];
-
     public function setUp()
     {
         parent::setUp();
 
         $this->actingAs($this->someUser());
-
-        $this->attributes = [
-        ];
 
         // $this->withoutExceptionHandling();
     }
@@ -49,18 +44,16 @@ class UpdateAccountTest extends TestCase
     */
     function a_user_can_edit_accounts()
     {
-        $this->withoutExceptionHandling();
-
         $company = $this->create('App\Company');
         $account = $this->create(Account::class);
 
         $president = $this->create('App\Position', ['name' => 'PRESIDENTE']);
         $vicePresident = $this->create('App\Position', ['name' => 'VICE-PRESIDENTE']);
-        $emp = $this->create('App\Employee');
+        $emp1 = $this->create('App\Employee');
         $emp2 = $this->create('App\Employee');
 
         $auth1 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp->id,
+            'employee_id' => $emp1->id,
             'position_id' => $president->id,
         ]);
 
@@ -78,5 +71,24 @@ class UpdateAccountTest extends TestCase
             'auth_1' => $auth1->id,
             'auth_2' => $auth2->id, 
         ]);
+    }
+
+    /** 
+     * @testdox La firma autorizada Nº 1 es requerida cuando se actualiza
+     * @test
+    */
+    function the_auth_sign_1_is_required_when_updating()
+    {
+        // $this->withoutExceptionHandling();
+        
+        $company = $this->create('App\Company');
+        $account = $this->create(Account::class);
+
+        $response = $this->from(route('accounts.edit', $account))
+            ->put(route('accounts.update', $account), [
+                'auth_1' => ''
+            ])
+            ->assertRedirect(route('accounts.edit', $account))
+            ->assertSessionHasErrors(['auth_1']);
     }
 }

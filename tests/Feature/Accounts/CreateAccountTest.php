@@ -70,15 +70,13 @@ class CreateAccountTest extends TestCase
         $bank = $this->create('App\Bank');
         $president = $this->create('App\Position', ['name' => 'PRESIDENTE']);
         $vicePresident = $this->create('App\Position', ['name' => 'VICE-PRESIDENTE']);
-
-        $emp = factory('App\Employee')->create();
+        $emp1 = $this->create('App\Employee');
+        $emp2 = $this->create('App\Employee');
         
         $auth1 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp->id,
+            'employee_id' => $emp1->id,
             'position_id' => $president->id,
         ]);
-
-        $emp2 = factory('App\Employee')->create();
         
         $auth2 = $this->create('App\EmployeeProfile', [
             'employee_id' => $emp2->id,

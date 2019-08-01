@@ -58,8 +58,16 @@ class AccountController extends Controller
 
     public function update(Request $request, Account $account)
     {
-        $account->update($request->only('auth_1', 'auth_2'));
-        
+        $data = $request->validate([
+            'auth_1' => 'required',
+            'auth_2' => 'present',
+        ]);
+
+        $account->auth_1 = $data['auth_1'];
+        $account->auth_2 = $data['auth_2'];
+
+        auth()->user()->accounts()->save($account);
+
         return redirect()->route('accounts.show', $account)
             ->with('info', 'Cuenta actualizada con éxito');
     }

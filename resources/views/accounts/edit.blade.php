@@ -12,7 +12,7 @@
                     <form action="{{ route('accounts.update', $account) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        @include('accounts.partials._form')
+                        @include('accounts.partials._editForm')
                     </form>
                 </div>
                 @can('accounts.index')
