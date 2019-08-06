@@ -81,9 +81,4 @@ class AccountController extends Controller
         return redirect()->route('accounts.show', $account)
             ->with('info', 'Cuenta actualizada con éxito');
     }
-
-    public function destroy(Account $account)
-    {
-        //
-    }
 }
