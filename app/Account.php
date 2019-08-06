@@ -8,6 +8,16 @@ class Account extends Model
 {
     protected $fillable = ['company_id', 'bank_id', 'number', 'auth_1', 'auth_2'];
 
+    public function auth1()
+    {
+        return $this->belongsTo(Employee::class, 'auth_1')->withDefault();
+    }
+
+    public function auth2()
+    {
+        return $this->belongsTo(Employee::class, 'auth_2')->withDefault();
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);

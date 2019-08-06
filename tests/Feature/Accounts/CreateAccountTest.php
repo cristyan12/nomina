@@ -12,38 +12,13 @@ class CreateAccountTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected $attributes = [];
-
     public function setUp()
     {
         parent::setUp();
 
         $this->actingAs($this->someUser());
 
-        $this->attributes = [
-        ];
-
         // $this->withoutExceptionHandling();
-    }
-
-    /** 
-     * @testdox Un usuario puede cargar la página del listado
-     * @test
-    */
-    function a_user_can_load_the_index_page()
-    {
-        $accounts = factory('App\Account', 3)->create();
-
-        $response = $this->get(route('accounts.index'))
-            ->assertOk()
-            ->assertViewIs('accounts.index')
-            ->assertViewHas('accounts');
-
-        foreach ($accounts as $account) {
-            $response->assertSee(e($account->bank->name))
-                ->assertSee(e($account->type))
-                ->assertSee(e($account->number));
-        }
     }
 
     /** 
@@ -53,6 +28,21 @@ class CreateAccountTest extends TestCase
     function a_user_can_load_the_page_of_the_new_accounts()
     {
         $company = $this->create('App\Company');
+        $bank = $this->create('App\Bank');
+        $president = $this->create('App\Position', ['name' => 'PRESIDENTE']);
+        $vicePresident = $this->create('App\Position', ['name' => 'VICE-PRESIDENTE']);
+        $emp1 = $this->create('App\Employee');
+        $emp2 = $this->create('App\Employee');
+        
+        $auth1 = $this->create('App\EmployeeProfile', [
+            'employee_id' => $emp1->id,
+            'position_id' => $president->id,
+        ]);
+        
+        $auth2 = $this->create('App\EmployeeProfile', [
+            'employee_id' => $emp2->id,
+            'position_id' => $vicePresident->id
+        ]);
         
         $response = $this->get(route('accounts.create'))
             ->assertOk()

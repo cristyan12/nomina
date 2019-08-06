@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Account, Bank, Company, Employee};
+use App\{Account, Bank, Company, Employee, Position};
 use App\Http\Requests\CreateAccountRequest;
 
 class AccountController extends Controller
@@ -19,8 +19,13 @@ class AccountController extends Controller
     {
         $banks = Bank::orderBy('id')->get();
         $company = Company::first();
-        $auth1 = Employee::orderBy('id')->get();
-        $auth2 = Employee::orderBy('id')->get();
+        $auth1 = Employee::whereHas('profile.position', function ($query){
+            $query->where('position_id', Position::where('name', 'Presidente')->value('id'));
+        })->get();
+
+        $auth2 = Employee::whereHas('profile.position', function ($query){
+            $query->where('position_id', Position::where('name', 'Vice Presidente')->value('id'));
+        })->get();
 
         $account = new Account();
 
@@ -50,8 +55,13 @@ class AccountController extends Controller
     {
         $banks = Bank::orderBy('id')->get();
         $company = Company::first();
-        $auth1 = Employee::orderBy('id')->get();
-        $auth2 = Employee::orderBy('id')->get();
+        $auth1 = Employee::whereHas('profile.position', function ($query){
+            $query->where('position_id', Position::where('name', 'Presidente')->value('id'));
+        })->get();
+
+        $auth2 = Employee::whereHas('profile.position', function ($query){
+            $query->where('position_id', Position::where('name', 'Vice Presidente')->value('id'));
+        })->get();
 
         return view('accounts.edit', compact('account', 'company', 'banks', 'auth1', 'auth2'));
     }

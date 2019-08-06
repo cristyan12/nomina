@@ -14,6 +14,18 @@ class Employee extends Model
         'hired_at' => 'date',
     ];
 
+    // En la ocasión de establecer los firmantes 
+    // autorizados en las cuentas bancarias de la empresa
+    public function accounts()
+    {
+        return $this->hasMany(Account::class, 'auth_1');
+    }
+
+    public function accounts2()
+    {
+        return $this->hasMany(Account::class, 'auth_2');
+    }
+
     public function profile()
     {
     	return $this->hasOne(EmployeeProfile::class);

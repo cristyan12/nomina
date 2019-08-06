@@ -33,7 +33,7 @@
                 <td>{{ $account->updated_at->diffForHumans() }} </td>
                 <td width="10px">
                     @can('accounts.show')
-                        <a href="" class="btn btn-sm btn-outline-info">Detalle</a>
+                        <a href="{{ route('accounts.show', $account) }}" class="btn btn-sm btn-outline-info">Detalle</a>
                     @endcan
                 </td>
                 <td width="10px">
