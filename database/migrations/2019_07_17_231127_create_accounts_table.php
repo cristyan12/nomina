@@ -26,8 +26,6 @@ class CreateAccountsTable extends Migration
 
             $table->foreign('company_id')->references('id')->on('companies');
             $table->foreign('bank_id')->references('id')->on('banks');
-            // $table->foreign('auth_1')->references('id')->on('employees');
-            // $table->foreign('auth_2')->references('id')->on('employees');
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->timestamps();

@@ -24,7 +24,7 @@ class CompaniesController extends Controller
 
     public function store(Request $request)
     {
-        Company::create($request->validate([
+        $company = new Company($request->validate([
             'name' => 'required|unique:companies',
             'rif' => 'required',
             'address' => 'nullable',
@@ -32,6 +32,8 @@ class CompaniesController extends Controller
             'email' => 'nullable',
             'city' => 'nullable'
         ]));
+
+        $request->user()->company()->save($company);
 
         return redirect()->route('companies.index')
             ->with('info', 'Empresa registrada correctamente');

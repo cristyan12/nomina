@@ -55,10 +55,20 @@ class CreateCompanyTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
+        $this->be($user = $this->someUser());
+
         $response = $this->post(route('companies.store', $this->attributes))
             ->assertRedirect('companies');
 
-        $this->assertDatabaseHas('companies', $this->attributes);
+        $this->assertDatabaseHas('companies', [
+            'name' => 'Acme, Ltd',
+            'rif' => 'J-20009148-7',
+            'address' => '#34, av. Unda',
+            'phone_number' => '0257-2513656',
+            'email' => 'compañia.23@mail.com',
+            'city' => 'Guanare',
+            'user_id' => $user->id,
+        ]);
     }
 
     /** 

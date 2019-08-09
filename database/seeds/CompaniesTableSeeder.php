@@ -12,6 +12,10 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
+        $user = factory('App\User')->create();
+        
+        auth()->loginUsingId($user->id);
+
         Company::create([
             'name' => 'Beleriand Services, C.A.',
             'rif' => 'V-14996210-3',
@@ -19,6 +23,7 @@ class CompaniesTableSeeder extends Seeder
             'phone_number' => '+5841205295490',
             'email' => 'contact@beleriandservices.com',
             'city' => 'Guanare',
+            'user_id' => $user->id,
         ]);
     }
 }
