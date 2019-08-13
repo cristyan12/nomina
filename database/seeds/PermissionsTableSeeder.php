@@ -255,6 +255,63 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Podría editar cualquier dato de un tipo de nomina',
         ]);
 
+        // Bank Accounts
+        Permission::create([
+            'name' => 'Listar las cuentas bancarias de la empresa',
+            'slug' => 'accounts.index',
+            'description' => 'Lista todas las cuentas bancarias de la empresa',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver detalle de la cuenta bancaria',
+            'slug' => 'accounts.show',
+            'description' => 'Ver en detalle los datos de cada cuenta bancaria',
+        ]);
+
+        Permission::create([
+            'name' => 'Creación de las cuentas bancarias de la empresa',
+            'slug' => 'accounts.create',
+            'description' => 'Podría crear nuevos las cuentas bancarias de la empresa',
+        ]);
+
+        Permission::create([
+            'name' => 'Edición de las cuentas bancarias de la empresa',
+            'slug' => 'accounts.edit',
+            'description' => 'Podría editar cualquier dato de una cuenta bancaria',
+        ]);
+
+        // Companies
+        Permission::create([
+            'name' => 'Lista la empresa',
+            'slug' => 'companies.index',
+            'description' => 'Lista las empresas asociadas',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver detalle de la empresa',
+            'slug' => 'companies.show',
+            'description' => 'Ver en detalle los datos de la empresa',
+        ]);
+
+        Permission::create([
+            'name' => 'Creación de empresas',
+            'slug' => 'companies.create',
+            'description' => 'Podría crear nuevos registros de las empresas',
+        ]);
+
+        Permission::create([
+            'name' => 'Edición de la empresa',
+            'slug' => 'companies.edit',
+            'description' => 'Podría editar algunos datos de la empresa',
+        ]);
+
+        // Some Specials
+        Permission::create([
+            'name' => 'Seguridad',
+            'slug' => 'security',
+            'description' => 'Modulo de seguridad',
+        ]);
+
         // Permission
         Permission::create([
             'name' => 'Listar permisos',

@@ -20,23 +20,25 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="col-md-4">
-            <div class="card text-white bg-secondary mb-3">
-                <div class="card-header">
-                    <strong>Seguridad</strong>
+            @can('security')
+                <div class="card text-white bg-secondary mb-3">
+                    <div class="card-header">
+                        <strong>Seguridad</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text lead">
+                            Acceso a los módulos de seguridad.
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('security') }}" class="btn btn-outline-dark stretched-link">
+                            Ir
+                        </a>
+                    </div>
                 </div>
-                <div class="card-body">
-                    <p class="card-text lead">
-                        Acceso a los módulos de seguridad.
-                    </p>
-                </div>
-                <div class="card-footer">
-                    <a href="{{ route('security') }}" class="btn btn-outline-dark stretched-link">
-                        Ir
-                    </a>
-                </div>
-            </div>
+            @endcan
         </div>
 
         <div class="col-md-4">

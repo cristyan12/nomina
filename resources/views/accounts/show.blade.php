@@ -64,12 +64,12 @@
 
     <div class="card-footer border-info">
         <div class="btn-group float-right">
-            {{-- @can('companys.index') --}}
+            @can('accounts.index')
                 <a href="{{ route('accounts.index') }}" class="btn btn-outline-info btn-sm">Ir al listado</a>
-            {{-- @endcan --}}
-            {{-- @can('companys.edit') --}}
+            @endcan
+            @can('accounts.edit')
                 <a href="{{ route('accounts.edit', $account) }}" class="btn btn-outline-info btn-sm">Editar</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
     </div>
 @endcomponent

@@ -11,6 +11,7 @@
 
 @section('content')
     @if (! $accounts->isEmpty())
+    
     <div class="table-responsive">
         <table class="table table-hover table-striped">
             <thead class="thead-dark">
