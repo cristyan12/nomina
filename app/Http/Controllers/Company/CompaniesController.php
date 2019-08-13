@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Company;
 
 use App\Company;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateCompanyRequest;
 
 class CompaniesController extends Controller
 {
@@ -22,18 +22,11 @@ class CompaniesController extends Controller
         return view('companies.create', compact('company'));
     }
 
-    public function store(Request $request)
+    public function store(CreateCompanyRequest $request)
     {
-        $company = new Company($request->validate([
-            'name' => 'required|unique:companies',
-            'rif' => 'required',
-            'address' => 'nullable',
-            'phone_number' => 'nullable',
-            'email' => 'nullable',
-            'city' => 'nullable'
-        ]));
+        $company = new Company($request->validated());
 
-        $request->user()->company()->save($company);
+        auth()->user()->company()->save($company);
 
         return redirect()->route('companies.index')
             ->with('info', 'Empresa registrada correctamente');
