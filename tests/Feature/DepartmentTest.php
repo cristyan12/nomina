@@ -3,12 +3,14 @@
 namespace Tests\Feature;
 
 use App\Department;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\{
+    DatabaseTransactions, RefreshDatabase
+};
 
 class DepartmentTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     /** @test */
     function a_user_can_load_the_new_department_office()
@@ -101,6 +103,8 @@ class DepartmentTest extends TestCase
     /** @test */
     function a_user_can_update_the_department()
     {
+        $this->withoutExceptionHandling();
+        
         $department = $this->create(Department::class);
 
         $response = $this->actingAs($this->someUser())

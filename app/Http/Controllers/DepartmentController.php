@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Department;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Http\Requests\{
+    CreateDepartmentRequest, UpdateDepartmentRequest
+};
 
 class DepartmentController extends Controller
 {
@@ -20,18 +21,9 @@ class DepartmentController extends Controller
         return view('departments.create');
     }
 
-    public function store(Request $request)
+    public function store(CreateDepartmentRequest $request)
     {
-        $data = $request->validate([
-            'name' => 'required|unique:departments,name'
-        ], [
-            'name.required' => 'El campo Departamento es requerido.',
-            'name.unique' => 'El campo Departamento ya está siendo utilizado.',
-        ]);
-
-        Department::create([
-            'name' => $request['name']
-        ]);
+        Department::create($request->validated());
 
         return redirect()->route('departments.index')
             ->with('success', 'Departamento creado con éxito.');
@@ -47,18 +39,9 @@ class DepartmentController extends Controller
         return view('departments.edit', compact('department'));
     }
 
-    public function update(Request $request, Department $department)
+    public function update(UpdateDepartmentRequest $request, Department $department)
     {
-        $attributes = $request->validate([
-            'name' => [
-                'required', Rule::unique('departments')->ignore($department->id)
-            ]
-        ], [
-            'name.required' => 'El campo Departamento es requerido.',
-            'name.unique' => 'El campo Departamento ya está siendo utilizado.',
-        ]);
-
-        $department->update($attributes);
+        $department->update($request->validated());
 
         return redirect()->route('departments.show', $department)
             ->with('success', 'Sucursal actualizada con éxito');
