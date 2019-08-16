@@ -37,8 +37,14 @@
             </li>
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
-                    <span class="lead">Ultima modificación:</span>
+                    <span class="lead">Modificado:</span>
                     <span class="lead"><strong>{{ $position->updated_at->diffForHumans() }}</strong></span>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Por:</span>
+                    <span class="lead"><strong>{{ $position->user->name }}</strong></span>
                 </div>
             </li>
         </ul>

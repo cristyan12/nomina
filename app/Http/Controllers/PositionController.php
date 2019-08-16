@@ -25,11 +25,9 @@ class PositionController extends Controller
 
     public function store(CreatePositionRequest $request)
     {
-        Position::create([
-            'code' => $request['code'],
-            'name' => $request['name'],
-            'basic_salary' => $request['basic_salary'],
-        ]);
+        $position = new Position($request->validated());
+
+        auth()->user()->positions()->save($position);
 
         return redirect()->route('positions.index')
             ->with('success', 'Cargo creado con éxito!');
@@ -47,7 +45,13 @@ class PositionController extends Controller
 
     public function update(Position $position, UpdatePositionRequest $request)
     {
-        $position->update($request->only('code', 'name', 'basic_salary'));
+        // $position->code = $request->code;
+        // $position->name = $request->name;
+        // $position->basic_salary = $request->basic_salary;
+
+        $position->fill($request->validated());
+
+        auth()->user()->positions()->save($position);
 
         return redirect()->route('positions.show', $position);
     }

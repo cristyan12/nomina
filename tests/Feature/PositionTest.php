@@ -4,12 +4,13 @@ namespace Tests\Feature;
 
 use App\Position;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\{
+    DatabaseTransactions, RefreshDatabase
+};
 
 class PositionTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     /** @test */
     function a_user_can_load_the_creation_of_position_page()
@@ -47,7 +48,9 @@ class PositionTest extends TestCase
     /** @test */
     function a_user_can_create_a_new_position()
     {
-        $response = $this->actingAs($this->someUser())
+        $user = $this->someUser();
+
+        $response = $this->actingAs($user)
             ->post(route('positions.store'), [
                 'code' => 'OPE01',
                 'name' => 'PERFORADOR',
@@ -57,7 +60,8 @@ class PositionTest extends TestCase
         $this->assertDatabaseHas('positions', [
             'code' => 'OPE01',
             'name' => 'PERFORADOR',
-            'basic_salary' => '105324.30'
+            'basic_salary' => '105324.30',
+            'user_id' => $user->id,
         ]);
     }
 
@@ -212,8 +216,9 @@ class PositionTest extends TestCase
         $this->withoutExceptionHandling();
 
         $position = $this->create(Position::class);
+        $user = $this->someUser();
 
-        $response = $this->actingAs($this->someUser())
+        $response = $this->actingAs($user)
             ->put(route('positions.update', $position), [
                 'code' => 'OPE01',
                 'name' => 'PERFORADOR',
@@ -225,6 +230,7 @@ class PositionTest extends TestCase
         $this->assertSame('OPE01', $position->code);
         $this->assertSame('PERFORADOR', $position->name);
         $this->assertSame(123456.56, $position->basic_salary);
+        $this->assertSame($user->id, $position->user_id);
     }
 
     /** @test */

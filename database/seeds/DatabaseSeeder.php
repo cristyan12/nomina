@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             'employee_profiles',
         ]);
 
+        $this->call(UsersTableSeeder::class);
         $this->call(PositionsTableSeeder::class);
         $this->call(BranchesTableSeeder::class);
         $this->call(DepartmentsTableSeeder::class);
@@ -25,7 +26,6 @@ class DatabaseSeeder extends Seeder
         $this->call(ProfessionTableSeeder::class);
         $this->call(BankSeeder::class);
         $this->call(PermissionsTableSeeder::class);
-        $this->call(UsersTableSeeder::class);
         $this->call(NominaTableSeeder::class);
         $this->call(CompaniesTableSeeder::class);
         $this->call(EmployeesTableSeeder::class);
