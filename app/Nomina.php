@@ -18,6 +18,11 @@ class Nomina extends Model
         'last_period_at' => 'date',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
     public function getNumbersPeriodsAttribute()
     {
         if (! $this->periods == '' ) {

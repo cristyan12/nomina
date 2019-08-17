@@ -5,7 +5,9 @@
     <select name="bank_id" id="bank_id" class="custom-select" disabled>
         <option></option>
         @foreach($banks as $bank)
-        <option value="{{ $bank->id }}"{{ old('bank_id', $account->bank_id) == $bank->id ? ' selected' : '' }}>{{ $bank->name }}</option>
+        <option 
+            value="{{ $bank->id }}"{{ old('bank_id', $account->bank_id) == $bank->id ? ' selected' : '' }}>{{ $bank->name }}
+        </option>
         @endforeach
     </select>
 </div>

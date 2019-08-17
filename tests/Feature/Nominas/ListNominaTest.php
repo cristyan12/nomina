@@ -39,12 +39,18 @@ class ListNominaTest extends TestCase
     */
     function a_user_can_show_a_details_of_nomina()
     {
-        $nomina = $this->create('App\Nomina', ['name' => 'Nómina Confidencial']);
+        $user = $this->someUser();
+
+        $nomina = $this->create('App\Nomina', [
+            'name' => 'Nómina Confidencial',
+            'user_id' => $user->id,
+        ]);
 
         $response = $this->get(route('nomina.show', $nomina))
             ->assertOk()
             ->assertViewIs('nomina.show')
             ->assertViewHas('nomina')
-            ->assertSee('Nómina Confidencial');
+            ->assertSee('Nómina Confidencial')
+            ->assertSee($user->name);
     }
 }

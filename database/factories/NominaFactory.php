@@ -11,5 +11,6 @@ $factory->define(App\Nomina::class, function (Faker $faker) {
         'periods' => $faker->randomNumber(2),
         'first_period_at' => $faker->date(),
         'last_period_at' => $faker->date(),
+        'user_id' => factory('App\User')->create()->id,
     ];
 });

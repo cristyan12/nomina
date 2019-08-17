@@ -16,7 +16,7 @@ class CreateNominaTest extends TestCase
     {
         parent::setUp();
 
-        $this->be($this->someUser());
+        $this->be($user = $this->someUser());
 
         // $this->withoutExceptionHandling();
     }
@@ -39,6 +39,8 @@ class CreateNominaTest extends TestCase
     */
     function a_user_can_create_a_nomina()
     {
+        $this->actingAs($user = $this->someUser());
+
     	$response = $this->post(route('nomina.store'), [
     		'name' => 'Nomina Semanal',
     		'type' => 'Semanal',
@@ -54,6 +56,7 @@ class CreateNominaTest extends TestCase
             'periods' => '52',
             'first_period_at' => '2019-01-01',
             'last_period_at' => '2020-01-01',
+            'user_id' => $user->id
     	]);
     }
 

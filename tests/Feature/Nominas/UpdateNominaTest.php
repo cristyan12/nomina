@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class UpdateNominaTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     public function setUp()
     {
@@ -44,15 +44,19 @@ class UpdateNominaTest extends TestCase
     */
     function a_user_can_update_a_nomina()
     {
+        $this->withoutExceptionHandling();
+
+        $user = $this->someUser();
         $nomina = $this->create('App\Nomina');
 
-        $response = $this->put(route('nomina.update', $nomina->id), [
-            'name' => 'Quincenal',
-            'type' => 'Quincenal',
-            'periods' => '24',
-            'first_period_at' => '2020-01-01',
-            'last_period_at' => '2021-01-01',
-        ])
+        $response = $this->actingAs($user)
+            ->put(route('nomina.update', $nomina->id), [
+                'name' => 'Quincenal',
+                'type' => 'Quincenal',
+                'periods' => '24',
+                'first_period_at' => '2020-01-01',
+                'last_period_at' => '2021-01-01',
+            ])
         ->assertRedirect(route('nomina.index'));
 
         $this->assertDatabaseHas('nominas', [
@@ -61,6 +65,7 @@ class UpdateNominaTest extends TestCase
             'periods' => '24',
             'first_period_at' => '2020-01-01',
             'last_period_at' => '2021-01-01',
+            'user_id' => $user->id,
         ]);
     }
 

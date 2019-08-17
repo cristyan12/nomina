@@ -19,7 +19,9 @@ class CreateNominaController extends Controller
 
     public function store(CreateNominaRequest $request)
     {
-        Nomina::create($request->validated());
+        $nomina = new Nomina($request->validated());
+
+        auth()->user()->nominas()->save($nomina);
 
         return redirect()->route('nomina.index')
             ->with('info', 'Nómina creada correctamente');
@@ -32,7 +34,9 @@ class CreateNominaController extends Controller
 
     public function update(Nomina $nomina, UpdateNominaRequest $request)
     {
-        $nomina->update($request->validated());
+        $nomina->fill($request->validated());
+
+        auth()->user()->nominas()->save($nomina);
         
         return redirect()->route('nomina.index')
             ->with('info', 'Nómina actualizada correctamente');;

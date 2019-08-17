@@ -50,7 +50,6 @@
     </div>
 </div>
 
-
 <div class="form-group row">
     <label for="name" class="col-md-4 col-form-label text-md-right">Primer autorizado:*</label>
 
@@ -62,7 +61,6 @@
                     value="{{ $firstAuth->id }}"{{ old('auth_1', $account->auth_1) == $firstAuth->id ? ' selected' : '' }}>
                     {{ $firstAuth->full_name }}
                 </option>
-                {{-- <option value="{{ $firstAuth->id }}">{{ $firstAuth->full_name }}</option> --}}
             @endforeach
         </select>
 
@@ -85,7 +83,6 @@
                     value="{{ $secondAuth->id }}"{{ old('auth_2', $account->auth_2) == $secondAuth->id ? ' selected' : '' }}>
                     {{ $secondAuth->full_name }}
                 </option>
-                {{-- <option value="{{ $secondAuth->id }}">{{ $secondAuth->full_name }}</option> --}}
             @endforeach
         </select>
 

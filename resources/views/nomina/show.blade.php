@@ -41,17 +41,29 @@
                     <span class="lead"><strong>{{ $nomina->last_date_period }}</strong></span>
                 </div>
             </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Modificado:</span>
+                    <span class="lead"><strong>{{ $nomina->updated_at->diffForHumans() }}</strong></span>
+                </div>
+            </li>
+            <li class="list-group-item">
+                <div class="d-flex justify-content-between">
+                    <span class="lead">Por:</span>
+                    <span class="lead"><strong>{{ $nomina->user->name }}</strong></span>
+                </div>
+            </li>
         </ul>
     @endslot
 
     <div class="card-footer">
         <div class="btn-group float-right">
-            {{-- @can('nominas.index') --}}
+            @can('nominas.index')
                 <a href="{{ route('nomina.index') }}" class="btn btn-outline-secondary btn-sm">Ir al listado</a>
-            {{-- @endcan --}}
-            {{-- @can('nominas.edit') --}}
+            @endcan
+            @can('nominas.edit')
                 <a href="{{ route('nomina.edit', $nomina->id) }}" class="btn btn-outline-secondary btn-sm">Editar</a>
-            {{-- @endcan --}}
+            @endcan
         </div>
     </div>
 @endcomponent

@@ -45,10 +45,6 @@ class PositionController extends Controller
 
     public function update(Position $position, UpdatePositionRequest $request)
     {
-        // $position->code = $request->code;
-        // $position->name = $request->name;
-        // $position->basic_salary = $request->basic_salary;
-
         $position->fill($request->validated());
 
         auth()->user()->positions()->save($position);

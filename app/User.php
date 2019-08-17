@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->hasOne(Company::class)->withDefault();
     }
 
+    public function nominas()
+    {
+        return $this->hasMany(Nomina::class);
+    }
+
     public function positions()
     {
         return $this->hasMany(Position::class);
