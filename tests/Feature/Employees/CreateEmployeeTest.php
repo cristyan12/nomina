@@ -5,11 +5,13 @@ namespace Tests\Feature;
 use App\{Employee, EmployeeProfile};
 
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\{
+    DatabaseTransactions, RefreshDatabase
+};
 
 class CreateEmployeeTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected $attributes;
 
@@ -57,7 +59,12 @@ class CreateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_create_a_employee()
     {
-        $response = $this->post(route('employees.store'), $this->attributes)
+        $this->withoutExceptionHandling();
+        
+        $user = $this->someUser();
+
+        $response = $this->actingAs($user)
+            ->post(route('employees.store'), $this->attributes)
             ->assertRedirect(route('employees.index'));
 
         $this->assertDatabaseHas('employees', [
@@ -66,6 +73,7 @@ class CreateEmployeeTest extends TestCase
             'first_name' => 'Cristyan Josuan',
             'born_at' => '1981-12-21',
             'hired_at' => '2012-08-30',
+            'user_id' => $user->id,
         ]);
 
         $empleado = \App\Employee::first();

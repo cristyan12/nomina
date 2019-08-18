@@ -40,11 +40,13 @@ class EmployeeController extends Controller
 
     public function store(CreateEmployeeRequest $request)
     {
-        $employee = Employee::create($request->only(
+        $employee = new Employee($request->only(
             'code', 'document', 'last_name', 'first_name',
             'rif', 'born_at', 'marital_status', 'sex',
             'nationality', 'city_of_born', 'hired_at'
         ));
+
+        auth()->user()->employees()->save($employee);
 
         $employee->profile()->create(request()->only(
             'profession_id', 'contract', 'status', 'bank_id',
@@ -71,11 +73,13 @@ class EmployeeController extends Controller
 
     public function update(Employee $employee, UpdateEmployeeRequest $request)
     {
-        $employee->update($request->only(
+        $employee->fill($request->only(
             'code', 'document', 'last_name', 'first_name',
             'rif', 'born_at', 'marital_status', 'sex',
             'nationality', 'city_of_born', 'hired_at'
         ));
+
+        auth()->user()->employees()->save($employee);
 
         $employee->profile()->update($request->only(
             'profession_id', 'contract', 'status', 'bank_id',

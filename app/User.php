@@ -39,6 +39,11 @@ class User extends Authenticatable
         return $this->hasOne(Company::class)->withDefault();
     }
 
+    public function employees()
+    {
+        return $this->hasMany(Employee::class);
+    }
+
     public function nominas()
     {
         return $this->hasMany(Nomina::class);

@@ -4,11 +4,13 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\{Employee, EmployeeProfile};
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Foundation\Testing\{
+    DatabaseTransactions, RefreshDatabase
+};
 
 class UpdateEmployeeTest extends TestCase
 {
-	use RefreshDatabase;
+	use DatabaseTransactions;
 
     protected $attributes;
 
@@ -67,13 +69,18 @@ class UpdateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_update_a_employee()
     {
-        $employee = $this->create(Employee::class);
+        $this->withoutExceptionHandling();
+        
+        $firstUser = factory('App\User')->create();
+        
+        $secondUser = $this->someUser();
+         
+        $employee = $this->create(Employee::class, ['user_id' => $firstUser->id]);
 
-        $profile = $this->create(EmployeeProfile::class, [
-            'employee_id' => $employee->id,
-        ]);
+        $profile = $this->create(EmployeeProfile::class, ['employee_id' => $employee->id]);
 
-        $response = $this->put(route('employees.update', $employee), $this->attributes)
+        $response = $this->actingAs($secondUser)
+            ->put(route('employees.update', $employee), $this->attributes)
             ->assertRedirect(route('employees.index'));
 
         $this->assertDatabaseHas('employees', [
@@ -82,6 +89,7 @@ class UpdateEmployeeTest extends TestCase
             'first_name' => 'Cristyan Josuan',
             'born_at' => '1981-12-21',
             'hired_at' => '2012-08-30',
+            'user_id' => $secondUser->id,
         ]);
 
         $employee = Employee::first(); 
