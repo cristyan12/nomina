@@ -1,16 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\{
-    Bank,
-    Branch,
-    Department,
-    Employee, 
-    EmployeeProfile, 
-    Position,
-    Profession,
-    Unit
-};
+use App\{Bank, Branch, Department, Employee, EmployeeProfile, Position, Profession, Unit, User};
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -21,7 +12,9 @@ class EmployeesTableSeeder extends Seeder
      */
     public function run()
     {
-        $president = Employee::create([
+        $user = User::first();
+
+        $president = new Employee([
             'code' => '14996210',
             'document' => '14996210',
             'last_name' => 'Valera',
@@ -33,8 +26,9 @@ class EmployeesTableSeeder extends Seeder
             'hired_at' => date('2012-08-30'),
         ]);
 
-        $profile = EmployeeProfile::create([
-            'employee_id' => $president->id,
+        $user->employees()->save($president);
+
+        $profile = new EmployeeProfile([
             'profession_id' => Profession::find(4)->id,
             'bank_id' => Bank::first()->id,
             'account_number' => '01010101120010020034',
@@ -44,7 +38,9 @@ class EmployeesTableSeeder extends Seeder
             'position_id' => Position::where('name', 'Presidente')->value('id'),
         ]);
 
-        $vicePresident = Employee::create([
+        $president->profile()->save($profile);
+
+        $vicePresident = new Employee([
             'code' => '14996612',
             'document' => '14996612',
             'last_name' => 'Garcia',
@@ -56,7 +52,9 @@ class EmployeesTableSeeder extends Seeder
             'hired_at' => date('2012-10-30'),
         ]);
 
-        $profile = EmployeeProfile::create([
+        $user->employees()->save($vicePresident);
+
+        $profileVicePresident = new EmployeeProfile([
             'employee_id' => $vicePresident->id,
             'profession_id' => Profession::find(3)->id,
             'bank_id' => Bank::first()->id,
@@ -66,5 +64,7 @@ class EmployeesTableSeeder extends Seeder
             'unit_id' => Unit::first()->id,
             'position_id' => Position::where('name', 'Vice Presidente')->value('id'),
         ]);
+
+        $vicePresident->profile()->save($profileVicePresident);
     }
 }
