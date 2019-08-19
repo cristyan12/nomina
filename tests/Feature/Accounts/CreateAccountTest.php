@@ -10,15 +10,17 @@ use Illuminate\Foundation\Testing\{
 
 class CreateAccountTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
+
+    protected $user;
 
     public function setUp()
     {
         parent::setUp();
 
-        $this->actingAs($this->someUser());
+        $this->user = $this->someUser();
 
-        // $this->withoutExceptionHandling();
+        $this->actingAs($this->user);
     }
 
     /** 
@@ -27,23 +29,25 @@ class CreateAccountTest extends TestCase
     */
     function a_user_can_load_the_page_of_the_new_accounts()
     {
-        $company = $this->create('App\Company');
+        $this->withoutExceptionHandling();
+
         $bank = $this->create('App\Bank');
-        $president = $this->create('App\Position', ['name' => 'PRESIDENTE']);
-        $vicePresident = $this->create('App\Position', ['name' => 'VICE-PRESIDENTE']);
+        $company = $this->create('App\Company');
+        
+        $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
+        $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
+
+        $this->user->positions()->saveMany([$president, $vicePresident]);
+
+        $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
+        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
+        
         $emp1 = $this->create('App\Employee');
         $emp2 = $this->create('App\Employee');
-        
-        $auth1 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp1->id,
-            'position_id' => $president->id,
-        ]);
-        
-        $auth2 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp2->id,
-            'position_id' => $vicePresident->id
-        ]);
-        
+
+        $emp1->profile()->save($auth1);
+        $emp2->profile()->save($auth2);
+
         $response = $this->get(route('accounts.create'))
             ->assertOk()
             ->assertViewIs('accounts.create')
@@ -56,27 +60,24 @@ class CreateAccountTest extends TestCase
     */
     function a_user_can_create_a_new_bank_account_of_the_company()
     {
-        $company = $this->create('App\Company');
         $bank = $this->create('App\Bank');
-        $president = $this->create('App\Position', ['name' => 'PRESIDENTE']);
-        $vicePresident = $this->create('App\Position', ['name' => 'VICE-PRESIDENTE']);
+        $company = $this->create('App\Company');
+           
+        $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
+        $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
+
+        $this->user->positions()->saveMany([$president, $vicePresident]);
+
+        $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
+        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
+        
         $emp1 = $this->create('App\Employee');
         $emp2 = $this->create('App\Employee');
-        
-        $auth1 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp1->id,
-            'position_id' => $president->id,
-        ]);
-        
-        $auth2 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp2->id,
-            'position_id' => $vicePresident->id
-        ]);
 
-        $this->actingAs($user = $this->someUser());
+        $emp1->profile()->save($auth1);
+        $emp2->profile()->save($auth2);
 
         $response = $this->post(route('accounts.store'), [
-            // 'company_id' => $company->id,
             'bank_id' => $bank->id,
             'number' => '12345678912345678912',
             'type' => 'Corriente',
@@ -92,7 +93,7 @@ class CreateAccountTest extends TestCase
             'type' => 'Corriente',
             'auth_1' => $auth1->id,
             'auth_2' => $auth2->id,
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
         ]);
     }
 

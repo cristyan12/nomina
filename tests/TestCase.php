@@ -15,6 +15,11 @@ abstract class TestCase extends BaseTestCase
         return factory($class)->create($attributes);
     }
 
+    protected function make($class, $attributes = [])
+    {
+        return factory($class)->make($attributes);
+    }
+
     protected function someUser(array $attributes = [])
     {
         if ($this->someUser) {

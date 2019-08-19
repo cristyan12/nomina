@@ -12,13 +12,15 @@ class UpdateAccountTest extends TestCase
 {
     use DatabaseTransactions;
 
+    protected $user;
+
     public function setUp()
     {
         parent::setUp();
 
-        $this->actingAs($this->someUser());
+        $this->user = $this->someUser();
 
-        // $this->withoutExceptionHandling();
+        $this->actingAs($this->user);
     }
 
     /** 
@@ -47,20 +49,19 @@ class UpdateAccountTest extends TestCase
         $company = $this->create('App\Company');
         $account = $this->create(Account::class);
 
-        $president = $this->create('App\Position', ['name' => 'PRESIDENTE']);
-        $vicePresident = $this->create('App\Position', ['name' => 'VICE-PRESIDENTE']);
+        $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
+        $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
+
+        $this->user->positions()->saveMany([$president, $vicePresident]);
+
+        $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
+        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);        
+
         $emp1 = $this->create('App\Employee');
         $emp2 = $this->create('App\Employee');
 
-        $auth1 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp1->id,
-            'position_id' => $president->id,
-        ]);
-
-        $auth2 = $this->create('App\EmployeeProfile', [
-            'employee_id' => $emp2->id,
-            'position_id' => $vicePresident->id
-        ]);
+        $emp1->profile()->save($auth1);
+        $emp2->profile()->save($auth2);
 
         $response = $this->put(route('accounts.update', $account), [
             'auth_1' => $auth1->id,
