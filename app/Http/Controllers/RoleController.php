@@ -17,7 +17,7 @@ class RoleController extends Controller
     public function create()
     {
         return view('roles.create', [
-            'permissions' => Permission::orderBy('id')->get(),
+            'permissions' => Permission::orderBy('slug')->get(),
         ]);
     }
 
@@ -40,11 +40,11 @@ class RoleController extends Controller
     {
         return view('roles.edit', [
             'role' => $role,
-            'permissions' => Permission::orderBy('id')->get(),
+            'permissions' => Permission::orderBy('slug')->get(),
         ]);
     }
 
-    public function update(Request $request, Role $role) 
+    public function update(Request $request, Role $role)
     {
         $role->update($request->all());
 

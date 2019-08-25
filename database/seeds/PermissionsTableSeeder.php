@@ -312,6 +312,31 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Modulo de seguridad',
         ]);
 
+        // Concepts
+        Permission::create([
+            'name' => 'Listar los conceptos salariales',
+            'slug' => 'concepts.index',
+            'description' => 'Lista todas los conceptos salariales',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver detalle del concepto',
+            'slug' => 'concepts.show',
+            'description' => 'Ver en detalle los datos de cada concepto',
+        ]);
+
+        Permission::create([
+            'name' => 'Creación de conceptos',
+            'slug' => 'concepts.create',
+            'description' => 'Podría crear nuevos de conceptos',
+        ]);
+
+        Permission::create([
+            'name' => 'Edición de conceptos laborales',
+            'slug' => 'concepts.edit',
+            'description' => 'Podría editar cualquier dato de un concept',
+        ]);
+
         // Permission
         Permission::create([
             'name' => 'Listar permisos',
