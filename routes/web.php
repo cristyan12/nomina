@@ -11,6 +11,11 @@ Route::middleware(['auth'])->group(function() {
     Route::view('/archivos', 'registry')->name('records');
     Route::view('/security', 'security')->name('security');
 
+    // Concepts
+    Route::get('concepts', 'ConceptController@index')->name('concepts.index');
+    Route::get('concepts/create', 'ConceptController@create')->name('concepts.create');
+    Route::post('concepts/store', 'ConceptController@store')->name('concepts.store');
+
     // Bank Account
     Route::get('accounts', 'AccountController@index')->name('accounts.index');
     Route::get('accounts/create', 'AccountController@create')->name('accounts.create');
