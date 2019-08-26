@@ -60,7 +60,7 @@
                 </div>
             @endcan
         </div>
-    </div>
+    </div> {{-- row --}}
 
     <hr>
 </div>

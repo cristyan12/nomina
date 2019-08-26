@@ -22,7 +22,7 @@ class ConceptController extends Controller
     public function store(Request $request)
     {
         $concept = new Concept($request->all());
-
+        
         auth()->user()->concepts()->save($concept);
         
         return redirect()->route('concepts.index');

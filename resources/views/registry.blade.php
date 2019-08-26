@@ -4,13 +4,30 @@
 <div class="row justify-content-center">
     <div class="col">
         <div class="card-deck">
+            @can('concepts.index')
+                <div class="card text-white bg-info mb-3">
+                    <div class="card-header">
+                        <strong>Conceptos</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text lead">
+                            Conceptos
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('concepts.index') }}" class="btn btn-outline-light stretched-link">
+                            Ver lista
+                        </a>
+                    </div>
+                </div>
+            @endcan
             @can('positions.index')
                 <div class="card text-white bg-secondary mb-3" >
                     <div class="card-header">
                         <strong>Tabulador CCP 2017-2019</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text lead">
                             Escala salarial de los diferentes cargos
                         </p>
                     </div>
@@ -28,7 +45,7 @@
                         <strong>Profesiones</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text lead">
                             Las profesiones de los empleados
                         </p>
                     </div>
@@ -40,13 +57,17 @@
                 </div>
             @endcan
             
+        </div>
+
+        <div class="card-deck">
+            
             @can('branches.index')
                 <div class="card bg-warning mb-3">
                     <div class="card-header">
                         <strong>Sucursales</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text lead">
                             Sucursales
                         </p>
                     </div>
@@ -57,16 +78,14 @@
                     </div>
                 </div>
             @endcan
-        </div>
-
-        <div class="card-deck">
+            
             @can('departments.index')
                 <div class="card text-white bg-info mb-3" >
                     <div class="card-header">
                         <strong>Departamentos</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text lead">
                             Departamentos
                         </p>
                     </div>
@@ -84,7 +103,7 @@
                         <strong>Unidades</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text lead">
                             Unidades
                         </p>
                     </div>
@@ -96,13 +115,16 @@
                 </div>
             @endcan
             
+        </div>
+
+        <div class="card-deck">
             @can('employees.index')
                 <div class="card text-white bg-dark mb-3" >
                     <div class="card-header">
                         <strong>Empleados</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text">
+                        <p class="card-text lead">
                             Empleados
                         </p>
                     </div>
@@ -113,15 +135,13 @@
                     </div>
                 </div>
             @endcan
-        </div>
 
-        <div class="card-deck">
-            <div class="card text-white bg-dark mb-3" >
+            <div class="card text-white bg-info mb-3" >
                 <div class="card-header">
                     <strong>Cuentas Bancarias</strong>
                 </div>
                 <div class="card-body">
-                    <p class="card-text">
+                    <p class="card-text lead">
                         Cuentas Bancarias
                     </p>
                 </div>

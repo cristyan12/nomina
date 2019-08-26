@@ -31,7 +31,7 @@
 
         @if($errors->has('type'))
             <br>
-            <span class="text-danger">
+            <span class="invalid-feedback" role="alert">
                 <strong>{{ $errors->first('type') }}</strong>
             </span>
         @endif
