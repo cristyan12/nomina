@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Concept;
-use Illuminate\Http\Request;
+use App\Http\Requests\CreateConceptRequest;
 
 class ConceptController extends Controller
 {
@@ -19,7 +19,7 @@ class ConceptController extends Controller
         return view('concepts.create', ['concept' => new Concept()]);
     }
 
-    public function store(Request $request)
+    public function store(CreateConceptRequest $request)
     {
         $concept = new Concept($request->all());
         
