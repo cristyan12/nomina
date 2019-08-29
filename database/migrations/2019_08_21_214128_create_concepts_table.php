@@ -18,7 +18,7 @@ class CreateConceptsTable extends Migration
 
             $table->unsignedInteger('user_id'); 
             $table->string('name');
-            $table->enum('type', ['Asignacion', 'Deduccion']);
+            $table->enum('type', ['asignacion', 'deduccion']);
             $table->text('description');
             $table->float('quantity', 10, 2);
             $table->string('calculation_salary');

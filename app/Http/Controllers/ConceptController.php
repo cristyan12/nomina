@@ -21,11 +21,13 @@ class ConceptController extends Controller
 
     public function store(CreateConceptRequest $request)
     {
-        $concept = new Concept($request->all());
-        
+        $concept = new Concept();
+        $concept->fill($request->validated());
+
         auth()->user()->concepts()->save($concept);
-        
-        return redirect()->route('concepts.index');
+
+        return redirect()->route('concepts.index')
+            ->with('success', 'Concepto creado con éxito.');
     }
 
     public function show(Concept $concept)

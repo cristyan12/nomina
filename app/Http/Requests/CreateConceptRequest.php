@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class CreateConceptRequest extends FormRequest
@@ -24,8 +25,15 @@ class CreateConceptRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|unique:concepts',
-            'type' => 'required',
+            'name' => ['required', 'unique:concepts'],
+            'type' => [
+                'required',
+                Rule::in(['asignacion', 'deduccion'])
+            ],
+            'description' => ['required'],
+            'quantity' => ['required'],
+            'calculation_salary' => ['required'],
+            'formula' => ['required'],
         ];
     }
 }
