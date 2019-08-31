@@ -168,4 +168,67 @@ class ConceptTest extends TestCase
 
         $this->assertEquals(0, Concept::count());
     }
+
+    /** 
+    * @test
+    * @testdox El campo cantidad es obligatorio al crear un nuevo concepto 
+    */
+    function the_quantity_field_is_required_when_creating_a_new_concept()
+    {
+        $response = $this->from(route('concepts.create'))
+            ->post(route('concepts.store', [
+                'name' => 'Dias trabajados diurnos',
+                'type' => 'asignacion',
+                'description' => 'Dias trabajados diurnos',
+                'quantity' => '',
+                'calculation_salary' => 'SB',
+                'formula' => 'quantity * daily_salary',
+            ]))
+            ->assertRedirect(route('concepts.create'))
+            ->assertSessionHasErrors(['quantity']);
+
+        $this->assertEquals(0, Concept::count());
+    }
+
+    /** 
+    * @test
+    * @testdox El campo salario del calculo es obligatorio al crear un nuevo concepto 
+    */
+    function the_calculation_salary_field_is_required_when_creating_a_new_concept()
+    {
+        $response = $this->from(route('concepts.create'))
+            ->post(route('concepts.store', [
+                'name' => 'Dias trabajados diurnos',
+                'type' => 'asignacion',
+                'description' => 'Dias trabajados diurnos',
+                'quantity' => 4,
+                'calculation_salary' => '',
+                'formula' => 'quantity * daily_salary',
+            ]))
+            ->assertRedirect(route('concepts.create'))
+            ->assertSessionHasErrors(['calculation_salary']);
+
+        $this->assertEquals(0, Concept::count());
+    }
+
+    /** 
+    * @test
+    * @testdox El campo formula es obligatorio al crear un nuevo concepto 
+    */
+    function the_formula_field_is_required_when_creating_a_new_concept()
+    {
+        $response = $this->from(route('concepts.create'))
+            ->post(route('concepts.store', [
+                'name' => 'Dias trabajados diurnos',
+                'type' => 'asignacion',
+                'description' => 'Dias trabajados diurnos',
+                'quantity' => 4,
+                'calculation_salary' => 'SB',
+                'formula' => '',
+            ]))
+            ->assertRedirect(route('concepts.create'))
+            ->assertSessionHasErrors(['formula']);
+
+        $this->assertEquals(0, Concept::count());
+    }
 }
