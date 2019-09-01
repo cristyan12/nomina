@@ -2,7 +2,7 @@
 
 return [
     'types' => [
-        'Asignacion' => 'Asignacion',
-        'Deduccion' => 'Deduccion',
+        'asignacion' => 'Asignacion',
+        'deduccion' => 'Deduccion',
     ],
 ];

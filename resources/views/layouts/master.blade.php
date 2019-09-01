@@ -36,7 +36,7 @@
 
         <div class="collapse navbar-collapse float-right" id="navbarText">
             <ul class="navbar-nav mr-auto">
-            @include('layouts._auth')
+                @include('layouts._auth')
             </ul>
         </div>
     </nav>

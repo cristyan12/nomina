@@ -9,13 +9,24 @@ use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class ConceptTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
+
+    protected $attributes = [];
 
     public function setUp()
     {
         parent::setUp();
 
         $this->actingAs($this->someUser());
+
+        $this->attributes = [
+            'name' => 'Dias trabajados diurnos',
+            'type' => 'asignacion',
+            'description' => 'Dias trabajados diurnos',
+            'quantity' => 4,
+            'calculation_salary' => 'SB',
+            'formula' => 'quantity * daily_salary',
+        ];
 
         // $this->withoutExceptionHandling();
     }
@@ -38,26 +49,17 @@ class ConceptTest extends TestCase
     */
     function a_user_can_create_a_new_concept()
     {
-        $attributes = [
-            'name' => 'Dias trabajados diurnos',
-            'type' => 'asignacion',
-            'description' => 'Dias trabajados diurnos',
-            'quantity' => 4,
-            'calculation_salary' => 'SB',
-            'formula' => 'quantity * daily_salary',
-        ];
-
         $response = $this->actingAs($user = $this->someUser())
-            ->post(route('concepts.store', $attributes))
+            ->post(route('concepts.store', $this->attributes))
             ->assertRedirect(route('concepts.index'));
 
         $this->assertDatabaseHas('concepts', [
-            'name' => $attributes['name'],
-            'type' => $attributes['type'],
-            'description' => $attributes['description'],
-            'quantity' => $attributes['quantity'],
-            'calculation_salary' => $attributes['calculation_salary'],
-            'formula' => $attributes['formula'],
+            'name' => $this->attributes['name'],
+            'type' => $this->attributes['type'],
+            'description' => $this->attributes['description'],
+            'quantity' => $this->attributes['quantity'],
+            'calculation_salary' => $this->attributes['calculation_salary'],
+            'formula' => $this->attributes['formula'],
             'user_id' => $user->id,
         ]);
     }
@@ -68,15 +70,10 @@ class ConceptTest extends TestCase
     */
     function the_name_field_is_required_when_creating_a_new_concept()
     {
+        $replace = array_replace($this->attributes, ['name' => '']);
+
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => '',
-                'type' => 'asignacion',
-                'description' => 'Dias trabajados diurnos',
-                'quantity' => 4,
-                'calculation_salary' => 'SB',
-                'formula' => 'quantity * daily_salary',
-            ]))
+            ->post(route('concepts.store', $replace))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['name']);
 
@@ -92,14 +89,7 @@ class ConceptTest extends TestCase
         $this->create(Concept::class, ['name' => 'Dias trabajados diurnos']);
 
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => 'Dias trabajados diurnos',
-                'type' => 'asignacion',
-                'description' => 'Dias trabajados diurnos',
-                'quantity' => 4,
-                'calculation_salary' => 'SB',
-                'formula' => 'quantity * daily_salary',
-            ]))
+            ->post(route('concepts.store', $this->attributes))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['name']);
 
@@ -112,15 +102,10 @@ class ConceptTest extends TestCase
     */
     function the_type_field_is_required_when_creating_a_new_concept()
     {
+        $replace = array_replace($this->attributes, ['type' => '']);
+
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => 'Dias trabajados diurnos',
-                'type' => '',
-                'description' => 'Dias trabajados diurnos',
-                'quantity' => 4,
-                'calculation_salary' => 'SB',
-                'formula' => 'quantity * daily_salary',
-            ]))
+            ->post(route('concepts.store', $replace))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['type']);
 
@@ -133,15 +118,10 @@ class ConceptTest extends TestCase
     */
     function the_type_field_must_be_asignacion_or_deduccion_when_creating_a_new_concept()
     {
+        $replace = array_replace($this->attributes, ['type' => 'OTRO METODO']);
+
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => 'Dias trabajados diurnos',
-                'type' => 'OTRO METODO',
-                'description' => 'Dias trabajados diurnos',
-                'quantity' => 4,
-                'calculation_salary' => 'SB',
-                'formula' => 'quantity * daily_salary',
-            ]))
+            ->post(route('concepts.store', $replace))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['type']);
 
@@ -154,15 +134,10 @@ class ConceptTest extends TestCase
     */
     function the_description_field_is_required_when_creating_a_new_concept()
     {
+        $replace = array_replace($this->attributes, ['description' => '']);
+
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => 'Dias trabajados diurnos',
-                'type' => 'asignacion',
-                'description' => '',
-                'quantity' => 4,
-                'calculation_salary' => 'SB',
-                'formula' => 'quantity * daily_salary',
-            ]))
+            ->post(route('concepts.store', $replace))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['description']);
 
@@ -175,15 +150,10 @@ class ConceptTest extends TestCase
     */
     function the_quantity_field_is_required_when_creating_a_new_concept()
     {
+        $replace = array_replace($this->attributes, ['quantity' => '']);
+
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => 'Dias trabajados diurnos',
-                'type' => 'asignacion',
-                'description' => 'Dias trabajados diurnos',
-                'quantity' => '',
-                'calculation_salary' => 'SB',
-                'formula' => 'quantity * daily_salary',
-            ]))
+            ->post(route('concepts.store', $replace))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['quantity']);
 
@@ -196,15 +166,10 @@ class ConceptTest extends TestCase
     */
     function the_calculation_salary_field_is_required_when_creating_a_new_concept()
     {
+        $replace = array_replace($this->attributes, ['calculation_salary' => '']);
+
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => 'Dias trabajados diurnos',
-                'type' => 'asignacion',
-                'description' => 'Dias trabajados diurnos',
-                'quantity' => 4,
-                'calculation_salary' => '',
-                'formula' => 'quantity * daily_salary',
-            ]))
+            ->post(route('concepts.store', $replace))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['calculation_salary']);
 
@@ -217,15 +182,10 @@ class ConceptTest extends TestCase
     */
     function the_formula_field_is_required_when_creating_a_new_concept()
     {
+        $replace = array_replace($this->attributes, ['formula' => '']);
+
         $response = $this->from(route('concepts.create'))
-            ->post(route('concepts.store', [
-                'name' => 'Dias trabajados diurnos',
-                'type' => 'asignacion',
-                'description' => 'Dias trabajados diurnos',
-                'quantity' => 4,
-                'calculation_salary' => 'SB',
-                'formula' => '',
-            ]))
+            ->post(route('concepts.store', $replace))
             ->assertRedirect(route('concepts.create'))
             ->assertSessionHasErrors(['formula']);
 
