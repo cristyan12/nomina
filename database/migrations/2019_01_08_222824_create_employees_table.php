@@ -23,7 +23,7 @@ class CreateEmployeesTable extends Migration
             $table->string('rif');
             $table->date('born_at');
 
-            $table->enum('marital_status', [
+            $table->enum('civil_status', [
                 'Casado/a', 'Soltero/a', 'Viudo/a'
             ])->default('Soltero/a');
             

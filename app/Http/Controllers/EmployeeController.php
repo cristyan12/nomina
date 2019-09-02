@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\{
-    Unit, Branch, Position, Employee,
-    Bank, Profession, Department
+    Unit, Branch, Position, Employee, 
+    EmployeeProfile, Bank, Profession, Department
 };
 use Illuminate\Http\Request;
 use App\Http\Requests\CreateEmployeeRequest;
@@ -24,6 +24,7 @@ class EmployeeController extends Controller
     public function create()
     {
         return view('employees.create', [
+            'profile'       => new EmployeeProfile(),
             'professions'   => Profession::orderBy('id')->pluck('title', 'id'),
             'branches'      => Branch::orderBy('id')->pluck('name', 'id'),
             'banks'         => Bank::orderBy('id')->pluck('name', 'id'),
@@ -42,7 +43,7 @@ class EmployeeController extends Controller
     {
         $employee = new Employee($request->only(
             'code', 'document', 'last_name', 'first_name',
-            'rif', 'born_at', 'marital_status', 'sex',
+            'rif', 'born_at', 'civil_status', 'sex',
             'nationality', 'city_of_born', 'hired_at'
         ));
 

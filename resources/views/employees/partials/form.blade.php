@@ -87,8 +87,8 @@
 
 <div class="form-row">
 	<div class="form-group col-md-6">
-	    {{ Form::label('marital_status', 'Estado Civil:*') }}
-	    {{ Form::select('marital_status', [
+	    {{ Form::label('civil_status', 'Estado Civil:*') }}
+	    {{ Form::select('civil_status', [
 	    	'Soltero/a' => 'Soltero/a',
 	    	'Casado/a' => 'Casado/a',
 	    	'Viudo/a' => 'Viudo/a'
@@ -110,7 +110,7 @@
 </div>
 
 <div class="form-row">
-	<div class="form-group col-md-6">
+	<div class="form-group col-md-4">
 	    <label for="city_of_born">Ciudad de nacimiento:*</label>
 		<input type="text" id="city_of_born" name="city_of_born"
 			class="form-control{{ $errors->has('city_of_born') ? ' is-invalid' : ''}}" value="{{ old('city_of_born') }}"
@@ -122,7 +122,7 @@
 	    @endif
 	</div>
 
-	<div class="form-group col-md-6">
+	<div class="form-group col-md-4">
 	    <label for="hired_at">Fecha de contratación:*</label>
 	    <input type="date" id="hired_at" name="hired_at"
 	    	class="form-control{{ $errors->has('hired_at') ? ' is-invalid' : '' }}" value="{{ old('hired_at') }}"
@@ -130,6 +130,24 @@
 	    @if($errors->has('hired_at'))
 	    	<span class="invalid-feedback" role="alert">
 	    		<strong>{{ $errors->first('hired_at') }}</strong>
+	    	</span>
+	    @endif
+	</div>
+
+	<div class="form-group col-md-4">
+	    <label for="status">Status:*</label>
+	    <select name="status" id="status" class="custom-select">
+            @foreach(trans('statuses.status') as $type => $status)
+                <option value="{{ $type }}"
+                    {{ old('status', $profile->status) == $status ? ' selected' : '' }}>
+                    {{ $status }}
+                </option>
+            @endforeach
+        </select>
+		    
+	    @if($errors->has('status'))
+	    	<span class="invalid-feedback" role="alert">
+	    		<strong>{{ $errors->first('status') }}</strong>
 	    	</span>
 	    @endif
 	</div>

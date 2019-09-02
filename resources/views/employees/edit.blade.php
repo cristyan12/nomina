@@ -105,12 +105,12 @@
 
                 <div class="form-row">
                 	<div class="form-group col-md-6">
-					    {{ Form::label('marital_status', 'Estado Civil:*') }}
-					    {{ Form::select('marital_status', [
+					    {{ Form::label('civil_status', 'Estado Civil:*') }}
+					    {{ Form::select('civil_status', [
 					    	'Soltero/a' => 'Soltero/a',
 					    	'Casado/a' => 'Casado/a',
 					    	'Viudo/a' => 'Viudo/a'
-					    ], $employee->marital_status, ['class' => 'custom-select']) }}
+					    ], $employee->civil_status, ['class' => 'custom-select']) }}
 					</div>
 
 					<div class="form-group col-md-6">
@@ -153,6 +153,24 @@
                             </span>
                         @endif
                     </div>
+
+                    <div class="form-group col-md-4">
+                    <label for="status">Status:*</label>
+                    <select name="status" id="status" class="custom-select">
+                        @foreach(trans('statuses.status') as $type => $status)
+                            <option value="{{ $type }}"
+                                {{ old('status', $employee->profile->status) == $status ? ' selected' : '' }}>
+                                {{ $status }}
+                            </option>
+                        @endforeach
+                    </select>
+                        
+                    @if($errors->has('status'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('status') }}</strong>
+                        </span>
+                    @endif
+                </div>
                 </div>
 
                 <div class="form-row">
