@@ -29,7 +29,7 @@ class UpdateEmployeeTest extends TestCase
             'first_name' => 'Cristyan Josuan',
             'rif' => 'V149962103',
             'born_at' => '1981-12-21',
-            'civil_status' => 'Casado/a',
+            'marital_status' => 'Casado/a',
             'sex' => 'M',
             'nationality' => 'V',
             'city_of_born' => 'Guanare',

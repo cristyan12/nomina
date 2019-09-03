@@ -11,7 +11,7 @@ use Illuminate\Foundation\Testing\{
 
 class CreateEmployeeTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected $attributes;
 

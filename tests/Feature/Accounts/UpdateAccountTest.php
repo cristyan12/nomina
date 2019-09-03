@@ -37,7 +37,7 @@ class UpdateAccountTest extends TestCase
             ->assertOk()
             ->assertViewIs('accounts.edit')
             ->assertViewHas('account')
-            ->assertSee(e($account->bank->name));
+            ->assertSee($account->bank->name);
     }
 
     /** 

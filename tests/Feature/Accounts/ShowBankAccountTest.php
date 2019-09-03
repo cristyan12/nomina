@@ -54,10 +54,10 @@ class ShowBankAccountTest extends TestCase
             ->assertOk()
             ->assertViewIs('accounts.show')
             ->assertViewHas('account')
-            ->assertSee(e($account->bank->name))
+            ->assertSee($account->bank->name)
             ->assertSee($account->type)
             ->assertSee($account->number)
-            ->assertSee(e($account->auth1->full_name))
-            ->assertSee(e($account->user->name));
+            ->assertSee($account->auth1->full_name)
+            ->assertSee($account->user->name);
     }
 }
