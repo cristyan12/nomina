@@ -1,4 +1,10 @@
-@if ($errors->any())
+@if (session('info'))
+    <div class="alert alert-success" role="alert">
+         {{ session('info') }}
+    </div>
+@endif
+
+{{-- @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Por favor revise los siguientes errores:</strong>
         <ul>
@@ -6,11 +12,5 @@
             <li>{{ $error }}</li>
             @endforeach
         </ul>
-    </div>
-@endif
-
-{{-- @if (session('info'))
-    <div class="alert alert-success" role="alert">
-         {{ session('info') }}
     </div>
 @endif --}}

@@ -29,7 +29,7 @@
                     </div>
                     <div class="card-body">
                         <p class="card-text lead">
-                            Acceso a los módulos de seguridad.
+                            Módulos de seguridad.
                         </p>
                     </div>
                     <div class="card-footer">

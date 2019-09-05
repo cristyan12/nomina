@@ -11,6 +11,11 @@ Route::middleware(['auth'])->group(function() {
     Route::view('/archivos', 'registry')->name('records');
     Route::view('/security', 'security')->name('security');
 
+    // Load Familiar
+    Route::get('employees/{employee}/load-familiars', 'LoadFamiliarController@index')->name('familiars.index');
+    Route::get('employees/{employee}/load-familiar', 'LoadFamiliarController@create')->name('familiars.create');
+    Route::post('employees/load-familiar/store', 'LoadFamiliarController@store')->name('familiars.store');
+
     // Concepts
     Route::get('concepts', 'ConceptController@index')->name('concepts.index');
     Route::get('concepts/create', 'ConceptController@create')->name('concepts.create');
