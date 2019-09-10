@@ -71,4 +71,16 @@ class LoadFamiliarTest extends TestCase
             'instruction'   => $this->attributes['instruction'],
         ]);
     }
+
+    /** 
+    * @test
+    * @testdox El id del empleado es requerido
+    */
+    function a_employee_id_field_is_required()
+    {
+        $this->post(route('familiars.store'), $this->replaceWithEmptyAttr($this->attributes, 'employee_id'))
+            ->assertSessionHasErrors(['employee_id']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
 }
