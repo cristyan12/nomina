@@ -2,14 +2,13 @@
 
 namespace Tests\Unit;
 
-use Carbon\Carbon;
 use Tests\TestCase;
-use App\{Employee, EmployeeProfile, Position};
+use App\Employee;
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class EmployeeTest extends TestCase
 {
-	use DatabaseTransactions;
+	use RefreshDatabase;
 
     /** @test */
     function calculate_the_antiquity_of_employees()
