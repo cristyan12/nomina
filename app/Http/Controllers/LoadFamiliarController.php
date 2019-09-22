@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\{Employee, LoadFamiliar};
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\CreateLoadFamiliarRequest;
 
 class LoadFamiliarController extends Controller
 {
@@ -13,7 +12,7 @@ class LoadFamiliarController extends Controller
         return view('familiars.create', compact('employee'));
     }
 
-    public function store(Request $request)
+    public function store(CreateLoadFamiliarRequest $request)
     {
         $loadFamiliar = new LoadFamiliar($request->all());
 

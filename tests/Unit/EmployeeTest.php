@@ -2,8 +2,8 @@
 
 namespace Tests\Unit;
 
-use Tests\TestCase;
 use App\Employee;
+use Tests\TestCase;
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class EmployeeTest extends TestCase

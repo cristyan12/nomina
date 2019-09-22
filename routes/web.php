@@ -6,7 +6,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Rutas con permisos
 Route::middleware(['auth'])->group(function() {
-    
+
     Route::view('/', 'dashboard')->name('dashboard');
     Route::view('/archivos', 'registry')->name('records');
     Route::view('/security', 'security')->name('security');
@@ -102,23 +102,23 @@ Route::middleware(['auth'])->group(function() {
     Route::get('roles', 'RoleController@index')
         ->name('roles.index');
         // ->middleware('permission:roles.index');
-    
+
     Route::get('roles/create', 'RoleController@create')
         ->name('roles.create');
         // ->middleware('permission:roles.create');
-    
+
     Route::put('roles/{role}', 'RoleController@update')
         ->name('roles.update');
         // ->middleware('permission:roles.edit');
-    
+
     Route::get('roles/{role}', 'RoleController@show')
         ->name('roles.show');
         // ->middleware('permission:roles.show');
-    
+
     Route::delete('roles/{role}', 'RoleController@destroy')
         ->name('roles.destroy');
         // ->middleware('permission:roles.destroy');
-    
+
     Route::get('roles/{role}/edit', 'RoleController@edit')
         ->name('roles.edit');
         // ->middleware('permission:roles.edit');
@@ -143,7 +143,7 @@ Route::middleware(['auth'])->group(function() {
     Route::put('permissions/{permission}', 'PermissionController@update')
         ->name('permissions.update');
         // ->middleware('permission:permissions.edit');
-    
+
     Route::get('permissions/{permission}', 'PermissionController@show')
         ->name('permissions.show');
         // ->middleware('permission:permissions.show');
@@ -152,23 +152,23 @@ Route::middleware(['auth'])->group(function() {
     Route::get('/positions', 'PositionController@index')
         ->name('positions.index');
         // ->middleware('permission:positions.index');
-    
+
     Route::get('/positions/create', 'PositionController@create')
         ->name('positions.create');
         // ->middleware('permission:positions.create');
-    
+
     Route::post('/positions', 'PositionController@store')
         ->name('positions.store');
         // ->middleware('permission:positions.create');
-    
+
     Route::get('/positions/{position}', 'PositionController@show')
         ->name('positions.show');
         // ->middleware('permission:positions.show');
-    
+
     Route::get('positions/{position}/edit', 'PositionController@edit')
         ->name('positions.edit');
         // ->middleware('permission:positions.edit');
-    
+
     Route::put('/positions/{position}', 'PositionController@update')
         ->name('positions.update');
         // ->middleware('permission:positions.edit');

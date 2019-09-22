@@ -28,4 +28,14 @@ abstract class TestCase extends BaseTestCase
 
         return $this->someUser = factory('App\User')->create($attributes);
     }
+
+    protected function withData(array $custom = [])
+    {
+        return array_merge($this->defaultAttributes(), $custom);
+    }
+
+    protected function defaultAttributes()
+    {
+        return $this->attributes;
+    }
 }
