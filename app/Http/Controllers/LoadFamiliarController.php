@@ -8,14 +8,23 @@ use App\Http\Requests\CreateLoadFamiliarRequest;
 
 class LoadFamiliarController extends Controller
 {
+    public function index()
+    {
+        # code...
+    }
+
     public function create(Employee $employee)
-    {   
-        return view('familiars.create', compact('employee'));
+    {
+        $loadFamiliar = new LoadFamiliar;
+
+        return view('familiars.create', compact('employee', 'loadFamiliar'));
     }
 
     public function store(CreateLoadFamiliarRequest $request)
     {
-        $loadFamiliar = new LoadFamiliar($request->validated());
+        dd($request->all());
+
+        $loadFamiliar = new LoadFamiliar($request->all());
 
         auth()->user()->familiars()->save($loadFamiliar);
 

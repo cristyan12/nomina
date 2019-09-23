@@ -14,7 +14,7 @@ class Employee extends Model
         'hired_at' => 'date',
     ];
 
-    // En la ocasión de establecer los firmantes 
+    // En la ocasión de establecer los firmantes
     // autorizados en las cuentas bancarias de la empresa
     public function accounts()
     {
@@ -60,8 +60,8 @@ class Employee extends Model
     /**
     * Calcula la diferncia entre las fechas de contratación
     * y la fecha actual en formato leíble para los humanos.
-    * 
-    * @return string 
+    *
+    * @return string
     */
     public function diffAntiquity()
     {

@@ -10,7 +10,7 @@
                 </div>
                 <div class="card-body">
                     <p class="card-text lead">
-                        Acceso a los módulos de registro.
+                        Módulos de registro.
                     </p>
                 </div>
                 <div class="card-footer">

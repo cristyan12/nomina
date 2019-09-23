@@ -36,7 +36,7 @@ class LoadFamiliarTest extends TestCase
         // $this->withoutExceptionHandling();
     }
 
-    /** 
+    /**
     * @test
     * @testdox Un usuario puede cargar la página de nueva carga familiar de un empleado dado
     */
@@ -51,7 +51,7 @@ class LoadFamiliarTest extends TestCase
             ->assertSee(e($employee->full_name));
     }
 
-    /** 
+    /**
     * @test
     * @testdox Un usuario puede registrar una nueva carga familiar de un empleado dado
     */
@@ -70,17 +70,5 @@ class LoadFamiliarTest extends TestCase
             'born_at'       => $this->attributes['born_at'],
             'instruction'   => $this->attributes['instruction'],
         ]);
-    }
-
-    /** 
-    * @test
-    * @testdox El id del empleado es requerido
-    */
-    function a_employee_id_field_is_required()
-    {
-        $this->post(route('familiars.store'), $this->replaceWithEmptyAttr($this->attributes, 'employee_id'))
-            ->assertSessionHasErrors(['employee_id']);
-
-        $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 }

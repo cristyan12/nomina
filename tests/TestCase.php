@@ -28,9 +28,4 @@ abstract class TestCase extends BaseTestCase
 
         return $this->someUser = factory('App\User')->create($attributes);
     }
-
-    public function replaceWithEmptyAttr(array $original, string $attribute)
-    {
-        return array_replace($original, [$attribute => '']);
-    }
 }

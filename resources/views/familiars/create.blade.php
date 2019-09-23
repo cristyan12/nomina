@@ -1,13 +1,13 @@
 @extends('layouts.master')
 
 @section('content')
-<div class="container">
+<div class="container pt-0">
     <div class="row justify-content-center">
         <div class="col-md-10">
             @include('layouts._messages')
-            
+
             <div class="card">
-                <div class="card-header"><strong>Registro de cargas familiares del trabajador {{ $employee->full_name }}</strong></div>
+                <div class="card-header"><strong>Registro de cargas familiares del trabajador</strong></div>
                 <div class="card-body">
                     <form action="{{ route('familiars.store') }}" method="POST">
                         @csrf
