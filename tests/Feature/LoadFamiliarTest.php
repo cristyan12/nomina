@@ -74,4 +74,16 @@ class LoadFamiliarTest extends TestCase
             'user_id' => $merge['user_id'],
         ]);
     }
+
+    /** 
+    * @test
+    * @testdox El ID del empleado es requerido
+    */
+    function the_employee_id_is_required()
+    {
+        $response = $this->post(route('familiars.store'), $this->withData(['employee_id' => '']))
+            ->assertSessionHasErrors(['employee_id']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
 }
