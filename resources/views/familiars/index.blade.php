@@ -43,5 +43,7 @@
             </tbody>
         </table>
     </div>
+    @else
+    <p class="lead">No hay cargas familiares registradas aún.</p>
     @endif
 @endsection
