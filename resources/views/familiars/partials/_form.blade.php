@@ -1,28 +1,4 @@
-<div class="form-group row">
-    <label for="employee_id" class="col-md-2 col-form-label text-md-right">ID del empleado:</label>
-    <div class="col-md-2">
-        <input type="text"
-            name="employee_id"
-            id="employee_id"
-            class="form-control"
-            value="{{ old('employee_id', $employee->id) }}"
-            disabled
-        >
-    </div>
-
-    <label for="employee_name" class="col-md-3 col-form-label text-md-right">Nombre del empleado:</label>
-    <div class="col-md-5">
-        <input type="text"
-            name="employee_name"
-            id="employee_name"
-            class="form-control"
-            value="{{ old('employee_name', $employee->full_name) }}"
-            disabled
-        >
-    </div>
-</div>
-
-<hr>
+<input type="hidden" name="employee_id" value="{{ old('employee_id', $employee->id) }}">
 
 <div class="form-group row">
     <label for="name" class="col-md-2 col-form-label text-md-right">Nombre:*</label>
@@ -42,7 +18,7 @@
 <div class="form-group row">
     <label for="relationship" class="col-md-2 col-form-label text-md-right">Parentezco:*</label>
     <div class="col-md-4">
-        <select name="relationship" id="relationship" class="custom-select">
+        <select name="relationship" id="relationship" class="custom-select{{ $errors->has('relationship') ? ' is-invalid' : ''  }}">
             <option value=""></option>
             @foreach(trans('familiars.relationship') as $type => $relationship)
                <option value="{{ $type }}"
@@ -76,11 +52,13 @@
 <div class="form-group row">
     <label for="sex" class="col-md-2 col-form-label text-md-right">Género:*</label>
     <div class="col-md-4">
-        <select name="sex" id="sex" class="custom-select">
+        <select name="sex" id="sex" class="custom-select{{ $errors->has('sex') ? ' is-invalid' : '' }}">
             <option value=""></option>
-            <option value="F">Femenino</option>
-            <option value="M">Masculino</option>
+            @foreach(trans('familiars.genre') as $genre => $sex)
+                <option value="{{ $genre }}"{{ old('sex', $loadFamiliar->sex) == $sex ? ' selected' : '' }}>{{ $sex }}</option>
+            @endforeach
         </select>
+
         @if($errors->has('sex'))
             <span class="text-danger">
                 <strong>{{ $errors->first('sex') }}</strong>
@@ -88,7 +66,7 @@
         @endif
     </div>
 
-    <label for="sex" class="col-md-2 col-form-label text-md-right">Nació el:*</label>
+    <label for="born_at" class="col-md-2 col-form-label text-md-right">Nació el:*</label>
     <div class="col-md-4">
         <input type="date"
             name="born_at"
@@ -96,9 +74,9 @@
             class="form-control{{ $errors->has('born_at') ? ' is-invalid' : '' }}"
             value="{{ old('born_at', $loadFamiliar->born_at) }}"
         >
-        @if($errors->has('sex'))
+        @if($errors->has('born_at'))
             <span class="text-danger">
-                <strong>{{ $errors->first('sex') }}</strong>
+                <strong>{{ $errors->first('born_at') }}</strong>
             </span>
         @endif
     </div>
@@ -107,7 +85,7 @@
 <div class="form-group row">
     <label for="instruction" class="col-md-2 col-form-label text-md-right">Instrucción:*</label>
     <div class="col-md-10">
-        <select name="instruction" id="instruction" class="custom-select">
+        <select name="instruction" class="custom-select{{ $errors->has('instruction') ? ' is-invalid' : ''  }}">
             <option value=""></option>
             @foreach(trans('familiars.instruction') as $type => $instruction)
                <option value="{{ $type }}"
@@ -128,17 +106,7 @@
 <div class="form-group row">
     <label for="reference" class="col-md-2 col-form-label text-md-right">Referencia:</label>
     <div class="col-md-10">
-        <textarea name="reference"
-            id="reference"
-            cols="30"
-            class="form-control"
-        >{{ old('reference', $loadFamiliar->reference) }}</textarea>
-
-        @if($errors->has('reference'))
-            <span class="text-danger">
-                <strong>{{ $errors->first('reference') }}</strong>
-            </span>
-        @endif
+        <textarea name="reference" class="form-control">{{ old('reference', $loadFamiliar->reference) }}</textarea>
     </div>
 </div>
 

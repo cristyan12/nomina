@@ -27,7 +27,7 @@
             <tbody>
             @foreach($concepts as $concept)
             <tr>
-                <th scope="row">{{ $concept->id }}</th>
+                <td scope="row">{{ $concept->id }}</td>
                 <td>{{ $concept->name }}</td>
                 <td>{{ $concept->type }}</td>
                 <td>{{ $concept->calculation_salary }}</td>

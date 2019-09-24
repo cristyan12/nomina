@@ -26,6 +26,11 @@ class Employee extends Model
         return $this->hasMany(Account::class, 'auth_2');
     }
 
+    public function familiars()
+    {
+        return $this->hasMany(LoadFamiliar::class);
+    }
+
     public function profile()
     {
     	return $this->hasOne(EmployeeProfile::class);

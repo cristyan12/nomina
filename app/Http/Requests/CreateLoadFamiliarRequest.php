@@ -24,7 +24,14 @@ class CreateLoadFamiliarRequest extends FormRequest
     public function rules()
     {
         return [
-            // 'employee_id' => 'required',
+            'employee_id' => 'required',
+            'name' => 'required',
+            'relationship' => 'required',
+            'document' => 'required',
+            'sex' => 'required',
+            'born_at' => 'required',
+            'instruction' => 'required',
+            'reference' => '',
         ];
     }
 }

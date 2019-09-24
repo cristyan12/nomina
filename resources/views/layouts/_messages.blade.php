@@ -4,7 +4,7 @@
     </div>
 @endif
 
-{{-- @if ($errors->any())
+@if ($errors->any())
     <div class="alert alert-danger">
         <strong>Por favor revise los siguientes errores:</strong>
         <ul>
@@ -13,4 +13,4 @@
             @endforeach
         </ul>
     </div>
-@endif --}}
+@endif

@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\{Employee, LoadFamiliar};
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateLoadFamiliarRequest;
 
 class LoadFamiliarController extends Controller
 {
-    public function index()
+    public function index(Employee $employee)
     {
-        # code...
+        return view('familiars.index', compact('employee'));
     }
 
     public function create(Employee $employee)
@@ -22,11 +21,9 @@ class LoadFamiliarController extends Controller
 
     public function store(CreateLoadFamiliarRequest $request)
     {
-        dd($request->all());
+        $familiar = new LoadFamiliar($request->validated());
 
-        $loadFamiliar = new LoadFamiliar($request->all());
-
-        auth()->user()->familiars()->save($loadFamiliar);
+        auth()->user()->familiars()->save($familiar);
 
         return redirect()->route('familiars.index', $request->employee_id)
             ->with('info', 'Registro guardado exitosamente');

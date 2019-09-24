@@ -23,7 +23,7 @@ class LoadFamiliarTest extends TestCase
         $this->actingAs($this->user);
 
         $this->attributes = [
-            'employee_id'       => $this->create('App\Employee')->id,
+            // 'employee_id'       => $this->create('App\Employee')->id,
             'name'              => $this->faker->name,
             'relationship'      => $this->faker->randomElement(['Hijo', 'Hija', 'Pareja', 'Madre', 'Padre']),
             'document'          => $this->faker->randomNumber,
@@ -57,18 +57,21 @@ class LoadFamiliarTest extends TestCase
     */
     function a_user_can_register_a_new_load_familiar_of_a_employee()
     {
-        $response = $this->post(route('familiars.store'), $this->attributes)
-            ->assertRedirect(route('familiars.index', $this->attributes['employee_id']));
+        $this->withoutExceptionHandling();
+
+        $employee = $this->create('App\Employee');
+
+        $merge = array_merge([
+            'employee_id' => $employee->id,
+            'user_id' => $this->user->id,
+        ], $this->attributes);
+
+        $response = $this->post(route('familiars.store'), $merge)
+            ->assertRedirect(route('familiars.index', $merge['employee_id']));
 
         $this->assertDatabaseHas('load_familiars', [
-            'user_id'       => $this->user->id,
-            'employee_id'   => $this->attributes['employee_id'],
-            'name'          => $this->attributes['name'],
-            'relationship'  => $this->attributes['relationship'],
-            'document'      => $this->attributes['document'],
-            'sex'           => $this->attributes['sex'],
-            'born_at'       => $this->attributes['born_at'],
-            'instruction'   => $this->attributes['instruction'],
+            'employee_id' => $merge['employee_id'],
+            'user_id' => $merge['user_id'],
         ]);
     }
 }

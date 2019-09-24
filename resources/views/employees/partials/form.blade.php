@@ -144,7 +144,7 @@
                 </option>
             @endforeach
         </select>
-		    
+
 	    @if($errors->has('status'))
 	    	<span class="invalid-feedback" role="alert">
 	    		<strong>{{ $errors->first('status') }}</strong>
