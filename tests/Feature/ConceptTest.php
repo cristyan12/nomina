@@ -9,7 +9,7 @@ use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class ConceptTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     protected $attributes = [];
 
@@ -31,9 +31,9 @@ class ConceptTest extends TestCase
         // $this->withoutExceptionHandling();
     }
 
-    /** 
+    /**
     * @test
-    * @testdox Un usuario puede cargar la página de crear un nuevo concepto 
+    * @testdox Un usuario puede cargar la página de crear un nuevo concepto
     */
     function a_user_can_load_the_create_page_of_concepts()
     {
@@ -42,8 +42,8 @@ class ConceptTest extends TestCase
             ->assertOk()
             ->assertViewIs('concepts.create');
     }
-    
-    /** 
+
+    /**
     * @test
     * @testdox Un usuario puede crear un nuevo concepto
     */
@@ -64,7 +64,7 @@ class ConceptTest extends TestCase
         ]);
     }
 
-    /** 
+    /**
     * @test
     * @testdox El campo nombre es obligatorio al crear un nuevo concepto
     */
@@ -80,9 +80,9 @@ class ConceptTest extends TestCase
         $this->assertEquals(0, Concept::count());
     }
 
-    /** 
+    /**
     * @test
-    * @testdox El campo nombre debe ser único en la base de datos al crear un nuevo concepto 
+    * @testdox El campo nombre debe ser único en la base de datos al crear un nuevo concepto
     */
     function the_name_field_must_be_unique_when_creating_a_new_concept()
     {
@@ -96,9 +96,9 @@ class ConceptTest extends TestCase
         $this->assertEquals(1, Concept::count());
     }
 
-    /** 
+    /**
     * @test
-    * @testdox El campo tipo es obligatorio al crear un nuevo concepto 
+    * @testdox El campo tipo es obligatorio al crear un nuevo concepto
     */
     function the_type_field_is_required_when_creating_a_new_concept()
     {
@@ -112,9 +112,9 @@ class ConceptTest extends TestCase
         $this->assertEquals(0, Concept::count());
     }
 
-    /** 
+    /**
     * @test
-    * @testdox El campo tipo debe ser una asignación o una deducción solamente al crear un nuevo concepto 
+    * @testdox El campo tipo debe ser una asignación o una deducción solamente al crear un nuevo concepto
     */
     function the_type_field_must_be_asignacion_or_deduccion_when_creating_a_new_concept()
     {
@@ -128,9 +128,9 @@ class ConceptTest extends TestCase
         $this->assertEquals(0, Concept::count());
     }
 
-    /** 
+    /**
     * @test
-    * @testdox El campo descripción es obligatorio al crear un nuevo concepto 
+    * @testdox El campo descripción es obligatorio al crear un nuevo concepto
     */
     function the_description_field_is_required_when_creating_a_new_concept()
     {
@@ -144,9 +144,9 @@ class ConceptTest extends TestCase
         $this->assertEquals(0, Concept::count());
     }
 
-    /** 
+    /**
     * @test
-    * @testdox El campo cantidad es obligatorio al crear un nuevo concepto 
+    * @testdox El campo cantidad es obligatorio al crear un nuevo concepto
     */
     function the_quantity_field_is_required_when_creating_a_new_concept()
     {
@@ -160,9 +160,9 @@ class ConceptTest extends TestCase
         $this->assertEquals(0, Concept::count());
     }
 
-    /** 
+    /**
     * @test
-    * @testdox El campo salario del calculo es obligatorio al crear un nuevo concepto 
+    * @testdox El campo salario del calculo es obligatorio al crear un nuevo concepto
     */
     function the_calculation_salary_field_is_required_when_creating_a_new_concept()
     {
@@ -176,9 +176,9 @@ class ConceptTest extends TestCase
         $this->assertEquals(0, Concept::count());
     }
 
-    /** 
+    /**
     * @test
-    * @testdox El campo formula es obligatorio al crear un nuevo concepto 
+    * @testdox El campo formula es obligatorio al crear un nuevo concepto
     */
     function the_formula_field_is_required_when_creating_a_new_concept()
     {

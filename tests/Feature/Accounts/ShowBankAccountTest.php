@@ -9,16 +9,16 @@ use Illuminate\Foundation\Testing\{
 
 class ShowBankAccountTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->withoutExceptionHandling();
     }
 
-    /** 
+    /**
      * @testdox Un usuario puede cargar la página del listado
      * @test
     */
@@ -39,8 +39,8 @@ class ShowBankAccountTest extends TestCase
         }
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox Un usuario puede cargar la página de detalle de la cuenta bancaria
     */
     function a_user_can_view_the_details_page_of_bank_accounts()
@@ -54,10 +54,10 @@ class ShowBankAccountTest extends TestCase
             ->assertOk()
             ->assertViewIs('accounts.show')
             ->assertViewHas('account')
-            ->assertSee($account->bank->name)
-            ->assertSee($account->type)
-            ->assertSee($account->number)
-            ->assertSee($account->auth1->full_name)
-            ->assertSee($account->user->name);
+            ->assertSee(e($account->bank->name))
+            ->assertSee(e($account->type))
+            ->assertSee(e($account->number))
+            ->assertSee(e($account->auth1->full_name))
+            ->assertSee(e($account->user->name));
     }
 }
