@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
             'positions', 'branches', 'departments',
             'units', 'professions', 'banks', 'companies',
             'permissions', 'users', 'nominas', 'employees',
-            'employee_profiles',
+            'employee_profiles', 'roles',
         ]);
 
         $this->call(UsersTableSeeder::class);

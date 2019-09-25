@@ -280,36 +280,56 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Podría editar cualquier dato de una cuenta bancaria',
         ]);
 
+        // Familiars
+        Permission::create([
+            'name' => 'Lista las cargas familiares',
+            'slug' => 'familiars.index',
+            'description' => 'Lista las cargas familiares',
+        ]);
+
+        Permission::create([
+            'name' => 'Registra las cargas familiares',
+            'slug' => 'familiars.create',
+            'description' => 'Puede crear nuevas cargas familiares',
+        ]);
+
         // Companies
         Permission::create([
-            'name' => 'Lista la empresa',
+            'name' => 'Listar las compañias',
             'slug' => 'companies.index',
-            'description' => 'Lista las empresas asociadas',
+            'description' => 'Lista todas las compañias',
         ]);
 
         Permission::create([
-            'name' => 'Ver detalle de la empresa',
+            'name' => 'Ver detalle de la compañia',
             'slug' => 'companies.show',
-            'description' => 'Ver en detalle los datos de la empresa',
+            'description' => 'Ver en detalle los datos de cada compañia',
         ]);
 
         Permission::create([
-            'name' => 'Creación de empresas',
+            'name' => 'Creación de compañias',
             'slug' => 'companies.create',
-            'description' => 'Podría crear nuevos registros de las empresas',
+            'description' => 'Podría crear nuevs compañias',
         ]);
 
         Permission::create([
-            'name' => 'Edición de la empresa',
+            'name' => 'Edición de compañias',
             'slug' => 'companies.edit',
-            'description' => 'Podría editar algunos datos de la empresa',
+            'description' => 'Podría editar cualquier dato de una compañia',
         ]);
+
 
         // Some Specials
         Permission::create([
             'name' => 'Seguridad',
             'slug' => 'security',
             'description' => 'Modulo de seguridad',
+        ]);
+
+        Permission::create([
+            'name' => 'Registro',
+            'slug' => 'registry',
+            'description' => 'Modulo de registros',
         ]);
 
         // Concepts
