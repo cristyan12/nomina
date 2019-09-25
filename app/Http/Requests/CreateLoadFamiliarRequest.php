@@ -29,9 +29,22 @@ class CreateLoadFamiliarRequest extends FormRequest
             'relationship' => 'required',
             'document' => 'required',
             'sex' => 'required',
-            'born_at' => 'required',
+            'born_at' => 'required|date',
             'instruction' => 'required',
             'reference' => '',
+        ];
+    }
+
+    public function messages() : array
+    {
+        return [
+            'name.required' => 'El Nombre del familiar es obligatorio',
+            'relationship.required' => 'El Parentesco del familiar es obligatorio',
+            'document.required' => 'El Número de cédula del familiar es obligatorio',
+            'sex.required' => 'El Género del familiar es obligatorio',
+            'born_at.required' => 'La Fecha de nacimiento del familiar es obligatoria',
+            'born_at.date' => 'La Fecha de nacimiento del familiar debe ser una fecha válida',
+            'instruction.required' => 'El Grado de Istrucción del familiar es obligatorio',
         ];
     }
 }
