@@ -8,7 +8,7 @@
     @endslot
 
     @slot('image')
-        <img src="{{ asset('img/no-image.png') }}" class="card-img">
+        {{-- <img src="{{ asset('img/no-image.png') }}" class="card-img"> --}}
     @endslot
 
     @slot('cardTitle')

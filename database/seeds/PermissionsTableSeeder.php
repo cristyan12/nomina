@@ -293,6 +293,12 @@ class PermissionsTableSeeder extends Seeder
             'description' => 'Puede crear nuevas cargas familiares',
         ]);
 
+        Permission::create([
+            'name' => 'Edita las cargas familiares',
+            'slug' => 'familiars.edit',
+            'description' => 'ezz',
+        ]);
+
         // Companies
         Permission::create([
             'name' => 'Listar las compañias',
