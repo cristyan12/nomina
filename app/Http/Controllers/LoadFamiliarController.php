@@ -28,4 +28,9 @@ class LoadFamiliarController extends Controller
         return redirect()->route('familiars.index', $request->employee_id)
             ->with('info', 'Registro guardado exitosamente');
     }
+
+    public function show(LoadFamiliar $familiar)
+    {
+        return view('familiars.show', compact('familiar'));
+    }
 }

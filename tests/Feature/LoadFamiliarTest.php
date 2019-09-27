@@ -2,6 +2,8 @@
 
 namespace Tests\Feature;
 
+use App\Employee;
+use App\LoadFamiliar;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
@@ -23,14 +25,17 @@ class LoadFamiliarTest extends TestCase
         $this->actingAs($this->user);
 
         $this->attributes = [
-            // 'employee_id'       => $this->create('App\Employee')->id,
-            'name'              => $this->faker->name,
-            'relationship'      => $this->faker->randomElement(['Hijo', 'Hija', 'Pareja', 'Madre', 'Padre']),
-            'document'          => $this->faker->randomNumber,
-            'sex'               => $this->faker->randomElement(['M', 'F']),
-            'born_at'           => $this->faker->date,
-            'instruction'       => $this->faker->randomElement(['Estudiante', 'Bachiller', 'TSU', 'Licenciado o Ingeniero']),
-            'reference'         => $this->faker->sentence,
+            'name' => $this->faker->name,
+            'relationship' => $this->faker->randomElement([
+                'Hijo', 'Hija', 'Pareja', 'Madre', 'Padre'
+            ]),
+            'document' => $this->faker->randomNumber,
+            'sex' => $this->faker->randomElement(['M', 'F']),
+            'born_at' => $this->faker->date,
+            'instruction' => $this->faker->randomElement([
+                'Estudiante', 'Bachiller', 'TSU', 'Licenciado o Ingeniero'
+            ]),
+            'reference' => $this->faker->sentence,
         ];
 
         // $this->withoutExceptionHandling();
@@ -75,7 +80,7 @@ class LoadFamiliarTest extends TestCase
         ]);
     }
 
-    /** 
+    /**
     * @test
     * @testdox El ID del empleado es requerido
     */
@@ -85,5 +90,113 @@ class LoadFamiliarTest extends TestCase
             ->assertSessionHasErrors(['employee_id']);
 
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox El nombre del familiar es requerido
+    */
+    function the_name_field_is_required()
+    {
+        $response = $this->post(route('familiars.store'), $this->withData(['name' => '']))
+            ->assertSessionHasErrors(['name' => 'El Nombre del familiar es obligatorio']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox El parentesco del familiar es requerido
+    */
+    function the_relationship_field_is_required()
+    {
+        $response = $this->post(route('familiars.store'), $this->withData(['relationship' => '']))
+            ->assertSessionHasErrors(['relationship' => 'El Parentesco del familiar es obligatorio']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox La cedula de identidad del familiar es requerido
+    */
+    function the_familiar_document_field_is_required()
+    {
+        $response = $this->post(route('familiars.store'), $this->withData(['document' => '']))
+            ->assertSessionHasErrors(['document' => 'El Número de cédula del familiar es obligatorio']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox El genero sexual del familiar es requerido
+    */
+    function the_familiar_sex_field_is_required()
+    {
+        $response = $this->post(route('familiars.store'), $this->withData(['sex' => '']))
+            ->assertSessionHasErrors(['sex' => 'El Género del familiar es obligatorio']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox La fecha de nacimiento del familiar es requerida
+    */
+    function the_familiar_born_at_field_is_required()
+    {
+        $response = $this->post(route('familiars.store'), $this->withData(['born_at' => '']))
+            ->assertSessionHasErrors(['born_at' => 'La Fecha de nacimiento del familiar es obligatoria']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox La fecha de nacimiento del familiar debe ser una fecha valida
+    */
+    function the_familiar_born_at_field_must_be_valid_date()
+    {
+        $response = $this->post(route('familiars.store'), $this->withData(['born_at' => 'HOLA_ESTA_ES_UNA_FECHA_ERRADA']))
+            ->assertSessionHasErrors(['born_at' => 'La Fecha de nacimiento del familiar debe ser una fecha válida']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox El grado de instruccion del familiar es obligatorio
+    */
+    function the_familiar_instruction_field_is_required()
+    {
+        $response = $this->post(route('familiars.store'),
+            $this->withData(['instruction' => '']))
+            ->assertSessionHasErrors(['instruction' => 'El Grado de Istrucción del familiar es obligatorio']);
+
+        $this->assertDatabaseMissing('load_familiars', $this->attributes);
+    }
+
+    /**
+    * @test
+    * @testdox Se puede ver la pagina de detalle de las cargas familiares
+    */
+    function as_user_can_show_the_detail_page_of_familiar()
+    {
+        $this->withoutExceptionHandling();
+
+        $employee = $this->create(Employee::class);
+        $familiar = $this->create(LoadFamiliar::class, ['employee_id' => $employee->id]);
+
+        $response = $this->get(route('familiars.show', $familiar))
+            ->assertOk()
+            ->assertViewIs('familiars.show')
+            ->assertViewHas('familiar', function ($viewFamiliar) use ($familiar) {
+                return $viewFamiliar->id === $familiar->id;
+            })
+            ->assertSee($familiar->employee->full_name)
+            ->assertSee($familiar->name)
+            ->assertSee($familiar->document)
+            ->assertSee($familiar->relationship);
     }
 }

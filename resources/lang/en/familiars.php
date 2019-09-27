@@ -15,6 +15,7 @@ return [
     ],
 
     'instruction' => [
+        'Maternal' => 'Maternal',
         'Estudiante' => 'Estudiante',
         'Bachiller' => 'Bachiller',
         'TSU' => 'TSU',

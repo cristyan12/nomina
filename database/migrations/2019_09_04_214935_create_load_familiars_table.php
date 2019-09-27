@@ -26,7 +26,7 @@ class CreateLoadFamiliarsTable extends Migration
             $table->string('document');
             $table->enum('sex', ['M', 'F']);
             $table->date('born_at');
-            $table->enum('instruction', ['Estudiante', 'Bachiller', 'TSU', 'Licenciado o Ingeniero']);
+            $table->enum('instruction', ['Maternal', 'Estudiante', 'Bachiller', 'TSU', 'Licenciado o Ingeniero']);
             $table->text('reference')->nullable();
 
             $table->timestamps();

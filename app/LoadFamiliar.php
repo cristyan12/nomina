@@ -13,4 +13,22 @@ class LoadFamiliar extends Model
     protected $casts = [
         'born_at' => 'datetime',
     ];
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function getFullSexAttribute()
+    {
+        if ($this->sex == 'M') {
+            return 'Masculino';
+        }
+        return 'Femenino';
+    }
 }
