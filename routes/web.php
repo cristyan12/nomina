@@ -13,8 +13,9 @@ Route::middleware(['auth'])->group(function() {
 
     // Load Familiar
     Route::get('employees/{employee}/load-familiars', 'LoadFamiliarController@index')->name('familiars.index');
-    Route::get('employees/{employee}/load-familiar', 'LoadFamiliarController@create')->name('familiars.create');
-    Route::post('familiars/store', 'LoadFamiliarController@store')->name('familiars.store');
+    Route::get('employees/{employee}/load-familiar/create', 'LoadFamiliarController@create')->name('familiars.create');
+    Route::post('employees/familiars/store', 'LoadFamiliarController@store')->name('familiars.store');
+    Route::get('familiars/{familiar}', 'LoadFamiliarController@show')->name('familiars.show');
 
     // Concepts
     Route::get('concepts', 'ConceptController@index')->name('concepts.index');

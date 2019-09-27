@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class LoadFamiliarTest extends TestCase
 {
-    use RefreshDatabase, WithFaker;
+    use DatabaseTransactions, WithFaker;
 
     protected $user;
 
@@ -25,14 +25,17 @@ class LoadFamiliarTest extends TestCase
         $this->actingAs($this->user);
 
         $this->attributes = [
-            // 'employee_id'       => $this->create('App\Employee')->id,
-            'name'              => $this->faker->name,
-            'relationship'      => $this->faker->randomElement(['Hijo', 'Hija', 'Pareja', 'Madre', 'Padre']),
-            'document'          => $this->faker->randomNumber,
-            'sex'               => $this->faker->randomElement(['M', 'F']),
-            'born_at'           => $this->faker->date,
-            'instruction'       => $this->faker->randomElement(['Estudiante', 'Bachiller', 'TSU', 'Licenciado o Ingeniero']),
-            'reference'         => $this->faker->sentence,
+            'name' => $this->faker->name,
+            'relationship' => $this->faker->randomElement([
+                'Hijo', 'Hija', 'Pareja', 'Madre', 'Padre'
+            ]),
+            'document' => $this->faker->randomNumber,
+            'sex' => $this->faker->randomElement(['M', 'F']),
+            'born_at' => $this->faker->date,
+            'instruction' => $this->faker->randomElement([
+                'Estudiante', 'Bachiller', 'TSU', 'Licenciado o Ingeniero'
+            ]),
+            'reference' => $this->faker->sentence,
         ];
 
         // $this->withoutExceptionHandling();
@@ -77,7 +80,7 @@ class LoadFamiliarTest extends TestCase
         ]);
     }
 
-    /** 
+    /**
     * @test
     * @testdox El ID del empleado es requerido
     */
@@ -89,7 +92,7 @@ class LoadFamiliarTest extends TestCase
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox El nombre del familiar es requerido
     */
@@ -101,7 +104,7 @@ class LoadFamiliarTest extends TestCase
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox El parentesco del familiar es requerido
     */
@@ -113,7 +116,7 @@ class LoadFamiliarTest extends TestCase
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox La cedula de identidad del familiar es requerido
     */
@@ -125,7 +128,7 @@ class LoadFamiliarTest extends TestCase
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox El genero sexual del familiar es requerido
     */
@@ -137,7 +140,7 @@ class LoadFamiliarTest extends TestCase
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox La fecha de nacimiento del familiar es requerida
     */
@@ -149,7 +152,7 @@ class LoadFamiliarTest extends TestCase
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox La fecha de nacimiento del familiar debe ser una fecha valida
     */
@@ -161,25 +164,27 @@ class LoadFamiliarTest extends TestCase
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox El grado de instruccion del familiar es obligatorio
     */
     function the_familiar_instruction_field_is_required()
     {
-        $response = $this->post(route('familiars.store'), 
+        $response = $this->post(route('familiars.store'),
             $this->withData(['instruction' => '']))
             ->assertSessionHasErrors(['instruction' => 'El Grado de Istrucción del familiar es obligatorio']);
 
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
 
-    /** 
+    /**
     * @test
     * @testdox Se puede ver la pagina de detalle de las cargas familiares
     */
     function as_user_can_show_the_detail_page_of_familiar()
     {
+        $this->withoutExceptionHandling();
+
         $employee = $this->create(Employee::class);
         $familiar = $this->create(LoadFamiliar::class, ['employee_id' => $employee->id]);
 
@@ -189,6 +194,7 @@ class LoadFamiliarTest extends TestCase
             ->assertViewHas('familiar', function ($viewFamiliar) use ($familiar) {
                 return $viewFamiliar->id === $familiar->id;
             })
+            ->assertSee($familiar->employee->full_name)
             ->assertSee($familiar->name)
             ->assertSee($familiar->document)
             ->assertSee($familiar->relationship);

@@ -29,9 +29,11 @@
                     <td>{{ $familiar->relationship }}</td>
                     <td>{{ $familiar->document }}</td>
                     <td>{{ $familiar->born_at->age }} años</td>
+                    @can('familiars.show')
                     <td width="10px">
-                        <a href="#" class="btn btn-sm btn-success">Detalle</a>
+                        <a href="{{ route('familiars.show', $familiar) }}" class="btn btn-sm btn-success">Detalle</a>
                     </td>
+                    @endcan
                     <td width="10px">
                         <a href="#" class="btn btn-sm btn-warning">Editar</a>
                     </td>
