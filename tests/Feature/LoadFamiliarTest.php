@@ -47,6 +47,8 @@ class LoadFamiliarTest extends TestCase
     */
     function a_user_can_load_the_page_of_the_new_load_familiar_of_a_employee()
     {
+        $this->withoutExceptionHandling();
+
         $employee = $this->create('App\Employee');
 
         $response = $this->get(route('familiars.create', $employee))
@@ -183,8 +185,6 @@ class LoadFamiliarTest extends TestCase
     */
     function as_user_can_show_the_detail_page_of_familiar()
     {
-        $this->withoutExceptionHandling();
-
         $employee = $this->create(Employee::class);
         $familiar = $this->create(LoadFamiliar::class, ['employee_id' => $employee->id]);
 
@@ -198,5 +198,30 @@ class LoadFamiliarTest extends TestCase
             ->assertSee($familiar->name)
             ->assertSee($familiar->document)
             ->assertSee($familiar->relationship);
+    }
+
+    /**
+    * @test
+    * @testdox Se puede ver la pagina de edición de las cargas familiares
+    */
+    function a_user_can_show_the_edit_page_of_familiar()
+    {
+        $this->markTestIncomplete();
+        return;
+
+        $this->withoutExceptionHandling();
+
+        $employee = $this->create(Employee::class);
+        $loadFamiliar = $this->create(LoadFamiliar::class, ['employee_id' => $employee->id]);
+
+        $response = $this->get("employees/{$employee->id}/familiars/{$loadFamiliar->id}/edit")
+            ->assertOk()
+            ->assertViewIs('familiars.edit')
+            ->assertViewHas('employee', function ($viewEmployee) use ($employee) {
+                return $viewEmployee->id === $employee->id;
+            })
+            ->assertViewHas('loadFamiliar', function ($viewloadFamiliar) use ($loadFamiliar) {
+                return $viewloadFamiliar->id === $loadFamiliar->id;
+            });
     }
 }

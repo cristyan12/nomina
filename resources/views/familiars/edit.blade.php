@@ -9,11 +9,11 @@
             <div class="card">
                 <div class="card-header">
                     <span class="lead"><strong>
-                        Registro de cargas familiares del trabajador {{ $employee->full_name }}
+                        Editar la carga familiar del trabajador {{ $employee->full_name }}
                     </strong></span>
                 </div>
                 <div class="card-body">
-                    @include('familiars.partials._form', ['loadFamiliar' => $loadFamiliar])
+                    @include('familiars/partials._form', ['loadFamiliar' => $loadFamiliar])
                 </div>
                 @can('familiars.index')
                     @component('layouts.components._card_footer')

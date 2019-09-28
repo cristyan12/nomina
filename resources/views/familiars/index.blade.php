@@ -35,7 +35,8 @@
                     </td>
                     @endcan
                     <td width="10px">
-                        <a href="#" class="btn btn-sm btn-warning">Editar</a>
+                    <a href="{{ url("employees/{$employee->id}/familiars/{$loadFamiliar->id}/edit") }}"
+                        class="btn btn-sm btn-warning">Editar</a>
                     </td>
                     <td width="10px">
                         <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
