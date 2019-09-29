@@ -210,11 +210,23 @@ class LoadFamiliarTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $familiar = $this->create('App\LoadFamiliar');
+        $employee = $this->create('App\Employee', [
+            'first_name' => 'Cristyan Josuan',
+            'last_name' => 'Valera Rodriguez'
+        ]);
+
+        $familiar = $this->create('App\LoadFamiliar', [
+            'employee_id' => $employee->id,
+            'name' => 'Crismely Sarai Valera Garcia'
+        ]);
 
         $response = $this->get(route('familiars.edit', $familiar))
             ->assertOk()
             ->assertViewIs('familiars.edit')
-            ->assertViewHas('familiar');
+            ->assertViewHas('familiar', function ($viewFamiliar) use ($familiar) {
+                return $viewFamiliar->id === $familiar->id;
+            })
+            ->assertSee('Cristyan Josuan Valera Rodriguez')
+            ->assertSee('Crismely Sarai Valera Garcia');
     }
 }

@@ -34,9 +34,11 @@
                         <a href="{{ route('familiars.show', $familiar) }}" class="btn btn-sm btn-success">Detalle</a>
                     </td>
                     @endcan
+                    @can('familiars.edit')
                     <td width="10px">
-                        <a href="#" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{{ route('familiars.edit', $familiar) }}" class="btn btn-sm btn-warning">Editar</a>
                     </td>
+                    @endcan
                     <td width="10px">
                         <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
                     </td>

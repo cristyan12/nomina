@@ -6,7 +6,7 @@
     <div class="col-md-10">
         <input type="text" name="name" id="name"
             class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
-            value="{{ old('name', $loadFamiliar->name) }}"
+            value="{{ old('name', $familiar->name) }}"
         >
         @if($errors->has('name'))
             <span class="text-danger">
@@ -23,7 +23,7 @@
             <option value=""></option>
             @foreach(trans('familiars.relationship') as $type => $relationship)
                <option value="{{ $type }}"
-                   {{ old('relationship', $loadFamiliar->relationship) == $relationship ? ' selected' : '' }}>
+                   {{ old('relationship', $familiar->relationship) == $relationship ? ' selected' : '' }}>
                    {{ $relationship }}
                </option>
             @endforeach
@@ -40,7 +40,7 @@
     <div class="col-md-4">
         <input type="text" name="document" id="document"
             class="form-control{{ $errors->has('document') ? ' is-invalid' : '' }}"
-            value="{{ old('document', $loadFamiliar->document) }}"
+            value="{{ old('document', $familiar->document) }}"
         >
         @if($errors->has('document'))
             <span class="text-danger">
@@ -56,7 +56,9 @@
         <select name="sex" id="sex" class="custom-select{{ $errors->has('sex') ? ' is-invalid' : '' }}">
             <option value=""></option>
             @foreach(trans('familiars.genre') as $genre => $sex)
-                <option value="{{ $genre }}"{{ old('sex', $loadFamiliar->sex) == $sex ? ' selected' : '' }}>{{ $sex }}</option>
+                <option value="{{ $genre }}"{{ old('sex', $familiar->sex) == $genre ? ' selected' : '' }}>
+                    {{ $sex }}
+                </option>
             @endforeach
         </select>
 
@@ -69,11 +71,9 @@
 
     <label for="born_at" class="col-md-2 col-form-label text-md-right">Nació el:*</label>
     <div class="col-md-4">
-        <input type="date"
-            name="born_at"
-            id="born_at"
+        <input type="date" name="born_at" id="born_at"
             class="form-control{{ $errors->has('born_at') ? ' is-invalid' : '' }}"
-            value="{{ old('born_at', $loadFamiliar->born_at) }}"
+            value="{{ old('born_at', $familiar->born_at) }}"
         >
         @if($errors->has('born_at'))
             <span class="text-danger">
@@ -90,7 +90,7 @@
             <option value=""></option>
             @foreach(trans('familiars.instruction') as $type => $instruction)
                <option value="{{ $type }}"
-                   {{ old('instruction', $loadFamiliar->instruction) == $instruction ? ' selected' : '' }}>
+                   {{ old('instruction', $familiar->instruction) == $instruction ? ' selected' : '' }}>
                    {{ $instruction }}
                </option>
             @endforeach
@@ -107,7 +107,7 @@
 <div class="form-group row">
     <label for="reference" class="col-md-2 col-form-label text-md-right">Referencia:</label>
     <div class="col-md-10">
-        <textarea name="reference" class="form-control">{{ old('reference', $loadFamiliar->reference) }}</textarea>
+        <textarea name="reference" class="form-control">{{ old('reference', $familiar->reference) }}</textarea>
     </div>
 </div>
 

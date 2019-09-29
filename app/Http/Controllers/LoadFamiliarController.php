@@ -14,9 +14,9 @@ class LoadFamiliarController extends Controller
 
     public function create(Employee $employee)
     {
-        $loadFamiliar = new LoadFamiliar;
+        $familiar = new LoadFamiliar;
 
-        return view('familiars.create', compact('employee', 'loadFamiliar'));
+        return view('familiars.create', compact('employee', 'familiar'));
     }
 
     public function store(CreateLoadFamiliarRequest $request)
@@ -36,6 +36,8 @@ class LoadFamiliarController extends Controller
 
     public function edit(LoadFamiliar $familiar)
     {
-        return view('familiars.edit', compact('familiar'));
+        $employee = $familiar->load('employee');
+
+        return view('familiars.edit', compact('employee', 'familiar'));
     }
 }
