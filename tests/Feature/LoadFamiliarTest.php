@@ -2,9 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Employee;
-use App\LoadFamiliar;
 use Tests\TestCase;
+use App\{Employee, LoadFamiliar};
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
@@ -185,7 +184,10 @@ class LoadFamiliarTest extends TestCase
     */
     function as_user_can_show_the_detail_page_of_familiar()
     {
-        $employee = $this->create(Employee::class);
+        $employee = $this->create(Employee::class, [
+            'first_name' => 'Cristyan',
+            'last_name' => 'Valera',
+        ]);
         $familiar = $this->create(LoadFamiliar::class, ['employee_id' => $employee->id]);
 
         $response = $this->get(route('familiars.show', $familiar))
@@ -206,22 +208,13 @@ class LoadFamiliarTest extends TestCase
     */
     function a_user_can_show_the_edit_page_of_familiar()
     {
-        $this->markTestIncomplete();
-        return;
-
         $this->withoutExceptionHandling();
 
-        $employee = $this->create(Employee::class);
-        $loadFamiliar = $this->create(LoadFamiliar::class, ['employee_id' => $employee->id]);
+        $familiar = $this->create('App\LoadFamiliar');
 
-        $response = $this->get("employees/{$employee->id}/familiars/{$loadFamiliar->id}/edit")
+        $response = $this->get(route('familiars.edit', $familiar))
             ->assertOk()
             ->assertViewIs('familiars.edit')
-            ->assertViewHas('employee', function ($viewEmployee) use ($employee) {
-                return $viewEmployee->id === $employee->id;
-            })
-            ->assertViewHas('loadFamiliar', function ($viewloadFamiliar) use ($loadFamiliar) {
-                return $viewloadFamiliar->id === $loadFamiliar->id;
-            });
+            ->assertViewHas('familiar');
     }
 }

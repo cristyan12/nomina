@@ -34,8 +34,8 @@ class LoadFamiliarController extends Controller
         return view('familiars.show', compact('familiar'));
     }
 
-    public function edit(Employee $employee, LoadFamiliar $loadFamiliar)
+    public function edit(LoadFamiliar $familiar)
     {
-        return view('familiars.edit', compact('employee', 'loadFamiliar'));
+        return view('familiars.edit', compact('familiar'));
     }
 }

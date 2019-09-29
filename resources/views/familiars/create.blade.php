@@ -13,7 +13,9 @@
                     </strong></span>
                 </div>
                 <div class="card-body">
-                    @include('familiars.partials._form', ['loadFamiliar' => $loadFamiliar])
+                    <form action="{{ route('familiars.store') }}" method="POST">
+                        @include('familiars.partials._form')
+                    </form>
                 </div>
                 @can('familiars.index')
                     @component('layouts.components._card_footer')
