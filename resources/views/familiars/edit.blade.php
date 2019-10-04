@@ -13,7 +13,9 @@
                     </strong></span>
                 </div>
                 <div class="card-body">
-                    <form action="{{ route('familiars.store') }}" method="POST">
+                    <form action="{{ route('familiars.update', $familiar) }}" method="POST">
+                        @method('PUT')
+
                         @include('familiars.partials._form')
                     </form>
                 </div>

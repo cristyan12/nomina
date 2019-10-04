@@ -29,9 +29,9 @@ class LoadFamiliarController extends Controller
             ->with('info', 'Registro guardado exitosamente');
     }
 
-    public function show(LoadFamiliar $familiar)
+    public function show(Employee $employee, LoadFamiliar $familiar)
     {
-        return view('familiars.show', compact('familiar'));
+        return view('familiars.show', compact('employee', 'familiar'));
     }
 
     public function edit(LoadFamiliar $familiar)
@@ -39,5 +39,15 @@ class LoadFamiliarController extends Controller
         $employee = $familiar->load('employee');
 
         return view('familiars.edit', compact('employee', 'familiar'));
+    }
+
+    public function update(LoadFamiliar $familiar)
+    {
+        $familiar->fill(request()->all());
+
+        auth()->user()->familiars()->save($familiar);
+
+        return redirect($familiar->url())
+            ->with('info', 'Registro actualizado correctamente.');
     }
 }

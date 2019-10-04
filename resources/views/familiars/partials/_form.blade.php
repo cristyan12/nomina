@@ -73,7 +73,7 @@
     <div class="col-md-4">
         <input type="date" name="born_at" id="born_at"
             class="form-control{{ $errors->has('born_at') ? ' is-invalid' : '' }}"
-            value="{{ old('born_at', $familiar->born_at) }}"
+            value="{{ old('born_at', $familiar->getBornAt()) }}"
         >
         @if($errors->has('born_at'))
             <span class="text-danger">

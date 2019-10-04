@@ -7,9 +7,9 @@ use App\{Employee, LoadFamiliar};
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
-class LoadFamiliarTest extends TestCase
+class CreateLoadFamiliarTest extends TestCase
 {
-    use DatabaseTransactions, WithFaker;
+    use RefreshDatabase, WithFaker;
 
     protected $user;
 
@@ -63,22 +63,36 @@ class LoadFamiliarTest extends TestCase
     */
     function a_user_can_register_a_new_load_familiar_of_a_employee()
     {
-        $this->withoutExceptionHandling();
-
         $employee = $this->create('App\Employee');
 
-        $merge = array_merge([
-            'employee_id' => $employee->id,
-            'user_id' => $this->user->id,
-        ], $this->attributes);
-
-        $response = $this->post(route('familiars.store'), $merge)
-            ->assertRedirect(route('familiars.index', $merge['employee_id']));
+        $response = $this->post(route('familiars.store'),
+            $this->withData([
+                'employee_id' => $employee->id,
+                'user_id' => $this->user->id,
+            ]))
+            ->assertRedirect(route('familiars.index', $employee->id));
 
         $this->assertDatabaseHas('load_familiars', [
-            'employee_id' => $merge['employee_id'],
-            'user_id' => $merge['user_id'],
+            'employee_id' => $employee->id,
+            'user_id' => $this->user->id,
         ]);
+    }
+
+    /**
+    * @test
+    * @testdox La cedula de la carga familiar debe unica
+    */
+    function the_document_of_the_load_familiar_must_be_unique()
+    {
+        // $this->withoutExceptionHandling();
+
+        $familiar1 = $this->create('App\LoadFamiliar', ['document' => 'V11223345']);
+
+        $response = $this->post(route('familiars.store'),
+            $this->withData(['document' => 'V11223345'])
+        )->assertSessionHasErrors('document');
+
+        $this->assertEquals(1, LoadFamiliar::count());
     }
 
     /**
@@ -184,49 +198,18 @@ class LoadFamiliarTest extends TestCase
     */
     function as_user_can_show_the_detail_page_of_familiar()
     {
-        $employee = $this->create(Employee::class, [
-            'first_name' => 'Cristyan',
-            'last_name' => 'Valera',
-        ]);
-        $familiar = $this->create(LoadFamiliar::class, ['employee_id' => $employee->id]);
+        $this->withoutExceptionHandling();
 
-        $response = $this->get(route('familiars.show', $familiar))
+        $familiar = $this->create('App\LoadFamiliar');
+
+        $response = $this->get("employees/{$familiar->employee_id}/familiars/{$familiar->id}")
             ->assertOk()
             ->assertViewIs('familiars.show')
             ->assertViewHas('familiar', function ($viewFamiliar) use ($familiar) {
                 return $viewFamiliar->id === $familiar->id;
             })
-            ->assertSee($familiar->employee->full_name)
-            ->assertSee($familiar->name)
-            ->assertSee($familiar->document)
-            ->assertSee($familiar->relationship);
-    }
-
-    /**
-    * @test
-    * @testdox Se puede ver la pagina de edición de las cargas familiares
-    */
-    function a_user_can_show_the_edit_page_of_familiar()
-    {
-        $this->withoutExceptionHandling();
-
-        $employee = $this->create('App\Employee', [
-            'first_name' => 'Cristyan Josuan',
-            'last_name' => 'Valera Rodriguez'
-        ]);
-
-        $familiar = $this->create('App\LoadFamiliar', [
-            'employee_id' => $employee->id,
-            'name' => 'Crismely Sarai Valera Garcia'
-        ]);
-
-        $response = $this->get(route('familiars.edit', $familiar))
-            ->assertOk()
-            ->assertViewIs('familiars.edit')
-            ->assertViewHas('familiar', function ($viewFamiliar) use ($familiar) {
-                return $viewFamiliar->id === $familiar->id;
-            })
-            ->assertSee('Cristyan Josuan Valera Rodriguez')
-            ->assertSee('Crismely Sarai Valera Garcia');
+            ->assertSee(e($familiar->employee->full_name))
+            ->assertSee(e($familiar->user->name))
+            ->assertSee(e($familiar->name));
     }
 }

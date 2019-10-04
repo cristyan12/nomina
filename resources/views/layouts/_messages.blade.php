@@ -1,9 +1,9 @@
 @if (session('info'))
-    <div class="alert alert-success" role="alert">
+    <div class="alert alert-info" role="alert">
          {{ session('info') }}
     </div>
 @endif
-
+{{--
 @if ($errors->any())
     <div class="alert alert-danger">
         <strong>Por favor revise los siguientes errores:</strong>
@@ -13,4 +13,4 @@
             @endforeach
         </ul>
     </div>
-@endif
+@endif --}}

@@ -31,7 +31,7 @@
                     <td>{{ $familiar->born_at->age }} años</td>
                     @can('familiars.show')
                     <td width="10px">
-                        <a href="{{ route('familiars.show', $familiar) }}" class="btn btn-sm btn-success">Detalle</a>
+                        <a href="{{ $familiar->url() }}" class="btn btn-sm btn-success">Detalle</a>
                     </td>
                     @endcan
                     @can('familiars.edit')

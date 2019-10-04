@@ -32,12 +32,17 @@ class LoadFamiliar extends Model
         return 'Femenino';
     }
 
-    public function getBorn_AtAttribute()
+    public function getBornAt()
     {
-        if (! $this->born_at == null) {
+        if ($this->born_at == null) {
             return '';
         }
 
         return $this->born_at->format('Y-m-d');
+    }
+
+    public function url()
+    {
+        return url("employees/{$this->employee_id}/familiars/{$this->id}");
     }
 }
