@@ -23,7 +23,7 @@ class UpdateAccountTest extends TestCase
         $this->actingAs($this->user);
     }
 
-    /** 
+    /**
      * @testdox Un usuario puede cargar la página editar cuentas
      * @test
     */
@@ -37,10 +37,10 @@ class UpdateAccountTest extends TestCase
             ->assertOk()
             ->assertViewIs('accounts.edit')
             ->assertViewHas('account')
-            ->assertSee($account->bank->name);
+            ->assertSee(e($account->bank->name));
     }
 
-    /** 
+    /**
      * @testdox Un usuario puede editar cuentas
      * @test
     */
@@ -55,7 +55,7 @@ class UpdateAccountTest extends TestCase
         $this->user->positions()->saveMany([$president, $vicePresident]);
 
         $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
-        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);        
+        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
 
         $emp1 = $this->create('App\Employee');
         $emp2 = $this->create('App\Employee');
@@ -70,18 +70,18 @@ class UpdateAccountTest extends TestCase
 
         $this->assertDatabaseHas('accounts', [
             'auth_1' => $auth1->id,
-            'auth_2' => $auth2->id, 
+            'auth_2' => $auth2->id,
         ]);
     }
 
-    /** 
+    /**
      * @testdox La firma autorizada Nº 1 es requerida cuando se actualiza
      * @test
     */
     function the_auth_sign_1_is_required_when_updating()
     {
         // $this->withoutExceptionHandling();
-        
+
         $company = $this->create('App\Company');
         $account = $this->create(Account::class);
 
