@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\{Employee, LoadFamiliar};
-use App\Http\Requests\CreateLoadFamiliarRequest;
+use App\Http\Requests\{
+    CreateLoadFamiliarRequest, UpdateLoadFamiliarRequest
+};
 
 class LoadFamiliarController extends Controller
 {
@@ -41,9 +43,9 @@ class LoadFamiliarController extends Controller
         return view('familiars.edit', compact('employee', 'familiar'));
     }
 
-    public function update(LoadFamiliar $familiar)
+    public function update(LoadFamiliar $familiar, UpdateLoadFamiliarRequest $request)
     {
-        $familiar->fill(request()->all());
+        $familiar->fill($request->validated());
 
         auth()->user()->familiars()->save($familiar);
 
