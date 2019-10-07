@@ -21,7 +21,7 @@
                 </div>
                 @can('familiars.index')
                     @component('layouts.components._card_footer')
-                        {{ route('familiars.index', $employee) }}
+                        {{ route('familiars.index', $familiar->employee_id) }}
                     @endcomponent
                 @endcan
             </div>

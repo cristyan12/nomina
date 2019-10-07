@@ -51,7 +51,7 @@ class UpdateEmployeeTest extends TestCase
     function a_user_can_load_the_edit_page()
     {
         $this->withoutExceptionHandling();
-        
+
         $employee = $this->create(Employee::class);
 
         $profile = $this->create(EmployeeProfile::class, [
@@ -63,18 +63,18 @@ class UpdateEmployeeTest extends TestCase
             ->assertViewIs('employees.edit')
             ->assertViewHas('employee')
             ->assertSee($employee->id)
-            ->assertSee($employee->full_name);
+            ->assertSee(e($employee->full_name));
     }
 
     /** @test */
     function a_user_can_update_a_employee()
     {
         $this->withoutExceptionHandling();
-        
+
         $firstUser = factory('App\User')->create();
-        
+
         $secondUser = $this->someUser();
-         
+
         $employee = $this->create(Employee::class, ['user_id' => $firstUser->id]);
 
         $profile = $this->create(EmployeeProfile::class, ['employee_id' => $employee->id]);
@@ -92,7 +92,7 @@ class UpdateEmployeeTest extends TestCase
             'user_id' => $secondUser->id,
         ]);
 
-        $employee = Employee::first(); 
+        $employee = Employee::first();
 
         $this->assertDatabaseHas('employee_profiles', [
             'employee_id' => $employee->id,
@@ -127,7 +127,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -152,7 +152,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -175,11 +175,11 @@ class UpdateEmployeeTest extends TestCase
             ->put(route('employees.update', $employee->id), $replace)
             ->assertRedirect(route('employees.edit', $employee->id))
             ->assertSessionHasErrors(['code']);
-        
+
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -221,7 +221,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -246,7 +246,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -271,7 +271,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -296,7 +296,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -321,7 +321,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -346,7 +346,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -371,7 +371,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -396,7 +396,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -421,7 +421,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -446,7 +446,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -471,7 +471,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -496,7 +496,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -521,7 +521,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -546,7 +546,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -571,14 +571,14 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
     }
 
-    /** 
-    * @test 
+    /**
+    * @test
     * @testdox El número de cuenta debe tener un máximo de 20 carácteres
     */
     function the_account_number_field_must_contain_a_max_20_characters_when_updating()
@@ -599,14 +599,14 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '017501071600716618981'
         ]);
     }
 
-    /** 
-    * @test 
+    /**
+    * @test
     * @testdox El número de cuenta debe tener 20 carácteres en total.
     */
     function the_account_number_must_have_a_20_characters_in_total_when_updating()
@@ -627,7 +627,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '017501071600716618981'
         ]);
@@ -652,7 +652,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -677,7 +677,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -702,7 +702,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);
@@ -727,7 +727,7 @@ class UpdateEmployeeTest extends TestCase
         $this->assertDatabaseMissing('employees', [
             'first_name' => 'Cristyan Josuan'
         ]);
-        
+
         $this->assertDatabaseMissing('employee_profiles', [
             'account_number' => '01750107160071661898'
         ]);

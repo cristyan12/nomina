@@ -83,7 +83,10 @@
                 </a>
             @endcan
             @can('familiars.edit')
-                <a href="#" class="btn btn-outline-secondary btn-sm">Editar</a>
+                <a href="{{ route('familiars.edit', $familiar) }}"
+                    class="btn btn-outline-secondary btn-sm">
+                    Editar
+                </a>
             @endcan
         </div>
     </div>

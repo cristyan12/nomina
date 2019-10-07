@@ -4,8 +4,8 @@ use Faker\Generator as Faker;
 
 $factory->define(App\LoadFamiliar::class, function (Faker $faker) {
     return [
-        'user_id' => factory('App\User')->create()->id,
-        'employee_id' => factory('App\Employee')->create()->id,
+        'user_id' => factory('App\User'),
+        'employee_id' => factory('App\Employee'),
         'name' => $faker->name,
         'relationship' => $faker->randomElement([
             'Hijo', 'Hija', 'Pareja', 'Madre', 'Padre'

@@ -10,6 +10,6 @@ $factory->define(App\Company::class, function (Faker $faker) {
         'phone_number' => $faker->phoneNumber,
         'email' => $faker->email,
         'city' => $faker->city,
-        'user_id' => factory('App\User')->create()->id,
+        'user_id' => factory('App\User'),
     ];
 });
