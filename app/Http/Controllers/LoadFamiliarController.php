@@ -52,4 +52,11 @@ class LoadFamiliarController extends Controller
         return redirect($familiar->url())
             ->with('info', 'Registro actualizado correctamente.');
     }
+
+    public function destroy(LoadFamiliar $familiar)
+    {
+        $familiar->delete();
+
+        return back()->with('delete', 'Registro eliminado correctamente');
+    }
 }
