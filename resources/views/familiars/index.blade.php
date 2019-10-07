@@ -11,6 +11,9 @@
 
 @section('content')
     @if(! $employee->familiars->isEmpty())
+
+    @include('layouts._messages')
+
     <div class="table-responsive">
         <table class="table table-hover table-striped">
             <thead class="thead-dark">
@@ -40,7 +43,14 @@
                     </td>
                     @endcan
                     <td width="10px">
-                        <a href="#" class="btn btn-sm btn-danger">Eliminar</a>
+                        <form action="{{ route('familiars.destroy', $familiar) }}" method="POST">
+                            @csrf
+                            @method('DELETE')
+
+                            @can('familiars.destroy')
+                                <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                            @endcan
+                        </form>
                     </td>
                 </tr>
                 @endforeach

@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function() {
     Route::get('familiars/{familiar}/edit', 'LoadFamiliarController@edit')->name('familiars.edit');
     Route::put('familiars/{familiar}', 'LoadFamiliarController@update')->name('familiars.update');
     Route::get('employees/{employee}/familiars/{familiar}', 'LoadFamiliarController@show')->name('familiars.show');
+    Route::delete('familiars/{familiar}', 'LoadFamiliarController@destroy')->name('familiars.destroy');
 
     // Concepts
     Route::get('concepts', 'ConceptController@index')->name('concepts.index');
