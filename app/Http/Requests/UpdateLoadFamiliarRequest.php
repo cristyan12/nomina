@@ -26,7 +26,10 @@ class UpdateLoadFamiliarRequest extends CreateLoadFamiliarRequest
         return [
             'name' => 'required',
             'relationship' => 'required',
-            'document' => ['required', Rule::unique('load_familiars')->ignore($this->document)],
+            'document' => [
+                'required',
+                Rule::unique('load_familiars')->ignore($this->familiar)
+            ],
             'sex' => 'required',
             'born_at' => 'required|date',
             'instruction' => 'required',

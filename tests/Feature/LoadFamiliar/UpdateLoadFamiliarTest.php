@@ -62,6 +62,7 @@ class UpdateLoadFamiliarTest extends TestCase
                 return $viewFamiliar->id === $familiar->id;
             })
             ->assertSee('Cristyan Josuan Valera Rodriguez')
+            ->assertSee($familiar->document)
             ->assertSee('Crismely Sarai Valera Garcia');
     }
 
@@ -134,7 +135,7 @@ class UpdateLoadFamiliarTest extends TestCase
 
     /**
     * @test
-    * @testdox La cedula de la carga familiar debe ser unica
+    * @testdox La cedula de la carga familiar debe ser unica si intenta ingresar el # de cedula de otro familiar
     */
     function the_document_of_the_load_familiar_must_be_unique_when_updating()
     {
@@ -144,10 +145,34 @@ class UpdateLoadFamiliarTest extends TestCase
 
         $this->put(route('familiars.update', $familiar),
             $this->withData(['document' => 'V11223345'])
-        )->assertSessionHasErrors(['document']);
+        )
+        ->assertSessionHasErrors(['document']);
 
         $familiar = LoadFamiliar::find($familiar->id);
         $this->assertSame('V14996612', $familiar->document);
+    }
+
+    /**
+    * @test
+    * @testdox La cedula de la carga familiar puede permanecer igual si se actualizan otros datos
+    */
+    function the_load_familiar_document_can_stay_the_same_if_other_fields_are_updated()
+    {
+        $randomFamiliar = $this->create('App\LoadFamiliar', [
+            'document' => 'V14996612',
+        ]);
+
+        $familiar = $this->create('App\LoadFamiliar', [
+            'document' => 'V14996210',
+        ]);
+
+        $response = $this->from(route('familiars.edit', $familiar))
+            ->put(route('familiars.update', $familiar), $this->withData([
+                'name' => 'Crismely Valera',
+                'document' => 'V14996612',
+            ]))
+            ->assertRedirect(route('familiars.edit', $familiar))
+            ->assertSessionHasErrors(['document' => 'El Número de cédula ya está en uso.']);
     }
 
     /**
