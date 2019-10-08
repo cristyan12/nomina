@@ -32,7 +32,7 @@ class CreateEmployeeProfilesTable extends Migration
             $table->unsignedInteger('position_id');
 
             // Foreigns
-            $table->foreign('employee_id')->references('id')->on('employees');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
             $table->foreign('profession_id')->references('id')->on('professions');
             $table->foreign('bank_id')->references('id')->on('banks');
             $table->foreign('branch_id')->references('id')->on('branches');

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\{
-    Unit, Branch, Position, Employee, 
+    Unit, Branch, Position, Employee,
     EmployeeProfile, Bank, Profession, Department
 };
 use Illuminate\Http\Request;
@@ -29,7 +29,7 @@ class EmployeeController extends Controller
             'branches'      => Branch::orderBy('id')->pluck('name', 'id'),
             'banks'         => Bank::orderBy('id')->pluck('name', 'id'),
             'departments'   => Department::orderBy('id')->pluck('name', 'id'),
-            'units'         => Unit::orderBy('id')->pluck('name', 'id'),        
+            'units'         => Unit::orderBy('id')->pluck('name', 'id'),
             'positions'     => Position::orderBy('id')->pluck('name', 'id'),
         ]);
     }
@@ -54,7 +54,7 @@ class EmployeeController extends Controller
             'account_number', 'branch_id', 'department_id', 'unit_id',
             'position_id'
         ));
-        
+
         return redirect()->route('employees.index')
             ->with('success', 'Empleado fue creado exitosamente');
     }
@@ -90,5 +90,12 @@ class EmployeeController extends Controller
 
         return redirect()->route('employees.index')
             ->with('success', 'Empleado editado exitosamente.');
+    }
+
+    public function destroy(Employee $employee)
+    {
+        $employee->delete();
+
+        return back()->with('info', 'Registro eliminado correctamente');
     }
 }
