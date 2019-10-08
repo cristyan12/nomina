@@ -47,13 +47,16 @@
                 </a>
             </td>
             @endcan
-            @can('employees.destroy')
             <td width="10px">
-                <a href="#" class="btn btn-outline-danger btn-sm">
-                    Eliminar
-                </a>
+                <form action="{{ route('employees.destroy', $employee) }}" method="POST">
+                    @csrf
+                    @method('DELETE')
+
+                    @can('employees.destroy')
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Eliminar</button>
+                    @endcan
+                </form>
             </td>
-            @endcan
         </tr>
     @endforeach
     </tbody>

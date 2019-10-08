@@ -19,7 +19,7 @@ class CreateLoadFamiliarsTable extends Migration
             $table->unsignedInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('employee_id');
-            // $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
+            $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
 
             $table->string('name');
             $table->enum('relationship', ['Hijo', 'Hija', 'Pareja', 'Madre', 'Padre']);
