@@ -9,7 +9,7 @@ class Nomina extends Model
     protected $table = 'nominas';
 
     protected $fillable = [
-        'name', 'type', 'periods', 
+        'name', 'type', 'periods',
         'first_period_at', 'last_period_at'
     ];
 
@@ -35,7 +35,7 @@ class Nomina extends Model
     public function getFirstDatePeriodAttribute()
     {
         if (! $this->first_period_at == '' ) {
-            return $this->first_period_at->toDateString();
+            return $this->first_period_at->format('d-m-Y');
         }
 
         return 'N/D';
@@ -44,7 +44,7 @@ class Nomina extends Model
     public function getLastDatePeriodAttribute()
     {
         if (! $this->last_period_at == '' ) {
-            return $this->last_period_at->toDateString();
+            return $this->last_period_at->format('d-m-Y');
         }
 
         return 'N/D';
