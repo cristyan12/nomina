@@ -19,19 +19,24 @@ class Position extends Model
     {
         return $this->belongsTo(User::class);
     }
-    
+
     public function getFormatSalaryAttribute()
     {
         return $this->numericFormat($this->basic_salary);
     }
 
+    public function getHoursSalary()
+    {
+        return $this->numericFormat($this->basic_salary / 8);
+    }
+
     public function getNominaQuincenalAttribute() // nomina_quincenal
     {
-        return $this->numericFormat($this->basic_salary * 15);   
+        return $this->numericFormat($this->basic_salary * 15);
     }
 
     protected function numericFormat($field)
     {
-        return number_format($field, 2, ',', '.');   
+        return number_format($field, 2, ',', '.');
     }
 }
