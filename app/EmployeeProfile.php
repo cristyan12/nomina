@@ -13,6 +13,11 @@ class EmployeeProfile extends Model
         return $this->belongsTo(Bank::class);
     }
 
+    public function laborals()
+    {
+        return $this->hasMany(Laboral::class);
+    }
+
     public function employees()
     {
     	return $this->belongsTo(Employee::class);

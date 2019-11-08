@@ -2,11 +2,9 @@
 
 namespace Tests\Unit;
 
-use App\{
-    Employee, Position, EmployeeProfile
-};
 use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
+    DatabaseTransactions,
+    RefreshDatabase
 };
 use Tests\TestCase;
 
@@ -24,4 +22,15 @@ class CalculatePayTest extends TestCase
 
         $this->assertEquals('712,28', $payByHour);
     }
+
+    /** @test */
+    // function it_can_calculate_the_pay_for_extra_hours()
+    // {
+        // Salario base x hora
+        // Porcentage para el calculo
+        // Establecemos el total de horas extras en la semana
+        // Obtenemos el resultado de multiplicar el total de horas extras semanales
+        // por el salario base por hora y luego de multiplicar
+        // por el porcentage del calculo.
+    // }
 }
