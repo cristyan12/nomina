@@ -9,7 +9,7 @@ class Nomina extends Model
     protected $table = 'nominas';
 
     protected $fillable = [
-        'name', 'type', 'periods', 
+        'name', 'type', 'periods',
         'first_period_at', 'last_period_at'
     ];
 
