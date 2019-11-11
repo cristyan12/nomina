@@ -21,7 +21,9 @@ class CreateEmployeeProfilesTable extends Migration
             $table->unsignedInteger('profession_id');
             $table->enum('contract', ['T', 'I'])->default('T');
 
-            $table->enum('status', ['Activo', 'Vacaciones', 'Reposo', 'Liquidado', 'Suspendido', 'Fallecido', 'Eliminado'])->default('Activo');
+            $table->enum('status', [
+                'Activo', 'Vacaciones', 'Reposo', 'Liquidado', 'Suspendido', 'Fallecido', 'Eliminado'
+            ])->default('Activo');
 
             $table->unsignedInteger('bank_id');
             $table->string('account_number');
