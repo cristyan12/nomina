@@ -56,13 +56,7 @@ class EmployeeProfile extends Model
         $percent = 93;
 
         $salaryByHour = $this->position->getHoursBySalary();
-        
-        $result = number_format(
-            $salaryByHour * $hours * ($percent / 100), 2, 
-            ',', 
-            '.'
-        );
 
-        return $result;
+        return number_format($salaryByHour * $hours * ($percent / 100), 2, ',', '.');
     }
 }
