@@ -25,7 +25,6 @@ class Position extends Model
         return $this->numericFormat($this->basic_salary);
     }
 
-    // Salario base por hora en jornada de 8 horas diarias
     public function getSalaryByHours($workingHours)
     {
         return round($this->basic_salary / $workingHours, 2);
