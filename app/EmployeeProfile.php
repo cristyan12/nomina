@@ -51,18 +51,36 @@ class EmployeeProfile extends Model
         return 'Temporal';
     }
 
-    public function payByExtraHoursDay($hours, $percent = null)
+    public function payExtraHours($hours, $journal = null)
     {
-        $percent = 93;
+        $percent = $this->getPercentFor($journal);
 
-        $salaryByHour = $this->position->getHoursBySalary();
-        
-        $result = number_format(
-            $salaryByHour * $hours * ($percent / 100), 2, 
-            ',', 
-            '.'
-        );
+        $salaryByHour = $this->position->getSalaryByHours($this->getDefaultHoursByJournal($journal));
+
+        $result = number_format($salaryByHour * $hours * ($percent / 100), 2, ',', '.');
 
         return $result;
+    }
+
+    protected function getDefaultHoursByJournal($typeJournal)
+    {
+        $journals = [
+            'diaria' => 8,
+            'mixta' => 7.5,
+            'nocturna' => 7,
+        ];
+
+        return $journals[$typeJournal] ?? 8;
+    }
+
+    protected function getPercentFor($typeJournal)
+    {
+        $percents = [
+            'diaria' => 93,
+            'mixta' => 81,
+            'nocturna' => 81,
+        ];
+
+        return $percents[$typeJournal] ?? 93;
     }
 }
