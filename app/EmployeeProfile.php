@@ -51,6 +51,13 @@ class EmployeeProfile extends Model
         return 'Temporal';
     }
 
+    /**
+     * Obtiene el pago de las horas extras trabajadas por un empleado dado
+     *
+     * @param int $hours
+     * @param string $typeJournal
+     * @return string
+     */
     public function payExtraHours($hours, $journal = null)
     {
         $percent = $this->getPercentFor($journal);
@@ -62,6 +69,12 @@ class EmployeeProfile extends Model
         return $result;
     }
 
+    /**
+     * Obtiene las horas por defecto de los tipos de jornada.
+     *
+     * @param string $typeJournal
+     * @return array
+     */
     protected function getDefaultHoursByJournal($typeJournal)
     {
         $journals = [
@@ -73,6 +86,12 @@ class EmployeeProfile extends Model
         return $journals[$typeJournal] ?? 8;
     }
 
+    /**
+     * Obtiene los procentajes por defecto de los tipos de jornada.
+     *
+     * @param string $typeJournal
+     * @return array
+     */
     protected function getPercentFor($typeJournal)
     {
         $percents = [
