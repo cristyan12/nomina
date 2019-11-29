@@ -51,12 +51,55 @@ class EmployeeProfile extends Model
         return 'Temporal';
     }
 
-    public function payByExtraHoursDay($hours, $percent = null)
+    /**
+     * Obtiene el pago de las horas extras trabajadas por un empleado dado
+     *
+     * @param int $hours
+     * @param string $typeJournal
+     * @return string
+     */
+    public function payExtraHours($hours, $journal = null)
     {
-        $percent = 93;
+        $percent = $this->getPercentFor($journal);
 
-        $salaryByHour = $this->position->getHoursBySalary();
+        $salaryByHour = $this->position->getSalaryByHours($this->getDefaultHoursByJournal($journal));
 
-        return number_format($salaryByHour * $hours * ($percent / 100), 2, ',', '.');
+        $result = number_format($salaryByHour * $hours * ($percent / 100), 2, ',', '.');
+
+        return $result;
+    }
+
+    /**
+     * Obtiene las horas por defecto de los tipos de jornada.
+     *
+     * @param string $typeJournal
+     * @return array
+     */
+    protected function getDefaultHoursByJournal($typeJournal)
+    {
+        $journals = [
+            'diaria' => 8,
+            'mixta' => 7.5,
+            'nocturna' => 7,
+        ];
+
+        return $journals[$typeJournal] ?? 8;
+    }
+
+    /**
+     * Obtiene los procentajes por defecto de los tipos de jornada.
+     *
+     * @param string $typeJournal
+     * @return array
+     */
+    protected function getPercentFor($typeJournal)
+    {
+        $percents = [
+            'diaria' => 93,
+            'mixta' => 81,
+            'nocturna' => 81,
+        ];
+
+        return $percents[$typeJournal] ?? 93;
     }
 }
