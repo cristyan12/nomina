@@ -27,7 +27,7 @@ class Position extends Model
 
     public function getSalaryByHours($workingHours)
     {
-        return round($this->basic_salary / $workingHours, 2);
+        return $this->basic_salary / $workingHours;
     }
 
     public function getNominaQuincenalAttribute()

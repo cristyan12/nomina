@@ -23,7 +23,7 @@ class CalculatePayTest extends TestCase
 
         $payByHour = $position->getSalaryByHours(8);
 
-        $this->assertEquals(216.88, $payByHour);
+        $this->assertEquals(216.875, $payByHour);
     }
 
     /**
@@ -37,7 +37,7 @@ class CalculatePayTest extends TestCase
 
         $payByExtraHours = $empProfile->payExtraHours(15, 'diaria');
 
-        $this->assertEquals('3.025,48', $payByExtraHours);
+        $this->assertEquals('6.278,53', $payByExtraHours);
     }
 
     /**
@@ -51,7 +51,7 @@ class CalculatePayTest extends TestCase
 
         $payByExtraHours = $empProfile->payExtraHours(15, 'mixta');
 
-        $this->assertEquals('2.810,66', $payByExtraHours);
+        $this->assertEquals('6.280,70', $payByExtraHours);
     }
 
     /**
@@ -65,6 +65,62 @@ class CalculatePayTest extends TestCase
 
         $payByExtraHours = $empProfile->payExtraHours(15, 'nocturna');
 
-        $this->assertEquals('3.011,50', $payByExtraHours);
+        $this->assertEquals('6.729,32', $payByExtraHours);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje 52%
+     */
+    function it_can_calculate_the_pay_for_travel_time_diary_52_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'diaria', 'diaria52');
+
+        $this->assertEquals('988,95', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje 77%
+     */
+    function it_can_calculate_the_pay_for_travel_time_diary_77_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'diaria', 'diaria77');
+
+        $this->assertEquals('1.151,61', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje mixto 52%
+     */
+    function it_can_calculate_the_pay_for_travel_time_mixed_52_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'mixta', 'mixta52');
+
+        $this->assertEquals('1.054,88', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje mixto 77%
+     */
+    function it_can_calculate_the_pay_for_travel_time_mixed_77_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'mixta', 'mixta77');
+
+        $this->assertEquals('1.228,38', $payByTravelTime52);
     }
 }
