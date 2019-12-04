@@ -52,10 +52,9 @@ class EmployeeProfile extends Model
     }
 
     /**
-     * Obtiene el pago el pago por los dias trabajados
+     * Obtiene el pago el pago por los dias trabajados con SB
      *
      * @param  int $days
-     * @param  string $typeJournal
      * @return string
      */
     public function payWorkedDays($days)
