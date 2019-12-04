@@ -28,6 +28,48 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
+     * @testdox Puede calcular el pago por los dias trabajados diurnos
+     */
+    function it_can_calculate_the_pay_for_diary_worked_days()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payDiurnalWorkedDays = $empProfile->payWorkedDays(2);
+
+        $this->assertEquals('3.470,00', $payDiurnalWorkedDays);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago por los dias trabajados mixtos
+     */
+    function it_can_calculate_the_pay_for_mixed_worked_days()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payMixedWorkedDays = $empProfile->payWorkedDays(2);
+
+        $this->assertEquals('3.470,00', $payMixedWorkedDays);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago por los dias trabajados nocturnos
+     */
+    function it_can_calculate_the_pay_for_nighlty_worked_days()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payNightlyWorkedDays = $empProfile->payWorkedDays(4);
+
+        $this->assertEquals('6.940,00', $payNightlyWorkedDays);
+    }
+
+    /**
+     * @test
      * @testdox Puede calcular el pago de 15 horas extras semanales en una jornada diaria
      */
     function it_can_calculate_the_pay_for_15_extra_hours_by_week_in_diary_journal()

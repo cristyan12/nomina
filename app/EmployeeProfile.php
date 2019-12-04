@@ -52,6 +52,20 @@ class EmployeeProfile extends Model
     }
 
     /**
+     * Obtiene el pago el pago por los dias trabajados
+     *
+     * @param  int $days
+     * @param  string $typeJournal
+     * @return string
+     */
+    public function payWorkedDays($days)
+    {
+        $result = $this->position->basic_salary * $days;
+
+        return number_format($result, 2, ',', '.');
+    }
+
+    /**
      * Obtiene el pago de las horas extras trabajadas por un empleado dado
      *
      * @param int $hours
