@@ -123,4 +123,32 @@ class CalculatePayTest extends TestCase
 
         $this->assertEquals('1.228,38', $payByTravelTime52);
     }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje nocturna 52%
+     */
+    function it_can_calculate_the_pay_for_travel_time_nightly_52_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(6, 'nocturna', 'nocturna52');
+
+        $this->assertEquals('2.260,46', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje nocturno 77%
+     */
+    function it_can_calculate_the_pay_for_travel_time_nightly_77_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(6, 'nocturna', 'nocturna77');
+
+        $this->assertEquals('2.632,24', $payByTravelTime52);
+    }
 }
