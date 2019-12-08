@@ -52,6 +52,30 @@ class EmployeeProfile extends Model
     }
 
     /**
+     * Obtiene el pago el pago por los dias trabajados con SB
+     *
+     * @param  int $days
+     * @return string
+     */
+    public function payWorkedDays($days)
+    {
+        $result = $this->position->basic_salary * $days;
+
+        return number_format($result, 2, ',', '.');
+    }
+
+    /**
+     * Obtiene el monto del pago mensual de su salario basico
+     *
+     * @param  int $days
+     * @return int
+     */
+    public function getMonthlySalary()
+    {
+        return $this->position->basic_salary * 30;
+    }
+
+    /**
      * Obtiene el pago de las horas extras trabajadas por un empleado dado
      *
      * @param int $hours
@@ -60,13 +84,43 @@ class EmployeeProfile extends Model
      */
     public function payExtraHours($hours, $journal = null)
     {
-        $percent = $this->getPercentFor($journal);
-
         $salaryByHour = $this->position->getSalaryByHours($this->getDefaultHoursByJournal($journal));
 
-        $result = number_format($salaryByHour * $hours * ($percent / 100), 2, ',', '.');
+        $result = $salaryByHour * $hours * $this->getPercentFor($journal);
 
-        return $result;
+        return number_format($result, 2, ',', '.');
+    }
+
+    /**
+     * Pago por el Tiempo de Viaje
+     *
+     * @param  int $hours
+     * @param  string $journal
+     * @return string
+     */
+    public function payTravelTime($hours, $journal, $journalForTravelTime = null)
+    {
+        $salaryByHour = $this->position->getSalaryByHours($this->getDefaultHoursByJournal($journal));
+
+        $result = $salaryByHour * $this->getPercentForTravelTime($journalForTravelTime) * $hours;
+
+        return number_format($result, 2, ',', '.');
+    }
+
+    /**
+     * Pago de Bonificación por Tiempo de Viaje nocturno
+     *
+     * @param  int $hours
+     * @param  string $journal
+     * @return string
+     */
+    public function payTravelTimeNightly($hours)
+    {
+        $hourlySalary = $this->position->getSalaryByHours($this->getDefaultHoursByJournal());
+
+        $result = $hourlySalary * 0.38 * $hours;
+
+        return number_format($result, 2, ',', '.');
     }
 
     /**
@@ -75,7 +129,7 @@ class EmployeeProfile extends Model
      * @param string $typeJournal
      * @return array
      */
-    protected function getDefaultHoursByJournal($typeJournal)
+    protected function getDefaultHoursByJournal($typeJournal = null)
     {
         $journals = [
             'diaria' => 8,
@@ -95,11 +149,32 @@ class EmployeeProfile extends Model
     protected function getPercentFor($typeJournal)
     {
         $percents = [
-            'diaria' => 93,
-            'mixta' => 81,
-            'nocturna' => 81,
+            'diaria' => 1.93,
+            'mixta' => 1.81,
+            'nocturna' => 1.81,
         ];
 
-        return $percents[$typeJournal] ?? 93;
+        return $percents[$typeJournal];
+    }
+
+    /**
+     * Obtiene los procentajes por defecto para el cálculo del Tiempo de Viaje
+     *
+     * @param  string $typeJournal
+     * @return array
+     */
+    protected function getPercentForTravelTime($typeJournal)
+    {
+        $percents = [
+            'diaria52' => 1.52,
+            'diaria77' => 1.77,
+            'mixta52' => 1.52,
+            'mixta77' => 1.77,
+            'nocturna52' => 1.52,
+            'nocturna77' => 1.77,
+            'maracaibo83' => 1.83,
+        ];
+
+        return $percents[$typeJournal];
     }
 }

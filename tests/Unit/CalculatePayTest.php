@@ -23,7 +23,63 @@ class CalculatePayTest extends TestCase
 
         $payByHour = $position->getSalaryByHours(8);
 
-        $this->assertEquals(216.88, $payByHour);
+        $this->assertEquals(216.875, $payByHour);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el salario base mensual
+     */
+    function it_can_calculate_the_basic_salary_monthly()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $monthlySalary = $employee->getMonthlySalary();
+
+        $this->assertEquals(52050.00, $monthlySalary);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago por los dias trabajados diurnos
+     */
+    function it_can_calculate_the_pay_for_diary_worked_days()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payDiurnalWorkedDays = $empProfile->payWorkedDays(2);
+
+        $this->assertEquals('3.470,00', $payDiurnalWorkedDays);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago por los dias trabajados mixtos
+     */
+    function it_can_calculate_the_pay_for_mixed_worked_days()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payMixedWorkedDays = $empProfile->payWorkedDays(2);
+
+        $this->assertEquals('3.470,00', $payMixedWorkedDays);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago por los dias trabajados nocturnos
+     */
+    function it_can_calculate_the_pay_for_nighlty_worked_days()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payNightlyWorkedDays = $empProfile->payWorkedDays(4);
+
+        $this->assertEquals('6.940,00', $payNightlyWorkedDays);
     }
 
     /**
@@ -37,7 +93,7 @@ class CalculatePayTest extends TestCase
 
         $payByExtraHours = $empProfile->payExtraHours(15, 'diaria');
 
-        $this->assertEquals('3.025,48', $payByExtraHours);
+        $this->assertEquals('6.278,53', $payByExtraHours);
     }
 
     /**
@@ -51,7 +107,7 @@ class CalculatePayTest extends TestCase
 
         $payByExtraHours = $empProfile->payExtraHours(15, 'mixta');
 
-        $this->assertEquals('2.810,66', $payByExtraHours);
+        $this->assertEquals('6.280,70', $payByExtraHours);
     }
 
     /**
@@ -65,6 +121,104 @@ class CalculatePayTest extends TestCase
 
         $payByExtraHours = $empProfile->payExtraHours(15, 'nocturna');
 
-        $this->assertEquals('3.011,50', $payByExtraHours);
+        $this->assertEquals('6.729,32', $payByExtraHours);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje 52%
+     */
+    function it_can_calculate_the_pay_for_travel_time_diary_52_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'diaria', 'diaria52');
+
+        $this->assertEquals('988,95', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje 77%
+     */
+    function it_can_calculate_the_pay_for_travel_time_diary_77_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'diaria', 'diaria77');
+
+        $this->assertEquals('1.151,61', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje mixto 52%
+     */
+    function it_can_calculate_the_pay_for_travel_time_mixed_52_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'mixta', 'mixta52');
+
+        $this->assertEquals('1.054,88', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje mixto 77%
+     */
+    function it_can_calculate_the_pay_for_travel_time_mixed_77_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(3, 'mixta', 'mixta77');
+
+        $this->assertEquals('1.228,38', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje nocturna 52%
+     */
+    function it_can_calculate_the_pay_for_travel_time_nightly_52_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(6, 'nocturna', 'nocturna52');
+
+        $this->assertEquals('2.260,46', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Tiempo de Viaje nocturno 77%
+     */
+    function it_can_calculate_the_pay_for_travel_time_nightly_77_percent()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTime52 = $empProfile->payTravelTime(6, 'nocturna', 'nocturna77');
+
+        $this->assertEquals('2.632,24', $payByTravelTime52);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago de Bono por Tiempo de Viaje nocturno 38%
+     */
+    function it_can_calculate_the_pay_for_travel_time_nightly_of_3_50_hours()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payByTravelTimeNightly = $empProfile->payTravelTimeNightly(3.50);
+
+        $this->assertEquals('288,44', $payByTravelTimeNightly);
     }
 }
