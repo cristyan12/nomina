@@ -92,7 +92,7 @@ class EmployeeProfile extends Model
     }
 
     /**
-     * Obtiene el pago por el Tiempo de Viaje
+     * Pago por el Tiempo de Viaje
      *
      * @param  int $hours
      * @param  string $journal
@@ -107,6 +107,13 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
+    /**
+     * Pago de Bonificación por Tiempo de Viaje nocturno
+     *
+     * @param  int $hours
+     * @param  string $journal
+     * @return string
+     */
     public function payTravelTimeNightly($hours)
     {
         $hourlySalary = $this->position->getSalaryByHours($this->getDefaultHoursByJournal());
