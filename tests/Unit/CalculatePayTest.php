@@ -193,4 +193,14 @@ class CalculatePayTest extends TestCase
 
         $this->assertEquals('2.632,24', $payByTravelTime52);
     }
+
+    /**
+     * @test
+     * @testdox Calcula el pago por sexto dia trabajado
+     */
+    function it_can_calculate_the_pay_for_work_in_sixth_day_worked()
+    {
+        $this->markTestIncomplete();
+        return;
+    }
 }
