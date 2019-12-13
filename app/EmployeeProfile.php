@@ -65,6 +65,17 @@ class EmployeeProfile extends Model
     }
 
     /**
+     * Obtiene el monto del pago mensual de su salario basico
+     *
+     * @param  int $days
+     * @return int
+     */
+    public function getMonthlySalary()
+    {
+        return $this->position->basic_salary * 30;
+    }
+
+    /**
      * Obtiene el pago de las horas extras trabajadas por un empleado dado
      *
      * @param int $hours
@@ -81,7 +92,7 @@ class EmployeeProfile extends Model
     }
 
     /**
-     * Obtiene el pago por el Tiempo de Viaje
+     * Pago por el Tiempo de Viaje
      *
      * @param  int $hours
      * @param  string $journal
@@ -109,13 +120,28 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
+     /** Pago de Bonificación por Tiempo de Viaje nocturno
+     *
+     * @param  int $hours
+     * @param  string $journal
+     * @return string
+     */
+    public function payTravelTimeNightly($hours)
+    {
+        $hourlySalary = $this->position->getSalaryByHours($this->getDefaultHoursByJournal());
+
+        $result = $hourlySalary * 0.38 * $hours;
+
+        return number_format($result, 2, ',', '.');
+    }
+
     /**
      * Obtiene las horas por defecto de los tipos de jornada.
      *
      * @param string $typeJournal
      * @return array
      */
-    protected function getDefaultHoursByJournal($typeJournal)
+    protected function getDefaultHoursByJournal($typeJournal = null)
     {
         $journals = [
             'diaria' => 8,
@@ -140,11 +166,11 @@ class EmployeeProfile extends Model
             'nocturna' => 1.81,
         ];
 
-        return $percents[$typeJournal] ?? 93;
+        return $percents[$typeJournal];
     }
 
     /**
-     * Obtiene los procentajes por defecto de los tipos de jornada.
+     * Obtiene los procentajes por defecto para el cálculo del Tiempo de Viaje
      *
      * @param  string $typeJournal
      * @return array
@@ -158,8 +184,9 @@ class EmployeeProfile extends Model
             'mixta77' => 1.77,
             'nocturna52' => 1.52,
             'nocturna77' => 1.77,
+            'maracaibo83' => 1.83,
         ];
 
-        return $percents[$typeJournal] ?? 1.52;
+        return $percents[$typeJournal];
     }
 }
