@@ -97,6 +97,19 @@ class EmployeeProfile extends Model
     }
 
     /**
+     * Obtiene el pago el pago por el sexto dia trabajado SB
+     *
+     * @param  int $days
+     * @return string
+     */
+    public function paySixthDayWorked($days)
+    {
+        $result = $this->position->basic_salary * $days;
+
+        return number_format($result, 2, ',', '.');
+    }
+
+    /**
      * Obtiene las horas por defecto de los tipos de jornada.
      *
      * @param string $typeJournal

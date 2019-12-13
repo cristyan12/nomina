@@ -33,9 +33,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_diary_worked_days()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payDiurnalWorkedDays = $empProfile->payWorkedDays(2);
+        $payDiurnalWorkedDays = $employee->payWorkedDays(2);
 
         $this->assertEquals('3.470,00', $payDiurnalWorkedDays);
     }
@@ -47,9 +47,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_mixed_worked_days()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payMixedWorkedDays = $empProfile->payWorkedDays(2);
+        $payMixedWorkedDays = $employee->payWorkedDays(2);
 
         $this->assertEquals('3.470,00', $payMixedWorkedDays);
     }
@@ -61,9 +61,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_nighlty_worked_days()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payNightlyWorkedDays = $empProfile->payWorkedDays(4);
+        $payNightlyWorkedDays = $employee->payWorkedDays(4);
 
         $this->assertEquals('6.940,00', $payNightlyWorkedDays);
     }
@@ -75,9 +75,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_15_extra_hours_by_week_in_diary_journal()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByExtraHours = $empProfile->payExtraHours(15, 'diaria');
+        $payByExtraHours = $employee->payExtraHours(15, 'diaria');
 
         $this->assertEquals('6.278,53', $payByExtraHours);
     }
@@ -89,9 +89,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_15_extra_hours_by_week_in_mixed_journal()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByExtraHours = $empProfile->payExtraHours(15, 'mixta');
+        $payByExtraHours = $employee->payExtraHours(15, 'mixta');
 
         $this->assertEquals('6.280,70', $payByExtraHours);
     }
@@ -103,9 +103,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_15_extra_hours_by_week_in_nightly_journal()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByExtraHours = $empProfile->payExtraHours(15, 'nocturna');
+        $payByExtraHours = $employee->payExtraHours(15, 'nocturna');
 
         $this->assertEquals('6.729,32', $payByExtraHours);
     }
@@ -117,9 +117,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_travel_time_diary_52_percent()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $empProfile->payTravelTime(3, 'diaria', 'diaria52');
+        $payByTravelTime52 = $employee->payTravelTime(3, 'diaria', 'diaria52');
 
         $this->assertEquals('988,95', $payByTravelTime52);
     }
@@ -131,9 +131,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_travel_time_diary_77_percent()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $empProfile->payTravelTime(3, 'diaria', 'diaria77');
+        $payByTravelTime52 = $employee->payTravelTime(3, 'diaria', 'diaria77');
 
         $this->assertEquals('1.151,61', $payByTravelTime52);
     }
@@ -145,9 +145,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_travel_time_mixed_52_percent()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $empProfile->payTravelTime(3, 'mixta', 'mixta52');
+        $payByTravelTime52 = $employee->payTravelTime(3, 'mixta', 'mixta52');
 
         $this->assertEquals('1.054,88', $payByTravelTime52);
     }
@@ -159,9 +159,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_travel_time_mixed_77_percent()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $empProfile->payTravelTime(3, 'mixta', 'mixta77');
+        $payByTravelTime52 = $employee->payTravelTime(3, 'mixta', 'mixta77');
 
         $this->assertEquals('1.228,38', $payByTravelTime52);
     }
@@ -173,9 +173,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_travel_time_nightly_52_percent()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $empProfile->payTravelTime(6, 'nocturna', 'nocturna52');
+        $payByTravelTime52 = $employee->payTravelTime(6, 'nocturna', 'nocturna52');
 
         $this->assertEquals('2.260,46', $payByTravelTime52);
     }
@@ -187,9 +187,9 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_travel_time_nightly_77_percent()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $empProfile->payTravelTime(6, 'nocturna', 'nocturna77');
+        $payByTravelTime52 = $employee->payTravelTime(6, 'nocturna', 'nocturna77');
 
         $this->assertEquals('2.632,24', $payByTravelTime52);
     }
@@ -200,7 +200,11 @@ class CalculatePayTest extends TestCase
      */
     function it_can_calculate_the_pay_for_work_in_sixth_day_worked()
     {
-        $this->markTestIncomplete();
-        return;
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $paySixthDayWorked = $employee->paySixthDayWorked(1);
+
+        $this->assertEquals('1.735,00', $paySixthDayWorked);
     }
 }
