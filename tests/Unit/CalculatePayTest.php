@@ -210,7 +210,6 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-<<<<<<< HEAD
      * @testdox Calcula el pago por sexto dia trabajado
      */
     function it_can_calculate_the_pay_for_work_in_sixth_day_worked()
@@ -221,7 +220,10 @@ class CalculatePayTest extends TestCase
         $paySixthDayWorked = $employee->paySixthDayWorked(1);
 
         $this->assertEquals('1.735,00', $paySixthDayWorked);
-=======
+    }
+
+    /**
+     * @test
      * @testdox Puede calcular el pago de Bono por Tiempo de Viaje nocturno 38%
      */
     function it_can_calculate_the_pay_for_travel_time_nightly_of_3_50_hours()
@@ -232,6 +234,5 @@ class CalculatePayTest extends TestCase
         $payByTravelTimeNightly = $empProfile->payTravelTimeNightly(3.50);
 
         $this->assertEquals('288,44', $payByTravelTimeNightly);
->>>>>>> 1831ad3f999a08cc4ff7df86f4d61ed15a896d40
     }
 }
