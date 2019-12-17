@@ -135,6 +135,17 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
+     /** Pago de La Ayuda Única y Especial de Ciudad.
+     *
+     * @return string
+     */
+    public function payCityHelp()
+    {
+        $result = $this->getMonthlySalary() * 0.05;
+
+        return number_format($result, 2, ',', '.');
+    }
+
     /**
      * Obtiene las horas por defecto de los tipos de jornada.
      *

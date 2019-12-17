@@ -229,10 +229,24 @@ class CalculatePayTest extends TestCase
     function it_can_calculate_the_pay_for_travel_time_nightly_of_3_50_hours()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $empProfile = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTimeNightly = $empProfile->payTravelTimeNightly(3.50);
+        $payByTravelTimeNightly = $employee->payTravelTimeNightly(3.50);
 
         $this->assertEquals('288,44', $payByTravelTimeNightly);
+    }
+
+    /**
+     * @test
+     * @testdox Puede calcular el pago por La Ayuda Única y Especial de Ciudad
+     */
+    function it_can_calculate_the_pay_for_city_help()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $payCityHelp = $employee->payCityHelp();
+
+        $this->assertEquals('2.602,50', $payCityHelp);
     }
 }
