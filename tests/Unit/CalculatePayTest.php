@@ -249,4 +249,21 @@ class CalculatePayTest extends TestCase
 
         $this->assertEquals('2.602,50', $payCityHelp);
     }
+
+    /**
+     * @test
+     * @testdox Calcula el Salario Normal
+     */
+    function it_can_calculate_normal_salary()
+    {
+        $this->markTestIncomplete();
+        return;
+
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $normalSalary = $employee->getNormalSalary();
+
+        $this->assertEquals('3.766,76', $normalSalary);
+    }
 }

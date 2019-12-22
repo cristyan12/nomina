@@ -146,6 +146,15 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
+     /** Obtiene el Salario Normal
+     *
+     * @return string
+     */
+    public function getNormalSalary()
+    {
+        // Obtiene los resultados de los conceptos
+    }
+
     /**
      * Obtiene las horas por defecto de los tipos de jornada.
      *
