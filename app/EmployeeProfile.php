@@ -152,7 +152,11 @@ class EmployeeProfile extends Model
      */
     public function getNormalSalary()
     {
-        // Obtiene los resultados de los conceptos
+        // Son varios conceptos
+        // Dependen de la jornada (Diurna, Mixta y Nocturna)
+        // Segun formula de la convencion vigente y de la hoja de excel
+        // de Julio, se suman los conceptos y se les divide
+        // por las unidades de tiempo correspondientes
     }
 
     /**
