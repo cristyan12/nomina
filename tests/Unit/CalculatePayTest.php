@@ -14,7 +14,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el salario base por hora en jornada diaria de 8 horas
+     * @testdox Salario base por hora en jornada diaria
      */
     function it_can_calculate_the_basic_salary_by_hour_in_diary_journal_of_eight_hours()
     {
@@ -28,7 +28,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el salario base mensual
+     * @testdox Obtiene el salario base mensual
      */
     function it_can_calculate_the_basic_salary_monthly()
     {
@@ -42,7 +42,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago por los dias trabajados diurnos
+     * @testdox Pago por los dias trabajados diurnos
      */
     function it_can_calculate_the_pay_for_diary_worked_days()
     {
@@ -56,7 +56,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago por los dias trabajados mixtos
+     * @testdox Pago por los dias trabajados mixtos
      */
     function it_can_calculate_the_pay_for_mixed_worked_days()
     {
@@ -70,7 +70,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago por los dias trabajados nocturnos
+     * @testdox Pago por los dias trabajados nocturnos
      */
     function it_can_calculate_the_pay_for_nighlty_worked_days()
     {
@@ -84,7 +84,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de 15 horas extras semanales en una jornada diaria
+     * @testdox Pago de horas extras semanales en una jornada diaria
      */
     function it_can_calculate_the_pay_for_15_extra_hours_by_week_in_diary_journal()
     {
@@ -98,7 +98,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de 15 horas extras semanales en una jornada mixta
+     * @testdox Pago de horas extras semanales en una jornada mixta
      */
     function it_can_calculate_the_pay_for_15_extra_hours_by_week_in_mixed_journal()
     {
@@ -112,7 +112,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de 15 horas extras semanales en una jornada nocturna
+     * @testdox Pago de extras semanales en una jornada nocturna
      */
     function it_can_calculate_the_pay_for_15_extra_hours_by_week_in_nightly_journal()
     {
@@ -126,7 +126,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de Tiempo de Viaje 52%
+     * @testdox Tiempo de Viaje 52%
      */
     function it_can_calculate_the_pay_for_travel_time_diary_52_percent()
     {
@@ -140,7 +140,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de Tiempo de Viaje 77%
+     * @testdox Tiempo de Viaje 77%
      */
     function it_can_calculate_the_pay_for_travel_time_diary_77_percent()
     {
@@ -154,7 +154,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de Tiempo de Viaje mixto 52%
+     * @testdox Tiempo de Viaje mixto 52%
      */
     function it_can_calculate_the_pay_for_travel_time_mixed_52_percent()
     {
@@ -168,7 +168,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de Tiempo de Viaje mixto 77%
+     * @testdox Tiempo de Viaje mixto 77%
      */
     function it_can_calculate_the_pay_for_travel_time_mixed_77_percent()
     {
@@ -182,7 +182,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de Tiempo de Viaje nocturna 52%
+     * @testdox Tiempo de Viaje nocturna 52%
      */
     function it_can_calculate_the_pay_for_travel_time_nightly_52_percent()
     {
@@ -196,7 +196,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago de Tiempo de Viaje nocturno 77%
+     * @testdox Tiempo de Viaje nocturno 77%
      */
     function it_can_calculate_the_pay_for_travel_time_nightly_77_percent()
     {
@@ -210,21 +210,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Calcula el pago por sexto dia trabajado
-     */
-    function it_can_calculate_the_pay_for_work_in_sixth_day_worked()
-    {
-        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
-
-        $paySixthDayWorked = $employee->paySixthDayWorked(1);
-
-        $this->assertEquals('1.735,00', $paySixthDayWorked);
-    }
-
-    /**
-     * @test
-     * @testdox Puede calcular el pago de Bono por Tiempo de Viaje nocturno 38%
+     * @testdox Bono por Tiempo de Viaje nocturno 38%
      */
     function it_can_calculate_the_pay_for_travel_time_nightly_of_3_50_hours()
     {
@@ -238,7 +224,21 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Puede calcular el pago por La Ayuda Única y Especial de Ciudad
+     * @testdox Pago por sexto dia trabajado
+     */
+    function it_can_calculate_the_pay_for_work_in_sixth_day_worked()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $paySixthDayWorked = $employee->paySixthDayWorked(1);
+
+        $this->assertEquals('1.735,00', $paySixthDayWorked);
+    }
+
+    /**
+     * @test
+     * @testdox Ayuda Única y Especial de Ciudad
      */
     function it_can_calculate_the_pay_for_city_help()
     {
@@ -252,18 +252,29 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Calcula el Salario Normal
+     * @testdox Prima dominical SB
      */
-    function it_can_calculate_normal_salary()
+    function it_calculate_bonus_per_sunday()
     {
-        $this->markTestIncomplete();
-        return;
-
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $normalSalary = $employee->getNormalSalary();
+        $bonusPerSunday = $employee->bonusPerSunday();
 
-        $this->assertEquals('3.766,76', $normalSalary);
+        $this->assertEquals('2.602,50', $bonusPerSunday);
+    }
+
+    /**
+     * @test
+     * @testdox Prima por el sexto dia trabajado a SB
+     */
+    function it_calculate_bonus_per_six_day_worked()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $bonusPerSixDayWorked = $employee->bonusPerSixDayWorked();
+
+        $this->assertEquals('2.602,50', $bonusPerSixDayWorked);
     }
 }

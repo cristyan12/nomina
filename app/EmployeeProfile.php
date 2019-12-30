@@ -52,12 +52,29 @@ class EmployeeProfile extends Model
     }
 
     /**
+     * Obtiene el monto del salario base diario
+     */
+    public function getDiarySalary(): int
+    {
+        return $this->position->basic_salary;
+    }
+
+    /**
+     * Obtiene el monto del pago mensual de su salario basico
+     *
+     * @param  int $days
+     */
+    public function getMonthlySalary(): int
+    {
+        return $this->position->basic_salary * 30;
+    }
+
+    /**
      * Obtiene el pago el pago por los dias trabajados con SB
      *
      * @param  int $days
-     * @return string
      */
-    public function payWorkedDays($days)
+    public function payWorkedDays($days): string
     {
         $result = $this->position->basic_salary * $days;
 
@@ -65,22 +82,10 @@ class EmployeeProfile extends Model
     }
 
     /**
-     * Obtiene el monto del pago mensual de su salario basico
-     *
-     * @param  int $days
-     * @return int
-     */
-    public function getMonthlySalary()
-    {
-        return $this->position->basic_salary * 30;
-    }
-
-    /**
      * Obtiene el pago de las horas extras trabajadas por un empleado dado
      *
      * @param int $hours
      * @param string $typeJournal
-     * @return string
      */
     public function payExtraHours($hours, $journal = null)
     {
@@ -96,9 +101,8 @@ class EmployeeProfile extends Model
      *
      * @param  int $hours
      * @param  string $journal
-     * @return string
      */
-    public function payTravelTime($hours, $journal, $journalForTravelTime = null)
+    public function payTravelTime($hours, $journal, $journalForTravelTime = null): string
     {
         $salaryByHour = $this->position->getSalaryByHours($this->getDefaultHoursByJournal($journal));
 
@@ -111,7 +115,6 @@ class EmployeeProfile extends Model
      * Obtiene el pago el pago por el sexto dia trabajado SB
      *
      * @param  int $days
-     * @return string
      */
     public function paySixthDayWorked($days)
     {
@@ -120,13 +123,12 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
-     /** Pago de Bonificación por Tiempo de Viaje nocturno
-     *
-     * @param  int $hours
-     * @param  string $journal
-     * @return string
-     */
-    public function payTravelTimeNightly($hours)
+     /** Pago de Bonificación por Tiempo de Viaje nocturno.
+       *
+       * @param  int $hours
+       * @param  string $journal
+      */
+    public function payTravelTimeNightly($hours): string
     {
         $hourlySalary = $this->position->getSalaryByHours($this->getDefaultHoursByJournal());
 
@@ -135,35 +137,40 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
-     /** Pago de La Ayuda Única y Especial de Ciudad.
-     *
-     * @return string
+     /**
+     * Pago de La Ayuda Única y Especial de Ciudad.
      */
-    public function payCityHelp()
+    public function payCityHelp(): string
     {
         $result = $this->getMonthlySalary() * 0.05;
 
         return number_format($result, 2, ',', '.');
     }
 
-     /** Obtiene el Salario Normal
-     *
-     * @return string
+     /**
+     * Bono por sexto día trabajado
      */
-    public function getNormalSalary()
+    public function bonusPerSixDayWorked(): string
     {
-        // Son varios conceptos
-        // Dependen de la jornada (Diurna, Mixta y Nocturna)
-        // Segun formula de la convencion vigente y de la hoja de excel
-        // de Julio, se suman los conceptos y se les divide
-        // por las unidades de tiempo correspondientes
+        $result = $this->getDiarySalary() * 1.5;
+
+        return number_format($result, 2, ',', '.');
+    }
+
+     /**
+      * Bono por trabajo en día domingo
+     */
+    public function bonusPerSunday(): string
+    {
+        $result = $this->getDiarySalary() * 1.5;
+
+        return number_format($result, 2, ',', '.');
     }
 
     /**
      * Obtiene las horas por defecto de los tipos de jornada.
      *
      * @param string $typeJournal
-     * @return array
      */
     protected function getDefaultHoursByJournal($typeJournal = null)
     {
@@ -180,7 +187,6 @@ class EmployeeProfile extends Model
      * Obtiene los procentajes por defecto de los tipos de jornada.
      *
      * @param string $typeJournal
-     * @return array
      */
     protected function getPercentFor($typeJournal)
     {
@@ -197,7 +203,6 @@ class EmployeeProfile extends Model
      * Obtiene los procentajes por defecto para el cálculo del Tiempo de Viaje
      *
      * @param  string $typeJournal
-     * @return array
      */
     protected function getPercentForTravelTime($typeJournal)
     {
