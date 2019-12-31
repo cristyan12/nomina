@@ -51,10 +51,12 @@ class EmployeeProfile extends Model
         return 'Temporal';
     }
 
+    // METODOS DE CALCULO DE NOMINA PETROLERA
+
     /**
      * Obtiene el monto del salario base diario
      */
-    public function getDiarySalary(): int
+    public function getDiarySalary()
     {
         return $this->position->basic_salary;
     }
@@ -64,7 +66,7 @@ class EmployeeProfile extends Model
      *
      * @param  int $days
      */
-    public function getMonthlySalary(): int
+    public function getMonthlySalary()
     {
         return $this->position->basic_salary * 30;
     }
@@ -87,9 +89,11 @@ class EmployeeProfile extends Model
      * @param int $hours
      * @param string $typeJournal
      */
-    public function payExtraHours($hours, $journal = null)
+    public function payExtraHours($hours, $journal = null): string
     {
-        $salaryByHour = $this->position->getSalaryByHours($this->getDefaultHoursByJournal($journal));
+        $salaryByHour = $this->position->getSalaryByHours(
+            $this->getDefaultHoursByJournal($journal)
+        );
 
         $result = $salaryByHour * $hours * $this->getPercentFor($journal);
 
@@ -104,7 +108,9 @@ class EmployeeProfile extends Model
      */
     public function payTravelTime($hours, $journal, $journalForTravelTime = null): string
     {
-        $salaryByHour = $this->position->getSalaryByHours($this->getDefaultHoursByJournal($journal));
+        $salaryByHour = $this->position->getSalaryByHours(
+            $this->getDefaultHoursByJournal($journal)
+        );
 
         $result = $salaryByHour * $this->getPercentForTravelTime($journalForTravelTime) * $hours;
 
@@ -125,8 +131,7 @@ class EmployeeProfile extends Model
 
      /** Pago de Bonificación por Tiempo de Viaje nocturno.
        *
-       * @param  int $hours
-       * @param  string $journal
+       * @param int $hours
       */
     public function payTravelTimeNightly($hours): string
     {
@@ -157,14 +162,46 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
-     /**
-      * Bono por trabajo en día domingo
+    /**
+     * Bono por trabajo en día domingo
      */
     public function bonusPerSunday(): string
     {
         $result = $this->getDiarySalary() * 1.5;
 
         return number_format($result, 2, ',', '.');
+    }
+
+    /**
+     * Pago del Bono Nocturno
+     */
+    public function getNightBonusPaySB()
+    {
+        // TODO: Get the correct value fot this variables:
+        $bonusPerExtraHoursDaily = 0;
+        $bonusPerExtraHoursMixed = 0;
+
+        $hourlySalary = $this->position->getSalaryByHours(
+            $this->getDefaultHoursByJournal()
+        );
+
+        $result = $hourlySalary * 0.38 * (
+            $this->bonusNightHours() +
+            $bonusPerExtraHoursDaily +
+            $bonusPerExtraHoursMixed
+        );
+
+        return number_format($result, 2, ',', '.');
+    }
+
+    public function bonusNightHours()
+    {
+        // TODO: Refactor with formula:
+        // => A ((Dias trabajados mixtos + sexto dia trabajado mixto) * 4) +
+        // => B ((Dias trabajados nocturnos + Sexto dia trabajado nocturno) * 6)
+        // = A + B
+
+        return 24;
     }
 
     /**

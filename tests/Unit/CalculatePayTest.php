@@ -126,7 +126,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Tiempo de Viaje 52%
+     * @testdox Tiempo de Viaje diario 52%
      */
     function it_can_calculate_the_pay_for_travel_time_diary_52_percent()
     {
@@ -140,7 +140,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Tiempo de Viaje 77%
+     * @testdox Tiempo de Viaje diario 77%
      */
     function it_can_calculate_the_pay_for_travel_time_diary_77_percent()
     {
@@ -182,7 +182,7 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
-     * @testdox Tiempo de Viaje nocturna 52%
+     * @testdox Tiempo de Viaje nocturno 52%
      */
     function it_can_calculate_the_pay_for_travel_time_nightly_52_percent()
     {
@@ -276,5 +276,19 @@ class CalculatePayTest extends TestCase
         $bonusPerSixDayWorked = $employee->bonusPerSixDayWorked();
 
         $this->assertEquals('2.602,50', $bonusPerSixDayWorked);
+    }
+
+    /**
+     * @test
+     * @testdox Bono nocturno a SB
+     */
+    function it_calculate_night_bonus_SB()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $nightBonus = $employee->getNightBonusPaySB();
+
+        $this->assertEquals('1.977,90', $nightBonus);
     }
 }
