@@ -186,7 +186,7 @@ class EmployeeProfile extends Model
         );
 
         $result = $hourlySalary * 0.38 * (
-            $this->bonusNightHours() +
+            $this->getQuantityBonusNight() +
             $bonusPerExtraHoursDaily +
             $bonusPerExtraHoursMixed
         );
@@ -194,14 +194,12 @@ class EmployeeProfile extends Model
         return number_format($result, 2, ',', '.');
     }
 
-    public function bonusNightHours()
+    public function getQuantityBonusNight($mixedWorkedDays, $sixthDayWorkedMixed, $nigthWorkedDays, $sixthDayWorkedNight)
     {
-        // TODO: Refactor with formula:
-        // => A ((Dias trabajados mixtos + sexto dia trabajado mixto) * 4) +
-        // => B ((Dias trabajados nocturnos + Sexto dia trabajado nocturno) * 6)
-        // = A + B
+        $a = (($mixedWorkedDays + $sixthDayWorkedMixed) * 4);
+        $b = (($nigthWorkedDays + $sixthDayWorkedNight) * 6);
 
-        return 24;
+        return $a + $b;
     }
 
     /**

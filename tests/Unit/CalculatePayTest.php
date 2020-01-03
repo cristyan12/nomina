@@ -280,10 +280,37 @@ class CalculatePayTest extends TestCase
 
     /**
      * @test
+     * @testdox Obtiene las cantidades para el pago del bono nocturno
+     */
+    function it_get_the_quantities_for_bonus_night()
+    {
+        $employee = $this->create('App\EmployeeProfile');
+
+        $mixedWorkedDays = 2;
+        $sixthDayWorkedMixed = 1;
+
+        $nigthWorkedDays = 4;
+        $sixthDayWorkedNight = 0;
+
+        $quantity = $employee->getQuantityBonusNight(
+            $mixedWorkedDays,
+            $sixthDayWorkedMixed,
+            $nigthWorkedDays,
+            $sixthDayWorkedNight
+        );
+
+        $this->assertEquals(36, $quantity);
+    }
+
+    /**
+     * @test
      * @testdox Bono nocturno a SB
      */
     function it_calculate_night_bonus_SB()
     {
+        $this->markTestIncomplete();
+        return;
+
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
