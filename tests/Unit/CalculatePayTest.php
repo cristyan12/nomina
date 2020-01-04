@@ -316,6 +316,6 @@ class CalculatePayTest extends TestCase
 
         $nightBonus = $employee->getNightBonusPaySB();
 
-        $this->assertEquals('1.977,90', $nightBonus);
+        $this->assertEquals('2.966,85', $nightBonus);
     }
 }

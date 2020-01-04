@@ -185,7 +185,9 @@ class EmployeeProfile extends Model
             $this->getDefaultHoursByJournal()
         );
 
-        $result = $hourlySalary * 0.38 * (
+        $salaryByHour = $hourlySalary * 0.38;
+
+        $result = $salaryByHour * (
             $this->getQuantityBonusNight() +
             $bonusPerExtraHoursDaily +
             $bonusPerExtraHoursMixed
