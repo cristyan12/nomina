@@ -286,22 +286,26 @@ class CalculatePayTest extends TestCase
     {
         $employee = $this->create('App\EmployeeProfile');
 
-        $quantity = $employee->getQuantityBonusNight(0, 0, 4, 0);
+        $quantity = $employee->setWorkedDaysMixed(0)
+            ->setSixthDayWorkedMixed(0)
+            ->setWorkedDaysNigthly(4)
+            ->setSixthDayWorkedNigthly(0)
+            ->getQuantityBonusNight();
 
         $this->assertEquals(24, $quantity);
     }
 
-    // /**
-    //  * @test
-    //  * @testdox Bono nocturno a SB
-    //  */
-    // function it_calculate_night_bonus_SB()
-    // {
-    //     $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
-    //     $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+    /**
+     * @test
+     * @testdox Bono nocturno a SB
+     */
+    function it_calculate_night_bonus_SB()
+    {
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-    //     $nightBonus = $employee->getNightBonusPaySB();
+        $nightBonus = $employee->getNightBonusPaySB([0, 0, 4, 0], 0, 0);
 
-    //     $this->assertEquals('2.966,85', $nightBonus);
-    // }
+        $this->assertEquals('1.977,90', $nightBonus);
+    }
 }

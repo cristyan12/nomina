@@ -107,23 +107,19 @@ trait CalculatePay
         return number_format($result, 2, ',', '.');
     }
 
-    /**
-     * Obtiene las cantidades para calcular el Bono Nocturno.
-     *
-     * @param mixed     $workedDaysMixed          Dias trabajados mixtos
-     * @param mixed     $sixthDayWorkedMixed      Sexto dia trabajado mixto
-     * @param mixed     $workedDaysNigthly        Dias trabajados nocturnos
-     * @param mixed     $sixthDayWorkedNigthly    Sexto dia trabajado nocturno
-     *
-     * @return int
-     */
-    public function getQuantityBonusNight($workedDaysMixed, $sixthDayWorkedMixed, $workedDaysNigthly, $sixthDayWorkedNigthly): int
+    public function getNightBonusPaySB($quantitiesBonusNight = [], $bonusNightExtraHoursDays, $bonusNightExtraHoursMixed)
     {
-        $a = ($workedDaysMixed + $sixthDayWorkedMixed) * 4;
+        $salaryHour = $this->position->getSalaryByHours(8) * 0.38;
 
-        $b = ($workedDaysNigthly + $sixthDayWorkedNigthly) * 6;
+        $qBonusNight = $this->setWorkedDaysMixed($quantitiesBonusNight[0])
+            ->setSixthDayWorkedMixed($quantitiesBonusNight[1])
+            ->setWorkedDaysNigthly($quantitiesBonusNight[2])
+            ->setSixthDayWorkedNigthly($quantitiesBonusNight[3])
+            ->getQuantityBonusNight();
 
-        return $a + $b;
+        $result = $salaryHour * ($qBonusNight + $bonusNightExtraHoursDays + $bonusNightExtraHoursMixed);
+
+        return number_format($result, 2, ',', '.');
     }
 
     /**
