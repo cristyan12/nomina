@@ -36,8 +36,9 @@ trait CalculatePay
     /**
      * Pago por el Tiempo de Viaje
      *
-     * @param  int $hours
-     * @param  string $journal
+     * @param  int      $hours
+     * @param  string   $journal
+     * @param  string   $journalForTravelTime
      */
     public function payTravelTime($hours, $journal, $journalForTravelTime = null): string
     {
@@ -52,21 +53,17 @@ trait CalculatePay
 
     /**
      * Obtiene el pago el pago por el sexto dia trabajado SB
-     *
-     * @param  int $days
      */
-    public function paySixthDayWorked($days)
+    public function paySixthDayWorked(): string
     {
-        $result = $this->position->basic_salary * $days;
-
-        return number_format($result, 2, ',', '.');
+        return number_format($this->getDiarySalary(), 2, ',', '.');
     }
 
-     /** Pago de Bonificación por Tiempo de Viaje nocturno.
+     /** Bonificación por Tiempo de Viaje nocturno.
        *
        * @param int $hours
       */
-    public function payTravelTimeNightly($hours): string
+    public function bonusTravelTimeNightly($hours): string
     {
         $hourlySalary = $this->position->getSalaryByHours(
             $this->getDefaultHoursByJournal()
@@ -107,6 +104,15 @@ trait CalculatePay
         return number_format($result, 2, ',', '.');
     }
 
+    /**
+     * Pago del Bono Nocturno a Salario Base
+     *
+     * @param   array   $quantitiesBonusNight
+     * @param   mixed   $bonusNightExtraHoursDays
+     * @param   mixed   $bonusNightExtraHoursMixed
+     *
+     * @return  string
+     */
     public function getNightBonusPaySB($quantitiesBonusNight = [], $bonusNightExtraHoursDays, $bonusNightExtraHoursMixed)
     {
         $salaryHour = $this->position->getSalaryByHours(8) * 0.38;
@@ -120,6 +126,14 @@ trait CalculatePay
         $result = $salaryHour * ($qBonusNight + $bonusNightExtraHoursDays + $bonusNightExtraHoursMixed);
 
         return number_format($result, 2, ',', '.');
+    }
+
+    /**
+     * Obtiene el Salario Normal Diario (PEG 0001)
+     */
+    public function getNormalSalaryPEG_0001()
+    {
+        //
     }
 
     /**

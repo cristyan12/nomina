@@ -217,7 +217,7 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTimeNightly = $employee->payTravelTimeNightly(3.50);
+        $payByTravelTimeNightly = $employee->bonusTravelTimeNightly(3.50);
 
         $this->assertEquals('288,44', $payByTravelTimeNightly);
     }
@@ -231,7 +231,7 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $paySixthDayWorked = $employee->paySixthDayWorked(1);
+        $paySixthDayWorked = $employee->paySixthDayWorked();
 
         $this->assertEquals('1.735,00', $paySixthDayWorked);
     }
@@ -307,5 +307,22 @@ class CalculatePayTest extends TestCase
         $nightBonus = $employee->getNightBonusPaySB([0, 0, 4, 0], 0, 0);
 
         $this->assertEquals('1.977,90', $nightBonus);
+    }
+
+    /**
+     * @test
+     * @testdox Salario Normal (PEG 0001)
+     */
+    function it_calculate_normal_salary_PEG_0001()
+    {
+        $this->markTestIncomplete();
+        return;
+
+        $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
+        $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+        $normalSalaryPEG_0001 = $employee->getNormalSalaryPEG_0001();
+
+        $this->assertEquals('3.766,76', $normalSalaryPEG_0001);
     }
 }
