@@ -5,6 +5,125 @@ namespace App;
 trait CalculatePay
 {
     /**
+     * Horas para calcular el bono por el Tiempo de Viaje en jornada nocturna.
+     *
+     * @var $hoursForTravelTimeNigthly
+     */
+    protected $hoursForTravelTimeNigthly;
+
+    /**
+     * Dias trabajados mixtos
+     *
+     * @var $workedDaysMixed
+     */
+    protected $workedDaysMixed;
+
+    /**
+     * Sexto dia trabajado mixto
+     *
+     * @var $sixthDayWorkedMixed
+     */
+    protected $sixthDayWorkedMixed;
+
+    /**
+     * Dias trabajados nocturnos
+     *
+     * @var $workedDaysNigthly
+     */
+    protected $workedDaysNigthly;
+
+    /**
+     * Sexto dia trabajado nocturno
+     *
+     * @var $sixthDayWorkedNigthly
+     */
+    protected $sixthDayWorkedNigthly;
+
+    /**
+     * Días trabajados en jornada diurna.
+     *
+     * @var $workedDaysDaily
+     */
+    protected $workedDaysDaily;
+
+    // SB, Dias trabajados diurnos*, Dias trabajados mixtos*, Dias trabajados nocturnos*,
+    // Tiempo de Viaje Diurno 52% METODO*, Tiempo de Viaje Diurno 77% METODO*,
+    // Tiempo de Viaje Mixto 52% METODO*, Tiempo de Viaje Mixto 77% METODO*,
+    // Tiempo de Viaje Nocturno 52% METODO*, Tiempo de Viaje Nocturno 77% METODO*,
+    // Pago de comida, Bonif. Tiempo de viaje nocturno*, Sexto dia trabajado (Diurno, Mixto o Nocturno)*,
+    // Ayuda de ciudad*, Prima Dominical a SB*, Prima por sexto dia trabajado a SB*, Bono Nocturno a SB*
+
+    // Setters
+
+    /**
+     * Estable la cantidad de días trabajados en jornada mixta.
+     *
+     * @var $workedDaysMixed
+     */
+    public function setWorkedDaysMixed($workedDaysMixed)
+    {
+        $this->workedDaysMixed = $workedDaysMixed;
+
+        return $this;
+    }
+
+    /**
+     * Sexto día trabajado en jornada mixta.
+     *
+     * @var $sixthDayWorkedMixed
+     */
+    public function setSixthDayWorkedMixed($sixthDayWorkedMixed)
+    {
+        $this->sixthDayWorkedMixed = $sixthDayWorkedMixed;
+
+        return $this;
+    }
+
+    /**
+     * Establece la cantidad de días trabajados en jornada nocturna.
+     *
+     * @var $workedDaysNigthly
+     */
+    public function setWorkedDaysNigthly($workedDaysNigthly)
+    {
+        $this->workedDaysNigthly = $workedDaysNigthly;
+
+        return $this;
+    }
+
+    /**
+     * Sexto día trabajado en jornada nocturna.
+     *
+     * @var $sixthDayWorkedNigthly
+     */
+    public function setSixthDayWorkedNigthly($sixthDayWorkedNigthly)
+    {
+        $this->sixthDayWorkedNigthly = $sixthDayWorkedNigthly;
+
+        return $this;
+    }
+    public function setHoursForTravelTimeNigthly($hours)
+    {
+        $this->hoursForTravelTimeNigthly = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Obtiene las cantidades para calcular el Bono Nocturno.
+     *
+     * @return int
+     */
+    public function getQuantityBonusNight(): int
+    {
+        $a = ($this->workedDaysMixed + $this->sixthDayWorkedMixed) * 4;
+
+        $b = ($this->workedDaysNigthly + $this->sixthDayWorkedNigthly) * 6;
+
+        return $a + $b;
+    }
+
+    /**
      * Obtiene el pago el pago por los dias trabajados con SB
      *
      * @param  int $days
@@ -57,21 +176,6 @@ trait CalculatePay
     public function paySixthDayWorked(): string
     {
         return number_format($this->getDiarySalary(), 2, ',', '.');
-    }
-
-     /** Bonificación por Tiempo de Viaje nocturno.
-       *
-       * @param int $hours
-      */
-    public function bonusTravelTimeNightly($hours): string
-    {
-        $hourlySalary = $this->position->getSalaryByHours(
-            $this->getDefaultHoursByJournal()
-        );
-
-        $result = $hourlySalary * 0.38 * $hours;
-
-        return number_format($result, 2, ',', '.');
     }
 
      /**
@@ -128,12 +232,45 @@ trait CalculatePay
         return number_format($result, 2, ',', '.');
     }
 
+     /** Bonificación por Tiempo de Viaje nocturno.
+       *
+       * @param int $hours
+      */
+    public function bonusTravelTimeNightly(): string
+    {
+        $hourlySalary = $this->position->getSalaryByHours(
+            $this->getDefaultHoursByJournal()
+        );
+
+        $result = $hourlySalary * 0.38 * $this->hoursForTravelTimeNigthly;
+
+        return number_format($result, 2, ',', '.');
+    }
+
     /**
      * Obtiene el Salario Normal Diario (PEG 0001)
      */
     public function getNormalSalaryPEG_0001()
     {
-        //
+        // Leyenda:
+        // D = Diurno
+        // M = Mixto
+        // N = Nocturno
+
+        // Conceptos que lo integran:
+
+        // SB, Dias trabajados diurnos, Dias trabajados mixtos, Dias trabajados nocturnos,
+        // Tiempo de Viaje Diurno 52%, Tiempo de Viaje Diurno 77%,
+        // Tiempo de Viaje Mixto 52%, Tiempo de Viaje Mixto 77%,
+        // Tiempo de Viaje Nocturno 52%, Tiempo de Viaje Nocturno 77%,
+        // Pago de comida, Bonif. Tiempo de viaje nocturno, Sexto dia trabajado (Diurno, Mixto o Nocturno),
+        // Ayuda de ciudad, Prima Dominical a SB, Prima por sexto dia trabajado a SB, Bono Nocturno a SB
+
+        // se dividen entre las diferentes unidades de tiempo
+
+        // Cantidad de dias trajados diurnos, mixtos y nocturnos, Sexto dia trabajado (D, M y N),
+        // Permiso remunerado, Ausencia injustificada, Permiso no remunerado, Enfermedad ambulatoria,
+        // Enfermedad profesional, Accidente industrial, Permiso sindical
     }
 
     /**

@@ -217,7 +217,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTimeNightly = $employee->bonusTravelTimeNightly(3.50);
+        $payByTravelTimeNightly = $employee
+            ->setHoursForTravelTimeNigthly(3.5)
+            ->bonusTravelTimeNightly();
 
         $this->assertEquals('288,44', $payByTravelTimeNightly);
     }
