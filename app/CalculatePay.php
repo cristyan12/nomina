@@ -5,13 +5,6 @@ namespace App;
 trait CalculatePay
 {
     /**
-     * Horas para calcular el bono por el Tiempo de Viaje en jornada nocturna.
-     *
-     * @var $hoursForTravelTimeNigthly
-     */
-    protected $hoursForTravelTimeNigthly;
-
-    /**
      * Dias trabajados mixtos
      *
      * @var $workedDaysMixed
@@ -46,19 +39,29 @@ trait CalculatePay
      */
     protected $workedDaysDaily;
 
-    // SB, Dias trabajados diurnos*, Dias trabajados mixtos*, Dias trabajados nocturnos*,
-    // Tiempo de Viaje Diurno 52% METODO*, Tiempo de Viaje Diurno 77% METODO*,
-    // Tiempo de Viaje Mixto 52% METODO*, Tiempo de Viaje Mixto 77% METODO*,
-    // Tiempo de Viaje Nocturno 52% METODO*, Tiempo de Viaje Nocturno 77% METODO*,
-    // Pago de comida, Bonif. Tiempo de viaje nocturno*, Sexto dia trabajado (Diurno, Mixto o Nocturno)*,
-    // Ayuda de ciudad*, Prima Dominical a SB*, Prima por sexto dia trabajado a SB*, Bono Nocturno a SB*
+    /**
+     * Horas para el cálculo del Bono de Tiempo de Viaje Nocturno
+     *
+     * @var $bonusHoursOfNightTravelTime
+     */
+    protected $bonusHoursOfNightTravelTime;
 
-    // Setters
+    /**
+     * Establece los días en que se trabajó en jornada diurna
+     *
+     * @param $days
+    */
+    public function setWorkedDaysDaily($days)
+    {
+        $this->workedDaysDaily = $days;
+
+        return $this;
+    }
 
     /**
      * Estable la cantidad de días trabajados en jornada mixta.
      *
-     * @var $workedDaysMixed
+     * @param $workedDaysMixed
      */
     public function setWorkedDaysMixed($workedDaysMixed)
     {
@@ -70,7 +73,7 @@ trait CalculatePay
     /**
      * Sexto día trabajado en jornada mixta.
      *
-     * @var $sixthDayWorkedMixed
+     * @param $sixthDayWorkedMixed
      */
     public function setSixthDayWorkedMixed($sixthDayWorkedMixed)
     {
@@ -82,7 +85,7 @@ trait CalculatePay
     /**
      * Establece la cantidad de días trabajados en jornada nocturna.
      *
-     * @var $workedDaysNigthly
+     * @param $workedDaysNigthly
      */
     public function setWorkedDaysNigthly($workedDaysNigthly)
     {
@@ -94,7 +97,7 @@ trait CalculatePay
     /**
      * Sexto día trabajado en jornada nocturna.
      *
-     * @var $sixthDayWorkedNigthly
+     * @param $sixthDayWorkedNigthly
      */
     public function setSixthDayWorkedNigthly($sixthDayWorkedNigthly)
     {
@@ -102,9 +105,15 @@ trait CalculatePay
 
         return $this;
     }
-    public function setHoursForTravelTimeNigthly($hours)
+
+    /**
+     * Bono de Tiempo de Viaje Nocturno
+     *
+     * @param float $hours
+     */
+    public function setBonusHoursOfNightTravelTime($hours)
     {
-        $this->hoursForTravelTimeNigthly = $hours;
+        $this->bonusHoursOfNightTravelTime = $hours;
 
         return $this;
     }
@@ -128,9 +137,9 @@ trait CalculatePay
      *
      * @param  int $days
      */
-    public function payWorkedDays($days): string
+    public function payWorkedDays(): string
     {
-        $result = $this->position->basic_salary * $days;
+        $result = $this->getDiarySalary() * $this->workedDaysDaily;
 
         return number_format($result, 2, ',', '.');
     }
@@ -232,9 +241,8 @@ trait CalculatePay
         return number_format($result, 2, ',', '.');
     }
 
-     /** Bonificación por Tiempo de Viaje nocturno.
-       *
-       * @param int $hours
+     /**
+      * Bonificación por Tiempo de Viaje nocturno.
       */
     public function bonusTravelTimeNightly(): string
     {
@@ -242,7 +250,7 @@ trait CalculatePay
             $this->getDefaultHoursByJournal()
         );
 
-        $result = $hourlySalary * 0.38 * $this->hoursForTravelTimeNigthly;
+        $result = $hourlySalary * 0.38 * $this->bonusHoursOfNightTravelTime;
 
         return number_format($result, 2, ',', '.');
     }
@@ -252,13 +260,6 @@ trait CalculatePay
      */
     public function getNormalSalaryPEG_0001()
     {
-        // Leyenda:
-        // D = Diurno
-        // M = Mixto
-        // N = Nocturno
-
-        // Conceptos que lo integran:
-
         // SB, Dias trabajados diurnos, Dias trabajados mixtos, Dias trabajados nocturnos,
         // Tiempo de Viaje Diurno 52%, Tiempo de Viaje Diurno 77%,
         // Tiempo de Viaje Mixto 52%, Tiempo de Viaje Mixto 77%,

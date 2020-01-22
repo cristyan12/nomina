@@ -49,7 +49,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payDiurnalWorkedDays = $employee->payWorkedDays(2);
+        $payDiurnalWorkedDays = $employee
+            ->setWorkedDaysDaily(2)
+            ->payWorkedDays();
 
         $this->assertEquals('3.470,00', $payDiurnalWorkedDays);
     }
@@ -63,7 +65,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payMixedWorkedDays = $employee->payWorkedDays(2);
+        $payMixedWorkedDays = $employee
+            ->setWorkedDaysDaily(2)
+            ->payWorkedDays();
 
         $this->assertEquals('3.470,00', $payMixedWorkedDays);
     }
@@ -77,7 +81,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payNightlyWorkedDays = $employee->payWorkedDays(4);
+        $payNightlyWorkedDays = $employee
+            ->setWorkedDaysDaily(4)
+            ->payWorkedDays();
 
         $this->assertEquals('6.940,00', $payNightlyWorkedDays);
     }
@@ -212,13 +218,13 @@ class CalculatePayTest extends TestCase
      * @test
      * @testdox Bono por Tiempo de Viaje nocturno 38%
      */
-    function it_can_calculate_the_pay_for_travel_time_nightly_of_3_50_hours()
+    function it_can_calculate_the_pay_for_travel_time_nightly_of_3_5_hours()
     {
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
         $payByTravelTimeNightly = $employee
-            ->setHoursForTravelTimeNigthly(3.5)
+            ->setBonusHoursOfNightTravelTime(3.5)
             ->bonusTravelTimeNightly();
 
         $this->assertEquals('288,44', $payByTravelTimeNightly);
