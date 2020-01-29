@@ -226,11 +226,14 @@ trait CalculatePay
      *
      * @return  string
      */
-    public function getNightBonusPaySB($quantitiesBonusNight = [], $bonusNightExtraHoursDays, $bonusNightExtraHoursMixed)
+    public function getNightBonusPaySB(
+        $quantitiesBonusNight = [], $bonusNightExtraHoursDays, $bonusNightExtraHoursMixed
+    )
     {
         $salaryHour = $this->position->getSalaryByHours(8) * 0.38;
 
-        $qBonusNight = $this->setWorkedDaysMixed($quantitiesBonusNight[0])
+        $qBonusNight = $this
+            ->setWorkedDaysMixed($quantitiesBonusNight[0])
             ->setSixthDayWorkedMixed($quantitiesBonusNight[1])
             ->setWorkedDaysNigthly($quantitiesBonusNight[2])
             ->setSixthDayWorkedNigthly($quantitiesBonusNight[3])

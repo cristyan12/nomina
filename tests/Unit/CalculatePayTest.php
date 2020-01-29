@@ -12,6 +12,13 @@ class CalculatePayTest extends TestCase
 {
     use DatabaseTransactions;
 
+    protected $days = [
+        'workedDaysMixed' => 0,
+        'sixthDayWorkedMixed' => 0,
+        'workedDaysNigthly' => 0,
+        'sixthDayWorkedNigthly' => 0,
+    ];
+
     /**
      * @test
      * @testdox Salario base por hora en jornada diaria
@@ -294,10 +301,13 @@ class CalculatePayTest extends TestCase
     {
         $employee = $this->create('App\EmployeeProfile');
 
-        $quantity = $employee->setWorkedDaysMixed(0)
-            ->setSixthDayWorkedMixed(0)
-            ->setWorkedDaysNigthly(4)
-            ->setSixthDayWorkedNigthly(0)
+        $daysQBN = array_merge($this->days, ['workedDaysNigthly' => 4]);
+
+        $quantity = $employee
+            ->setWorkedDaysMixed($daysQBN['workedDaysMixed'])
+            ->setSixthDayWorkedMixed($daysQBN['sixthDayWorkedMixed'])
+            ->setWorkedDaysNigthly($daysQBN['workedDaysNigthly'])
+            ->setSixthDayWorkedNigthly($daysQBN['sixthDayWorkedNigthly'])
             ->getQuantityBonusNight();
 
         $this->assertEquals(24, $quantity);
@@ -312,7 +322,14 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $nightBonus = $employee->getNightBonusPaySB([0, 0, 4, 0], 0, 0);
+        $daysBN = array_merge($this->days, ['workedDaysNigthly' => 4]);
+
+        $nightBonus = $employee->getNightBonusPaySB([
+            $daysBN['workedDaysMixed'],
+            $daysBN['sixthDayWorkedMixed'],
+            $daysBN['workedDaysNigthly'],
+            $daysBN['sixthDayWorkedNigthly'],
+        ], 0, 0);
 
         $this->assertEquals('1.977,90', $nightBonus);
     }
