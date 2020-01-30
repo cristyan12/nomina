@@ -1,31 +1,85 @@
-SISTEMA DE TRABAJO 5-5-5-6 - GUARDIA DIURNA
+<h1>SISTEMA DE TRABAJO 5-5-5-6 - GUARDIA DIURNA</h1>
 
-CONCEPTOS DE NÓMINA
----
+<h2>CONCEPTOS DE NÓMINA</h2>
+<hr>
+
 ## A) Días Trabajados (SB): 5 días
-        SB * Días Trab. (Ambos para semana de 5 y de 6 días)
+    (Ambos para semana de 5 y de 6 días)
+    SB * Días Trab.
 
 ## B) Sexto (6) Día Trabajado Programado: 1 día
-        SB * 1. (Aplica solo para semana de 6 días de trabajo)
+    (Semana de 6 días de trabajo)
+    SB * 1.
 
 ## C) Prima por Trabajo en Día Domingo: 1,5 días a SN
-    **Semana de 5 días de trabajo**:
-        (Días trab +
-         Tiempo de viaje
-        ) a SB / Días trabajados * 1,5
+    Semana de 5 días de trabajo:
+    (Días trab +
+     Tiempo de viaje
+    ) a SB / Días trabajados * 1,5
 
-    **Semana de 5 días de trabajo**:
-        (Días Trab +
-         Sexto Día Trab +
-         Prima Especial por Sexto (6) Trabajado +
-         Tiempo de Viaje
-        ) a SB / Días Trab * 1,5
+    Semana de 5 días de trabajo:
+    (Días Trab +
+     Sexto Día Trab +
+     Prima Especial por Sexto (6) Trabajado +
+     Tiempo de Viaje
+    ) a SB / Días Trab * 1,5
 
-## D) Prima Especial Sexto (6) Día Trabajado: 1,5 días a SN
-    **Semana de 6 días de trabajo:**
-        (Días Trab +
-         Sexto Día Trab +
-         Prima por Trabajo en Día Domingo +
-         Tiempo de Viaje
-        ) a SB ÷ Días Trab × 1,5
+## D) Prima Especial Sexto (6) Día Trabajado: 1,5 días SN
+    Semana de 6 días de trabajo:
+    (Días Trab +
+     Sexto Día Trab +
+     Prima por Trabajo en Día Domingo +
+     Tiempo de Viaje
+    ) a SB ÷ Días Trab × 1,5
 
+## E) Descanso Legal: 1 Día SN
+    Semana de 5 días de trabajo:
+    (Días Trab +
+     Prima por Trabajo en Día Domingo +
+     Tiempo de Viaje
+    ) a SB ÷ Días Trab × 1 Día
+
+    Semana de 6 días de trabajo:
+    (Días Trab +
+     Sexto Día Trabajado Programado +
+     Prima por Trabajo en Día Domingo +
+     Prima Especial por Sexto (6) Trabajado +
+     Tiempo de Viaje
+    ) a SB ÷ Días Trab × 1 Día
+
+## F) Descanso Contractual Semanal Cinco (5) Días: 1 Día SN
+    Semana de 5 días de trabajo:
+    (Días Trab +
+     Prima por Trabajo en Día Domingo +
+     Tiempo de Viaje
+    ) a SB ÷ Días Trab × 1 Día
+
+## G) Día Adicional Sexto (6) Día: 1,5 días SN
+    Semana de 6 días de trabajo:
+    (Días Trab +
+     Sexto Día Trabajado +
+     Prima por Trabajo en Día Domingo +
+     Prima Especial Sexto Día Trabajado +
+     Tiempo de Viaje
+    ) a SB ÷ Días Trab × 1,5 Días.
+
+## H) Tiempo de Viaje: Nº Hrs SB
+    Semana de 5 días de trabajo:
+    - Tiempo de Viaje 1,5 Horas:
+      (SB ÷ 8) × 1,52 × Nº Hrs T.V.
+
+    - Tiempo de Viaje Mayor a 1,5 Horas:
+      (SB ÷ 8) × 1,77 × Nº Hrs T.V.
+
+    - Tiempo de Viaje Nocturno (6:00 P.m. a 6:00 A.m.):
+      (SB ÷ 8) × 0,38 × Nº Hrs T.V. Noct
+
+    Semana de 6 días de trabajo:
+    - Tiempo de Viaje 1,5 Horas:
+      (SB ÷ 8) × 1,52 × Nº Hrs T.V.
+
+    - Tiempo de Viaje Mayor a 1,5 Horas:
+      (SB ÷ 8) × 1,77 × Nº Hrs T.V.
+
+    - Tiempo de Viaje Nocturno (6:00 P.m. a 6:00 A.m.):
+      (SB ÷ 8) × 0,38 × Nº Hrs T.V. Noct
