@@ -5,6 +5,13 @@ namespace App;
 trait CalculatePay
 {
     /**
+     * Horas extras
+     *
+     * @var $extraHours
+     */
+    protected $extraHours;
+
+    /**
      * Dias trabajados mixtos
      *
      * @var $workedDaysMixed
@@ -45,6 +52,37 @@ trait CalculatePay
      * @var $bonusHoursOfNightTravelTime
      */
     protected $bonusHoursOfNightTravelTime;
+
+    /**
+     * Horas del Tiempo de Viaje
+     *
+     * @var $travelTimeHours
+     */
+    protected $travelTimeHours;
+
+    /**
+     * Establece las horas de Tiempo de Viaje
+     *
+     * @param $hours
+    */
+    public function setTravelTimeHours($hours)
+    {
+        $this->travelTimeHours = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Establece las horas extras
+     *
+     * @param $hours
+    */
+    public function setExtraHours($hours)
+    {
+        $this->extraHours = $hours;
+
+        return $this;
+    }
 
     /**
      * Establece los días en que se trabajó en jornada diurna
@@ -150,13 +188,13 @@ trait CalculatePay
      * @param int $hours
      * @param string $typeJournal
      */
-    public function payExtraHours($hours, $journal = null): string
+    public function payExtraHours($journal = null): string
     {
         $salaryByHour = $this->position->getSalaryByHours(
             $this->getDefaultHoursByJournal($journal)
         );
 
-        $result = $salaryByHour * $hours * $this->getPercentFor($journal);
+        $result = $salaryByHour * $this->extraHours * $this->getPercentFor($journal);
 
         return number_format($result, 2, ',', '.');
     }
@@ -168,13 +206,13 @@ trait CalculatePay
      * @param  string   $journal
      * @param  string   $journalForTravelTime
      */
-    public function payTravelTime($hours, $journal, $journalForTravelTime = null): string
+    public function payTravelTime($journal, $journalForTravelTime = null): string
     {
         $salaryByHour = $this->position->getSalaryByHours(
             $this->getDefaultHoursByJournal($journal)
         );
 
-        $result = $salaryByHour * $this->getPercentForTravelTime($journalForTravelTime) * $hours;
+        $result = $salaryByHour * $this->getPercentForTravelTime($journalForTravelTime) * $this->travelTimeHours;
 
         return number_format($result, 2, ',', '.');
     }
@@ -335,13 +373,13 @@ trait CalculatePay
     protected function getPercentForTravelTime($typeJournal)
     {
         $percents = [
-            'diaria52' => 1.52,
-            'diaria77' => 1.77,
-            'mixta52' => 1.52,
-            'mixta77' => 1.77,
-            'nocturna52' => 1.52,
-            'nocturna77' => 1.77,
-            'maracaibo83' => 1.83,
+            'tvDiaria52' => 1.52,
+            'tvDiaria77' => 1.77,
+            'tvMixta52' => 1.52,
+            'tvMixta77' => 1.77,
+            'tvNocturna52' => 1.52,
+            'tvNocturna77' => 1.77,
+            'tvMaracaibo83' => 1.83,
         ];
 
         return $percents[$typeJournal];

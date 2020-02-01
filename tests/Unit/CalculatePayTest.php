@@ -104,7 +104,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByExtraHours = $employee->payExtraHours(15, 'diaria');
+        $payByExtraHours = $employee
+            ->setExtraHours(15)
+            ->payExtraHours('diaria');
 
         $this->assertEquals('6.278,53', $payByExtraHours);
     }
@@ -118,7 +120,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByExtraHours = $employee->payExtraHours(15, 'mixta');
+        $payByExtraHours = $employee
+            ->setExtraHours(15)
+            ->payExtraHours('mixta');
 
         $this->assertEquals('6.280,70', $payByExtraHours);
     }
@@ -132,7 +136,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByExtraHours = $employee->payExtraHours(15, 'nocturna');
+        $payByExtraHours = $employee
+            ->setExtraHours(15)
+            ->payExtraHours('nocturna');
 
         $this->assertEquals('6.729,32', $payByExtraHours);
     }
@@ -146,7 +152,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $employee->payTravelTime(3, 'diaria', 'diaria52');
+        $payByTravelTime52 = $employee
+            ->setTravelTimeHours(3)
+            ->payTravelTime('diaria', 'tvDiaria52');
 
         $this->assertEquals('988,95', $payByTravelTime52);
     }
@@ -160,7 +168,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $employee->payTravelTime(3, 'diaria', 'diaria77');
+        $payByTravelTime52 = $employee
+            ->setTravelTimeHours(3)
+            ->payTravelTime('diaria', 'tvDiaria77');
 
         $this->assertEquals('1.151,61', $payByTravelTime52);
     }
@@ -174,7 +184,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $employee->payTravelTime(3, 'mixta', 'mixta52');
+        $payByTravelTime52 = $employee
+            ->setTravelTimeHours(3)
+            ->payTravelTime('mixta', 'tvMixta52');
 
         $this->assertEquals('1.054,88', $payByTravelTime52);
     }
@@ -188,7 +200,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $employee->payTravelTime(3, 'mixta', 'mixta77');
+        $payByTravelTime52 = $employee
+            ->setTravelTimeHours(3)
+            ->payTravelTime('mixta', 'tvMixta77');
 
         $this->assertEquals('1.228,38', $payByTravelTime52);
     }
@@ -202,7 +216,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $employee->payTravelTime(6, 'nocturna', 'nocturna52');
+        $payByTravelTime52 = $employee
+            ->setTravelTimeHours(6)
+            ->payTravelTime('nocturna', 'tvNocturna52');
 
         $this->assertEquals('2.260,46', $payByTravelTime52);
     }
@@ -216,7 +232,9 @@ class CalculatePayTest extends TestCase
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
 
-        $payByTravelTime52 = $employee->payTravelTime(6, 'nocturna', 'nocturna77');
+        $payByTravelTime52 = $employee
+            ->setTravelTimeHours(6)
+            ->payTravelTime('nocturna', 'tvNocturna77');
 
         $this->assertEquals('2.632,24', $payByTravelTime52);
     }
