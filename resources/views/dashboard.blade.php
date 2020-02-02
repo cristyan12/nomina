@@ -20,7 +20,7 @@
                 </div>
             </div>
         </div>
-        
+
         <div class="col-md-4">
             @can('security')
                 <div class="card text-white bg-secondary mb-3">
@@ -40,28 +40,29 @@
                 </div>
             @endcan
         </div>
-
-        <div class="col-md-4">
-            @can('nomina.index')
-                <div class="card text-white bg-info mb-3">
-                    <div class="card-header">
-                        <strong>Tipos de Nóminas</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text lead">
-                            Tipos de Nóminas
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('nomina.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
-                </div>
-            @endcan
-        </div>
     </div> {{-- row --}}
 
     <hr>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card text-white bg-success mb-3">
+                <div class="card-header">
+                    <strong>Seleccionar Nómina</strong>
+                </div>
+                <div class="card-body">
+                    <p class="card-text lead">
+                        Seleccionar Nómina
+                    </p>
+                </div>
+                <div class="card-footer">
+                    <a href="{{ route('nomina.select') }}" class="btn btn-outline-light stretched-link">
+                        Ir
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div> {{-- row --}}
+
 </div>
 @endsection

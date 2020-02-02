@@ -3,7 +3,7 @@
 
     <div class="col-md-6">
         {{ Form::text('code', null, ['class' => 'form-control']) }}
-        
+
         @if($errors->has('code'))
             <span class="text-danger">
                 <strong>{{ $errors->first('code') }}</strong>
@@ -17,7 +17,7 @@
 
     <div class="col-md-6">
         {{ Form::text('name', null, ['class' => 'form-control']) }}
-        
+
         @if($errors->has('name'))
             <span class="text-danger">
                 <strong>{{ $errors->first('name') }}</strong>
@@ -31,7 +31,7 @@
 
     <div class="col-md-6">
         {{ Form::text('basic_salary', null, ['class' => 'form-control']) }}
-        
+
         @if($errors->has('basic_salary'))
             <span class="text-danger">
                 <strong>{{ $errors->first('basic_salary') }}</strong>

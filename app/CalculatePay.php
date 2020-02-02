@@ -99,11 +99,11 @@ trait CalculatePay
     /**
      * Estable la cantidad de días trabajados en jornada mixta.
      *
-     * @param $workedDaysMixed
+     * @param $days
      */
-    public function setWorkedDaysMixed($workedDaysMixed)
+    public function setWorkedDaysMixed($days)
     {
-        $this->workedDaysMixed = $workedDaysMixed;
+        $this->workedDaysMixed = $days;
 
         return $this;
     }
@@ -330,7 +330,7 @@ trait CalculatePay
      */
     public function getMonthlySalary()
     {
-        return $this->position->basic_salary * 30;
+        return $this->getDiarySalary() * 30;
     }
 
     /**
