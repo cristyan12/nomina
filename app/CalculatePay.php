@@ -4,6 +4,16 @@ namespace App;
 
 trait CalculatePay
 {
+    protected $percentsForTravelTime = [
+        'Diaria52' => 1.52,
+        'Diaria77' => 1.77,
+        'Mixta52' => 1.52,
+        'Mixta77' => 1.77,
+        'Nocturna52' => 1.52,
+        'Nocturna77' => 1.77,
+        'Maracaibo83' => 1.83,
+    ];
+
     /**
      * Horas extras
      *
@@ -54,20 +64,124 @@ trait CalculatePay
     protected $bonusHoursOfNightTravelTime;
 
     /**
-     * Horas del Tiempo de Viaje
+     * Horas del Tiempo de Viaje Diurno al 52%
      *
-     * @var $travelTimeHours
+     * @var $travelTimeHoursDaily52
      */
-    protected $travelTimeHours;
+    protected $travelTimeHoursDaily52;
 
     /**
-     * Establece las horas de Tiempo de Viaje
+     * Horas del Tiempo de Viaje Diurno al 77%
+     *
+     * @var $travelTimeHoursDaily77
+     */
+    protected $travelTimeHoursDaily77;
+
+    /**
+     * Horas del Tiempo de Viaje Mixto al 52%
+     *
+     * @var $travelTimeHoursMixed52
+     */
+    protected $travelTimeHoursMixed52;
+
+    /**
+     * Horas del Tiempo de Viaje Mixto al 77%
+     *
+     * @var $travelTimeHoursMixed77
+     */
+    protected $travelTimeHoursMixed77;
+
+    /**
+     * Horas del Tiempo de Viaje Nocturno al 52%
+     *
+     * @var $travelTimeHoursNigthly52
+     */
+    protected $travelTimeHoursNigthly52;
+
+    /**
+     * Horas del Tiempo de Viaje Nocturno al 77%
+     *
+     * @var $travelTimeHoursNigthly77
+     */
+    protected $travelTimeHoursNigthly77;
+
+    /**
+     * Establece las horas de Tiempo de Viaje Diurno 52%
      *
      * @param $hours
     */
-    public function setTravelTimeHours($hours)
+    public function setTravelTimeHoursDaily52($hours)
     {
-        $this->travelTimeHours = $hours;
+        $this->travelTimeHoursDaily52 = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Establece las horas de Tiempo de Viaje Diurno 77%
+     *
+     * @param $hours
+    */
+    public function setTravelTimeHoursDaily77($hours)
+    {
+        $this->travelTimeHoursDaily77 = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Establece las horas de Tiempo de Viaje Mixto 52%
+     *
+     * @param $hours
+    */
+    public function setTravelTimeHoursMixed52($hours)
+    {
+        $this->travelTimeHoursMixed52 = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Establece las horas de Tiempo de Viaje Mixto 77%
+     *
+     * @param $hours
+    */
+    public function setTravelTimeHoursMixed77($hours)
+    {
+        $this->travelTimeHoursMixed77 = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Establece las horas de Tiempo de Viaje Nocturno 52%
+     *
+     * @param $hours
+    */
+    public function setTravelTimeHoursNightly52($hours)
+    {
+        $this->travelTimeHoursNightly52 = $hours;
+
+        return $this;
+    }
+
+    /**
+     * Establece las horas de Tiempo de Viaje Nocturno 77%
+     *
+     * @param $hours
+    */
+    public function setTravelTimeHoursNightly77($hours)
+    {
+        $this->travelTimeHoursNightly77 = $hours;
+
+        return $this;
+    }
+
+    public function setPercentForTravelTime($percent)
+    {
+        array_merge(
+            $this->percentsForTravelTime,
+        );
 
         return $this;
     }
@@ -212,7 +326,8 @@ trait CalculatePay
             $this->getDefaultHoursByJournal($journal)
         );
 
-        $result = $salaryByHour * $this->getPercentForTravelTime($journalForTravelTime) * $this->travelTimeHours;
+        $result = $salaryByHour * $this->getPercentForTravelTime(
+            $journalForTravelTime) * $this->travelTimeHours;
 
         return number_format($result, 2, ',', '.');
     }
@@ -373,13 +488,13 @@ trait CalculatePay
     protected function getPercentForTravelTime($typeJournal)
     {
         $percents = [
-            'tvDiaria52' => 1.52,
-            'tvDiaria77' => 1.77,
-            'tvMixta52' => 1.52,
-            'tvMixta77' => 1.77,
-            'tvNocturna52' => 1.52,
-            'tvNocturna77' => 1.77,
-            'tvMaracaibo83' => 1.83,
+            'Diaria52'=> 1.52,
+            'Diaria77' ;=> 1.77,
+            'Mixta52' => 1.52,
+            'Mixta77' => 1.77,
+            'Nocturna52' => 1.52,
+            'Nocturna77' => 1.77,
+            'Maracaibo83' => 1.83,
         ];
 
         return $percents[$typeJournal];
