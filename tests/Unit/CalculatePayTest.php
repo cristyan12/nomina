@@ -361,8 +361,25 @@ class CalculatePayTest extends TestCase
         $this->markTestIncomplete();
         return;
 
+        // Arrange
+        $hoursTravelTime52 = 6;
+        $hoursTravelTime77 = 6;
         $position = $this->create('App\Position', ['basic_salary' => '1735.00']);
         $employee = $this->create('App\EmployeeProfile', ['position_id' => $position->id]);
+
+
+        // SB, Dias trabajados diurnos, Dias trabajados mixtos, Dias trabajados nocturnos,
+        // Tiempo de Viaje Diurno 52%, Tiempo de Viaje Diurno 77%,
+        // Tiempo de Viaje Mixto 52%, Tiempo de Viaje Mixto 77%,
+        // Tiempo de Viaje Nocturno 52%, Tiempo de Viaje Nocturno 77%,
+        // Pago de comida, Bonif. Tiempo de viaje nocturno, Sexto dia trabajado (Diurno, Mixto o Nocturno),
+        // Ayuda de ciudad, Prima Dominical a SB, Prima por sexto dia trabajado a SB, Bono Nocturno a SB
+
+        // se dividen entre las diferentes unidades de tiempo
+
+        // Cantidad de dias trajados diurnos, mixtos y nocturnos, Sexto dia trabajado (D, M y N),
+        // Permiso remunerado, Ausencia injustificada, Permiso no remunerado, Enfermedad ambulatoria,
+        // Enfermedad profesional, Accidente industrial, Permiso sindical
 
         $normalSalaryPEG_0001 = $employee->getNormalSalaryPEG_0001();
 

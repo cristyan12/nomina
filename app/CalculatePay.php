@@ -212,7 +212,8 @@ trait CalculatePay
             $this->getDefaultHoursByJournal($journal)
         );
 
-        $result = $salaryByHour * $this->getPercentForTravelTime($journalForTravelTime) * $this->travelTimeHours;
+        $result = $salaryByHour * $this->getPercentForTravelTime(
+            $journalForTravelTime) * $this->travelTimeHours;
 
         return number_format($result, 2, ',', '.');
     }
