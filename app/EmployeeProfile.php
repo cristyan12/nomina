@@ -7,8 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class EmployeeProfile extends Model
 {
-    use CalculatePay;
-
     protected $guarded = [];
 
     public function bank()
