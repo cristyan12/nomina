@@ -5,7 +5,7 @@
     <div class="col">
         <div class="card-deck">
             @can('concepts.index')
-                <div class="card text-white bg-info mb-3">
+                <div class="card text-white bg-primary mb-3">
                     <div class="card-header">
                         <strong>Conceptos</strong>
                     </div>
@@ -56,11 +56,11 @@
                     </div>
                 </div>
             @endcan
-            
+
         </div>
 
         <div class="card-deck">
-            
+
             @can('branches.index')
                 <div class="card bg-warning mb-3">
                     <div class="card-header">
@@ -78,7 +78,7 @@
                     </div>
                 </div>
             @endcan
-            
+
             @can('departments.index')
                 <div class="card text-white bg-info mb-3" >
                     <div class="card-header">
@@ -114,7 +114,7 @@
                     </div>
                 </div>
             @endcan
-            
+
         </div>
 
         <div class="card-deck">
@@ -130,6 +130,24 @@
                     </div>
                     <div class="card-footer">
                         <a href="{{ route('employees.index') }}" class="btn btn-outline-light stretched-link">
+                            Ver lista
+                        </a>
+                    </div>
+                </div>
+            @endcan
+
+            @can('nomina.index')
+                <div class="card text-white bg-success mb-3">
+                    <div class="card-header">
+                        <strong>Tipos de Nóminas</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text lead">
+                            Tipos de Nóminas
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('nomina.index') }}" class="btn btn-outline-light stretched-link">
                             Ver lista
                         </a>
                     </div>
