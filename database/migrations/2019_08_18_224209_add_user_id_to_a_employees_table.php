@@ -14,7 +14,7 @@ class AddUserIdToAEmployeesTable extends Migration
     public function up()
     {
         Schema::table('employees', function (Blueprint $table) {
-            $table->unsignedInteger('user_id');
+            $table->unsignedInteger('user_id')->default(0);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
