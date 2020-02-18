@@ -40,7 +40,8 @@ class CalculatePayTest extends TestCase
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $travelTime = $employee
             ->setPercentTravelTime('52')
-            ->travelTime(3);
+            ->setHoursTravelTime(3)
+            ->travelTime();
 
         $this->assertSame($travelTime, 988.95);
     }
@@ -52,7 +53,8 @@ class CalculatePayTest extends TestCase
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $travelTime = $employee
             ->setPercentTravelTime('77')
-            ->travelTime(3);
+            ->setHoursTravelTime(3)
+            ->travelTime();
 
         $this->assertSame($travelTime, 1151.6062499999998);
     }
@@ -60,15 +62,12 @@ class CalculatePayTest extends TestCase
     /** @test */
     function it_calculate_bonus_per_worked_in_sunday()
     {
-        $this->markTestIncomplete();
-        return;
-
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-        $daysWorked = $employee
-            ->setDaysWorked(5)
-            ->setPercentTravelTime('52');
+        $employee->setDaysWorked(5)
+            ->setPercentTravelTime('52')
+            ->setHoursTravelTime(3);
 
-        $this->assertSame($employee->workedInSunday(), 4065.84);
+        $this->assertEquals($employee->workedInSunday(), 4065.84);
     }
 }

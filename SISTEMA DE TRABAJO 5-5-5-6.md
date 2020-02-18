@@ -13,9 +13,7 @@
 
 ## C) Prima por Trabajo en Día Domingo: 1,5 días a SN
     Semana de 5 días de trabajo:
-    (Días trab +
-     Tiempo de viaje
-    ) a SB / Días trabajados * 1,5
+    (Días trab + Tiempo de viaje) a SB / Días trabajados * 1,5
 
     Semana de 5 días de trabajo:
     (Días Trab +

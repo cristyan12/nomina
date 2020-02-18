@@ -5,6 +5,7 @@ namespace App;
 trait CalculatePay
 {
     protected $daysWorked;
+    protected $hoursTravelTime;
     protected $travelTime;
     protected $percentsTravelTime = [
         '52' => 1.52,
@@ -14,14 +15,21 @@ trait CalculatePay
     ];
     protected $percentTravelTime;
 
-    public function setDaysWorked(int $days)
+    public function setDaysWorked(int $days): self
     {
         $this->daysWorked = $days;
 
         return $this;
     }
 
-    public function setPercentTravelTime($percent)
+    public function setHoursTravelTime(int $hours): self
+    {
+        $this->hoursTravelTime = $hours;
+
+        return $this;
+    }
+
+    public function setPercentTravelTime($percent): self
     {
         $this->percentTravelTime = $this->percentsTravelTime[$percent];
 
@@ -38,14 +46,14 @@ trait CalculatePay
         return $this->basicSalary() * 1;
     }
 
-    public function travelTime(float $hours): float
+    public function travelTime(): float
     {
-        return ($this->basicSalary() / 8) * $this->percentTravelTime * $hours;
+        return ($this->basicSalary() / 8) * $this->percentTravelTime * $this->hoursTravelTime;
     }
 
-    public function workedInSunday()
+    public function workedInSunday(): float
     {
-        return $this->daysWorked() + $this->travelTime(3) / $this->daysWorked * 1.5;
+        return ($this->daysWorked() + $this->travelTime()) / $this->daysWorked * 1.5;
     }
 
     protected function basicSalary(): float
