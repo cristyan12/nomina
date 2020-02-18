@@ -76,7 +76,7 @@ class CalculatePayTest extends TestCase
             ->setSixthDayWorkedNigth(0)
             ->getBonusTravelTimeNight();
 
-        $this->assertEquals(7, $quantity);
+        $this->assertEquals(10, $quantity);
     }
 
     /** @test */
