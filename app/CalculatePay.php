@@ -6,7 +6,6 @@ trait CalculatePay
 {
     protected $daysWorked;
     protected $hoursTravelTime;
-    protected $travelTime;
     protected $percentsTravelTime = [
         '52' => 1.52,
         '77' => 1.77,
@@ -20,6 +19,7 @@ trait CalculatePay
     protected $sixthDayWorkedMixed;
     protected $nightWorkedDays;
     protected $sixthDayWorkedNigth;
+    protected $hoursForBonusTravelTimeNigth = 0;
 
     public function setDaysWorked(int $days): self
     {
@@ -42,53 +42,61 @@ trait CalculatePay
         return $this;
     }
 
-    public function setDaysWorkedDay(int $days): self
+    public function setDaysWorkedDay(int $days = 0): self
     {
         $this->daysWorkedDay = $days;
 
         return $this;
     }
 
-    public function setSixthDayWorkedDay(int $day): self
+    public function setSixthDayWorkedDay(int $day = 0): self
     {
         $this->sixthDayWorkedDay = $day;
 
         return $this;
     }
 
-    public function setMixedDaysWorked(int $days): self
+    public function setMixedDaysWorked(int $days = 0): self
     {
         $this->mixedDaysWorked = $days;
 
         return $this;
     }
 
-    public function setSixthDayWorkedMixed(int $day): self
+    public function setSixthDayWorkedMixed(int $day = 0): self
     {
         $this->sixthDayWorkedMixed = $day;
 
         return $this;
     }
 
-    public function setNightWorkedDays(int $days): self
+    public function setNightWorkedDays(int $days = 0): self
     {
         $this->nightWorkedDays = $days;
 
         return $this;
     }
 
-    public function setSixthDayWorkedNigth(int $day): self
+    public function setSixthDayWorkedNigth(int $day = 0): self
     {
         $this->sixthDayWorkedNigth = $day;
 
         return $this;
     }
 
-    public function getBonusTravelTimeNight(): float
+    public function getHoursBonusTravelTimeNight(): float
     {
-        return (($this->daysWorkedDay + $this->sixthDayWorkedDay) * 0.5) +
+        $this->hoursForBonusTravelTimeNigth =
+            (($this->daysWorkedDay + $this->sixthDayWorkedDay) * 0.5) +
             (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 1.5) +
             (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
+
+        return $this->hoursForBonusTravelTimeNigth;
+    }
+
+    public function bonusTravelTimeNight(): float
+    {
+        return $this->salaryHour() * 0.38 * $this->hoursForBonusTravelTimeNigth;
     }
 
     public function daysWorked(): float
@@ -114,5 +122,10 @@ trait CalculatePay
     protected function basicSalary(): float
     {
         return $this->position->basic_salary;
+    }
+
+    protected function salaryHour(float $journal = 8)
+    {
+        return $this->basicSalary() / $journal;
     }
 }

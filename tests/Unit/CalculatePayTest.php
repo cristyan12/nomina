@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class CalculatePayTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     function it_calculate_5_days_worked()
@@ -64,9 +64,10 @@ class CalculatePayTest extends TestCase
     /** @test */
     function it_get_the_quantities_bonus_for_travel_time_night()
     {
-        $employee = $this->create(EmployeeProfile::class);
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
 
-
+        // Son necesarios solo los valores mayores a cero
         $quantity = $employee
             ->setDaysWorkedDay(2)
             ->setSixthDayWorkedDay(0)
@@ -74,9 +75,11 @@ class CalculatePayTest extends TestCase
             ->setSixthDayWorkedMixed(0)
             ->setNightWorkedDays(4)
             ->setSixthDayWorkedNigth(0)
-            ->getBonusTravelTimeNight();
+            ->getHoursBonusTravelTimeNight(); // Unidad de tiempo para Bono T.V. Nocturno
 
-        $this->assertEquals(7, $quantity);
+        $bonusTravelTimeNight = number_format($employee->bonusTravelTimeNight(), 2, ',', '.');
+
+        $this->assertEquals('576,89', $bonusTravelTimeNight);
     }
 
     /** @test */
