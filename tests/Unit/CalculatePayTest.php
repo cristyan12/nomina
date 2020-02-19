@@ -12,7 +12,7 @@ use Tests\TestCase;
 
 class CalculatePayTest extends TestCase
 {
-    use RefreshDatabase;
+    use DatabaseTransactions;
 
     /** @test */
     function it_calculate_5_days_worked()
@@ -76,7 +76,7 @@ class CalculatePayTest extends TestCase
             ->setSixthDayWorkedNigth(0)
             ->getBonusTravelTimeNight();
 
-        $this->assertEquals(10, $quantity);
+        $this->assertEquals(7, $quantity);
     }
 
     /** @test */

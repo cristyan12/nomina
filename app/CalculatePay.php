@@ -84,9 +84,8 @@ trait CalculatePay
         return $this;
     }
 
-    public function getBonusTravelTimeNight()
+    public function getBonusTravelTimeNight(): float
     {
-        // =((DT Diurnos + 6DT Diurno) * 0,5) + ((DT Mixtos + 6DT Mixto) * 1,5) + ((DT Noct + 6DT Noct) * 1,5)
         return (($this->daysWorkedDay + $this->sixthDayWorkedDay) * 0.5) +
             (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 1.5) +
             (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
