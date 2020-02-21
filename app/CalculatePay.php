@@ -114,7 +114,7 @@ trait CalculatePay
 
     public function travelTime(): float
     {
-        return ($this->basicSalary() / 8) * $this->percentTravelTime * $this->hoursTravelTime;
+        return $this->salaryHour() * $this->percentTravelTime * $this->hoursTravelTime;
     }
 
     public function workedInSunday(): float
@@ -150,15 +150,12 @@ trait CalculatePay
         );
     }
 
-    public function mixedWatchExtraTime()
+    public function mixedWatchExtraTime(float $factor = 0.5): float
     {
-        // salario basico / 7,5 * 1,81 * tiempo extra de guardia mixta =>
-        // tiempo extra de guardia mixta = dias trabajados mixtos * 0.5 + sexto dia trabajado mixto * 0.5
-        // podria ser = TEG Mxta = Factor * (DTMxtos + SDTMxto)
-
-        // $employee->setMixedDaysWorked(2)
-        //     ->setSixthDayWorkedMixed(0);
-        $mixedWatchExtraTime = 0.5 * ($this->mixedDaysWorked + $this->sixthDayWorkedMixed);
+        $mixedWatchExtraTime = $factor * (
+            $this->mixedDaysWorked +
+            $this->sixthDayWorkedMixed
+        );
 
         return $this->salaryHour(7.5) * 1.81 * $mixedWatchExtraTime;
     }
