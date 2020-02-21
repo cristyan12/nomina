@@ -20,6 +20,9 @@ trait CalculatePay
     protected $nightWorkedDays;
     protected $sixthDayWorkedNigth;
     protected $hoursForBonusTravelTimeNigth = 0;
+    protected $nightBonusDaytimeOvertime = 0;
+    protected $nightBonusMixedOvertime = 0;
+    protected $hoursForNigthBonus = 0;
 
     public function setDaysWorked(int $days): self
     {
@@ -119,12 +122,53 @@ trait CalculatePay
         return ($this->daysWorked() + $this->travelTime()) / $this->daysWorked * 1.5;
     }
 
+    public function sundayPremium(): float
+    {
+        return $this->basicSalary() * 1.5;
+    }
+
+    public function sixthDayWorkedPremium(): float
+    {
+        return $this->basicSalary() * 1.5;
+    }
+
+    public function hoursForNigthBonus(): float
+    {
+        $this->hoursForNigthBonus =
+            (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 4) +
+            (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 6);
+
+        return $this->hoursForNigthBonus;
+    }
+
+    public function nightBonus(): float
+    {
+        return ($this->salaryHour() * 0.38) * (
+            $this->hoursForNigthBonus +
+            $this->nightBonusDaytimeOvertime +
+            $this->nightBonusMixedOvertime
+        );
+    }
+
+    public function mixedWatchExtraTime()
+    {
+        // salario basico / 7,5 * 1,81 * tiempo extra de guardia mixta =>
+        // tiempo extra de guardia mixta = dias trabajados mixtos * 0.5 + sexto dia trabajado mixto * 0.5
+        // podria ser = TEG Mxta = Factor * (DTMxtos + SDTMxto)
+
+        // $employee->setMixedDaysWorked(2)
+        //     ->setSixthDayWorkedMixed(0);
+        $mixedWatchExtraTime = 0.5 * ($this->mixedDaysWorked + $this->sixthDayWorkedMixed);
+
+        return $this->salaryHour(7.5) * 1.81 * $mixedWatchExtraTime;
+    }
+
     protected function basicSalary(): float
     {
         return $this->position->basic_salary;
     }
 
-    protected function salaryHour(float $journal = 8)
+    protected function salaryHour(float $journal = 8): float
     {
         return $this->basicSalary() / $journal;
     }

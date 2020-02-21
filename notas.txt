@@ -4,10 +4,10 @@ SN (Prima Sexto dia Trabajado 0037)
 *Tiempo de Viaje(Diurno, mixto y nocturno a 52% y 77%) +
 Pago de comida (Monto establecido en contrato)
 *Bonif. por tiempo de viaje nocturno +
-Sexto dia trabajado (diurno, mixto y nocturno) +
+*Sexto dia trabajado (diurno, mixto y nocturno) +
 Ayuda de ciudad (para promedio) +
-Prima Dominical +
-Bono Nocturno SB +
+*Prima Dominical +
+*Bono Nocturno SB +
 TEG SB (mixto, nocturno))
 
 /

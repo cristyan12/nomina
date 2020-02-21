@@ -62,19 +62,14 @@ class CalculatePayTest extends TestCase
     // Bonif. por tiempo de viaje nocturno
 
     /** @test */
-    function it_get_the_quantities_bonus_for_travel_time_night()
+    function it_calculate_bonus_for_travel_time_night()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
 
         // Son necesarios solo los valores mayores a cero
-        $quantity = $employee
-            ->setDaysWorkedDay(2)
-            ->setSixthDayWorkedDay(0)
-            ->setMixedDaysWorked(0)
-            ->setSixthDayWorkedMixed(0)
+        $bonus = $employee->setDaysWorkedDay(2)
             ->setNightWorkedDays(4)
-            ->setSixthDayWorkedNigth(0)
             ->getHoursBonusTravelTimeNight(); // Unidad de tiempo para Bono T.V. Nocturno
 
         $bonusTravelTimeNight = number_format($employee->bonusTravelTimeNight(), 2, ',', '.');
@@ -83,17 +78,59 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function it_calculate_bonus_per_worked_in_sunday()
+    function it_calcultate_the_sunday_premium_to_basic_salary()
     {
-        $this->markTestIncomplete();
-        return;
-
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-        $employee->setDaysWorked(5)
-            ->setPercentTravelTime('52')
-            ->setHoursTravelTime(3);
 
-        $this->assertEquals($employee->workedInSunday(), 4065.84);
+        $this->assertEquals(2602.50, $employee->sundayPremium());
     }
+
+    /** @test */
+    function it_calcultate_the_sixth_day_worked_premium_to_basic_salary()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+
+        $this->assertEquals(2602.50, $employee->sixthDayWorkedPremium());
+    }
+
+    /** @test */
+    function it_calcultate_the_bonus_nigth_to_basic_salary()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $employee->setNightWorkedDays(4)
+            ->hoursForNigthBonus();
+
+        $this->assertEquals(1977.90, $employee->nightBonus());
+    }
+
+    /** @test */
+    function puede_calcular_el_tiempo_extra_de_guardia_mixto()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $employee->setMixedDaysWorked(2)
+            ->setSixthDayWorkedMixed(0);
+
+        $TEGMxto = number_format($employee->mixedWatchExtraTime(), 2, ',', '.');
+
+        $this->assertEquals('418,71', $TEGMxto);
+    }
+
+    // /** @test */
+    // function it_calculate_bonus_per_worked_in_sunday()
+    // {
+    //     $this->markTestIncomplete();
+    //     return;
+
+    //     $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+    //     $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+    //     $employee->setDaysWorked(5)
+    //         ->setPercentTravelTime('52')
+    //         ->setHoursTravelTime(3);
+
+    //     $this->assertEquals($employee->workedInSunday(), 4065.84);
+    // }
 }
