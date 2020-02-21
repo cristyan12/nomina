@@ -160,6 +160,16 @@ trait CalculatePay
         return $this->salaryHour(7.5) * 1.81 * $mixedWatchExtraTime;
     }
 
+    public function nigthWatchExtraTime(float $factor = 1): float
+    {
+        $nigthWatchExtraTime = $factor * (
+            $this->nightWorkedDays +
+            $this->sixthDayWorkedNigth
+        );
+
+        return $this->salaryHour(7) * 1.81 * $nigthWatchExtraTime;
+    }
+
     protected function basicSalary(): float
     {
         return $this->position->basic_salary;

@@ -119,6 +119,18 @@ class CalculatePayTest extends TestCase
         $this->assertEquals('418,71', $TEGMxto);
     }
 
+    /** @test */
+    function puede_calcular_el_tiempo_extra_de_guardia_nocturno()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $employee->setNightWorkedDays(4);
+
+        $TEGMxto = number_format($employee->nigthWatchExtraTime(), 2, ',', '.');
+
+        $this->assertEquals('1.794,49', $TEGMxto);
+    }
+
     // /** @test */
     // function it_calculate_bonus_per_worked_in_sunday()
     // {
