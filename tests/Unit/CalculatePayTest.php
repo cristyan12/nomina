@@ -33,8 +33,11 @@ class CalculatePayTest extends TestCase
         $this->assertSame($employee->sixthDayWorked(), 1735.00);
     }
 
-    /** @test */
-    function it_calculate_the_travel_time_1_5_hours_for_3_hours_of_travel()
+    /**
+     * @test
+     * @testdox Puede calcular el tiempo de viaje de de 1.5 hrs a 52% Diurno
+     */
+    function puede_calcular_3_horas_de_tiempo_de_viaje_diurno_a_52p()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
@@ -47,30 +50,82 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function it_calculate_the_travel_time_more_than_1_5_hours_for_3_hours_of_travel()
+    function puede_calcular_3_horas_de_tiempo_de_viaje_mixto_a_52p()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $journalMixed = 7.5;
         $travelTime = $employee
-            ->setPercentTravelTime('77')
+            ->setPercentTravelTime('52')
             ->setHoursTravelTime(3)
-            ->travelTime();
+            ->travelTime($journalMixed);
 
-        $this->assertSame($travelTime, 1151.6062499999998);
+        $this->assertSame($travelTime, 1054.88);
     }
 
-    // Bonif. por tiempo de viaje nocturno
+    /** @test */
+    function puede_calcular_6_horas_de_tiempo_de_viaje_nocturno_a_52p()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $journalMixed = 7;
+        $travelTime = number_format($employee
+            ->setPercentTravelTime('52')
+            ->setHoursTravelTime(6)
+            ->travelTime($journalMixed), 2, ',', '.');
+
+        $this->assertSame($travelTime, '2.260,46');
+    }
+
+    /** @test */
+    function puede_calcular_3_horas_de_tiempo_de_viaje_diurno_a_77p()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $travelTime = number_format($employee
+            ->setPercentTravelTime('77')
+            ->setHoursTravelTime(3)
+            ->travelTime(), 2, ',', '.');
+
+        $this->assertSame($travelTime, '1.151,61');
+    }
+
+    /** @test */
+    function puede_calcular_3_horas_de_tiempo_de_viaje_mixto_a_77p()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $journalHours = 7.5;
+        $travelTime = number_format($employee
+            ->setPercentTravelTime('77')
+            ->setHoursTravelTime(3)
+            ->travelTime($journalHours), 2, ',', '.');
+
+        $this->assertSame($travelTime, '1.228,38');
+    }
+
+    /** @test */
+    function puede_calcular_6_horas_de_tiempo_de_viaje_nocturno_a_77p()
+    {
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $journalHours = 7;
+        $travelTime = number_format($employee
+            ->setPercentTravelTime('77')
+            ->setHoursTravelTime(6)
+            ->travelTime($journalHours), 2, ',', '.');
+
+        $this->assertSame($travelTime, '2.632,24');
+    }
 
     /** @test */
     function it_calculate_bonus_for_travel_time_night()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-
-        // Son necesarios solo los valores mayores a cero
         $bonus = $employee->setDaysWorkedDay(2)
             ->setNightWorkedDays(4)
-            ->getHoursBonusTravelTimeNight(); // Unidad de tiempo para Bono T.V. Nocturno
+            ->getHoursBonusTravelTimeNight();
 
         $bonusTravelTimeNight = number_format($employee->bonusTravelTimeNight(), 2, ',', '.');
 
@@ -131,18 +186,40 @@ class CalculatePayTest extends TestCase
         $this->assertEquals('1.794,49', $TEGMxto);
     }
 
-    // /** @test */
-    // function it_calculate_bonus_per_worked_in_sunday()
-    // {
-    //     $this->markTestIncomplete();
-    //     return;
+    /** @test */
+    function it_calculate_bonus_per_worked_in_sunday()
+    {
+        $this->markTestIncomplete();
+        return;
 
-    //     $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
-    //     $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-    //     $employee->setDaysWorked(5)
-    //         ->setPercentTravelTime('52')
-    //         ->setHoursTravelTime(3);
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+        $days = $employee->setDaysWorked(5)
+            ->setMixedDaysWorked()
+            ->setDaysWorkedDay()
+            ->setNightWorkedDays();
 
-    //     $this->assertEquals($employee->workedInSunday(), 4065.84);
-    // }
+        $travelTimeDiurno52 = $employee
+            ->setPercentTravelTime('52')
+            ->setHoursTravelTime(3)
+            ->travelTime();
+
+        $travelTimeDiurno77 = $employee
+            ->setPercentTravelTime('77')
+            ->setHoursTravelTime(3)
+            ->travelTime();
+
+        $travelTimeNocturno52 = $employee
+            ->setPercentTravelTime('52')
+            ->setHoursTravelTime(6)
+            ->travelTime();
+
+        $travelTimeNocturno77 = $employee
+            ->setPercentTravelTime('77')
+            ->setHoursTravelTime(6)
+            ->travelTime();
+
+
+        $this->assertEquals($employee->bonusWorkedInSunday(), 4065.84);
+    }
 }

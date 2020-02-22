@@ -15,7 +15,7 @@
     Semana de 5 días de trabajo:
     (Días trab + Tiempo de viaje) a SB / Días trabajados * 1,5
 
-    Semana de 5 días de trabajo:
+    Semana de 6 días de trabajo:
     (Días Trab +
      Sexto Día Trab +
      Prima Especial por Sexto (6) Trabajado +

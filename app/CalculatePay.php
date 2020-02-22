@@ -112,14 +112,14 @@ trait CalculatePay
         return $this->basicSalary() * 1;
     }
 
-    public function travelTime(): float
+    public function travelTime(float $journalHours = 8): float
     {
-        return $this->salaryHour() * $this->percentTravelTime * $this->hoursTravelTime;
+        return $this->salaryHour($journalHours) * $this->percentTravelTime * $this->hoursTravelTime;
     }
 
-    public function workedInSunday(): float
+    public function bonusWorkedInSunday(): float
     {
-        return ($this->daysWorked() + $this->travelTime()) / $this->daysWorked * 1.5;
+        // return ($this->daysWorked() + $this->travelTime()) / ($this->daysWorked * 1.5);
     }
 
     public function sundayPremium(): float
