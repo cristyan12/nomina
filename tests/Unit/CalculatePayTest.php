@@ -2,12 +2,8 @@
 
 namespace Tests\Unit\SistemasTrabajo;
 
-use App\{
-    EmployeeProfile, Position
-};
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use App\{EmployeeProfile, Position};
+use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 use Tests\TestCase;
 
 class CalculatePayTest extends TestCase
@@ -15,7 +11,7 @@ class CalculatePayTest extends TestCase
     use RefreshDatabase;
 
     /** @test */
-    function it_calculate_5_days_worked()
+    function puede_calcular_los_dias_trabajados()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
@@ -25,7 +21,7 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function it_calculate_the_programed_sixth_day_worked()
+    function puede_calcular_el_sexto_dia_trabajado_programado()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
@@ -33,93 +29,80 @@ class CalculatePayTest extends TestCase
         $this->assertSame($employee->sixthDayWorked(), 1735.00);
     }
 
-    /**
-     * @test
-     * @testdox Puede calcular el tiempo de viaje de de 1.5 hrs a 52% Diurno
-     */
-    function puede_calcular_3_horas_de_tiempo_de_viaje_diurno_a_52p()
+    /** @test */
+    function puede_calcular_las_horas_de_tiempo_de_viaje_diurno_a_52_por_ciento()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $travelTime = $employee
-            ->setPercentTravelTime('52')
-            ->setHoursTravelTime(3)
-            ->travelTime();
+            ->setHoursDayTravelTime52(3)
+            ->dayTravelTime52();
 
         $this->assertSame($travelTime, 988.95);
     }
 
     /** @test */
-    function puede_calcular_3_horas_de_tiempo_de_viaje_mixto_a_52p()
+    function puede_calcular_las_horas_de_tiempo_de_viaje_mixto_a_52_por_ciento()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-        $journalMixed = 7.5;
         $travelTime = $employee
-            ->setPercentTravelTime('52')
-            ->setHoursTravelTime(3)
-            ->travelTime($journalMixed);
+            ->setHoursMixedTravelTime52(3)
+            ->mixedTravelTime52();
 
         $this->assertSame($travelTime, 1054.88);
     }
 
     /** @test */
-    function puede_calcular_6_horas_de_tiempo_de_viaje_nocturno_a_52p()
+    function puede_calcular_las_horas_de_tiempo_de_viaje_nocturno_a_52_por_ciento()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-        $journalMixed = 7;
         $travelTime = number_format($employee
-            ->setPercentTravelTime('52')
-            ->setHoursTravelTime(6)
-            ->travelTime($journalMixed), 2, ',', '.');
+            ->setHoursNigthTravelTime52(6)
+            ->nigthTravelTime52(), 2, ',', '.');
 
         $this->assertSame($travelTime, '2.260,46');
     }
 
     /** @test */
-    function puede_calcular_3_horas_de_tiempo_de_viaje_diurno_a_77p()
+    function puede_calcular_las_horas_de_tiempo_de_viaje_diurno_a_77_por_ciento()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $travelTime = number_format($employee
-            ->setPercentTravelTime('77')
-            ->setHoursTravelTime(3)
-            ->travelTime(), 2, ',', '.');
+            ->setHoursDayTravelTime77(3)
+            ->dayTravelTime77(), 2, ',', '.');
 
         $this->assertSame($travelTime, '1.151,61');
     }
 
     /** @test */
-    function puede_calcular_3_horas_de_tiempo_de_viaje_mixto_a_77p()
+    function puede_calcular_las_horas_de_tiempo_de_viaje_mixto_a_77_por_ciento()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-        $journalHours = 7.5;
         $travelTime = number_format($employee
-            ->setPercentTravelTime('77')
-            ->setHoursTravelTime(3)
-            ->travelTime($journalHours), 2, ',', '.');
+            ->setHoursMixedTravelTime77(3)
+            ->mixedTravelTime77(), 2, ',', '.');
 
         $this->assertSame($travelTime, '1.228,38');
     }
 
     /** @test */
-    function puede_calcular_6_horas_de_tiempo_de_viaje_nocturno_a_77p()
+    function puede_calcular_las_horas_de_tiempo_de_viaje_nocturno_a_77_por_ciento()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-        $journalHours = 7;
         $travelTime = number_format($employee
-            ->setPercentTravelTime('77')
-            ->setHoursTravelTime(6)
-            ->travelTime($journalHours), 2, ',', '.');
+            ->setHoursNigthTravelTime77(6)
+            ->nigthTravelTime77(), 2, ',', '.');
 
         $this->assertSame($travelTime, '2.632,24');
     }
 
     /** @test */
-    function it_calculate_bonus_for_travel_time_night()
+    function puede_calcular_el_bono_por_tiempo_de_viaje_nocturno()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
@@ -133,7 +116,7 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function it_calcultate_the_sunday_premium_to_basic_salary()
+    function puede_calcular_la_prima_por_trabajo_en_dia_domingo_a_SB()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
@@ -142,7 +125,7 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function it_calcultate_the_sixth_day_worked_premium_to_basic_salary()
+    function puede_calcular_la_prima_por_el_sexto_dia_trabajado_a_SB()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
@@ -151,7 +134,7 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function it_calcultate_the_bonus_nigth_to_basic_salary()
+    function puede_calcular_el_bono_nocturno_a_SB()
     {
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
@@ -187,39 +170,17 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function it_calculate_bonus_per_worked_in_sunday()
+    function puede_calcular_el_salario_normal_para_prima_sexto_dia_trabajado()
     {
-        $this->markTestIncomplete();
-        return;
-
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
-        $days = $employee->setDaysWorked(5)
+
+        // Dias trabajados(diuros, mixtos y nocturnos
+        $daysWorked = $employee->setDaysWorkedDay()
             ->setMixedDaysWorked()
-            ->setDaysWorkedDay()
             ->setNightWorkedDays();
 
-        $travelTimeDiurno52 = $employee
-            ->setPercentTravelTime('52')
-            ->setHoursTravelTime(3)
-            ->travelTime();
-
-        $travelTimeDiurno77 = $employee
-            ->setPercentTravelTime('77')
-            ->setHoursTravelTime(3)
-            ->travelTime();
-
-        $travelTimeNocturno52 = $employee
-            ->setPercentTravelTime('52')
-            ->setHoursTravelTime(6)
-            ->travelTime();
-
-        $travelTimeNocturno77 = $employee
-            ->setPercentTravelTime('77')
-            ->setHoursTravelTime(6)
-            ->travelTime();
-
-
-        $this->assertEquals($employee->bonusWorkedInSunday(), 4065.84);
+        // Tiempo de Viaje(Diurno, mixto y nocturno a 52% y 77%)
+        // $travelTime = $employee->
     }
 }

@@ -81,3 +81,13 @@
 
     - Tiempo de Viaje Nocturno (6:00 P.m. a 6:00 A.m.):
       (SB ÷ 8) × 0,38 × Nº Hrs T.V. Noct
+
+##CÁLCULO DE BONO NOCTURNO:
+
+    SAL. BÁSICO DIARIO + T. DE VIAJE + T + VIAJE Mayor 1,5 horas + Prima Dominical + / 8 HORAS X 0,38 X N° 6 HORAS BONO Nocturno diario.
+
+    44,38 + 8,43 + 22,19 = Bs. 97,74.
+    94,74/8 horas x 0,38 % x 6 horas diarias según SISTEMA 5-5-5-6=
+    12,18 X 0,38 % = Bs. 4,62 x 6 horas = Bs. 27,77
+
+    BONO NOCTURNO = Bs. 27,77

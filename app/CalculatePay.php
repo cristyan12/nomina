@@ -5,42 +5,42 @@ namespace App;
 trait CalculatePay
 {
     protected $daysWorked;
-    protected $hoursTravelTime;
-    protected $percentsTravelTime = [
-        '52' => 1.52,
-        '77' => 1.77,
-        '38' => 0.38,
-        '83' => 1.83,
-    ];
-    protected $percentTravelTime;
+
     protected $daysWorkedDay;
+
     protected $mixedDaysWorked;
+
     protected $sixthDayWorkedDay;
+
     protected $sixthDayWorkedMixed;
+
     protected $nightWorkedDays;
+
     protected $sixthDayWorkedNigth;
-    protected $hoursForBonusTravelTimeNigth = 0;
+
+    protected $hoursBonusNigthTravelTime = 0;
+
     protected $nightBonusDaytimeOvertime = 0;
+
     protected $nightBonusMixedOvertime = 0;
+
     protected $hoursForNigthBonus = 0;
+
+    protected $hoursDayTravelTime52;
+
+    protected $hoursMixedTravelTime52;
+
+    protected $hoursNigthTravelTime52;
+
+    protected $hoursDayTravelTime77;
+
+    protected $hoursMixedTravelTime77;
+
+    protected $hoursNigthTravelTime77;
 
     public function setDaysWorked(int $days): self
     {
         $this->daysWorked = $days;
-
-        return $this;
-    }
-
-    public function setHoursTravelTime(int $hours): self
-    {
-        $this->hoursTravelTime = $hours;
-
-        return $this;
-    }
-
-    public function setPercentTravelTime(float $percent): self
-    {
-        $this->percentTravelTime = $this->percentsTravelTime[$percent];
 
         return $this;
     }
@@ -87,19 +87,61 @@ trait CalculatePay
         return $this;
     }
 
+    public function sethoursDayTravelTime52(float $hours): self
+    {
+        $this->hoursDayTravelTime52 = $hours;
+
+        return $this;
+    }
+
+    public function setHoursMixedTravelTime52(float $hours): self
+    {
+        $this->hoursMixedTravelTime52 = $hours;
+
+        return $this;
+    }
+
+    public function setHoursNigthTravelTime52(float $hours): self
+    {
+        $this->hoursNigthTravelTime52 = $hours;
+
+        return $this;
+    }
+
+    public function setHoursDayTravelTime77(float $hours): self
+    {
+        $this->hoursDayTravelTime77 = $hours;
+
+        return $this;
+    }
+
+    public function setHoursMixedTravelTime77(float $hours): self
+    {
+        $this->hoursMixedTravelTime77 = $hours;
+
+        return $this;
+    }
+
+    public function setHoursNigthTravelTime77(float $hours): self
+    {
+        $this->hoursNigthTravelTime77 = $hours;
+
+        return $this;
+    }
+
     public function getHoursBonusTravelTimeNight(): float
     {
-        $this->hoursForBonusTravelTimeNigth =
+        $this->hoursBonusNigthTravelTime =
             (($this->daysWorkedDay + $this->sixthDayWorkedDay) * 0.5) +
             (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 1.5) +
             (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
 
-        return $this->hoursForBonusTravelTimeNigth;
+        return $this->hoursBonusNigthTravelTime;
     }
 
     public function bonusTravelTimeNight(): float
     {
-        return $this->salaryHour() * 0.38 * $this->hoursForBonusTravelTimeNigth;
+        return $this->salaryHour() * 0.38 * $this->hoursBonusNigthTravelTime;
     }
 
     public function daysWorked(): float
@@ -112,9 +154,34 @@ trait CalculatePay
         return $this->basicSalary() * 1;
     }
 
-    public function travelTime(float $journalHours = 8): float
+    public function dayTravelTime52(): float
     {
-        return $this->salaryHour($journalHours) * $this->percentTravelTime * $this->hoursTravelTime;
+        return $this->salaryHour() * 1.52 * $this->hoursDayTravelTime52;
+    }
+
+    public function mixedTravelTime52(): float
+    {
+        return $this->salaryHour(7.5) * 1.52 * $this->hoursMixedTravelTime52;
+    }
+
+    public function nigthTravelTime52(): float
+    {
+        return $this->salaryHour(7) * 1.52 * $this->hoursNigthTravelTime52;
+    }
+
+    public function dayTravelTime77(): float
+    {
+        return $this->salaryHour() * 1.77 * $this->hoursDayTravelTime77;
+    }
+
+    public function mixedTravelTime77(): float
+    {
+        return $this->salaryHour(7.5) * 1.77 * $this->hoursMixedTravelTime77;
+    }
+
+    public function nigthTravelTime77(): float
+    {
+        return $this->salaryHour(7) * 1.77 * $this->hoursNigthTravelTime77;
     }
 
     public function bonusWorkedInSunday(): float
@@ -150,9 +217,9 @@ trait CalculatePay
         );
     }
 
-    public function mixedWatchExtraTime(float $factor = 0.5): float
+    public function mixedWatchExtraTime(): float
     {
-        $mixedWatchExtraTime = $factor * (
+        $mixedWatchExtraTime = 0.5 * (
             $this->mixedDaysWorked +
             $this->sixthDayWorkedMixed
         );
