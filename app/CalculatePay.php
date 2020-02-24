@@ -4,385 +4,246 @@ namespace App;
 
 trait CalculatePay
 {
-    /**
-     * Horas extras
-     *
-     * @var $extraHours
-     */
-    protected $extraHours;
+    protected $daysWorked;
 
-    /**
-     * Dias trabajados mixtos
-     *
-     * @var $workedDaysMixed
-     */
-    protected $workedDaysMixed;
+    protected $daysWorkedDay;
 
-    /**
-     * Sexto dia trabajado mixto
-     *
-     * @var $sixthDayWorkedMixed
-     */
+    protected $mixedDaysWorked;
+
+    protected $sixthDayWorkedDay;
+
     protected $sixthDayWorkedMixed;
 
-    /**
-     * Dias trabajados nocturnos
-     *
-     * @var $workedDaysNigthly
-     */
-    protected $workedDaysNigthly;
+    protected $nightWorkedDays;
 
-    /**
-     * Sexto dia trabajado nocturno
-     *
-     * @var $sixthDayWorkedNigthly
-     */
-    protected $sixthDayWorkedNigthly;
+    protected $sixthDayWorkedNigth;
 
-    /**
-     * Días trabajados en jornada diurna.
-     *
-     * @var $workedDaysDaily
-     */
-    protected $workedDaysDaily;
+    protected $hoursBonusNigthTravelTime = 0;
 
-    /**
-     * Horas para el cálculo del Bono de Tiempo de Viaje Nocturno
-     *
-     * @var $bonusHoursOfNightTravelTime
-     */
-    protected $bonusHoursOfNightTravelTime;
+    protected $nightBonusDaytimeOvertime = 0;
 
-    /**
-     * Horas del Tiempo de Viaje
-     *
-     * @var $travelTimeHours
-     */
-    protected $travelTimeHours;
+    protected $nightBonusMixedOvertime = 0;
 
-    /**
-     * Establece las horas de Tiempo de Viaje
-     *
-     * @param $hours
-    */
-    public function setTravelTimeHours($hours)
+    protected $hoursForNigthBonus = 0;
+
+    protected $hoursDayTravelTime52;
+
+    protected $hoursMixedTravelTime52;
+
+    protected $hoursNigthTravelTime52;
+
+    protected $hoursDayTravelTime77;
+
+    protected $hoursMixedTravelTime77;
+
+    protected $hoursNigthTravelTime77;
+
+    public function setDaysWorked(int $days): self
     {
-        $this->travelTimeHours = $hours;
+        $this->daysWorked = $days;
 
         return $this;
     }
 
-    /**
-     * Establece las horas extras
-     *
-     * @param $hours
-    */
-    public function setExtraHours($hours)
+    public function setDaysWorkedDay(int $days = 0): self
     {
-        $this->extraHours = $hours;
+        $this->daysWorkedDay = $days;
 
         return $this;
     }
 
-    /**
-     * Establece los días en que se trabajó en jornada diurna
-     *
-     * @param $days
-    */
-    public function setWorkedDaysDaily($days)
+    public function setSixthDayWorkedDay(int $day = 0): self
     {
-        $this->workedDaysDaily = $days;
+        $this->sixthDayWorkedDay = $day;
 
         return $this;
     }
 
-    /**
-     * Estable la cantidad de días trabajados en jornada mixta.
-     *
-     * @param $days
-     */
-    public function setWorkedDaysMixed($days)
+    public function setMixedDaysWorked(int $days = 0): self
     {
-        $this->workedDaysMixed = $days;
+        $this->mixedDaysWorked = $days;
 
         return $this;
     }
 
-    /**
-     * Sexto día trabajado en jornada mixta.
-     *
-     * @param $sixthDayWorkedMixed
-     */
-    public function setSixthDayWorkedMixed($sixthDayWorkedMixed)
+    public function setSixthDayWorkedMixed(int $day = 0): self
     {
-        $this->sixthDayWorkedMixed = $sixthDayWorkedMixed;
+        $this->sixthDayWorkedMixed = $day;
 
         return $this;
     }
 
-    /**
-     * Establece la cantidad de días trabajados en jornada nocturna.
-     *
-     * @param $workedDaysNigthly
-     */
-    public function setWorkedDaysNigthly($workedDaysNigthly)
+    public function setNightWorkedDays(int $days = 0): self
     {
-        $this->workedDaysNigthly = $workedDaysNigthly;
+        $this->nightWorkedDays = $days;
 
         return $this;
     }
 
-    /**
-     * Sexto día trabajado en jornada nocturna.
-     *
-     * @param $sixthDayWorkedNigthly
-     */
-    public function setSixthDayWorkedNigthly($sixthDayWorkedNigthly)
+    public function setSixthDayWorkedNigth(int $day = 0): self
     {
-        $this->sixthDayWorkedNigthly = $sixthDayWorkedNigthly;
+        $this->sixthDayWorkedNigth = $day;
 
         return $this;
     }
 
-    /**
-     * Bono de Tiempo de Viaje Nocturno
-     *
-     * @param float $hours
-     */
-    public function setBonusHoursOfNightTravelTime($hours)
+    public function sethoursDayTravelTime52(float $hours): self
     {
-        $this->bonusHoursOfNightTravelTime = $hours;
+        $this->hoursDayTravelTime52 = $hours;
 
         return $this;
     }
 
-    /**
-     * Obtiene las cantidades para calcular el Bono Nocturno.
-     *
-     * @return int
-     */
-    public function getQuantityBonusNight(): int
+    public function setHoursMixedTravelTime52(float $hours): self
     {
-        $a = ($this->workedDaysMixed + $this->sixthDayWorkedMixed) * 4;
+        $this->hoursMixedTravelTime52 = $hours;
 
-        $b = ($this->workedDaysNigthly + $this->sixthDayWorkedNigthly) * 6;
-
-        return $a + $b;
+        return $this;
     }
 
-    /**
-     * Obtiene el pago el pago por los dias trabajados con SB
-     *
-     * @param  int $days
-     */
-    public function payWorkedDays(): string
+    public function setHoursNigthTravelTime52(float $hours): self
     {
-        $result = $this->getDiarySalary() * $this->workedDaysDaily;
+        $this->hoursNigthTravelTime52 = $hours;
 
-        return number_format($result, 2, ',', '.');
+        return $this;
     }
 
-    /**
-     * Obtiene el pago de las horas extras trabajadas por un empleado dado
-     *
-     * @param int $hours
-     * @param string $typeJournal
-     */
-    public function payExtraHours($journal = null): string
+    public function setHoursDayTravelTime77(float $hours): self
     {
-        $salaryByHour = $this->position->getSalaryByHours(
-            $this->getDefaultHoursByJournal($journal)
+        $this->hoursDayTravelTime77 = $hours;
+
+        return $this;
+    }
+
+    public function setHoursMixedTravelTime77(float $hours): self
+    {
+        $this->hoursMixedTravelTime77 = $hours;
+
+        return $this;
+    }
+
+    public function setHoursNigthTravelTime77(float $hours): self
+    {
+        $this->hoursNigthTravelTime77 = $hours;
+
+        return $this;
+    }
+
+    public function getHoursBonusTravelTimeNight(): float
+    {
+        $this->hoursBonusNigthTravelTime =
+            (($this->daysWorkedDay + $this->sixthDayWorkedDay) * 0.5) +
+            (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 1.5) +
+            (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
+
+        return $this->hoursBonusNigthTravelTime;
+    }
+
+    public function bonusTravelTimeNight(): float
+    {
+        return $this->salaryHour() * 0.38 * $this->hoursBonusNigthTravelTime;
+    }
+
+    public function daysWorked(): float
+    {
+        return $this->basicSalary() * $this->daysWorked;
+    }
+
+    public function sixthDayWorked(): float
+    {
+        return $this->basicSalary() * 1;
+    }
+
+    public function dayTravelTime52(): float
+    {
+        return $this->salaryHour() * 1.52 * $this->hoursDayTravelTime52;
+    }
+
+    public function mixedTravelTime52(): float
+    {
+        return $this->salaryHour(7.5) * 1.52 * $this->hoursMixedTravelTime52;
+    }
+
+    public function nigthTravelTime52(): float
+    {
+        return $this->salaryHour(7) * 1.52 * $this->hoursNigthTravelTime52;
+    }
+
+    public function dayTravelTime77(): float
+    {
+        return $this->salaryHour() * 1.77 * $this->hoursDayTravelTime77;
+    }
+
+    public function mixedTravelTime77(): float
+    {
+        return $this->salaryHour(7.5) * 1.77 * $this->hoursMixedTravelTime77;
+    }
+
+    public function nigthTravelTime77(): float
+    {
+        return $this->salaryHour(7) * 1.77 * $this->hoursNigthTravelTime77;
+    }
+
+    public function bonusWorkedInSunday(): float
+    {
+        // return ($this->daysWorked() + $this->travelTime()) / ($this->daysWorked * 1.5);
+    }
+
+    public function sundayPremium(): float
+    {
+        return $this->basicSalary() * 1.5;
+    }
+
+    public function sixthDayWorkedPremium(): float
+    {
+        return $this->basicSalary() * 1.5;
+    }
+
+    public function hoursForNigthBonus(): float
+    {
+        $this->hoursForNigthBonus =
+            (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 4) +
+            (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 6);
+
+        return $this->hoursForNigthBonus;
+    }
+
+    public function nightBonus(): float
+    {
+        return ($this->salaryHour() * 0.38) * (
+            $this->hoursForNigthBonus +
+            $this->nightBonusDaytimeOvertime +
+            $this->nightBonusMixedOvertime
+        );
+    }
+
+    public function mixedWatchExtraTime(): float
+    {
+        $mixedWatchExtraTime = 0.5 * (
+            $this->mixedDaysWorked +
+            $this->sixthDayWorkedMixed
         );
 
-        $result = $salaryByHour * $this->extraHours * $this->getPercentFor($journal);
-
-        return number_format($result, 2, ',', '.');
+        return $this->salaryHour(7.5) * 1.81 * $mixedWatchExtraTime;
     }
 
-    /**
-     * Pago por el Tiempo de Viaje
-     *
-     * @param  int      $hours
-     * @param  string   $journal
-     * @param  string   $journalForTravelTime
-     */
-    public function payTravelTime($journal, $journalForTravelTime = null): string
+    public function nigthWatchExtraTime(float $factor = 1): float
     {
-        $salaryByHour = $this->position->getSalaryByHours(
-            $this->getDefaultHoursByJournal($journal)
+        $nigthWatchExtraTime = $factor * (
+            $this->nightWorkedDays +
+            $this->sixthDayWorkedNigth
         );
 
-        $result = $salaryByHour * $this->getPercentForTravelTime(
-            $journalForTravelTime) * $this->travelTimeHours;
-
-        return number_format($result, 2, ',', '.');
+        return $this->salaryHour(7) * 1.81 * $nigthWatchExtraTime;
     }
 
-    /**
-     * Obtiene el pago el pago por el sexto dia trabajado SB
-     */
-    public function paySixthDayWorked(): string
-    {
-        return number_format($this->getDiarySalary(), 2, ',', '.');
-    }
-
-     /**
-     * Pago de La Ayuda Única y Especial de Ciudad.
-     */
-    public function payCityHelp(): string
-    {
-        $result = $this->getMonthlySalary() * 0.05;
-
-        return number_format($result, 2, ',', '.');
-    }
-
-     /**
-     * Bono por sexto día trabajado
-     */
-    public function bonusPerSixDayWorked(): string
-    {
-        $result = $this->getDiarySalary() * 1.5;
-
-        return number_format($result, 2, ',', '.');
-    }
-
-    /**
-     * Bono por trabajo en día domingo
-     */
-    public function bonusPerSunday(): string
-    {
-        $result = $this->getDiarySalary() * 1.5;
-
-        return number_format($result, 2, ',', '.');
-    }
-
-    /**
-     * Pago del Bono Nocturno a Salario Base
-     *
-     * @param   array   $quantitiesBonusNight
-     * @param   mixed   $bonusNightExtraHoursDays
-     * @param   mixed   $bonusNightExtraHoursMixed
-     *
-     * @return  string
-     */
-    public function getNightBonusPaySB(
-        $quantitiesBonusNight = [], $bonusNightExtraHoursDays, $bonusNightExtraHoursMixed
-    )
-    {
-        $salaryHour = $this->position->getSalaryByHours(8) * 0.38;
-
-        $qBonusNight = $this
-            ->setWorkedDaysMixed($quantitiesBonusNight[0])
-            ->setSixthDayWorkedMixed($quantitiesBonusNight[1])
-            ->setWorkedDaysNigthly($quantitiesBonusNight[2])
-            ->setSixthDayWorkedNigthly($quantitiesBonusNight[3])
-            ->getQuantityBonusNight();
-
-        $result = $salaryHour * ($qBonusNight + $bonusNightExtraHoursDays + $bonusNightExtraHoursMixed);
-
-        return number_format($result, 2, ',', '.');
-    }
-
-     /**
-      * Bonificación por Tiempo de Viaje nocturno.
-      */
-    public function bonusTravelTimeNightly(): string
-    {
-        $hourlySalary = $this->position->getSalaryByHours(
-            $this->getDefaultHoursByJournal()
-        );
-
-        $result = $hourlySalary * 0.38 * $this->bonusHoursOfNightTravelTime;
-
-        return number_format($result, 2, ',', '.');
-    }
-
-    /**
-     * Obtiene el Salario Normal Diario (PEG 0001)
-     */
-    public function getNormalSalaryPEG_0001()
-    {
-        // SB, Dias trabajados diurnos, Dias trabajados mixtos, Dias trabajados nocturnos,
-        // Tiempo de Viaje Diurno 52%, Tiempo de Viaje Diurno 77%,
-        // Tiempo de Viaje Mixto 52%, Tiempo de Viaje Mixto 77%,
-        // Tiempo de Viaje Nocturno 52%, Tiempo de Viaje Nocturno 77%,
-        // Pago de comida, Bonif. Tiempo de viaje nocturno, Sexto dia trabajado (Diurno, Mixto o Nocturno),
-        // Ayuda de ciudad, Prima Dominical a SB, Prima por sexto dia trabajado a SB, Bono Nocturno a SB
-
-        // se dividen entre las diferentes unidades de tiempo
-
-        // Cantidad de dias trajados diurnos, mixtos y nocturnos, Sexto dia trabajado (D, M y N),
-        // Permiso remunerado, Ausencia injustificada, Permiso no remunerado, Enfermedad ambulatoria,
-        // Enfermedad profesional, Accidente industrial, Permiso sindical
-    }
-
-    /**
-     * Obtiene el monto del salario base diario
-     */
-    public function getDiarySalary()
+    protected function basicSalary(): float
     {
         return $this->position->basic_salary;
     }
 
-    /**
-     * Obtiene el monto del pago mensual de su salario basico
-     *
-     * @param  int $days
-     */
-    public function getMonthlySalary()
+    protected function salaryHour(float $journal = 8): float
     {
-        return $this->getDiarySalary() * 30;
-    }
-
-    /**
-     * Obtiene las horas por defecto de los tipos de jornada.
-     *
-     * @param string $typeJournal
-     */
-    protected function getDefaultHoursByJournal($typeJournal = null)
-    {
-        $journals = [
-            'diaria' => 8,
-            'mixta' => 7.5,
-            'nocturna' => 7,
-        ];
-
-        return $journals[$typeJournal] ?? 8;
-    }
-
-    /**
-     * Obtiene los procentajes por defecto de los tipos de jornada.
-     *
-     * @param string $typeJournal
-     */
-    protected function getPercentFor($typeJournal)
-    {
-        $percents = [
-            'diaria' => 1.93,
-            'mixta' => 1.81,
-            'nocturna' => 1.81,
-        ];
-
-        return $percents[$typeJournal];
-    }
-
-    /**
-     * Obtiene los procentajes por defecto para el cálculo del Tiempo de Viaje
-     *
-     * @param  string $typeJournal
-     */
-    protected function getPercentForTravelTime($typeJournal)
-    {
-        $percents = [
-            'tvDiaria52' => 1.52,
-            'tvDiaria77' => 1.77,
-            'tvMixta52' => 1.52,
-            'tvMixta77' => 1.77,
-            'tvNocturna52' => 1.52,
-            'tvNocturna77' => 1.77,
-            'tvMaracaibo83' => 1.83,
-        ];
-
-        return $percents[$typeJournal];
+        return $this->basicSalary() / $journal;
     }
 }
