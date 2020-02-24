@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class CreateCompanyTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected $attributes = [];
 
@@ -33,8 +33,8 @@ class CreateCompanyTest extends TestCase
         // $this->handleValidationExceptions();
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox Un usuario registrado puede cargar la página de crear nueva compañia
     */
     function a_user_can_load_the_page_of_create_a_company()
@@ -47,8 +47,8 @@ class CreateCompanyTest extends TestCase
             ->assertSee('Crear Empresa');
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox Un usuario registrado puede crear una nueva compañia
     */
     function a_user_can_create_a_company()
@@ -71,8 +71,8 @@ class CreateCompanyTest extends TestCase
         ]);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Nombre" es obligatorio
     */
     function the_field_name_is_required()
@@ -86,8 +86,8 @@ class CreateCompanyTest extends TestCase
         $this->assertEquals(0, Company::count());
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Nombre" debe ser único
     */
     function the_field_name_must_be_unique()
@@ -103,8 +103,8 @@ class CreateCompanyTest extends TestCase
         $this->assertEquals(1, Company::count());
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "RIF" es obligatorio
     */
     function the_field_rif_is_required()
@@ -118,8 +118,8 @@ class CreateCompanyTest extends TestCase
         $this->assertEquals(0, Company::count());
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Dirección" es opcional
     */
     function the_field_address_is_optional()
@@ -135,8 +135,8 @@ class CreateCompanyTest extends TestCase
         ]);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Teléfono" es opcional
     */
     function the_field_phone_number_is_optional()
@@ -151,8 +151,8 @@ class CreateCompanyTest extends TestCase
         ]);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Correo" es opcional
     */
     function the_field_email_is_optional()
@@ -167,8 +167,8 @@ class CreateCompanyTest extends TestCase
         ]);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Correo" es opcional
     */
     function the_field_city_is_optional()

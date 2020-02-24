@@ -59,11 +59,7 @@ class CreateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_create_a_employee()
     {
-        $this->withoutExceptionHandling();
-        
-        $user = $this->someUser();
-
-        $response = $this->actingAs($user)
+        $response = $this->actingAs($user = $this->someUser())
             ->post(route('employees.store'), $this->attributes)
             ->assertRedirect(route('employees.index'));
 
@@ -96,7 +92,7 @@ class CreateEmployeeTest extends TestCase
     function a_user_can_show_a_details_employee_data()
     {
         $this->withoutExceptionHandling();
-        
+
         $employee = $this->create(Employee::class, [
         	'first_name' => 'EMPLEADO',
         	'last_name' => 'DE PRUEBA',
@@ -164,7 +160,7 @@ class CreateEmployeeTest extends TestCase
         $employee = $this->create(Employee::class, [
             'document' => '14996210'
         ]);
-     
+
         $this->from(route('employees.index'))
             ->post(route('employees.store'), $this->attributes)
             ->assertRedirect(route('employees.store'))

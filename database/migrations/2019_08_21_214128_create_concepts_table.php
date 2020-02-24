@@ -16,9 +16,9 @@ class CreateConceptsTable extends Migration
         Schema::create('concepts', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('user_id'); 
+            $table->unsignedInteger('user_id');
             $table->string('name');
-            $table->enum('type', ['asignacion', 'deduccion']);
+            $table->enum('type', ['asignacion', 'deduccion'])->default('asignacion');
             $table->text('description');
             $table->float('quantity', 10, 2);
             $table->string('calculation_salary');

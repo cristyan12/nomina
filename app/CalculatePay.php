@@ -129,14 +129,14 @@ trait CalculatePay
         return $this;
     }
 
-    public function getHoursBonusTravelTimeNight(): float
+    public function setHoursBonusTravelTimeNight(): self
     {
         $this->hoursBonusNigthTravelTime =
             (($this->daysWorkedDay + $this->sixthDayWorkedDay) * 0.5) +
             (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 1.5) +
             (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
 
-        return $this->hoursBonusNigthTravelTime;
+        return $this;
     }
 
     public function bonusTravelTimeNight(): float

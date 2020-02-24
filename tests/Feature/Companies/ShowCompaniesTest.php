@@ -9,17 +9,17 @@ use Illuminate\Foundation\Testing\{
 
 class ShowCompaniesTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function setUp()
     {
         parent::setUp();
-        
+
         $this->be($this->someUser());
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox Un usuario puede ver el listado de compañias
     */
     function a_user_can_view_the_list_of_companies()
@@ -37,8 +37,8 @@ class ShowCompaniesTest extends TestCase
         }
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox Un usuario puede cargar la página de detalle de la comañia
     */
     function a_user_can_view_the_details_page_of_companies()

@@ -108,7 +108,7 @@ class CalculatePayTest extends TestCase
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $bonus = $employee->setDaysWorkedDay(2)
             ->setNightWorkedDays(4)
-            ->getHoursBonusTravelTimeNight();
+            ->setHoursBonusTravelTimeNight();
 
         $bonusTravelTimeNight = number_format($employee->bonusTravelTimeNight(), 2, ',', '.');
 
@@ -167,5 +167,33 @@ class CalculatePayTest extends TestCase
         $TEGMxto = number_format($employee->nigthWatchExtraTime(), 2, ',', '.');
 
         $this->assertEquals('1.794,49', $TEGMxto);
+    }
+
+    /** @test */
+    function puede_calcular_el_salario_normal_para_prima_de_sexto_dia_trabajado()
+    {
+        $this->markTestIncomplete();
+        return;
+
+        $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
+        $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
+
+        $days = $employee->setDaysWorkedDay()
+            ->setMixedDaysWorked()
+            ->setNightWorkedDays();
+
+        $hoursTravelTime = $employee->setHoursDayTravelTime52()
+            ->setHoursDayTravelTime77()
+            ->setHoursMixedTravelTime52()
+            ->setHoursMixedTravelTime77()
+            ->setHoursNigthTravelTime52()
+            ->setHoursNigthTravelTime77();
+
+        // Bonif. por tiempo de viaje nocturno
+        $bonusTravelTimeNight = $employee->setDaysWorkedDay()
+            ->setNightWorkedDays()
+            ->setHoursBonusTravelTimeNight();
+
+        $this->assertEquals('', $employee->normalSalaryForBonusSixthDayWorked());
     }
 }

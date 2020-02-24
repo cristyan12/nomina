@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class UpdateAccountTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected $user;
 

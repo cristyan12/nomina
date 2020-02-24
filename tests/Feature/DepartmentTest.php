@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class DepartmentTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     function a_user_can_load_the_new_department_office()
@@ -104,7 +104,7 @@ class DepartmentTest extends TestCase
     function a_user_can_update_the_department()
     {
         $this->withoutExceptionHandling();
-        
+
         $department = $this->create(Department::class);
 
         $response = $this->actingAs($this->someUser())

@@ -4,12 +4,13 @@ namespace Tests\Feature;
 
 use App\Concept;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
+use Illuminate\Foundation\Testing\{
+    DatabaseTransactions, RefreshDatabase
+};
 
 class ConceptTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     protected $attributes = [];
 
@@ -49,6 +50,8 @@ class ConceptTest extends TestCase
     */
     function a_user_can_create_a_new_concept()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->actingAs($user = $this->someUser())
             ->post(route('concepts.store', $this->attributes))
             ->assertRedirect(route('concepts.index'));
