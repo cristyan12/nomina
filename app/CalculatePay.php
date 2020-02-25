@@ -6,9 +6,9 @@ trait CalculatePay
 {
     protected $daysWorked;
 
-    protected $daysWorkedDay;
+    protected $dayWorkedDays;
 
-    protected $mixedDaysWorked;
+    protected $mixedWorkedDays;
 
     protected $sixthDayWorkedDay;
 
@@ -38,6 +38,55 @@ trait CalculatePay
 
     protected $hoursNigthTravelTime77;
 
+    /**
+     * Permiso remunerado.
+     *
+     * @var
+     */
+    protected $paidPermit = 0;
+
+    /**
+     * Ausencia no justiicada.
+     *
+     * @var
+     */
+    protected $unexcusedAbsence = 0;
+
+    /**
+     * Permiso no remunerado.
+     *
+     * @var
+     */
+    protected $unpaidPermit = 0;
+
+    /**
+     * Enfermedad ambulatoria.
+     *
+     * @var
+     */
+    protected $outpatientDisease = 0;
+
+    /**
+     * Enfermedad profesional (Ocupacional).
+     *
+     * @var
+     */
+    protected $occupationalDisease = 0;
+
+    /**
+     * Accidente industrial.
+     *
+     * @var
+     */
+    protected $industrialAccident = 0;
+
+    /**
+     * Permiso sindical.
+     *
+     * @var
+     */
+    protected $unionPermit = 0;
+
     public function setDaysWorked(int $days): self
     {
         $this->daysWorked = $days;
@@ -45,9 +94,9 @@ trait CalculatePay
         return $this;
     }
 
-    public function setDaysWorkedDay(int $days = 0): self
+    public function setDayWorkedDays(int $days = 0): self
     {
-        $this->daysWorkedDay = $days;
+        $this->dayWorkedDays = $days;
 
         return $this;
     }
@@ -59,9 +108,9 @@ trait CalculatePay
         return $this;
     }
 
-    public function setMixedDaysWorked(int $days = 0): self
+    public function setMixedWorkedDays(int $days = 0): self
     {
-        $this->mixedDaysWorked = $days;
+        $this->mixedWorkedDays = $days;
 
         return $this;
     }
@@ -87,7 +136,7 @@ trait CalculatePay
         return $this;
     }
 
-    public function sethoursDayTravelTime52(float $hours): self
+    public function setHoursDayTravelTime52(float $hours): self
     {
         $this->hoursDayTravelTime52 = $hours;
 
@@ -129,11 +178,11 @@ trait CalculatePay
         return $this;
     }
 
-    public function setHoursBonusTravelTimeNight(): self
+    public function hoursBonusTravelTimeNight(): self
     {
         $this->hoursBonusNigthTravelTime =
-            (($this->daysWorkedDay + $this->sixthDayWorkedDay) * 0.5) +
-            (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 1.5) +
+            (($this->dayWorkedDays + $this->sixthDayWorkedDay) * 0.5) +
+            (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * 1.5) +
             (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
 
         return $this;
@@ -184,9 +233,44 @@ trait CalculatePay
         return $this->salaryHour(7) * 1.77 * $this->hoursNigthTravelTime77;
     }
 
-    public function bonusWorkedInSunday(): float
+    public function dayWorkedDays(): float
     {
-        // return ($this->daysWorked() + $this->travelTime()) / ($this->daysWorked * 1.5);
+        return $this->dayWorkedDays * $this->basicSalary();
+    }
+
+    public function mixedWorkedDays(): float
+    {
+        return $this->mixedWorkedDays * $this->basicSalary();
+    }
+
+    public function nightWorkedDays(): float
+    {
+        return $this->nightWorkedDays * $this->basicSalary();
+    }
+
+    public function normalSalaryBonusSixthDayWorked(): float
+    {
+        // Missing: Pago de comida y ayuda de ciudad.
+        // TODO: dd($this->concept);
+        dd($this->dayTravelTime52());
+
+        $concepts = [
+            $this->dayWorkedDays(), $this->mixedWorkedDays(), $this->nightWorkedDays(),
+            $this->dayTravelTime52(), $this->dayTravelTime77(), $this->mixedTravelTime52(),
+            $this->mixedTravelTime77(), $this->nigthTravelTime52(), $this->nigthTravelTime77(),
+            $this->bonusTravelTimeNight(), $this->sixthDayWorkedDay(), $this->sixthDayWorkedMixed(),
+            $this->sixthDayWorkedNigth(), $this->sundayPremium(), $this->nightBonus(),
+            $this->mixedWatchExtraTime(), $this->nigthWatchExtraTime(),
+        ];
+
+        $divisors = [
+            $this->dayWorkedDays, $this->mixedWorkedDays, $this->nightWorkedDays,
+            $this->sixthDayWorkedDay, $this->sixthDayWorkedMixed, $this->sixthDayWorkedNigth,
+            $this->paidPermit, $this->unexcusedAbsence, $this->unpaidPermit, $this->outpatientDisease,
+            $this->occupationalDisease, $this->industrialAccident, $this->unionPermit
+        ];
+
+        return array_sum($concepts) / array_sum($divisors);
     }
 
     public function sundayPremium(): float
@@ -194,15 +278,30 @@ trait CalculatePay
         return $this->basicSalary() * 1.5;
     }
 
+    public function sixthDayWorkedDay(): float
+    {
+        return $this->basicSalary() * 1;
+    }
+
+    public function sixthDayWorkedMixed(): float
+    {
+        return $this->basicSalary() * 1;
+    }
+
+    public function sixthDayWorkedNigth(): float
+    {
+        return $this->basicSalary() * 1;
+    }
+
     public function sixthDayWorkedPremium(): float
     {
         return $this->basicSalary() * 1.5;
     }
 
-    public function setHoursForNigthBonus(): float
+    public function hoursForNigthBonus(): float
     {
         $this->hoursForNigthBonus =
-            (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 4) +
+            (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * 4) +
             (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 6);
 
         return $this->hoursForNigthBonus;
@@ -220,7 +319,7 @@ trait CalculatePay
     public function mixedWatchExtraTime(): float
     {
         $mixedWatchExtraTime = 0.5 * (
-            $this->mixedDaysWorked +
+            $this->mixedWorkedDays +
             $this->sixthDayWorkedMixed
         );
 
