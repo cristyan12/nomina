@@ -20,7 +20,7 @@ trait CalculatePay
 
     protected $hoursBonusNigthTravelTime = 0;
 
-    protected $nightBonusDaytimeOvertime = 0;
+    protected $nightBonusDayOvertime = 0;
 
     protected $nightBonusMixedOvertime = 0;
 
@@ -199,7 +199,7 @@ trait CalculatePay
         return $this->basicSalary() * 1.5;
     }
 
-    public function hoursForNigthBonus(): float
+    public function setHoursForNigthBonus(): float
     {
         $this->hoursForNigthBonus =
             (($this->mixedDaysWorked + $this->sixthDayWorkedMixed) * 4) +
@@ -212,7 +212,7 @@ trait CalculatePay
     {
         return ($this->salaryHour() * 0.38) * (
             $this->hoursForNigthBonus +
-            $this->nightBonusDaytimeOvertime +
+            $this->nightBonusDayOvertime +
             $this->nightBonusMixedOvertime
         );
     }

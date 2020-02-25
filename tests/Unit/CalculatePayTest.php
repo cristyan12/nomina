@@ -139,7 +139,7 @@ class CalculatePayTest extends TestCase
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $employee->setNightWorkedDays(4)
-            ->hoursForNigthBonus();
+            ->setHoursForNigthBonus();
 
         $this->assertEquals(1977.90, $employee->nightBonus());
     }
@@ -172,28 +172,23 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_el_salario_normal_para_prima_de_sexto_dia_trabajado()
     {
-        $this->markTestIncomplete();
-        return;
-
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
 
-        $days = $employee->setDaysWorkedDay()
-            ->setMixedDaysWorked()
-            ->setNightWorkedDays();
+        $employee->setDaysWorkedDay(2)
+            ->setMixedDaysWorked(2)
+            ->setNightWorkedDays(4)
+            ->setSixthDayWorkedMixed()
+            ->setSixthDayWorkedNigth()
+            ->setHoursDayTravelTime52(3)
+            ->setHoursDayTravelTime77(3)
+            ->setHoursMixedTravelTime52(3)
+            ->setHoursMixedTravelTime77(3)
+            ->setHoursNigthTravelTime52(6)
+            ->setHoursNigthTravelTime77(6)
+            ->setHoursBonusTravelTimeNight()
+            ->setHoursForNigthBonus();
 
-        $hoursTravelTime = $employee->setHoursDayTravelTime52()
-            ->setHoursDayTravelTime77()
-            ->setHoursMixedTravelTime52()
-            ->setHoursMixedTravelTime77()
-            ->setHoursNigthTravelTime52()
-            ->setHoursNigthTravelTime77();
-
-        // Bonif. por tiempo de viaje nocturno
-        $bonusTravelTimeNight = $employee->setDaysWorkedDay()
-            ->setNightWorkedDays()
-            ->setHoursBonusTravelTimeNight();
-
-        $this->assertEquals('', $employee->normalSalaryForBonusSixthDayWorked());
+        $this->assertEquals('3.934,19', $employee->normalSalaryBonusSixthDayWorked());
     }
 }
