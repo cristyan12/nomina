@@ -87,6 +87,52 @@ trait CalculatePay
      */
     protected $unionPermit = 0;
 
+    protected $methodsConcepts = [];
+
+    protected $divisors = [];
+
+    public function getMethodConcepts(): array
+    {
+        return [
+            $this->dayWorkedDays(),
+            $this->mixedWorkedDays(),
+            $this->nightWorkedDays(),
+            $this->dayTravelTime52(),
+            $this->dayTravelTime77(),
+            $this->mixedTravelTime52(),
+            $this->mixedTravelTime77(),
+            $this->nigthTravelTime52(),
+            $this->nigthTravelTime77(),
+            $this->bonusTravelTimeNight(),
+            $this->sixthDayWorkedDay(),
+            $this->sixthDayWorkedMixed(),
+            $this->sixthDayWorkedNigth(),
+            $this->sundayPremium(),
+            $this->nightBonus(),
+            $this->mixedWatchExtraTime(),
+            $this->nigthWatchExtraTime(),
+        ];
+    }
+
+    public function getDivisors(): array
+    {
+        return [
+            $this->dayWorkedDays,
+            $this->mixedWorkedDays,
+            $this->nightWorkedDays,
+            $this->sixthDayWorkedDay,
+            $this->sixthDayWorkedMixed,
+            $this->sixthDayWorkedNigth,
+            $this->paidPermit,
+            $this->unexcusedAbsence,
+            $this->unpaidPermit,
+            $this->outpatientDisease,
+            $this->occupationalDisease,
+            $this->industrialAccident,
+            $this->unionPermit
+        ];
+    }
+
     public function setDaysWorked(int $days): self
     {
         $this->daysWorked = $days;
@@ -250,47 +296,15 @@ trait CalculatePay
 
     public function normalSalaryBonusSixthDayWorked(): float
     {
-        // Missing: Pago de comida y ayuda de ciudad.
-        // TODO: dd($this->concept);
-        // dd("sixthDayWorkedDay: ". number_format($this->sixthDayWorkedDay(), 2, ',', '.'));
+        return array_sum($this->getMethodConcepts()) / array_sum($this->getDivisors());
+    }
 
-        $concepts = [
-            $this->dayWorkedDays(),
-            $this->mixedWorkedDays(),
-            $this->nightWorkedDays(),
-            $this->dayTravelTime52(),
-            $this->dayTravelTime77(),
-            $this->mixedTravelTime52(),
-            $this->mixedTravelTime77(),
-            $this->nigthTravelTime52(),
-            $this->nigthTravelTime77(),
-            $this->bonusTravelTimeNight(),
-            $this->sixthDayWorkedDay(),
-            $this->sixthDayWorkedMixed(),
-            $this->sixthDayWorkedNigth(),
-            $this->sundayPremium(),
-            $this->nightBonus(),
-            $this->mixedWatchExtraTime(),
-            $this->nigthWatchExtraTime(),
-        ];
-
-        $divisors = [
-            $this->dayWorkedDays,
-            $this->mixedWorkedDays,
-            $this->nightWorkedDays,
-            $this->sixthDayWorkedDay,
-            $this->sixthDayWorkedMixed,
-            $this->sixthDayWorkedNigth,
-            $this->paidPermit,
-            $this->unexcusedAbsence,
-            $this->unpaidPermit,
-            $this->outpatientDisease,
-            $this->occupationalDisease,
-            $this->industrialAccident,
-            $this->unionPermit
-        ];
-
-        return array_sum($concepts) / array_sum($divisors);
+    public function normalSalaryForRest(): float
+    {
+        return array_sum(
+            array_merge($this->getMethodConcepts(), [$this->sixthDayWorkedPremium()])) /
+            array_sum($this->getDivisors()
+        );
     }
 
     public function sundayPremium(): float
