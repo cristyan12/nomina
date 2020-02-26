@@ -208,7 +208,7 @@ class CalculatePayTest extends TestCase
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $employee->setSixthDayWorkedDay(1);
 
-        $sixthDayWorkedDay = number_format($employee->sixthDayWorkedDay(), 2, ',', '.');
+        $sixthDayWorkedDay = number_format($employee->sixthDayWorkedDay(1), 2, ',', '.');
 
         $this->assertEquals('1.735,00', $sixthDayWorkedDay);
     }
@@ -220,7 +220,7 @@ class CalculatePayTest extends TestCase
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $employee->setSixthDayWorkedMixed(1);
 
-        $sixthDayWorkedMixed = number_format($employee->sixthDayWorkedMixed(), 2, ',', '.');
+        $sixthDayWorkedMixed = number_format($employee->sixthDayWorkedMixed(1), 2, ',', '.');
 
         $this->assertEquals('1.735,00', $sixthDayWorkedMixed);
     }
@@ -232,7 +232,7 @@ class CalculatePayTest extends TestCase
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
         $employee->setSixthDayWorkedNigth(1);
 
-        $sixthDayWorkedNigth = number_format($employee->sixthDayWorkedNigth(), 2, ',', '.');
+        $sixthDayWorkedNigth = number_format($employee->sixthDayWorkedNigth(1), 2, ',', '.');
 
         $this->assertEquals('1.735,00', $sixthDayWorkedNigth);
     }
@@ -240,9 +240,6 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_el_salario_normal_para_prima_de_sexto_dia_trabajado()
     {
-        // $this->markTestIncomplete();
-        // return;
-
         $position = $this->create(Position::class, ['basic_salary' => 1735.00]);
         $employee = $this->create(EmployeeProfile::class, ['position_id' => $position->id]);
 

@@ -252,22 +252,42 @@ trait CalculatePay
     {
         // Missing: Pago de comida y ayuda de ciudad.
         // TODO: dd($this->concept);
-        dd($this->dayTravelTime52());
+        // dd("sixthDayWorkedDay: ". number_format($this->sixthDayWorkedDay(), 2, ',', '.'));
 
         $concepts = [
-            $this->dayWorkedDays(), $this->mixedWorkedDays(), $this->nightWorkedDays(),
-            $this->dayTravelTime52(), $this->dayTravelTime77(), $this->mixedTravelTime52(),
-            $this->mixedTravelTime77(), $this->nigthTravelTime52(), $this->nigthTravelTime77(),
-            $this->bonusTravelTimeNight(), $this->sixthDayWorkedDay(), $this->sixthDayWorkedMixed(),
-            $this->sixthDayWorkedNigth(), $this->sundayPremium(), $this->nightBonus(),
-            $this->mixedWatchExtraTime(), $this->nigthWatchExtraTime(),
+            $this->dayWorkedDays(),
+            $this->mixedWorkedDays(),
+            $this->nightWorkedDays(),
+            $this->dayTravelTime52(),
+            $this->dayTravelTime77(),
+            $this->mixedTravelTime52(),
+            $this->mixedTravelTime77(),
+            $this->nigthTravelTime52(),
+            $this->nigthTravelTime77(),
+            $this->bonusTravelTimeNight(),
+            $this->sixthDayWorkedDay(),
+            $this->sixthDayWorkedMixed(),
+            $this->sixthDayWorkedNigth(),
+            $this->sundayPremium(),
+            $this->nightBonus(),
+            $this->mixedWatchExtraTime(),
+            $this->nigthWatchExtraTime(),
         ];
 
         $divisors = [
-            $this->dayWorkedDays, $this->mixedWorkedDays, $this->nightWorkedDays,
-            $this->sixthDayWorkedDay, $this->sixthDayWorkedMixed, $this->sixthDayWorkedNigth,
-            $this->paidPermit, $this->unexcusedAbsence, $this->unpaidPermit, $this->outpatientDisease,
-            $this->occupationalDisease, $this->industrialAccident, $this->unionPermit
+            $this->dayWorkedDays,
+            $this->mixedWorkedDays,
+            $this->nightWorkedDays,
+            $this->sixthDayWorkedDay,
+            $this->sixthDayWorkedMixed,
+            $this->sixthDayWorkedNigth,
+            $this->paidPermit,
+            $this->unexcusedAbsence,
+            $this->unpaidPermit,
+            $this->outpatientDisease,
+            $this->occupationalDisease,
+            $this->industrialAccident,
+            $this->unionPermit
         ];
 
         return array_sum($concepts) / array_sum($divisors);
@@ -278,19 +298,19 @@ trait CalculatePay
         return $this->basicSalary() * 1.5;
     }
 
-    public function sixthDayWorkedDay(): float
+    public function sixthDayWorkedDay(int $day = 0): float
     {
-        return $this->basicSalary() * 1;
+        return $this->basicSalary() * $day;
     }
 
-    public function sixthDayWorkedMixed(): float
+    public function sixthDayWorkedMixed(int $day = 0): float
     {
-        return $this->basicSalary() * 1;
+        return $this->basicSalary() * $day;
     }
 
-    public function sixthDayWorkedNigth(): float
+    public function sixthDayWorkedNigth(int $day = 0): float
     {
-        return $this->basicSalary() * 1;
+        return $this->basicSalary() * $day;
     }
 
     public function sixthDayWorkedPremium(): float
