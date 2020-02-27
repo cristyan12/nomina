@@ -94,23 +94,24 @@ trait CalculatePay
     public function getMethodConcepts(): array
     {
         return [
-            $this->dayWorkedDays(),
-            $this->mixedWorkedDays(),
-            $this->nightWorkedDays(),
-            $this->dayTravelTime52(),
-            $this->dayTravelTime77(),
-            $this->mixedTravelTime52(),
-            $this->mixedTravelTime77(),
-            $this->nigthTravelTime52(),
-            $this->nigthTravelTime77(),
-            $this->bonusTravelTimeNight(),
-            $this->sixthDayWorkedDay(),
-            $this->sixthDayWorkedMixed(),
-            $this->sixthDayWorkedNigth(),
-            $this->sundayPremium(),
-            $this->nightBonus(),
-            $this->mixedWatchExtraTime(),
-            $this->nigthWatchExtraTime(),
+            'daysWorkedDays' => $this->dayWorkedDays(),
+            'mixedWorkedDays' => $this->mixedWorkedDays(),
+            'nightWorkedDays' => $this->nightWorkedDays(),
+            'dayTravelTime52' => $this->dayTravelTime52(),
+            'dayTravelTime77' => $this->dayTravelTime77(),
+            'mixedTravelTime52' => $this->mixedTravelTime52(),
+            'mixedTravelTime77' => $this->mixedTravelTime77(),
+            'nigthTravelTime52' => $this->nigthTravelTime52(),
+            'nigthTravelTime77' => $this->nigthTravelTime77(),
+            'bonusTravelTimeNight' => $this->bonusTravelTimeNight(),
+            'sixthDayWorkedDay' => $this->sixthDayWorkedDay(),
+            'sixthDayWorkedMixed' => $this->sixthDayWorkedMixed(),
+            'sixthDayWorkedNigth' => $this->sixthDayWorkedNigth(),
+            'sixthDayWorkedPremium' => $this->sixthDayWorkedPremium(),
+            'sundayPremium' => $this->sundayPremium(),
+            'nightBonus' => $this->nightBonus(),
+            'mixedWatchExtraTime' => $this->mixedWatchExtraTime(),
+            'nigthWatchExtraTime' => $this->nigthWatchExtraTime(),
         ];
     }
 
@@ -294,17 +295,41 @@ trait CalculatePay
         return $this->nightWorkedDays * $this->basicSalary();
     }
 
-    public function normalSalaryBonusSixthDayWorked(): float
+    public function normalSalary(): float
     {
-        return array_sum($this->getMethodConcepts()) / array_sum($this->getDivisors());
+        return array_sum(array_merge($this->getMethodConcepts(), [
+                'mixedWatchExtraTime' => '',
+                'nigthWatchExtraTime' => '',
+            ])) / array_sum($this->getDivisors()
+        );
     }
 
     public function normalSalaryForRest(): float
     {
-        return array_sum(
-            array_merge($this->getMethodConcepts(), [$this->sixthDayWorkedPremium()])) /
-            array_sum($this->getDivisors()
+        return array_sum($this->getMethodConcepts()) / array_sum($this->getDivisors());
+    }
+
+    public function normalSalaryBonusSixthDayWorked(): float
+    {
+        return array_sum(array_merge($this->getMethodConcepts(), [
+                'sixthDayWorkedPremium' => '',
+            ])) / array_sum($this->getDivisors()
         );
+    }
+
+    public function normalSalaryForNigthBonus(): float
+    {
+        return array_sum(array_merge($this->getMethodConcepts(), [
+                'nightBonus' => ''
+            ])) / array_sum($this->getDivisors()
+        );
+    }
+
+    public function normalSalaryForSundayPremium(): float
+    {
+        return array_sum(array_merge($this->getMethodConcepts(), [
+            'sundayPremium' => ''
+        ])) / array_sum($this->getDivisors());
     }
 
     public function sundayPremium(): float

@@ -212,20 +212,7 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_el_salario_normal_para_prima_de_sexto_dia_trabajado()
     {
-        $days = $this->employee->setDayWorkedDays(2)
-            ->setMixedWorkedDays(2)
-            ->setNightWorkedDays(4);
-
-        $travelTime = $this->employee
-            ->setHoursDayTravelTime52(3)
-            ->setHoursDayTravelTime77(3)
-            ->setHoursMixedTravelTime52(3)
-            ->setHoursMixedTravelTime77(3)
-            ->setHoursNigthTravelTime52(6)
-            ->setHoursNigthTravelTime77(6);
-
-        $nightBonus = $this->employee->hoursBonusTravelTimeNight()
-            ->hoursForNigthBonus();
+        $this->prepareParams();
 
         $salaryNormal = number_format($this->employee->normalSalaryBonusSixthDayWorked(), 2, ',', '.');
 
@@ -234,6 +221,45 @@ class CalculatePayTest extends TestCase
 
     /** @test */
     function puede_calcular_el_salario_normal_para_descanso_0039()
+    {
+        $this->prepareParams();
+
+        $salaryNormal = number_format($this->employee->normalSalaryForRest(), 2, ',', '.');
+
+        $this->assertEquals('4.259,51', $salaryNormal);
+    }
+
+    /** @test */
+    function puede_calcular_el_salario_normal_para_bono_nocturno_0002()
+    {
+        $this->prepareParams();
+
+        $salaryNormal = number_format($this->employee->normalSalaryForNigthBonus(), 2, ',', '.');
+
+        $this->assertEquals('3.929,86', $salaryNormal);
+    }
+
+    /** @test */
+    function puede_calcular_el_salario_normal_para_prima_dominical_0038()
+    {
+        $this->prepareParams();
+
+        $salaryNormal = number_format($this->employee->normalSalaryForSundayPremium(), 2, ',', '.');
+
+        $this->assertEquals('3.934,19', $salaryNormal);
+    }
+
+    /** @test */
+    function puede_calcular_el_salario_normal_0001()
+    {
+        $this->prepareParams();
+
+        $salaryNormal = number_format($this->employee->normalSalary(), 2, ',', '.');
+
+        $this->assertEquals('3.982,86', $salaryNormal);
+    }
+
+    protected function prepareParams()
     {
         $days = $this->employee->setDayWorkedDays(2)
             ->setMixedWorkedDays(2)
@@ -249,9 +275,5 @@ class CalculatePayTest extends TestCase
 
         $nightBonus = $this->employee->hoursBonusTravelTimeNight()
             ->hoursForNigthBonus();
-
-        $salaryNormal = number_format($this->employee->normalSalaryForRest(), 2, ',', '.');
-
-        $this->assertEquals('4.259,51', $salaryNormal);
     }
 }
