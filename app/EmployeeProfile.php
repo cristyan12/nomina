@@ -9,6 +9,9 @@ class EmployeeProfile extends Model
 {
     use CalculatePay;
 
+    const MIXED_JOURNAL_HOURS = 7.5;
+    const NIGTH_JOURNAL_HOURS = 7;
+
     protected $guarded = [];
 
     public function bank()

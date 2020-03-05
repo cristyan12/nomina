@@ -267,6 +267,14 @@ class CalculatePayTest extends TestCase
         $this->assertEquals('881,54', number_format($this->employee->mixedWatchExtraTimeSN(1), 2, ',', '.'));
     }
 
+    /** @test */
+    function puede_calcular_el_tiempo_extra_de_guardia_nocturno_a_SN()
+    {
+        $this->prepareParams();
+
+        $this->assertEquals('3.778,02', number_format($this->employee->nightWatchExtraTimeSN(4), 2, ',', '.'));
+    }
+
     protected function prepareParams()
     {
         $days = $this->employee->setDayWorkedDays(2)
