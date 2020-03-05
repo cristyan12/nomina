@@ -159,7 +159,7 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function puede_calcular_el_tiempo_extra_de_guardia_mixto()
+    function puede_calcular_el_tiempo_extra_de_guardia_mixto_a_SB()
     {
         $this->employee->setMixedWorkedDays(2)
             ->setSixthDayWorkedMixed(0);
@@ -170,7 +170,7 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function puede_calcular_el_tiempo_extra_de_guardia_nocturno()
+    function puede_calcular_el_tiempo_extra_de_guardia_nocturno_a_SB()
     {
         $this->employee->setNightWorkedDays(4);
 
@@ -257,6 +257,14 @@ class CalculatePayTest extends TestCase
         $salaryNormal = number_format($this->employee->normalSalary(), 2, ',', '.');
 
         $this->assertEquals('3.982,86', $salaryNormal);
+    }
+
+    /** @test */
+    function puede_calcular_el_tiempo_extra_de_guardia_mixto_a_SN()
+    {
+        $this->prepareParams();
+
+        $this->assertEquals('881,54', number_format($this->employee->mixedWatchExtraTimeSN(1), 2, ',', '.'));
     }
 
     protected function prepareParams()
