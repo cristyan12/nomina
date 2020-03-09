@@ -404,6 +404,11 @@ trait CalculatePay
         return $this->basicSalary() * 1.5;
     }
 
+    public function sundayPremiumSN(float $days): float
+    {
+        return $this->normalSalaryForSundayPremium() * $days;
+    }
+
     protected function basicSalary(): float
     {
         return $this->position->basic_salary;

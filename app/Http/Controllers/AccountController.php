@@ -11,7 +11,7 @@ class AccountController extends Controller
     public function index()
     {
         $accounts = Account::orderBy('id')->paginate(10);
-        
+
         return view('accounts.index', compact('accounts'));
     }
 
