@@ -155,7 +155,7 @@ class CalculatePayTest extends TestCase
             ->setMixedWorkedDays(2)
             ->hoursForNigthBonus();
 
-        $this->assertEquals('2.637,20', number_format($this->employee->nightBonus(), 2, ',', '.'));
+        $this->assertEquals('2.637,20', number_format($this->employee->nightBonusSB(), 2, ',', '.'));
     }
 
     /** @test */
@@ -280,7 +280,15 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('5.901,29', number_format($this->employee->sundayPremiumSN(1.50), 2, ',', '.'));
+        $this->assertEquals('5.901,29', number_format($this->employee->sundayPremiumSN(), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_el_bono_nocturno()
+    {
+        $this->prepareParams();
+
+        $this->assertEquals('5.973,38', number_format($this->employee->nightBonus(), 2, ',', '.'));
     }
 
     protected function prepareParams()
@@ -297,7 +305,7 @@ class CalculatePayTest extends TestCase
             ->setHoursNigthTravelTime52(6)
             ->setHoursNigthTravelTime77(6);
 
-        $nightBonus = $this->employee->hoursBonusTravelTimeNight()
+        $nightBonusSB = $this->employee->hoursBonusTravelTimeNight()
             ->hoursForNigthBonus();
     }
 }
