@@ -36,9 +36,9 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_los_dias_trabajados_diurnos()
     {
-        $this->employee->setDayWorkedDays(2);
+        $this->employee->setDayWorkedDays(1);
 
-        $this->assertEquals($this->employee->dayWorkedDays(), 3470.00);
+        $this->assertEquals($this->employee->dayWorkedDays(), 1735);
     }
 
     /** @test */
@@ -66,11 +66,21 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_las_horas_de_tiempo_de_viaje_diurno_a_52_por_ciento()
     {
-        $travelTime = $this->employee
-            ->setHoursDayTravelTime52(3)
-            ->dayTravelTime52();
+        $travelTime = number_format($this->employee
+            ->setHoursDayTravelTime52(1.50)
+            ->dayTravelTime52(), 2, ',', '.');
 
-        $this->assertSame($travelTime, 988.95);
+        $this->assertSame($travelTime, '494,48');
+    }
+
+    /** @test */
+    function puede_calcular_las_horas_de_tiempo_de_viaje_diurno_a_77_por_ciento()
+    {
+        $travelTime = number_format($this->employee
+            ->setHoursDayTravelTime77(1.50)
+            ->dayTravelTime77(), 2, ',', '.');
+
+        $this->assertSame($travelTime, '575,80');
     }
 
     /** @test */
@@ -84,26 +94,6 @@ class CalculatePayTest extends TestCase
     }
 
     /** @test */
-    function puede_calcular_las_horas_de_tiempo_de_viaje_nocturno_a_52_por_ciento()
-    {
-        $travelTime = number_format($this->employee
-            ->setHoursNigthTravelTime52(6)
-            ->nigthTravelTime52(), 2, ',', '.');
-
-        $this->assertSame($travelTime, '2.260,46');
-    }
-
-    /** @test */
-    function puede_calcular_las_horas_de_tiempo_de_viaje_diurno_a_77_por_ciento()
-    {
-        $travelTime = number_format($this->employee
-            ->setHoursDayTravelTime77(3)
-            ->dayTravelTime77(), 2, ',', '.');
-
-        $this->assertSame($travelTime, '1.151,61');
-    }
-
-    /** @test */
     function puede_calcular_las_horas_de_tiempo_de_viaje_mixto_a_77_por_ciento()
     {
         $travelTime = number_format($this->employee
@@ -111,6 +101,16 @@ class CalculatePayTest extends TestCase
             ->mixedTravelTime77(), 2, ',', '.');
 
         $this->assertSame($travelTime, '1.228,38');
+    }
+
+    /** @test */
+    function puede_calcular_las_horas_de_tiempo_de_viaje_nocturno_a_52_por_ciento()
+    {
+        $travelTime = number_format($this->employee
+            ->setHoursNigthTravelTime52(6)
+            ->nigthTravelTime52(), 2, ',', '.');
+
+        $this->assertSame($travelTime, '2.260,46');
     }
 
     /** @test */
@@ -126,14 +126,14 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_el_bono_por_tiempo_de_viaje_nocturno()
     {
-        $bonus = $this->employee->setDayWorkedDays(2)
+        $bonus = $this->employee->setDayWorkedDays(1)
             ->setMixedWorkedDays(2)
             ->setNightWorkedDays(4)
             ->hoursBonusTravelTimeNight();
 
         $bonusTravelTimeNight = number_format($this->employee->bonusTravelTimeNight(), 2, ',', '.');
 
-        $this->assertEquals('824,13', $bonusTravelTimeNight);
+        $this->assertEquals('782,92', $bonusTravelTimeNight);
     }
 
     /** @test */
@@ -216,7 +216,7 @@ class CalculatePayTest extends TestCase
 
         $salaryNormal = number_format($this->employee->normalSalaryBonusSixthDayWorked(), 2, ',', '.');
 
-        $this->assertEquals('3.934,19', $salaryNormal);
+        $this->assertEquals('4.089,58', $salaryNormal);
     }
 
     /** @test */
@@ -226,7 +226,7 @@ class CalculatePayTest extends TestCase
 
         $salaryNormal = number_format($this->employee->normalSalaryForRest(), 2, ',', '.');
 
-        $this->assertEquals('4.259,51', $salaryNormal);
+        $this->assertEquals('4.461,37', $salaryNormal);
     }
 
     /** @test */
@@ -236,7 +236,7 @@ class CalculatePayTest extends TestCase
 
         $salaryNormal = number_format($this->employee->normalSalaryForNigthBonus(), 2, ',', '.');
 
-        $this->assertEquals('3.929,86', $salaryNormal);
+        $this->assertEquals('4.084,62', $salaryNormal);
     }
 
     /** @test */
@@ -246,7 +246,7 @@ class CalculatePayTest extends TestCase
 
         $salaryNormal = number_format($this->employee->normalSalaryForSundayPremium(), 2, ',', '.');
 
-        $this->assertEquals('3.934,19', $salaryNormal);
+        $this->assertEquals('4.089,58', $salaryNormal);
     }
 
     /** @test */
@@ -256,7 +256,7 @@ class CalculatePayTest extends TestCase
 
         $salaryNormal = number_format($this->employee->normalSalary(), 2, ',', '.');
 
-        $this->assertEquals('3.982,86', $salaryNormal);
+        $this->assertEquals('4.145,19', $salaryNormal);
     }
 
     /** @test */
@@ -264,7 +264,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('881,54', number_format($this->employee->mixedWatchExtraTimeSN(1), 2, ',', '.'));
+        $this->assertEquals('917,47', number_format($this->employee->mixedWatchExtraTimeSN(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -272,7 +272,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('3.778,02', number_format($this->employee->nightWatchExtraTimeSN(4), 2, ',', '.'));
+        $this->assertEquals('3.932,01', number_format($this->employee->nightWatchExtraTimeSN(4), 2, ',', '.'));
     }
 
     /** @test */
@@ -280,7 +280,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('5.901,29', number_format($this->employee->sundayPremiumSN(), 2, ',', '.'));
+        $this->assertEquals('6.134,37', number_format($this->employee->sundayPremiumSN(), 2, ',', '.'));
     }
 
     /** @test */
@@ -288,18 +288,26 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('5.973,38', number_format($this->employee->nightBonus(), 2, ',', '.'));
+        $this->assertEquals('6.208,63', number_format($this->employee->nightBonus(), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_horas_extras_diurnas()
+    {
+        $this->prepareParams();
+
+        $this->assertEquals('1.851,47', number_format($this->employee->extraHoursDay(2), 2, ',', '.'));
     }
 
     protected function prepareParams()
     {
-        $days = $this->employee->setDayWorkedDays(2)
+        $days = $this->employee->setDayWorkedDays(1)
             ->setMixedWorkedDays(2)
             ->setNightWorkedDays(4);
 
         $travelTime = $this->employee
-            ->setHoursDayTravelTime52(3)
-            ->setHoursDayTravelTime77(3)
+            ->setHoursDayTravelTime52(1.50)
+            ->setHoursDayTravelTime77(1.50)
             ->setHoursMixedTravelTime52(3)
             ->setHoursMixedTravelTime77(3)
             ->setHoursNigthTravelTime52(6)

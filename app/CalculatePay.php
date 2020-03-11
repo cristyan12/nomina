@@ -11,7 +11,7 @@ trait CalculatePay
 
     protected $dayWorkedDays;
 
-    protected $factorNight = 0.38;
+    protected $percent38 = 0.38;
 
     protected $factorTravelTime52 = 1.52;
 
@@ -19,7 +19,7 @@ trait CalculatePay
 
     protected $factorWathExtraTimeSB = 1.81;
 
-    protected $factorSNWathExtraTime = 1.66;
+    protected $percent66 = 1.66;
 
     protected $mixedWorkedDays;
 
@@ -247,7 +247,7 @@ trait CalculatePay
     public function bonusTravelTimeNight(): float
     {
         return $this->salaryHour() *
-            $this->factorNight *
+            $this->percent38 *
             $this->hoursBonusNigthTravelTime;
     }
 
@@ -362,13 +362,13 @@ trait CalculatePay
     public function nightBonus(): float
     {
         return $this->normalSalaryForNigthBonus() / 8 *
-            $this->factorNight *
+            $this->percent38 *
             $this->hoursForNigthBonus;
     }
 
     public function nightBonusSB(): float
     {
-        return ($this->salaryHour() * $this->factorNight) * (
+        return ($this->salaryHour() * $this->percent38) * (
             $this->hoursForNigthBonus +
             $this->nightBonusDayOvertime +
             $this->nightBonusMixedOvertime
@@ -390,14 +390,14 @@ trait CalculatePay
     public function mixedWatchExtraTimeSN(float $hours): float
     {
         return $this->normalSalary() / $this->MIXED_JOURNAL_HOURS *
-            $this->factorSNWathExtraTime *
+            $this->percent66 *
             $hours;
     }
 
     public function nightWatchExtraTimeSN(float $hours): float
     {
         return $this->normalSalary() / $this->NIGTH_JOURNAL_HOURS *
-            $this->factorSNWathExtraTime *
+            $this->percent66 *
             $hours;
     }
 
@@ -411,6 +411,11 @@ trait CalculatePay
         return $this->salaryHour(7) *
             $this->factorWathExtraTimeSB *
             $nigthWatchExtraTime;
+    }
+
+    public function extraHoursDay(float $hours): float
+    {
+        return ($this->normalSalaryForRest() / 8) * $this->percent66 * $hours;
     }
 
     public function sixthDayWorked(): float
