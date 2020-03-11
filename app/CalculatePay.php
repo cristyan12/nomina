@@ -443,6 +443,16 @@ trait CalculatePay
         return $this->normalSalaryForRest() * 1.5 * $days;
     }
 
+    public function compensatoryRest(int $days = 1): float
+    {
+        return $this->normalSalaryForRest() * $days;
+    }
+
+    public function bonusSixthDayWorked(int $days = 1): float
+    {
+        return $this->normalSalaryBonusSixthDayWorked() * $days;
+    }
+
     public function sixthDayWorked(): float
     {
         return $this->basicSalary() * 1;

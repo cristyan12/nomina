@@ -339,6 +339,22 @@ class CalculatePayTest extends TestCase
         $this->assertSame('6.692,05', number_format($this->employee->restWorked(), 2, ',', '.'));
     }
 
+    /** @test */
+    function puede_calcular_el_descanso_compensatorio()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('4.461,37', number_format($this->employee->compensatoryRest(), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_el_bono_por_el_sexto_dia_trabajado()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('4.089,58', number_format($this->employee->bonusSixthDayWorked(), 2, ',', '.'));
+    }
+
     protected function prepareParams()
     {
         $days = $this->employee->setDayWorkedDays(1)
