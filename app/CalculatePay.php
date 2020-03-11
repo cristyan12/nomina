@@ -425,9 +425,7 @@ trait CalculatePay
 
     public function nigthExtraHours(float $hours)
     {
-        return function () use ($hours) {
-            ($this->normalSalaryForRest() / 7) * $this->percent66 * $hours;
-        };
+        return ($this->normalSalaryForRest() / 7) * $this->percent66 * $hours;
     }
 
     public function sixthDayWorked(): float
