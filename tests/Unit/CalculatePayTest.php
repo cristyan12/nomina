@@ -312,7 +312,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('2.115,96', number_format($this->employee->nigthExtraHours(2), 2, ',', '.'));
+        $this->assertSame('2.115,96', number_format((float) $this->employee->nigthExtraHours(2), 2, ',', '.'));
     }
 
     protected function prepareParams()
