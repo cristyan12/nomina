@@ -296,7 +296,23 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('1.851,47', number_format($this->employee->extraHoursDay(2), 2, ',', '.'));
+        $this->assertEquals('1.851,47', number_format($this->employee->dayExtraHours(2), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_horas_extras_mixtas()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('1.974,90', number_format($this->employee->mixedExtraHours(2), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_horas_extras_nocturnas()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('2.115,96', number_format($this->employee->nigthExtraHours(2), 2, ',', '.'));
     }
 
     protected function prepareParams()

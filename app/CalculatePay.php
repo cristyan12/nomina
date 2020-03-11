@@ -413,9 +413,19 @@ trait CalculatePay
             $nigthWatchExtraTime;
     }
 
-    public function extraHoursDay(float $hours): float
+    public function dayExtraHours(float $hours): float
     {
         return ($this->normalSalaryForRest() / 8) * $this->percent66 * $hours;
+    }
+
+    public function mixedExtraHours(float $hours): float
+    {
+        return ($this->normalSalaryForRest() / 7.5) * $this->percent66 * $hours;
+    }
+
+    public function nigthExtraHours(float $hours): float
+    {
+        return ($this->normalSalaryForRest() / 7) * $this->percent66 * $hours;
     }
 
     public function sixthDayWorked(): float
