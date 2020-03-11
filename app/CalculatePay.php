@@ -428,6 +428,21 @@ trait CalculatePay
         return ($this->normalSalaryForRest() / 7) * $this->percent66 * $hours;
     }
 
+    public function legalRest(int $days = 1): float
+    {
+        return $this->normalSalaryForRest() * $days;
+    }
+
+    public function contractualRest(int $days = 1): float
+    {
+        return $this->normalSalaryForRest() * $days;
+    }
+
+    public function restWorked(int $days = 1): float
+    {
+        return $this->normalSalaryForRest() * 1.5 * $days;
+    }
+
     public function sixthDayWorked(): float
     {
         return $this->basicSalary() * 1;

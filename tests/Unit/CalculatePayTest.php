@@ -315,6 +315,30 @@ class CalculatePayTest extends TestCase
         $this->assertSame('2.115,96', number_format($this->employee->nigthExtraHours(2), 2, ',', '.'));
     }
 
+    /** @test */
+    function puede_calcular_el_descanso_legal()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('4.461,37', number_format($this->employee->legalRest(), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_el_descanso_contractual()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('4.461,37', number_format($this->employee->contractualRest(), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_el_descanso_trabajado()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('6.692,05', number_format($this->employee->restWorked(), 2, ',', '.'));
+    }
+
     protected function prepareParams()
     {
         $days = $this->employee->setDayWorkedDays(1)
