@@ -453,6 +453,27 @@ trait CalculatePay
         return $this->normalSalaryBonusSixthDayWorked() * $days;
     }
 
+    public function dayExtraHrsDelayTransport(float $hours = 1): float
+    {
+        return ($this->contractualRest() / 8) *
+            $this->percent66 *
+            $hours;
+    }
+
+    public function mixedExtraHrsDelayTransport(float $hours = 1): float
+    {
+        return ($this->contractualRest() / $this->MIXED_JOURNAL_HOURS) *
+            $this->percent66 *
+            $hours;
+    }
+
+    public function nightExtraHrsDelayTransport(float $hours = 1): float
+    {
+        return ($this->contractualRest() / $this->NIGTH_JOURNAL_HOURS) *
+            $this->percent66 *
+            $hours;
+    }
+
     public function sixthDayWorked(): float
     {
         return $this->basicSalary() * 1;

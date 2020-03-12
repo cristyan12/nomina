@@ -355,6 +355,30 @@ class CalculatePayTest extends TestCase
         $this->assertSame('4.089,58', number_format($this->employee->bonusSixthDayWorked(), 2, ',', '.'));
     }
 
+    /** @test */
+    function puede_calcular_las_horas_extras_diurnas_por_retardo_de_transporte()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('925,73', number_format($this->employee->dayExtraHrsDelayTransport(), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_las_horas_extras_mixtas_por_retardo_de_transporte()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('1.974,90', number_format($this->employee->mixedExtraHrsDelayTransport(2), 2, ',', '.'));
+    }
+
+    /** @test */
+    function puede_calcular_las_horas_extras_nocturnas_por_retardo_de_transporte()
+    {
+        $this->prepareParams();
+
+        $this->assertSame('1.057,98', number_format($this->employee->nightExtraHrsDelayTransport(), 2, ',', '.'));
+    }
+
     protected function prepareParams()
     {
         $days = $this->employee->setDayWorkedDays(1)
