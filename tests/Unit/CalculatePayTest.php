@@ -320,7 +320,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.461,37', number_format($this->employee->legalRest(), 2, ',', '.'));
+        $this->assertSame('4.461,37', number_format($this->employee->legalRest(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -328,7 +328,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.461,37', number_format($this->employee->contractualRest(), 2, ',', '.'));
+        $this->assertSame('4.461,37', number_format($this->employee->contractualRest(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -336,7 +336,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('6.692,05', number_format($this->employee->restWorked(), 2, ',', '.'));
+        $this->assertSame('6.692,05', number_format($this->employee->restWorked(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -344,7 +344,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.461,37', number_format($this->employee->compensatoryRest(), 2, ',', '.'));
+        $this->assertSame('4.461,37', number_format($this->employee->compensatoryRest(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -352,7 +352,7 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.089,58', number_format($this->employee->bonusSixthDayWorked(), 2, ',', '.'));
+        $this->assertSame('4.089,58', number_format($this->employee->bonusSixthDayWorked(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -378,6 +378,14 @@ class CalculatePayTest extends TestCase
 
         $this->assertSame('1.057,98', number_format($this->employee->nightExtraHrsDelayTransport(), 2, ',', '.'));
     }
+
+    // /** @test */
+    // function puede_calcular_el_dia_adicional_a_SN_sexto_dia()
+    // {
+    //     $this->prepareParams();
+
+    //     $this->assertSame('6.692,05', number_format($this->employee->additionalDaySNSixthDay(), 2, ',', '.'));
+    // }
 
     protected function prepareParams()
     {

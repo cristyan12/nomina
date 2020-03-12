@@ -428,7 +428,7 @@ trait CalculatePay
         return ($this->normalSalaryForRest() / 7) * $this->percent66 * $hours;
     }
 
-    public function legalRest(int $days = 1): float
+    public function legalRest(int $days): float
     {
         return $this->normalSalaryForRest() * $days;
     }
@@ -438,17 +438,17 @@ trait CalculatePay
         return $this->normalSalaryForRest() * $days;
     }
 
-    public function restWorked(int $days = 1): float
+    public function restWorked(int $days): float
     {
         return $this->normalSalaryForRest() * 1.5 * $days;
     }
 
-    public function compensatoryRest(int $days = 1): float
+    public function compensatoryRest(int $days): float
     {
         return $this->normalSalaryForRest() * $days;
     }
 
-    public function bonusSixthDayWorked(int $days = 1): float
+    public function bonusSixthDayWorked(int $days): float
     {
         return $this->normalSalaryBonusSixthDayWorked() * $days;
     }
@@ -472,6 +472,13 @@ trait CalculatePay
         return ($this->contractualRest() / $this->NIGTH_JOURNAL_HOURS) *
             $this->percent66 *
             $hours;
+    }
+
+    public function additionalDaySNSixthDay(): float
+    {
+        if (condition) {
+            # code...
+        }
     }
 
     public function sixthDayWorked(): float
