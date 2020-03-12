@@ -7,6 +7,8 @@ trait CalculatePay
     protected $MIXED_JOURNAL_HOURS = 7.5;
     protected $NIGTH_JOURNAL_HOURS = 7;
 
+    protected $bonusSixthDayWorked;
+
     protected $daysWorked;
 
     protected $dayWorkedDays;
@@ -428,7 +430,7 @@ trait CalculatePay
         return ($this->normalSalaryForRest() / 7) * $this->percent66 * $hours;
     }
 
-    public function legalRest(int $days): float
+    public function legalRest(int $days = 1): float
     {
         return $this->normalSalaryForRest() * $days;
     }
@@ -450,7 +452,9 @@ trait CalculatePay
 
     public function bonusSixthDayWorked(int $days): float
     {
-        return $this->normalSalaryBonusSixthDayWorked() * $days;
+        $this->bonusSixthDayWorked = $this->normalSalaryBonusSixthDayWorked() * $days;
+
+        return $this->bonusSixthDayWorked;
     }
 
     public function dayExtraHrsDelayTransport(float $hours = 1): float
@@ -474,12 +478,11 @@ trait CalculatePay
             $hours;
     }
 
-    public function additionalDaySNSixthDay(): float
-    {
-        if (condition) {
-            # code...
-        }
-    }
+    // public function additionalDaySNSixthDay(): float
+    // {
+
+    //     $factor = ($this->sixthDayWorkedDay > 0) ? 1.5 : 0;
+    // }
 
     public function sixthDayWorked(): float
     {

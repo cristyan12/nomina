@@ -379,13 +379,18 @@ class CalculatePayTest extends TestCase
         $this->assertSame('1.057,98', number_format($this->employee->nightExtraHrsDelayTransport(), 2, ',', '.'));
     }
 
-    // /** @test */
-    // function puede_calcular_el_dia_adicional_a_SN_sexto_dia()
-    // {
-    //     $this->prepareParams();
+    /** @test */
+    function puede_calcular_el_dia_adicional_a_SN_sexto_dia()
+    {
+        $this->markTestIncomplete();
+        return;
 
-    //     $this->assertSame('6.692,05', number_format($this->employee->additionalDaySNSixthDay(), 2, ',', '.'));
-    // }
+        $this->prepareParams();
+
+        $this->employee->setSixthDayWorkedDay(1);
+
+        $this->assertSame('6.692,05', number_format($this->employee->additionalDaySNSixthDay(), 2, ',', '.'));
+    }
 
     protected function prepareParams()
     {
