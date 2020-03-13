@@ -60,6 +60,7 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_el_sexto_dia_trabajado_programado()
     {
+        $this->employee->setSixthDayWorked(1);
         $this->assertSame($this->employee->sixthDayWorked(), 1735.00);
     }
 
@@ -131,7 +132,8 @@ class CalculatePayTest extends TestCase
             ->setNightWorkedDays(4)
             ->hoursBonusTravelTimeNight();
 
-        $bonusTravelTimeNight = number_format($this->employee->bonusTravelTimeNight(), 2, ',', '.');
+        $bonusTravelTimeNight = number_format(
+            $this->employee->bonusTravelTimeNight(), 2, ',', '.');
 
         $this->assertEquals('782,92', $bonusTravelTimeNight);
     }
@@ -145,6 +147,7 @@ class CalculatePayTest extends TestCase
     /** @test */
     function puede_calcular_la_prima_por_el_sexto_dia_trabajado_a_SB()
     {
+        $this->employee->setSixthDayWorked(1);
         $this->assertEquals(2602.50, $this->employee->sixthDayWorkedPremium());
     }
 
@@ -155,7 +158,8 @@ class CalculatePayTest extends TestCase
             ->setMixedWorkedDays(2)
             ->hoursForNigthBonus();
 
-        $this->assertEquals('2.637,20', number_format($this->employee->nightBonusSB(), 2, ',', '.'));
+        $this->assertEquals('2.637,20', number_format(
+            $this->employee->nightBonusSB(), 2, ',', '.'));
     }
 
     /** @test */
@@ -184,7 +188,8 @@ class CalculatePayTest extends TestCase
     {
         $this->employee->setSixthDayWorkedDay(1);
 
-        $sixthDayWorkedDay = number_format($this->employee->sixthDayWorkedDay(1), 2, ',', '.');
+        $sixthDayWorkedDay = number_format(
+            $this->employee->sixthDayWorkedDay(1), 2, ',', '.');
 
         $this->assertEquals('1.735,00', $sixthDayWorkedDay);
     }
@@ -194,7 +199,8 @@ class CalculatePayTest extends TestCase
     {
         $this->employee->setSixthDayWorkedMixed(1);
 
-        $sixthDayWorkedMixed = number_format($this->employee->sixthDayWorkedMixed(1), 2, ',', '.');
+        $sixthDayWorkedMixed = number_format(
+            $this->employee->sixthDayWorkedMixed(1), 2, ',', '.');
 
         $this->assertEquals('1.735,00', $sixthDayWorkedMixed);
     }
@@ -204,7 +210,8 @@ class CalculatePayTest extends TestCase
     {
         $this->employee->setSixthDayWorkedNigth(1);
 
-        $sixthDayWorkedNigth = number_format($this->employee->sixthDayWorkedNigth(1), 2, ',', '.');
+        $sixthDayWorkedNigth = number_format(
+            $this->employee->sixthDayWorkedNigth(1), 2, ',', '.');
 
         $this->assertEquals('1.735,00', $sixthDayWorkedNigth);
     }
@@ -214,7 +221,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $salaryNormal = number_format($this->employee->normalSalaryBonusSixthDayWorked(), 2, ',', '.');
+        $salaryNormal = number_format(
+            $this->employee->normalSalaryBonusSixthDayWorked(), 2, ',', '.');
 
         $this->assertEquals('4.089,58', $salaryNormal);
     }
@@ -224,7 +232,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $salaryNormal = number_format($this->employee->normalSalaryForRest(), 2, ',', '.');
+        $salaryNormal = number_format(
+            $this->employee->normalSalaryForRest(), 2, ',', '.');
 
         $this->assertEquals('4.461,37', $salaryNormal);
     }
@@ -234,7 +243,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $salaryNormal = number_format($this->employee->normalSalaryForNigthBonus(), 2, ',', '.');
+        $salaryNormal = number_format(
+            $this->employee->normalSalaryForNigthBonus(), 2, ',', '.');
 
         $this->assertEquals('4.084,62', $salaryNormal);
     }
@@ -244,7 +254,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $salaryNormal = number_format($this->employee->normalSalaryForSundayPremium(), 2, ',', '.');
+        $salaryNormal = number_format(
+            $this->employee->normalSalaryForSundayPremium(), 2, ',', '.');
 
         $this->assertEquals('4.089,58', $salaryNormal);
     }
@@ -264,7 +275,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('917,47', number_format($this->employee->mixedWatchExtraTimeSN(1), 2, ',', '.'));
+        $this->assertEquals('917,47', number_format(
+            $this->employee->mixedWatchExtraTimeSN(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -272,7 +284,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('3.932,01', number_format($this->employee->nightWatchExtraTimeSN(4), 2, ',', '.'));
+        $this->assertEquals('3.932,01', number_format(
+            $this->employee->nightWatchExtraTimeSN(4), 2, ',', '.'));
     }
 
     /** @test */
@@ -280,7 +293,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('6.134,37', number_format($this->employee->sundayPremiumSN(), 2, ',', '.'));
+        $this->assertEquals('6.134,37', number_format(
+            $this->employee->sundayPremiumSN(), 2, ',', '.'));
     }
 
     /** @test */
@@ -288,7 +302,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('6.208,63', number_format($this->employee->nightBonus(), 2, ',', '.'));
+        $this->assertEquals('6.208,63', number_format(
+            $this->employee->nightBonus(), 2, ',', '.'));
     }
 
     /** @test */
@@ -296,7 +311,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertEquals('1.851,47', number_format($this->employee->dayExtraHours(2), 2, ',', '.'));
+        $this->assertEquals('1.851,47', number_format(
+            $this->employee->dayExtraHours(2), 2, ',', '.'));
     }
 
     /** @test */
@@ -304,7 +320,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('1.974,90', number_format($this->employee->mixedExtraHours(2), 2, ',', '.'));
+        $this->assertSame('1.974,90', number_format(
+            $this->employee->mixedExtraHours(2), 2, ',', '.'));
     }
 
     /** @test */
@@ -312,7 +329,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('2.115,96', number_format($this->employee->nigthExtraHours(2), 2, ',', '.'));
+        $this->assertSame('2.115,96', number_format(
+            $this->employee->nigthExtraHours(2), 2, ',', '.'));
     }
 
     /** @test */
@@ -320,7 +338,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.461,37', number_format($this->employee->legalRest(1), 2, ',', '.'));
+        $this->assertSame('4.461,37', number_format(
+            $this->employee->legalRest(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -328,7 +347,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.461,37', number_format($this->employee->contractualRest(1), 2, ',', '.'));
+        $this->assertSame('4.461,37', number_format(
+            $this->employee->contractualRest(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -336,7 +356,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('6.692,05', number_format($this->employee->restWorked(1), 2, ',', '.'));
+        $this->assertSame('6.692,05', number_format(
+            $this->employee->restWorked(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -344,7 +365,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.461,37', number_format($this->employee->compensatoryRest(1), 2, ',', '.'));
+        $this->assertSame('4.461,37', number_format(
+            $this->employee->compensatoryRest(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -352,7 +374,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('4.089,58', number_format($this->employee->bonusSixthDayWorked(1), 2, ',', '.'));
+        $this->assertSame('4.089,58', number_format(
+            $this->employee->bonusSixthDayWorked(1), 2, ',', '.'));
     }
 
     /** @test */
@@ -360,7 +383,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('925,73', number_format($this->employee->dayExtraHrsDelayTransport(), 2, ',', '.'));
+        $this->assertSame('925,73', number_format(
+            $this->employee->dayExtraHrsDelayTransport(), 2, ',', '.'));
     }
 
     /** @test */
@@ -368,7 +392,8 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('1.974,90', number_format($this->employee->mixedExtraHrsDelayTransport(2), 2, ',', '.'));
+        $this->assertSame('1.974,90', number_format(
+            $this->employee->mixedExtraHrsDelayTransport(2), 2, ',', '.'));
     }
 
     /** @test */
@@ -376,27 +401,26 @@ class CalculatePayTest extends TestCase
     {
         $this->prepareParams();
 
-        $this->assertSame('1.057,98', number_format($this->employee->nightExtraHrsDelayTransport(), 2, ',', '.'));
+        $this->assertSame('1.057,98', number_format(
+            $this->employee->nightExtraHrsDelayTransport(), 2, ',', '.'));
     }
 
     /** @test */
     function puede_calcular_el_dia_adicional_a_SN_sexto_dia()
     {
-        $this->markTestIncomplete();
-        return;
-
         $this->prepareParams();
 
-        $this->employee->setSixthDayWorkedDay(1);
-
-        $this->assertSame('6.692,05', number_format($this->employee->additionalDaySNSixthDay(), 2, ',', '.'));
+        $this->assertSame('6.692,05', number_format(
+            $this->employee->additionalDaySNSixthDay(), 2, ',', '.'));
     }
 
     protected function prepareParams()
     {
-        $days = $this->employee->setDayWorkedDays(1)
+        $days = $this->employee
+            ->setDayWorkedDays(1)
             ->setMixedWorkedDays(2)
-            ->setNightWorkedDays(4);
+            ->setNightWorkedDays(4)
+            ->setSixthDayWorked(1);
 
         $travelTime = $this->employee
             ->setHoursDayTravelTime52(1.50)

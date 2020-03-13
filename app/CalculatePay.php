@@ -25,11 +25,13 @@ trait CalculatePay
 
     protected $mixedWorkedDays;
 
+    protected $nightWorkedDays;
+
+    protected $sixthDayWorked;
+
     protected $sixthDayWorkedDay;
 
     protected $sixthDayWorkedMixed;
-
-    protected $nightWorkedDays;
 
     protected $sixthDayWorkedNigth;
 
@@ -116,16 +118,16 @@ trait CalculatePay
         return $this;
     }
 
-    public function setSixthDayWorkedDay(int $day = 0): self
+    public function setSixthDayWorked(int $day = 0): self
     {
-        $this->sixthDayWorkedDay = $day;
+        $this->sixthDayWorked = $day;
 
         return $this;
     }
 
-    public function setMixedWorkedDays(int $days = 0): self
+    public function setSixthDayWorkedDay(int $day = 0): self
     {
-        $this->mixedWorkedDays = $days;
+        $this->sixthDayWorkedDay = $day;
 
         return $this;
     }
@@ -137,16 +139,23 @@ trait CalculatePay
         return $this;
     }
 
-    public function setNightWorkedDays(int $days = 0): self
+    public function setSixthDayWorkedNigth(int $day = 0): self
     {
-        $this->nightWorkedDays = $days;
+        $this->sixthDayWorkedNigth = $day;
 
         return $this;
     }
 
-    public function setSixthDayWorkedNigth(int $day = 0): self
+    public function setMixedWorkedDays(int $days = 0): self
     {
-        $this->sixthDayWorkedNigth = $day;
+        $this->mixedWorkedDays = $days;
+
+        return $this;
+    }
+
+    public function setNightWorkedDays(int $days = 0): self
+    {
+        $this->nightWorkedDays = $days;
 
         return $this;
     }
@@ -478,34 +487,37 @@ trait CalculatePay
             $hours;
     }
 
-    // public function additionalDaySNSixthDay(): float
-    // {
-
-    //     $factor = ($this->sixthDayWorkedDay > 0) ? 1.5 : 0;
-    // }
+    public function additionalDaySNSixthDay(): float
+    {
+        return $this->normalSalaryForRest() * 1.5;
+    }
 
     public function sixthDayWorked(): float
     {
-        return $this->basicSalary() * 1;
+        return $this->basicSalary() * $this->sixthDayWorked;
     }
 
-    public function sixthDayWorkedDay(int $day = 0): float
+    public function sixthDayWorkedDay(): float
     {
-        return $this->basicSalary() * $day;
+        return $this->basicSalary() * $this->sixthDayWorkedDay;
     }
 
-    public function sixthDayWorkedMixed(int $day = 0): float
+    public function sixthDayWorkedMixed(): float
     {
-        return $this->basicSalary() * $day;
+        return $this->basicSalary() * $this->sixthDayWorkedMixed;
     }
 
-    public function sixthDayWorkedNigth(int $day = 0): float
+    public function sixthDayWorkedNigth(): float
     {
-        return $this->basicSalary() * $day;
+        return $this->basicSalary() * $this->sixthDayWorkedNigth;
     }
 
     public function sixthDayWorkedPremium(): float
     {
+        if (! $this->sixthDayWorked > 0) {
+            return 0;
+        }
+
         return $this->basicSalary() * 1.5;
     }
 
