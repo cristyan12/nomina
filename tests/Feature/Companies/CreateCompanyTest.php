@@ -14,7 +14,7 @@ class CreateCompanyTest extends TestCase
 
     protected $attributes = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

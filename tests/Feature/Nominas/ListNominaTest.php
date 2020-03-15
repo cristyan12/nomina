@@ -11,7 +11,7 @@ class ListNominaTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -20,8 +20,8 @@ class ListNominaTest extends TestCase
         $this->withoutExceptionHandling();
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox Se puede cargar la página de listados de nomina
     */
     function it_load_the_page_of_list_nomina()
@@ -33,8 +33,8 @@ class ListNominaTest extends TestCase
             ->assertSee('Nóminas');
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox Se puede cargar la página de detalle de nómina
     */
     function a_user_can_show_a_details_of_nomina()

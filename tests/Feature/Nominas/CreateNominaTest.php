@@ -12,7 +12,7 @@ class CreateNominaTest extends TestCase
 {
 	use DatabaseTransactions;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -21,8 +21,8 @@ class CreateNominaTest extends TestCase
         // $this->withoutExceptionHandling();
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox Un usuario puede cargar la página de creación de una nomina
     */
     function a_user_can_load_the_page_of_create_nomina()
@@ -33,8 +33,8 @@ class CreateNominaTest extends TestCase
     		->assertSee('Crear nómina');
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox Un usuario puede crear una nomina
     */
     function a_user_can_create_a_nomina()
@@ -60,8 +60,8 @@ class CreateNominaTest extends TestCase
     	]);
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "nombre" es obligatorio
     */
     function field_name_must_require()
@@ -77,8 +77,8 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "nombre" debe ser único en la tabla de nominas
     */
     function field_name_must_be_unique()
@@ -98,8 +98,8 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(1, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "tipo" es obligatorio
     */
     function field_type_must_require()
@@ -115,8 +115,8 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "períodos" puede ser opcional o null
     */
     function field_periods_can_be_optional()
@@ -132,8 +132,8 @@ class CreateNominaTest extends TestCase
         $this->assertNull($nomina->periods);
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "fecha del primer período" debe ser una fecha válida
     */
     function field_first_period_at_must_be_a_valid_date()
@@ -150,8 +150,8 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "fecha del primer período" puede ser opcional o null
     */
     function field_first_period_at_can_be_optional()
@@ -167,8 +167,8 @@ class CreateNominaTest extends TestCase
         $this->assertNull($nomina->first_period_at);
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "fecha del último período" debe ser una fecha válida
     */
     function field_last_period_at_must_be_a_valid_date()
@@ -185,8 +185,8 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "fecha del último período" debe ser una fecha diferente a la fecha del primer período
     */
     function field_last_period_at_must_be_diferent_date_of_first_period()
@@ -204,8 +204,8 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "fecha del último período" debe ser una fecha posterior a la fecha del primer período
     */
     function field_last_period_at_must_be_after_date_of_first_period()
@@ -223,8 +223,8 @@ class CreateNominaTest extends TestCase
         $this->assertEquals(0, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "fecha del último período" puede ser opcional o null
     */
     function field_last_period_at_can_be_optional()

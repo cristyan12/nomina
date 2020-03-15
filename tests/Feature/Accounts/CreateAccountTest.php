@@ -14,7 +14,7 @@ class CreateAccountTest extends TestCase
 
     protected $user;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -23,7 +23,7 @@ class CreateAccountTest extends TestCase
         $this->actingAs($this->user);
     }
 
-    /** 
+    /**
      * @testdox Un usuario puede cargar el formulario de creación de cuentas bancarias
      * @test
     */
@@ -33,7 +33,7 @@ class CreateAccountTest extends TestCase
 
         $bank = $this->create('App\Bank');
         $company = $this->create('App\Company');
-        
+
         $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
         $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
 
@@ -41,7 +41,7 @@ class CreateAccountTest extends TestCase
 
         $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
         $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
-        
+
         $emp1 = $this->create('App\Employee');
         $emp2 = $this->create('App\Employee');
 
@@ -54,7 +54,7 @@ class CreateAccountTest extends TestCase
             ->assertViewHasAll(['banks', 'company', 'auth1', 'auth2']);
     }
 
-    /** 
+    /**
      * @testdox Un usuario puede crear una nueva cuentas bancaria de la empresa
      * @test
     */
@@ -62,7 +62,7 @@ class CreateAccountTest extends TestCase
     {
         $bank = $this->create('App\Bank');
         $company = $this->create('App\Company');
-           
+
         $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
         $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
 
@@ -70,7 +70,7 @@ class CreateAccountTest extends TestCase
 
         $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
         $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
-        
+
         $emp1 = $this->create('App\Employee');
         $emp2 = $this->create('App\Employee');
 
@@ -97,7 +97,7 @@ class CreateAccountTest extends TestCase
         ]);
     }
 
-    /** 
+    /**
      * @testdox El Banco es requerido
      * @test
     */
@@ -110,14 +110,14 @@ class CreateAccountTest extends TestCase
             'number' => '12345678912345678912',
             'type' => 'Corriente',
             'auth_1' => 1,
-            'auth_2' => 2,  
+            'auth_2' => 2,
         ])
         ->assertSessionHasErrors(['bank_id']);
 
         $this->assertEquals(0, Account::count());
     }
 
-    /** 
+    /**
      * @testdox El número de cuenta es requerido
      * @test
     */
@@ -130,14 +130,14 @@ class CreateAccountTest extends TestCase
             'number' => '',
             'type' => 'Corriente',
             'auth_1' => 1,
-            'auth_2' => 2,  
+            'auth_2' => 2,
         ])
         ->assertSessionHasErrors(['number']);
 
         $this->assertEquals(0, Account::count());
     }
 
-    /** 
+    /**
      * @testdox El número de cuenta debe ser único
      * @test
     */
@@ -153,14 +153,14 @@ class CreateAccountTest extends TestCase
             'number' => $account->number,
             'type' => 'Corriente',
             'auth_1' => 1,
-            'auth_2' => 2,  
+            'auth_2' => 2,
         ])
         ->assertSessionHasErrors(['number']);
 
         $this->assertEquals(1, Account::count());
     }
 
-    /** 
+    /**
      * @testdox El número de cuenta debe ser de 20 caracteres
      * @test
     */
@@ -173,14 +173,14 @@ class CreateAccountTest extends TestCase
             'number' => '123',
             'type' => 'Corriente',
             'auth_1' => 1,
-            'auth_2' => 2,  
+            'auth_2' => 2,
         ])
         ->assertSessionHasErrors(['number']);
 
         $this->assertEquals(0, Account::count());
     }
 
-    /** 
+    /**
      * @testdox El número de cuenta debe ser de 20 caracteres maximo
      * @test
     */
@@ -193,14 +193,14 @@ class CreateAccountTest extends TestCase
             'number' => '123453321265+89+123123463431374854216342135',
             'type' => 'Corriente',
             'auth_1' => 1,
-            'auth_2' => 2,  
+            'auth_2' => 2,
         ])
         ->assertSessionHasErrors(['number']);
 
         $this->assertEquals(0, Account::count());
     }
 
-    /** 
+    /**
      * @testdox La firma autorizada Nº 1 es requerida
      * @test
     */
@@ -213,7 +213,7 @@ class CreateAccountTest extends TestCase
             'number' => '12345679823233232655',
             'type' => 'Corriente',
             'auth_1' => '',
-            'auth_2' => 2,  
+            'auth_2' => 2,
         ])
         ->assertSessionHasErrors(['auth_1']);
 

@@ -14,7 +14,7 @@ class UpdateAccountTest extends TestCase
 
     protected $user;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

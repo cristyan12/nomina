@@ -14,10 +14,10 @@ class UpdateCompanyTest extends TestCase
 
     protected $attributes = [];
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
-        
+
         $this->be($this->someUser());
 
         $this->attributes = [
@@ -33,8 +33,8 @@ class UpdateCompanyTest extends TestCase
         // $this->handleValidationExceptions();
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox Un usuario puede cargar la página de editar una compañia
     */
     function a_user_can_load_the_page_of_edit_a_company()
@@ -47,8 +47,8 @@ class UpdateCompanyTest extends TestCase
             ->assertSee('Editar Empresa #' . $company->id);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox Un usuario puede actualizar una compañia
     */
     function a_user_can_update_a_company()
@@ -61,8 +61,8 @@ class UpdateCompanyTest extends TestCase
         $this->assertDatabaseHas('companies', $this->attributes);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Nombre" es obligatorio cuando se actualiza
     */
     function the_field_name_is_required_when_updated()
@@ -80,8 +80,8 @@ class UpdateCompanyTest extends TestCase
         ]);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Nombre" debe ser único cuando se actualiza
     */
     function the_field_name_must_be_unique_when_updated()
@@ -98,8 +98,8 @@ class UpdateCompanyTest extends TestCase
         $this->assertNotSame('Acmem Ltd', $company->name);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "RIF" es obligatorio cuando se actualiza
     */
     function the_field_rif_is_required_when_updating()
@@ -116,8 +116,8 @@ class UpdateCompanyTest extends TestCase
         $this->assertNotSame('J-20009148-7', $company->rif);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Dirección" es opcional cuando se actualiza
     */
     function the_field_address_is_optional_when_updating()
@@ -133,8 +133,8 @@ class UpdateCompanyTest extends TestCase
         $this->assertNull($company->address);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Teléfono" es opcional cuando se actualiza
     */
     function the_field_phone_number_is_optional_when_updating()
@@ -150,8 +150,8 @@ class UpdateCompanyTest extends TestCase
         $this->assertNull($company->phone_number);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Correo" es opcional cuando se actualiza
     */
     function the_field_email_is_optional_when_updating()
@@ -166,8 +166,8 @@ class UpdateCompanyTest extends TestCase
         $this->assertNull($company->email);
     }
 
-    /** 
-     * @test 
+    /**
+     * @test
      * @testdox El campo "Correo" es opcional cuando se actualiza
     */
     function the_field_city_is_optional_when_updating()

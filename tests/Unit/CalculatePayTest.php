@@ -1,14 +1,15 @@
 <?php
 
-namespace Tests\Unit\SistemasTrabajo;
+namespace Tests\Unit;
 
 use App\{EmployeeProfile, Position};
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 use Tests\TestCase;
+use Tests\TestHelpers;
 
 class CalculatePayTest extends TestCase
 {
-    use RefreshDatabase;
+    use RefreshDatabase, TestHelpers;
 
     protected $position;
     protected $employee;

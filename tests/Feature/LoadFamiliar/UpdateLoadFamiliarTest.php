@@ -15,7 +15,7 @@ class UpdateLoadFamiliarTest extends TestCase
 
     protected $attributes;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 

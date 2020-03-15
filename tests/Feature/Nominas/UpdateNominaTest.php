@@ -12,7 +12,7 @@ class UpdateNominaTest extends TestCase
 {
     use DatabaseTransactions;
 
-    public function setUp()
+    public function setUp(): void
     {
         parent::setUp();
 
@@ -21,8 +21,8 @@ class UpdateNominaTest extends TestCase
         // $this->withoutExceptionHandling();
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox Un usuario puede cargar la página de edición de nominas
     */
     function a_user_can_loads_the_edit_page()
@@ -38,8 +38,8 @@ class UpdateNominaTest extends TestCase
             });
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox Un usuario puede actualizar un registro de nomina
     */
     function a_user_can_update_a_nomina()
@@ -69,8 +69,8 @@ class UpdateNominaTest extends TestCase
         ]);
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "nombre" es obligatorio cuando se actualiza
     */
     function field_name_must_require_when_updating()
@@ -88,8 +88,8 @@ class UpdateNominaTest extends TestCase
         $this->assertEquals(1, Nomina::count());
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "nombre" debe ser único en la tabla de nominas cuando se actualiza
     */
     function field_name_must_be_unique_when_updating()
@@ -114,8 +114,8 @@ class UpdateNominaTest extends TestCase
         $this->assertSame('OTRO NOMBRE', $nomina->name);
     }
 
-    /** 
-     *  @test 
+    /**
+     *  @test
      *  @testdox El campo "tipo" es obligatorio cuando se actualiza
     */
     function field_type_must_require_when_updating()
