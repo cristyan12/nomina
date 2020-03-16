@@ -10,6 +10,9 @@ class CalculatePayTest extends TestCase
 {
     use RefreshDatabase, TestHelpers;
 
+    protected $position;
+    protected $employee;
+
     public function setUp(): void
     {
         parent::setUp();

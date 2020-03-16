@@ -531,13 +531,13 @@ trait CalculatePay
         return $this->normalSalaryForSundayPremium() * 1.5;
     }
 
-    protected function basicSalary(): float
-    {
-        return $this->position->basic_salary;
-    }
-
     protected function salaryHour(float $journal = 8): float
     {
         return $this->basicSalary() / $journal;
+    }
+
+    protected function basicSalary(): float
+    {
+        return $this->position->basic_salary;
     }
 }

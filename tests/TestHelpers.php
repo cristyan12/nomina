@@ -5,8 +5,6 @@ namespace Tests;
 trait TestHelpers
 {
     protected $someUser;
-    protected $position;
-    protected $employee;
 
     protected function create($class, $attributes = [])
     {
