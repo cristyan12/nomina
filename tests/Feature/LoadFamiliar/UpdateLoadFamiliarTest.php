@@ -9,7 +9,7 @@ use Tests\TestCase;
 
 class UpdateLoadFamiliarTest extends TestCase
 {
-    use DatabaseTransactions, WithFaker;
+    use RefreshDatabase, WithFaker;
 
     protected $user;
 

@@ -59,33 +59,27 @@ class CreateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_create_a_employee()
     {
-        $response = $this->actingAs($user = $this->someUser())
+        $user = $this->someUser();
+
+        $response = $this->actingAs($user)
             ->post(route('employees.store'), $this->attributes)
             ->assertRedirect(route('employees.index'));
 
-        $this->assertDatabaseHas('employees', [
-            'code' => '14996210',
-            'last_name' => 'Valera Rodriguez',
-            'first_name' => 'Cristyan Josuan',
-            'born_at' => '1981-12-21',
-            'hired_at' => '2012-08-30',
-            'user_id' => $user->id,
-        ]);
+        $emp = Employee::first();
 
-        $empleado = \App\Employee::first();
+        $this->assertSame('14996210', $emp->code);
+        $this->assertSame('Valera Rodriguez', $emp->last_name);
+        $this->assertSame('Cristyan Josuan', $emp->first_name);
+        $this->assertEquals($user->id, $emp->user_id);
 
-        $this->assertDatabaseHas('employee_profiles', [
-            'employee_id' => $empleado->id,
-            'profession_id' => $this->attributes['profession_id'],
-            'status' => 'Activo',
-            'bank_id' => $this->attributes['bank_id'],
-            'account_number' => '01750107160071661898',
-            'contract' => 'I',
-            'branch_id' => $this->attributes['branch_id'],
-            'department_id' => $this->attributes['department_id'],
-            'unit_id' => $this->attributes['unit_id'],
-            'position_id' => $this->attributes['position_id'],
-        ]);
+        $profile = EmployeeProfile::first();
+        $this->assertEquals($emp->id, $profile->employee_id);
+        $this->assertEquals($this->attributes['profession_id'], $profile->profession_id);
+        $this->assertEquals($this->attributes['bank_id'], $profile->bank_id);
+        $this->assertEquals($this->attributes['branch_id'], $profile->branch_id);
+        $this->assertEquals($this->attributes['department_id'], $profile->department_id);
+        $this->assertEquals($this->attributes['unit_id'], $profile->unit_id);
+        $this->assertEquals($this->attributes['position_id'], $profile->position_id);
     }
 
     /** @test */

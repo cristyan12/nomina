@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class UpdateEmployeeTest extends TestCase
 {
-	use DatabaseTransactions;
+	use RefreshDatabase;
 
     protected $attributes;
 
@@ -69,8 +69,6 @@ class UpdateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_update_a_employee()
     {
-        $this->withoutExceptionHandling();
-
         $firstUser = factory('App\User')->create();
 
         $secondUser = $this->someUser();
@@ -83,14 +81,11 @@ class UpdateEmployeeTest extends TestCase
             ->put(route('employees.update', $employee), $this->attributes)
             ->assertRedirect(route('employees.index'));
 
-        $this->assertDatabaseHas('employees', [
-            'code' => '14996210',
-            'last_name' => 'Valera Rodriguez',
-            'first_name' => 'Cristyan Josuan',
-            'born_at' => '1981-12-21',
-            'hired_at' => '2012-08-30',
-            'user_id' => $secondUser->id,
-        ]);
+        $emp = Employee::first();
+        $this->assertSame('14996210', $emp->code);
+        $this->assertSame('Valera Rodriguez', $emp->last_name);
+        $this->assertSame('Cristyan Josuan', $emp->first_name);
+        $this->assertEquals($secondUser->id, $emp->user_id);
 
         $employee = Employee::first();
 

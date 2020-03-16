@@ -5,6 +5,8 @@ namespace Tests;
 trait TestHelpers
 {
     protected $someUser;
+    protected $position;
+    protected $employee;
 
     protected function create($class, $attributes = [])
     {
@@ -33,5 +35,25 @@ trait TestHelpers
     protected function defaultAttributes()
     {
         return $this->attributes;
+    }
+
+    protected function prepareParams()
+    {
+        $days = $this->employee
+            ->setDayWorkedDays(1)
+            ->setMixedWorkedDays(2)
+            ->setNightWorkedDays(4)
+            ->setSixthDayWorked(1);
+
+        $travelTime = $this->employee
+            ->setHoursDayTravelTime52(1.50)
+            ->setHoursDayTravelTime77(1.50)
+            ->setHoursMixedTravelTime52(3)
+            ->setHoursMixedTravelTime77(3)
+            ->setHoursNigthTravelTime52(6)
+            ->setHoursNigthTravelTime77(6);
+
+        $nightBonusSB = $this->employee->hoursBonusTravelTimeNight()
+            ->hoursForNigthBonus();
     }
 }

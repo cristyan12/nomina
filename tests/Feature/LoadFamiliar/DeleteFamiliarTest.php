@@ -4,11 +4,11 @@ namespace Tests\Feature\LoadFamiliar;
 
 use Tests\TestCase;
 use App\{Employee, LoadFamiliar};
-use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class DeleteFamiliarTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     function a_user_can_delete_a_load_familiar()

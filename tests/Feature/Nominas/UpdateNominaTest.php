@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class UpdateNominaTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function setUp(): void
     {
@@ -59,14 +59,13 @@ class UpdateNominaTest extends TestCase
             ])
         ->assertRedirect(route('nomina.index'));
 
-        $this->assertDatabaseHas('nominas', [
-            'name' => 'Quincenal',
-            'type' => 'Quincenal',
-            'periods' => '24',
-            'first_period_at' => '2020-01-01',
-            'last_period_at' => '2021-01-01',
-            'user_id' => $user->id,
-        ]);
+        $nomina = Nomina::first();
+        $this->assertSame('Quincenal', $nomina->name);
+        $this->assertSame('Quincenal', $nomina->type);
+        $this->assertSame('24', $nomina->periods);
+        $this->assertSame('2020-01-01', $nomina->first_period_at->toDateString());
+        $this->assertSame('2021-01-01', $nomina->last_period_at->toDateString());
+        $this->assertEquals($user->id, $nomina->user_id);
     }
 
     /**

@@ -10,7 +10,7 @@ use Illuminate\Foundation\Testing\{
 
 class PositionTest extends TestCase
 {
-    use DatabaseTransactions;
+    use RefreshDatabase;
 
     /** @test */
     function a_user_can_load_the_creation_of_position_page()
@@ -229,8 +229,8 @@ class PositionTest extends TestCase
         $position = Position::first();
         $this->assertSame('OPE01', $position->code);
         $this->assertSame('PERFORADOR', $position->name);
-        $this->assertSame(123456.56, $position->basic_salary);
-        $this->assertSame($user->id, $position->user_id);
+        $this->assertSame('123456.56', $position->basic_salary);
+        $this->assertEquals($user->id, $position->user_id);
     }
 
     /** @test */
