@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class CalculatePayTest extends TestCase
 {
-    use RefreshDatabase, TestHelpers;
+    use RefreshDatabase;
 
     protected $position;
     protected $employee;

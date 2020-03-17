@@ -25,9 +25,7 @@
                 <td>{{ $nomina->type }}</td>
                 <td>{{ $nomina->updated_at->diffForHumans() }} </td>
                 <td width="10px">
-                    {{-- @can('nominas.select') --}}
-                        <a href="{{ route('nomina.select', $nomina) }}" class="btn btn-sm btn-outline-info">Seleccionar</a>
-                    {{-- @endcan --}}
+                    <a href="{{ route('nomina.select', $nomina) }}" class="btn btn-sm btn-outline-info">Seleccionar</a>
                 </td>
             </tr>
             @endforeach
@@ -35,6 +33,6 @@
         </table>
     </div>
     @else
-        <p>No hay nóminas registrados.</p>
+        <p>No hay nóminas registradas.</p>
     @endif
 @endsection

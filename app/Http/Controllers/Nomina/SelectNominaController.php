@@ -9,8 +9,6 @@ class SelectNominaController extends Controller
 {
     public function __invoke()
     {
-        return view('nomina.select', [
-            'nominas' => Nomina::paginate(),
-        ]);
+        return view('nomina.select', ['nominas' => Nomina::paginate()]);
     }
 }

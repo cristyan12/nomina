@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TravelTimeTest extends TestCase
 {
-    use RefreshDatabase, TestHelpers;
+    use RefreshDatabase;
 
     public function setUp(): void
     {

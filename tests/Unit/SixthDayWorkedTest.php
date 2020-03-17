@@ -8,7 +8,7 @@ use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class SixthDayWorkedTest extends TestCase
 {
-    use RefreshDatabase, TestHelpers;
+    use RefreshDatabase;
 
     public function setUp(): void
     {
