@@ -1,5 +1,8 @@
 <?php
 
+Route::get('pay', 'PayOrderController');
+Route::get('pay/credit', 'PayOrderController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
@@ -50,9 +53,13 @@ Route::middleware(['auth'])->group(function() {
                 ->name('nomina.index');
                 // ->middleware('permission:nomina.index');
 
-        Route::get('nominas/select', 'SelectNominaController')
+        Route::get('nominas/select', 'SelectNominaController@index')
             ->name('nomina.select');
             // ->middleware('permission:nomina.index');
+
+        Route::get('nomina/selected/{nomina}', 'SelectNominaController@show')
+            ->name('nomina.selected');
+
 
         Route::get('nominas/create', 'CreateNominaController@create')
             ->name('nomina.create');
