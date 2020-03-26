@@ -1,5 +1,8 @@
 <?php
 
+Route::get('channels', 'ChannelController');
+Route::get('posts/create', 'PostController');
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
