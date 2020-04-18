@@ -173,8 +173,12 @@ class CreateLoadFamiliarTest extends TestCase
     */
     function the_familiar_born_at_field_must_be_valid_date()
     {
-        $response = $this->post(route('familiars.store'), $this->withData(['born_at' => 'HOLA_ESTA_ES_UNA_FECHA_ERRADA']))
-            ->assertSessionHasErrors(['born_at' => 'La Fecha de nacimiento del familiar debe ser una fecha válida']);
+        $response = $this->post(route('familiars.store'), $this->withData([
+            'born_at' => 'HOLA_ESTA_ES_UNA_FECHA_ERRADA'
+        ]))
+        ->assertSessionHasErrors([
+            'born_at' => 'La Fecha de nacimiento del familiar debe ser una fecha válida'
+        ]);
 
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }
@@ -185,9 +189,10 @@ class CreateLoadFamiliarTest extends TestCase
     */
     function the_familiar_instruction_field_is_required()
     {
-        $response = $this->post(route('familiars.store'),
-            $this->withData(['instruction' => '']))
-            ->assertSessionHasErrors(['instruction' => 'El Grado de Istrucción del familiar es obligatorio']);
+        $response = $this->post(route('familiars.store'), $this->withData([
+            'instruction' => ''
+        ]))
+        ->assertSessionHasErrors(['instruction' => 'El Grado de Istrucción del familiar es obligatorio']);
 
         $this->assertDatabaseMissing('load_familiars', $this->attributes);
     }

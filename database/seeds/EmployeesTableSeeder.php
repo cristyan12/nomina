@@ -1,7 +1,18 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\{Bank, Branch, Department, Employee, EmployeeProfile, Position, Profession, Unit, User};
+use App\{
+    Bank,
+    Branch,
+    Department,
+    Employee,
+    EmployeeProfile,
+    Nomina,
+    Position,
+    Profession,
+    Unit,
+    User
+};
 
 class EmployeesTableSeeder extends Seeder
 {
@@ -36,6 +47,7 @@ class EmployeesTableSeeder extends Seeder
             'department_id' => Department::first()->id,
             'unit_id' => Unit::first()->id,
             'position_id' => Position::where('name', 'Presidente')->value('id'),
+            'nomina_id' => Nomina::where('id', 5)->first()->id,
         ]);
 
         $president->profile()->save($profile);
@@ -63,6 +75,7 @@ class EmployeesTableSeeder extends Seeder
             'department_id' => Department::first()->id,
             'unit_id' => Unit::first()->id,
             'position_id' => Position::where('name', 'Vice Presidente')->value('id'),
+            'nomina_id' => Nomina::where('id', 5)->first()->id,
         ]);
 
         $vicePresident->profile()->save($profileVicePresident);

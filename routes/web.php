@@ -1,8 +1,5 @@
 <?php
 
-Route::get('pay', 'PayOrderController');
-Route::get('pay/credit', 'PayOrderController');
-
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');

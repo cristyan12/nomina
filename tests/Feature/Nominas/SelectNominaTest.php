@@ -2,9 +2,9 @@
 
 namespace Tests\Feature\Nominas;
 
+use Tests\TestCase;
 use App\{EmployeeProfile, Nomina, Unit};
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Tests\TestCase;
 
 class SelectNominaTest extends TestCase
 {
@@ -22,28 +22,26 @@ class SelectNominaTest extends TestCase
     /** @test */
     function un_usuario_puede_seleccionar_la_nomina()
     {
-        $nomina = $this->create(Nomina::class);
         $unit = $this->create(Unit::class);
-        $employees = factory(EmployeeProfile::class, 5)->create([
+        $nomina = $this->create(Nomina::class, ['name' => 'Nómina Semanal']);
+        factory(EmployeeProfile::class, 5)->create([
             'unit_id' => $unit->id,
             'nomina_id' => $nomina->id,
         ]);
 
-        $this->assertEquals(5, EmployeeProfile::count());
-
         $response = $this->get(route('nomina.selected', $nomina))
             ->assertSuccessful()
             ->assertViewIs('nomina.selected')
-            ->assertViewHas('unit')
             ->assertViewHas('nomina', function($view) use ($nomina) {
                 return $view->id === $nomina->id;
-            })
-            ->assertSee($nomina->name)
-            ->assertSee('Lista de trabajadores de '.$unit->name);
+            });
 
-            foreach ($employees as $emp) {
-                $response->assertSee($emp->full_name)
-                    ->assertSee($emp->document);
-            }
+        // HasMany
+        $employees = Nomina::first()->employeeProfiles;
+
+        foreach ($employees as $employee) {
+            $response->assertSee(e($employee->code))
+                ->assertSee(e($employee->full_name));
+        }
     }
 }

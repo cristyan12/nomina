@@ -25,7 +25,11 @@
                 <td>{{ $nomina->type }}</td>
                 <td>{{ $nomina->updated_at->diffForHumans() }} </td>
                 <td width="10px">
-                    <a href="{{ route('nomina.selected', $nomina) }}" class="btn btn-sm btn-outline-info">Seleccionar</a>
+                    <a href="{{ route('nomina.selected', $nomina) }}"
+                        class="btn btn-sm btn-outline-info"
+                    >
+                        Seleccionar
+                    </a>
                 </td>
             </tr>
             @endforeach

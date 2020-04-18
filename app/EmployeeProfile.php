@@ -31,6 +31,11 @@ class EmployeeProfile extends Model
         return $this->belongsTo(Department::class);
     }
 
+    public function nomina()
+    {
+        return $this->belongsTo(Nomina::class);
+    }
+
     public function position()
     {
     	return $this->belongsTo(Position::class);

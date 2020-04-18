@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Nomina extends Model
 {
@@ -18,14 +19,14 @@ class Nomina extends Model
         'last_period_at' => 'date',
     ];
 
-    public function employees()
-    {
-        return $this->hasMany(EmployeeProfile::class);
-    }
-
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function profiles(): HasMany
+    {
+        return $this->hasMany(EmployeeProfile::class);
     }
 
     public function getNumbersPeriodsAttribute()

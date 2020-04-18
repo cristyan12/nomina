@@ -32,6 +32,7 @@ class CreateEmployeeProfilesTable extends Migration
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('unit_id');
             $table->unsignedInteger('position_id');
+            $table->unsignedInteger('nomina_id');
 
             // Foreigns
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
@@ -41,6 +42,7 @@ class CreateEmployeeProfilesTable extends Migration
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('position_id')->references('id')->on('positions');
+            $table->foreign('nomina_id')->references('id')->on('nominas');
 
             $table->timestamps();
         });

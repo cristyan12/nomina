@@ -2,11 +2,9 @@
 
 namespace App\Http\Controllers\Nomina;
 
-use App\Http\Controllers\Controller;
-use App\Nomina;
-use App\Unit;
+use App\{Nomina, Unit};
 
-class SelectNominaController extends Controller
+class SelectNominaController
 {
     public function index()
     {
@@ -17,7 +15,6 @@ class SelectNominaController extends Controller
     {
         return view('nomina.selected', [
             'nomina' => $nomina,
-            'units' => Unit::get(),
         ]);
     }
 }

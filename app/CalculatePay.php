@@ -248,9 +248,9 @@ trait CalculatePay
     public function hoursBonusTravelTimeNight(): self
     {
         $this->hoursBonusNigthTravelTime =
-            (($this->dayWorkedDays + $this->sixthDayWorkedDay) * 0.5) +
-            (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * 1.5) +
-            (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
+            (($this->dayWorkedDays + $this->sixthDayWorkedDay) * 0.5)
+            + (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * 1.5)
+            + (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
 
         return $this;
     }
@@ -269,44 +269,44 @@ trait CalculatePay
 
     public function dayTravelTime52(): float
     {
-        return $this->salaryHour() *
-            $this->factorTravelTime52 *
-            $this->hoursDayTravelTime52;
+        return $this->salaryHour()
+            * $this->factorTravelTime52
+            * $this->hoursDayTravelTime52;
     }
 
     public function mixedTravelTime52(): float
     {
-        return $this->salaryHour($this->MIXED_JOURNAL_HOURS) *
-            $this->factorTravelTime52 *
-            $this->hoursMixedTravelTime52;
+        return $this->salaryHour($this->MIXED_JOURNAL_HOURS)
+            * $this->factorTravelTime52
+            * $this->hoursMixedTravelTime52;
     }
 
     public function nigthTravelTime52(): float
     {
-        return $this->salaryHour(7) *
-            $this->factorTravelTime52 *
-            $this->hoursNigthTravelTime52;
+        return $this->salaryHour(7)
+            * $this->factorTravelTime52
+            * $this->hoursNigthTravelTime52;
     }
 
     public function dayTravelTime77(): float
     {
-        return $this->salaryHour() *
-            $this->factorTravelTime77 *
-            $this->hoursDayTravelTime77;
+        return $this->salaryHour()
+            * $this->factorTravelTime77
+            * $this->hoursDayTravelTime77;
     }
 
     public function mixedTravelTime77(): float
     {
-        return $this->salaryHour($this->MIXED_JOURNAL_HOURS) *
-            $this->factorTravelTime77 *
-            $this->hoursMixedTravelTime77;
+        return $this->salaryHour($this->MIXED_JOURNAL_HOURS)
+            * $this->factorTravelTime77
+            * $this->hoursMixedTravelTime77;
     }
 
     public function nigthTravelTime77(): float
     {
-        return $this->salaryHour(7) *
-            $this->factorTravelTime77 *
-            $this->hoursNigthTravelTime77;
+        return $this->salaryHour(7)
+            * $this->factorTravelTime77
+            * $this->hoursNigthTravelTime77;
     }
 
     public function dayWorkedDays(): float
@@ -364,64 +364,60 @@ trait CalculatePay
     public function hoursForNigthBonus(): float
     {
         $this->hoursForNigthBonus =
-            (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * 4) +
-            (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 6);
+            (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * 4)
+            + (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 6);
 
         return $this->hoursForNigthBonus;
     }
 
     public function nightBonus(): float
     {
-        return $this->normalSalaryForNigthBonus() / 8 *
-            $this->percent38 *
-            $this->hoursForNigthBonus;
+        return $this->normalSalaryForNigthBonus() / 8
+            * $this->percent38
+            * $this->hoursForNigthBonus;
     }
 
     public function nightBonusSB(): float
     {
-        return ($this->salaryHour() * $this->percent38) * (
-            $this->hoursForNigthBonus +
-            $this->nightBonusDayOvertime +
-            $this->nightBonusMixedOvertime
+        return ($this->salaryHour() * $this->percent38)
+            * ($this->hoursForNigthBonus
+                + $this->nightBonusDayOvertime
+                + $this->nightBonusMixedOvertime
         );
     }
 
     public function mixedWatchExtraTime(): float
     {
-        $mixedWatchExtraTime = 0.5 * (
-            $this->mixedWorkedDays +
-            $this->sixthDayWorkedMixed
-        );
+        $mixedWatchExtraTime = 0.5 * ($this->mixedWorkedDays + $this->sixthDayWorkedMixed);
 
-        return $this->salaryHour($this->MIXED_JOURNAL_HOURS) *
-            $mixedWatchExtraTime *
-            $this->factorWathExtraTimeSB;
+        return $this->salaryHour($this->MIXED_JOURNAL_HOURS)
+            * $mixedWatchExtraTime
+            * $this->factorWathExtraTimeSB;
     }
 
     public function mixedWatchExtraTimeSN(float $hours): float
     {
-        return $this->normalSalary() / $this->MIXED_JOURNAL_HOURS *
-            $this->percent66 *
-            $hours;
+        return $this->normalSalary()
+            / $this->MIXED_JOURNAL_HOURS
+            * $this->percent66
+            * $hours;
     }
 
     public function nightWatchExtraTimeSN(float $hours): float
     {
-        return $this->normalSalary() / $this->NIGTH_JOURNAL_HOURS *
-            $this->percent66 *
-            $hours;
+        return $this->normalSalary()
+            / $this->NIGTH_JOURNAL_HOURS
+            * $this->percent66
+            * $hours;
     }
 
     public function nigthWatchExtraTime(float $factor = 1): float
     {
-        $nigthWatchExtraTime = $factor * (
-            $this->nightWorkedDays +
-            $this->sixthDayWorkedNigth
-        );
+        $nigthWatchExtraTime = $factor * ($this->nightWorkedDays + $this->sixthDayWorkedNigth);
 
-        return $this->salaryHour(7) *
-            $this->factorWathExtraTimeSB *
-            $nigthWatchExtraTime;
+        return $this->salaryHour(7)
+            * $this->factorWathExtraTimeSB
+            * $nigthWatchExtraTime;
     }
 
     public function dayExtraHours(float $hours): float
@@ -461,30 +457,30 @@ trait CalculatePay
 
     public function bonusSixthDayWorked(int $days): float
     {
-        $this->bonusSixthDayWorked = $this->normalSalaryBonusSixthDayWorked() * $days;
-
-        return $this->bonusSixthDayWorked;
+        return $this->bonusSixthDayWorked = $this->normalSalaryBonusSixthDayWorked() * $days;
     }
 
     public function dayExtraHrsDelayTransport(float $hours = 1): float
     {
-        return ($this->contractualRest() / 8) *
-            $this->percent66 *
-            $hours;
+        return ($this->contractualRest() / 8)
+            * $this->percent66
+            * $hours;
     }
 
     public function mixedExtraHrsDelayTransport(float $hours = 1): float
     {
-        return ($this->contractualRest() / $this->MIXED_JOURNAL_HOURS) *
-            $this->percent66 *
-            $hours;
+        return ($this->contractualRest()
+            / $this->MIXED_JOURNAL_HOURS)
+            * $this->percent66
+            * $hours;
     }
 
     public function nightExtraHrsDelayTransport(float $hours = 1): float
     {
-        return ($this->contractualRest() / $this->NIGTH_JOURNAL_HOURS) *
-            $this->percent66 *
-            $hours;
+        return ($this->contractualRest()
+            / $this->NIGTH_JOURNAL_HOURS)
+            * $this->percent66
+            * $hours;
     }
 
     public function additionalDaySNSixthDay(): float

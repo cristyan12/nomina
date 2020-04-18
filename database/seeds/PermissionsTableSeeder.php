@@ -43,6 +43,31 @@ class PermissionsTableSeeder extends Seeder
         	'description' => 'Elimina cualquier usuario del sistema',
         ]);
 
+        // Nominas
+        Permission::create([
+            'name' => 'Listar tipos de nominas',
+            'slug' => 'nomina.index',
+            'description' => 'Lista todas los tipos nominas',
+        ]);
+
+        Permission::create([
+            'name' => 'Ver detalle del tipo de nomina',
+            'slug' => 'nomina.show',
+            'description' => 'Ver en detalle los datos de cada tupo de nomina',
+        ]);
+
+        Permission::create([
+            'name' => 'Creación de tipos de nominas',
+            'slug' => 'nomina.create',
+            'description' => 'Podría crear nuevos tipos de nominas',
+        ]);
+
+        Permission::create([
+            'name' => 'Edición de tipos de nominas',
+            'slug' => 'nomina.edit',
+            'description' => 'Podría editar cualquier dato de un tipo de nomina',
+        ]);
+
         // Roles
         Permission::create([
         	'name' => 'Listar roles',
@@ -228,31 +253,6 @@ class PermissionsTableSeeder extends Seeder
             'name' => 'Eliminación de Empleados',
             'slug' => 'employees.destroy',
             'description' => 'Podría eliminar cualquier Empleado',
-        ]);
-
-        // Nominas
-        Permission::create([
-            'name' => 'Listar tipos de nominas',
-            'slug' => 'nomina.index',
-            'description' => 'Lista todas los tipos nominas',
-        ]);
-
-        Permission::create([
-            'name' => 'Ver detalle del tipo de nomina',
-            'slug' => 'nomina.show',
-            'description' => 'Ver en detalle los datos de cada tupo de nomina',
-        ]);
-
-        Permission::create([
-            'name' => 'Creación de tipos de nominas',
-            'slug' => 'nomina.create',
-            'description' => 'Podría crear nuevos tipos de nominas',
-        ]);
-
-        Permission::create([
-            'name' => 'Edición de tipos de nominas',
-            'slug' => 'nomina.edit',
-            'description' => 'Podría editar cualquier dato de un tipo de nomina',
         ]);
 
         // Bank Accounts
