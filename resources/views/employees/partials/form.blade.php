@@ -91,6 +91,7 @@
 	    {{ Form::select('civil_status', [
 	    	'Soltero/a' => 'Soltero/a',
 	    	'Casado/a' => 'Casado/a',
+	    	'Divorciado/a' => 'Divorciado/a',
 	    	'Viudo/a' => 'Viudo/a'
 	    ], null, ['class' => 'custom-select']) }}
 	</div>
@@ -263,6 +264,21 @@
 	    @if($errors->has('position_id'))
 	    	<span class="text-danger">
 	    		<p>{{ $errors->first('position_id') }}</p>
+	    	</span>
+	    @endif
+	</div>
+</div>
+
+<div class="form-row">
+	<div class="form-group col">
+	    {{ Form::label('nomina_id', 'Nómina:*') }}
+	    {{ Form::select('nomina_id', $nominas, null, [
+	    	'class' => 'custom-select',
+	    	'placeholder' => 'Seleccione una opción:'
+	    ]) }}
+	    @if($errors->has('nomina_id'))
+	    	<span class="text-danger">
+	    		<p>{{ $errors->first('nomina_id') }}</p>
 	    	</span>
 	    @endif
 	</div>

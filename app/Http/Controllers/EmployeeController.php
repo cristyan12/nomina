@@ -10,6 +10,7 @@ use App\{
     Employee,
     Nomina,
     Position,
+    Profession,
     Unit,
 };
 use App\Http\Requests\CreateEmployeeRequest;
@@ -37,7 +38,7 @@ class EmployeeController extends Controller
             'departments'   => Department::orderBy('id')->pluck('name', 'id'),
             'units'         => Unit::orderBy('id')->pluck('name', 'id'),
             'positions'     => Position::orderBy('id')->pluck('name', 'id'),
-            'nomina'        => Nomina::orderBy('id')->pluck('name', 'id'),
+            'nominas'        => Nomina::orderBy('id')->pluck('name', 'id'),
         ]);
     }
 

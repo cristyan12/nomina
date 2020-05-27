@@ -24,7 +24,7 @@ class CreateEmployeesTable extends Migration
             $table->date('born_at');
 
             $table->enum('civil_status', [
-                'Casado/a', 'Soltero/a', 'Viudo/a'
+                'Casado/a', 'Soltero/a', 'Divorciado/a', 'Viudo/a'
             ])->default('Soltero/a');
 
             $table->enum('sex', ['M', 'F']);

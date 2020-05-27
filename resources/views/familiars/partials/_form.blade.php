@@ -19,7 +19,11 @@
 <div class="form-group row">
     <label for="relationship" class="col-md-2 col-form-label text-md-right">Parentezco:*</label>
     <div class="col-md-4">
-        <select name="relationship" id="relationship" class="custom-select{{ $errors->has('relationship') ? ' is-invalid' : ''  }}">
+        <select
+            name="relationship"
+            id="relationship"
+            class="custom-select{{ $errors->has('relationship') ? ' is-invalid' : ''  }}"
+        >
             <option value=""></option>
             @foreach(trans('familiars.relationship') as $type => $relationship)
                <option value="{{ $type }}"
@@ -53,7 +57,11 @@
 <div class="form-group row">
     <label for="sex" class="col-md-2 col-form-label text-md-right">Género:*</label>
     <div class="col-md-4">
-        <select name="sex" id="sex" class="custom-select{{ $errors->has('sex') ? ' is-invalid' : '' }}">
+        <select
+            name="sex"
+            id="sex"
+            class="custom-select{{ $errors->has('sex') ? ' is-invalid' : '' }}"
+        >
             <option value=""></option>
             @foreach(trans('familiars.genre') as $genre => $sex)
                 <option value="{{ $genre }}"{{ old('sex', $familiar->sex) == $genre ? ' selected' : '' }}>
@@ -86,7 +94,10 @@
 <div class="form-group row">
     <label for="instruction" class="col-md-2 col-form-label text-md-right">Instrucción:*</label>
     <div class="col-md-10">
-        <select name="instruction" class="custom-select{{ $errors->has('instruction') ? ' is-invalid' : ''  }}">
+        <select
+            name="instruction"
+            class="custom-select{{ $errors->has('instruction') ? ' is-invalid' : ''  }}"
+        >
             <option value=""></option>
             @foreach(trans('familiars.instruction') as $type => $instruction)
                <option value="{{ $type }}"
