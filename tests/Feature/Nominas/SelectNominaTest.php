@@ -22,22 +22,20 @@ class SelectNominaTest extends TestCase
     /** @test */
     function un_usuario_puede_seleccionar_la_nomina()
     {
-        $unit = $this->create(Unit::class);
         $nomina = $this->create(Nomina::class, ['name' => 'Nómina Semanal']);
         factory(EmployeeProfile::class, 5)->create([
-            'unit_id' => $unit->id,
             'nomina_id' => $nomina->id,
         ]);
 
         $response = $this->get(route('nomina.selected', $nomina))
             ->assertSuccessful()
             ->assertViewIs('nomina.selected')
+            ->assertSee('Nómina Semanal')
             ->assertViewHas('nomina', function($view) use ($nomina) {
                 return $view->id === $nomina->id;
             });
 
-        // HasMany
-        $employees = Nomina::first()->employeeProfiles;
+        $employees = Nomina::first()->profiles;
 
         foreach ($employees as $employee) {
             $response->assertSee(e($employee->code))
