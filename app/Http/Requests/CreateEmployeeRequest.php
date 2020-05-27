@@ -41,6 +41,7 @@ class CreateEmployeeRequest extends FormRequest
             'department_id' => 'required',
             'unit_id' => 'required',
             'position_id' => 'required',
+            'nomina_id' => 'required',
         ];
     }
 

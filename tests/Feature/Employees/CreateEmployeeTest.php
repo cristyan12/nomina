@@ -42,6 +42,7 @@ class CreateEmployeeTest extends TestCase
             'department_id' => $this->create(\App\Department::class)->id,
             'unit_id' => $this->create(\App\Unit::class)->id,
             'position_id' => $this->create(\App\Position::class)->id,
+            'nomina_id' => $this->create(\App\Nomina::class)->id,
         ];
 
         // $this->withoutExceptionHandling();
@@ -59,6 +60,8 @@ class CreateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_create_a_employee()
     {
+        $this->withoutExceptionHandling();
+
         $user = $this->someUser();
 
         $response = $this->actingAs($user)

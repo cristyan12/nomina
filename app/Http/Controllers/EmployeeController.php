@@ -3,12 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\{
-    Unit, Branch, Position, Employee,
-    EmployeeProfile, Bank, Profession, Department
+    Bank,
+    Branch,
+    Department,
+    EmployeeProfile,
+    Employee,
+    Nomina,
+    Position,
+    Unit,
 };
-use Illuminate\Http\Request;
 use App\Http\Requests\CreateEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
+use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
@@ -31,6 +37,7 @@ class EmployeeController extends Controller
             'departments'   => Department::orderBy('id')->pluck('name', 'id'),
             'units'         => Unit::orderBy('id')->pluck('name', 'id'),
             'positions'     => Position::orderBy('id')->pluck('name', 'id'),
+            'nomina'        => Nomina::orderBy('id')->pluck('name', 'id'),
         ]);
     }
 
@@ -52,7 +59,7 @@ class EmployeeController extends Controller
         $employee->profile()->create(request()->only(
             'profession_id', 'contract', 'status', 'bank_id',
             'account_number', 'branch_id', 'department_id', 'unit_id',
-            'position_id'
+            'position_id', 'nomina_id'
         ));
 
         return redirect()->route('employees.index')

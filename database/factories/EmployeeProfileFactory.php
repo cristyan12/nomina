@@ -13,5 +13,6 @@ $factory->define(App\EmployeeProfile::class, function (Faker $faker) {
         'department_id'     => factory(App\Department::class),
         'unit_id'           => factory(App\Unit::class),
         'position_id'       => factory(App\Position::class),
+        'nomina_id'         => factory(App\Nomina::class),
     ];
 });
