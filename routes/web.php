@@ -54,10 +54,6 @@ Route::middleware(['auth'])->group(function() {
             ->name('nomina.select');
             // ->middleware('permission:nomina.index');
 
-        Route::get('nomina/selected/{nomina}', 'SelectNominaController@show')
-            ->name('nomina.selected');
-
-
         Route::get('nominas/create', 'CreateNominaController@create')
             ->name('nomina.create');
             // ->middleware('permission:nomina.create');

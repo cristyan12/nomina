@@ -24,11 +24,6 @@ class Nomina extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function profiles(): HasMany
-    {
-        return $this->hasMany(EmployeeProfile::class);
-    }
-
     public function getNumbersPeriodsAttribute()
     {
         if (! $this->periods == '' ) {

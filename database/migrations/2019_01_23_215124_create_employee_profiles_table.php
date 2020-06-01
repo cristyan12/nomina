@@ -16,9 +16,10 @@ class CreateEmployeeProfilesTable extends Migration
         Schema::create('employee_profiles', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->unsignedInteger('nomina_id');
             $table->unsignedInteger('employee_id');
-
             $table->unsignedInteger('profession_id');
+
             $table->enum('contract', ['T', 'I'])->default('T');
 
             $table->enum('status', [
@@ -32,7 +33,6 @@ class CreateEmployeeProfilesTable extends Migration
             $table->unsignedInteger('department_id');
             $table->unsignedInteger('unit_id');
             $table->unsignedInteger('position_id');
-            $table->unsignedInteger('nomina_id');
 
             // Foreigns
             $table->foreign('employee_id')->references('id')->on('employees')->onDelete('cascade');
