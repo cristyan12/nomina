@@ -35,6 +35,7 @@ class CreateEmployeesTable extends Migration
 
             $table->string('city_of_born');
             $table->date('hired_at');
+            $table->unsignedInteger('nomina_id');
 
             $table->timestamps();
         });

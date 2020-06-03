@@ -16,7 +16,6 @@ class CreateEmployeeProfilesTable extends Migration
         Schema::create('employee_profiles', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->unsignedInteger('nomina_id');
             $table->unsignedInteger('employee_id');
             $table->unsignedInteger('profession_id');
 
@@ -42,7 +41,6 @@ class CreateEmployeeProfilesTable extends Migration
             $table->foreign('department_id')->references('id')->on('departments');
             $table->foreign('unit_id')->references('id')->on('units');
             $table->foreign('position_id')->references('id')->on('positions');
-            $table->foreign('nomina_id')->references('id')->on('nominas');
 
             $table->timestamps();
         });

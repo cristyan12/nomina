@@ -10,13 +10,13 @@ class SelectedNominaController extends Controller
 {
     public function index()
     {
-        return view('nomina.select', [
-            'nominas' => Nomina::orderBy('id')->paginate()
-        ]);
+        $nominas = Nomina::orderBy('id')->paginate();
+
+        return view('nomina.select', compact('nominas'));
     }
 
-    public function show()
+    public function show(Nomina $nomina)
     {
-        return view('nomina.selected');
+        return view('nomina.selected', compact('nomina'));
     }
 }

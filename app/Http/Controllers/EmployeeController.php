@@ -2,16 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\{
-    Bank,
-    Branch,
-    Department,
-    EmployeeProfile,
-    Employee,
-    Nomina,
-    Position,
-    Profession,
-    Unit,
+use App\{Bank, Branch, Department, EmployeeProfile,
+    Employee, Nomina, Position, Profession, Unit
 };
 use App\Http\Requests\CreateEmployeeRequest;
 use App\Http\Requests\UpdateEmployeeRequest;
@@ -52,7 +44,7 @@ class EmployeeController extends Controller
         $employee = new Employee($request->only(
             'code', 'document', 'last_name', 'first_name',
             'rif', 'born_at', 'civil_status', 'sex',
-            'nationality', 'city_of_born', 'hired_at'
+            'nationality', 'city_of_born', 'hired_at', 'nomina_id'
         ));
 
         auth()->user()->employees()->save($employee);
@@ -60,7 +52,7 @@ class EmployeeController extends Controller
         $employee->profile()->create(request()->only(
             'profession_id', 'contract', 'status', 'bank_id',
             'account_number', 'branch_id', 'department_id', 'unit_id',
-            'position_id', 'nomina_id'
+            'position_id'
         ));
 
         return redirect()->route('employees.index')

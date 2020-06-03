@@ -2,16 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\{
-    Bank,
-    Branch,
-    Department,
-    Employee,
-    EmployeeProfile,
-    Nomina,
-    Position,
-    Profession,
-    Unit,
-    User
+    Bank, Branch, Department, Employee, EmployeeProfile,
+    Nomina, Position, Profession, Unit, User
 };
 
 class EmployeesTableSeeder extends Seeder
@@ -35,6 +27,7 @@ class EmployeesTableSeeder extends Seeder
             'sex' => 'M',
             'city_of_born' => 'Guanare',
             'hired_at' => date('2012-08-30'),
+            'nomina_id' => Nomina::where('id', 5)->first()->id,
         ]);
 
         $user->employees()->save($president);
@@ -47,7 +40,6 @@ class EmployeesTableSeeder extends Seeder
             'department_id' => Department::first()->id,
             'unit_id' => Unit::first()->id,
             'position_id' => Position::where('name', 'Presidente')->value('id'),
-            'nomina_id' => Nomina::where('id', 5)->first()->id,
         ]);
 
         $president->profile()->save($profile);
@@ -62,6 +54,7 @@ class EmployeesTableSeeder extends Seeder
             'sex' => 'F',
             'city_of_born' => 'Guanare',
             'hired_at' => date('2012-10-30'),
+            'nomina_id' => Nomina::where('id', 5)->first()->id,
         ]);
 
         $user->employees()->save($vicePresident);
@@ -75,7 +68,6 @@ class EmployeesTableSeeder extends Seeder
             'department_id' => Department::first()->id,
             'unit_id' => Unit::first()->id,
             'position_id' => Position::where('name', 'Vice Presidente')->value('id'),
-            'nomina_id' => Nomina::where('id', 5)->first()->id,
         ]);
 
         $vicePresident->profile()->save($profileVicePresident);

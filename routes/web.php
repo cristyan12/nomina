@@ -50,8 +50,12 @@ Route::middleware(['auth'])->group(function() {
                 ->name('nomina.index');
                 // ->middleware('permission:nomina.index');
 
-        Route::get('nominas/select', 'SelectNominaController@index')
+        Route::get('nominas/select', 'SelectedNominaController@index')
             ->name('nomina.select');
+            // ->middleware('permission:nomina.index');
+
+        Route::get('nominas/{nomina}/selected', 'SelectedNominaController@show')
+            ->name('nomina.selected');
             // ->middleware('permission:nomina.index');
 
         Route::get('nominas/create', 'CreateNominaController@create')

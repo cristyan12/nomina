@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Nominas;
 
-use App\Employee;
-use App\Nomina;
-use App\User;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
+use App\{Employee, Nomina, User};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class SelectNominaTest extends TestCase
 {
@@ -15,8 +13,6 @@ class SelectNominaTest extends TestCase
     /** @test */
     function a_admin_can_select_a_type_of_nomina_from_a_list()
     {
-        $this->withoutExceptionHandling();
-
         $user = factory(User::class)->create();
         $nomina = factory(Nomina::class)->make([
             'name' => 'Nomina Semanal',
@@ -24,11 +20,11 @@ class SelectNominaTest extends TestCase
         ]);
         $user->nominas()->save($nomina);
 
-        $employee = factory(Employee::class)->make([
+        $employee = factory(Employee::class)->create([
             'first_name' => 'Cristyan',
             'last_name' => 'Valera',
+            'nomina_id' => $nomina->id,
         ]);
-        $user->nominas()->save($employee);
 
         $response = $this->actingAs($user)
             ->get(route('nomina.selected', $nomina));
