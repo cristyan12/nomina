@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Nomina;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\{
     DatabaseTransactions, RefreshDatabase
@@ -41,12 +42,13 @@ class ListNominaTest extends TestCase
     {
         $user = $this->someUser();
 
-        $nomina = $this->create('App\Nomina', [
+        $nomina = $this->make(Nomina::class, [
             'name' => 'Nómina Confidencial',
-            'user_id' => $user->id,
         ]);
 
-        $response = $this->get(route('nomina.show', $nomina))
+        $user->nominas()->save($nomina);
+
+        $response = $this->get(route('nomina.show', $nomina->id))
             ->assertOk()
             ->assertViewIs('nomina.show')
             ->assertViewHas('nomina')

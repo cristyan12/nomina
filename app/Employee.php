@@ -14,6 +14,11 @@ class Employee extends Model
         'hired_at' => 'date',
     ];
 
+    public function nomina()
+    {
+        return $this->belongsTo(Nomina::class);
+    }
+
     // En la ocasión de establecer los firmantes
     // autorizados en las cuentas bancarias de la empresa
     public function accounts()
@@ -33,7 +38,7 @@ class Employee extends Model
 
     public function profile()
     {
-    	return $this->hasOne(EmployeeProfile::class);
+    	return $this->hasOne(EmployeeProfile::class)->withDefault();
     }
 
     public function getFullNameAttribute()

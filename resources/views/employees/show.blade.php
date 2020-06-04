@@ -52,7 +52,7 @@
                 <div class="form-group row">
                     <div class="col-md-4">
                         <label>Estado civil:</label>
-                        <input type="text" class="form-control" value="{{ $employee->marital_status }}">
+                        <input type="text" class="form-control" value="{{ $employee->civil_status }}">
                     </div>
                     <div class="col-md-4">
                         <label>Sexo:</label>

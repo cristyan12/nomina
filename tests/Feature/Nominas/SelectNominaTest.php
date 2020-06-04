@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Nominas;
 
-use Tests\TestCase;
+use App\EmployeeProfile;
 use App\{Employee, Nomina, User};
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class SelectNominaTest extends TestCase
 {
@@ -13,17 +14,20 @@ class SelectNominaTest extends TestCase
     /** @test */
     function a_admin_can_select_a_type_of_nomina_from_a_list()
     {
-        $user = factory(User::class)->create();
-        $nomina = factory(Nomina::class)->make([
+        $user = $this->someUser();
+        $nomina = $this->create(Nomina::class, [
             'name' => 'Nomina Semanal',
-            'type' => 'Semanal'
+            'type' => 'Semanal',
         ]);
         $user->nominas()->save($nomina);
 
-        $employee = factory(Employee::class)->create([
+        $employee = $this->create(Employee::class, [
             'first_name' => 'Cristyan',
             'last_name' => 'Valera',
             'nomina_id' => $nomina->id,
+        ]);
+        $profile = $this->create(EmployeeProfile::class, [
+            'employee_id' => $employee->id
         ]);
 
         $response = $this->actingAs($user)
@@ -31,6 +35,7 @@ class SelectNominaTest extends TestCase
 
         $response->assertStatus(200)
             ->assertViewIs('nomina.selected')
+            ->assertViewHas('nomina')
             ->assertSee('Nomina Semanal')
             ->assertSee('Cristyan Valera');
     }

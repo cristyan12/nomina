@@ -4,7 +4,7 @@
 
 @component('layouts.components._show')
     @slot('cardHeader')
-        Detalle de la nómina #{{ $nomina->id }}
+        Detalle de la nómina {{ $nomina->name }}
     @endslot
 
     @slot('image')

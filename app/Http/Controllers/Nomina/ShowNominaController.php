@@ -9,8 +9,6 @@ class ShowNominaController extends Controller
 {
     public function __invoke(Nomina $nomina)
     {
-        $nomina = Nomina::with('employees.profile')->get();
-
         return view('nomina.show', compact('nomina'));
     }
 }
