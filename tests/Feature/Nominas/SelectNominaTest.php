@@ -2,8 +2,9 @@
 
 namespace Tests\Feature\Nominas;
 
-use App\EmployeeProfile;
-use App\{Employee, Nomina, User};
+use App\{
+    Employee, EmployeeProfile, Nomina, User
+};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -15,9 +16,9 @@ class SelectNominaTest extends TestCase
     function a_admin_can_select_a_type_of_nomina_from_a_list()
     {
         $user = $this->someUser();
-        $nomina = $this->create(Nomina::class, [
+
+        $nomina = $this->make(Nomina::class, [
             'name' => 'Nomina Semanal',
-            'type' => 'Semanal',
         ]);
         $user->nominas()->save($nomina);
 
@@ -26,9 +27,7 @@ class SelectNominaTest extends TestCase
             'last_name' => 'Valera',
             'nomina_id' => $nomina->id,
         ]);
-        $profile = $this->create(EmployeeProfile::class, [
-            'employee_id' => $employee->id
-        ]);
+        $employee->profile()->save($this->make(EmployeeProfile::class));
 
         $response = $this->actingAs($user)
             ->get(route('nomina.selected', $nomina));

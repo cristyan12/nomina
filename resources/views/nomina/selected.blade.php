@@ -7,30 +7,58 @@
 @section('content')
     @if (! empty($nomina->employees))
     <div class="table-responsive">
-        <table class="table table-hover table-striped">
-            <thead class="thead-dark">
+        <table class="table table-bordered table-hover table-striped">
+            <thead>
             <tr>
                 <th>Código</th>
                 <th>Cédula</th>
                 <th>Nombre</th>
-                <th>F. Contratación</th>
                 <th>Departamento</th>
                 <th>Cargo</th>
                 <th>Salario Base</th>
-                <th>Acciones</th>
+                <th colspan="1">Horas</th>
+                <th colspan="1">Jornada</th>
+                <th colspan="1">TViaje</th>
+                <th>&nbsp;</th>
             </tr>
             </thead>
             <tbody>
             @foreach($nomina->employees as $employee)
             <tr>
-                <th scope="row">{{ $employee->document }}</th>
-                <td>{{ $employee->code }}</td>
-                <td>{{ $employee->full_name }}</td>
-                <td>{{ $employee->hired_at->format('d-m-Y') }} </td>
-                <td>{{ $employee->profile->department->name }}</td>
-                <td>{{ $employee->profile->position->name }}</td>
+                <th width="10px">{{ $employee->document }}</th>
+                <td width="10px">{{ $employee->code }}</td>
+                <td>{{ str_limit($employee->full_name, 20) }}</td>
+                <td>{{ str_limit($employee->profile->department->name, 20) }}</td>
+                <td>{{ str_limit($employee->profile->position->name, 10) }}</td>
                 <td>{{ $employee->profile->position->format_salary }}</td>
-                <td width="10px">ACCIONES</td>
+                <form action="">
+                    <div class="form-group col-md-2">
+                        <td width="20px">
+                            <input class="form-control form-control-sm" type="text" name="hours">
+                        </td>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <td width="20px">
+                            <select class="custom-select custom-select-sm" name="journal">
+                                <option value="">...</option>
+                                <option value="d">D - Diurna</option>
+                                <option value="m">M - Mixta</option>
+                                <option value="n">N - Nocturna</option>
+                            </select>
+                        </td>
+                    </div>
+
+                    <div class="form-group col-md-2">
+                        <td width="20px">
+                            <input class="form-control form-control-sm" type="text" name="travel">
+                        </td>
+                    </div>
+                </form>
+
+                <td>
+                    <button type="submit" class="btn btn-primary btn-sm">Grabar</button>
+                </td>
             </tr>
             @endforeach
             </tbody>
