@@ -129,7 +129,7 @@
                 </div>
 
                 <div class="form-row">
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="city_of_born">Ciudad de nacimiento:*</label>
                         <input type="text" id="city_of_born" name="city_of_born"
                             class="form-control{{ $errors->has('city_of_born') ? ' is-invalid' : '' }}"
@@ -142,7 +142,7 @@
                         @endif
                     </div>
 
-                    <div class="form-group col-md-6">
+                    <div class="form-group col-md-4">
                         <label for="hired_at">Fecha de contratación:*</label>
                         <input type="date" id="hired_at" name="hired_at"
                             class="form-control{{ $errors->has('hired_at') ? ' is-invalid' : '' }}"
