@@ -14,15 +14,15 @@ class ConceptTest extends TestCase
 
     protected $attributes = [];
 
-    protected $user;
+    // protected $user;
 
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->user = $this->someUser();
+        // $this->user = $this->someUser();
 
-        $this->actingAs($this->user);
+        $this->actingAs($this->someUser());
 
         $this->attributes = [
             'name' => 'Dias trabajados diurnos',
@@ -53,6 +53,8 @@ class ConceptTest extends TestCase
     */
     function a_user_can_create_a_new_concept()
     {
+        $user = $this->someUser();
+
         $response = $this->post(route('concepts.store', $this->attributes))
             ->assertRedirect(route('concepts.index'));
 
@@ -63,7 +65,7 @@ class ConceptTest extends TestCase
             'quantity' => $this->attributes['quantity'],
             'calculation_salary' => $this->attributes['calculation_salary'],
             'formula' => $this->attributes['formula'],
-            'user_id' => $this->user->id,
+            'user_id' => $user->id,
         ]);
     }
 
