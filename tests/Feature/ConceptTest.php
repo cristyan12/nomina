@@ -14,11 +14,15 @@ class ConceptTest extends TestCase
 
     protected $attributes = [];
 
+    protected $user;
+
     public function setUp(): void
     {
         parent::setUp();
 
-        $this->actingAs($this->someUser());
+        $this->user = $this->someUser();
+
+        $this->actingAs($this->user);
 
         $this->attributes = [
             'name' => 'Dias trabajados diurnos',
@@ -38,8 +42,7 @@ class ConceptTest extends TestCase
     */
     function a_user_can_load_the_create_page_of_concepts()
     {
-        $response = $this->actingAs($user = $this->someUser())
-            ->get(route('concepts.create'))
+        $response = $this->get(route('concepts.create'))
             ->assertOk()
             ->assertViewIs('concepts.create');
     }
@@ -50,10 +53,7 @@ class ConceptTest extends TestCase
     */
     function a_user_can_create_a_new_concept()
     {
-        $this->withoutExceptionHandling();
-
-        $response = $this->actingAs($user = $this->someUser())
-            ->post(route('concepts.store', $this->attributes))
+        $response = $this->post(route('concepts.store', $this->attributes))
             ->assertRedirect(route('concepts.index'));
 
         $this->assertDatabaseHas('concepts', [
@@ -63,7 +63,7 @@ class ConceptTest extends TestCase
             'quantity' => $this->attributes['quantity'],
             'calculation_salary' => $this->attributes['calculation_salary'],
             'formula' => $this->attributes['formula'],
-            'user_id' => $user->id,
+            'user_id' => $this->user->id,
         ]);
     }
 
