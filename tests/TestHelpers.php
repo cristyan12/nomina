@@ -37,6 +37,9 @@ trait TestHelpers
 
     protected function prepareParams()
     {
+        // Estos valores se basan en los mismos valores que pide
+        // la hoja de excel de pruebas que se usa para calcular
+        // los diferentes conceptos de la nomina
         $days = $this->employee
             ->setDayWorkedDays(1)
             ->setMixedWorkedDays(2)
