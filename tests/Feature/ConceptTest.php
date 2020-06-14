@@ -55,7 +55,8 @@ class ConceptTest extends TestCase
     {
         $user = $this->someUser();
 
-        $response = $this->post(route('concepts.store', $this->attributes))
+        $response = $this->actingAs($user)
+            ->post(route('concepts.store', $this->attributes))
             ->assertRedirect(route('concepts.index'));
 
         $this->assertDatabaseHas('concepts', [
