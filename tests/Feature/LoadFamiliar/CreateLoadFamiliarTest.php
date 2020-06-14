@@ -210,9 +210,8 @@ class CreateLoadFamiliarTest extends TestCase
         $response = $this->get("employees/{$familiar->employee_id}/familiars/{$familiar->id}")
             ->assertOk()
             ->assertViewIs('familiars.show')
-            ->assertViewHas('familiar', function ($viewFamiliar) use ($familiar) {
-                return $viewFamiliar->id === $familiar->id;
-            })
+            ->assertViewHas('familiar',
+                fn($viewFamiliar) => $viewFamiliar->id === $familiar->id)
             ->assertSee(e($familiar->employee->full_name))
             ->assertSee(e($familiar->user->name))
             ->assertSee(e($familiar->name));
