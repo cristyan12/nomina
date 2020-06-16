@@ -1,7 +1,11 @@
 @extends('layouts.master')
 
 @section('title')
-<h1 class="pb-1 display-4">Cargas familiares de: {{ $employee->full_name }}</h1>
+<h1 class="pb-1">
+    <span class="display-4">Cargas familiares de:</span> <br>
+
+    {{ strtoupper($employee->full_name) }}
+</h1>
 @can('familiars.create')
 <p>
     <a href="{{ route('familiars.create', $employee->id) }}" class="btn btn-outline-primary">Nueva carga familiar</a>

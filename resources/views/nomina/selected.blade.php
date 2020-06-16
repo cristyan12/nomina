@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    <h1 class="pb-1 display-4">Trabajadores de la {{ $nomina->name }}</h1>
+    <h1 class="">Trabajadores de la {{ $nomina->name }}</h1>
 @endsection
 
 @section('content')
@@ -11,12 +11,12 @@
         <table class="table table-bordered table-hover table-striped">
             <thead>
             <tr>
-                <th>Cédula</th>
+                <th scope="row">Cédula</th>
                 <th>Nombre</th>
-                <th>Departamento</th>
+                {{-- <th>Departamento</th> --}}
                 <th>Cargo</th>
-                <th>Salario base</th>
-                <th>HExtras</th>
+                {{-- <th>Salario base</th> --}}
+                <th scope="row">HExtras</th>
                 <th>Jornada</th>
                 <th>TViaje</th>
                 <th>&nbsp;</th>
@@ -25,11 +25,25 @@
             <tbody>
                 @foreach($nomina->employees as $employee)
                     <tr>
-                        <th width="10px">{{ $employee->document }}</th>
-                        <td>{{ str_limit($employee->full_name, 23) }}</td>
-                        <td>{{ str_limit($employee->profile->department->name, 20) }}</td>
-                        <td>{{ str_limit($employee->profile->position->name, 10) }}</td>
-                        <td>{{ $employee->profile->position->format_salary }}</td>
+                        <td width="10px">{{ $employee->document }}</td>
+                        <td>
+                            <b>
+                            <p>{{ str_limit($employee->full_name, 23) }}</p>
+
+                            <span>{{ $employee->profile->department->name }}</span>
+                            </b>
+                        </td>
+                        {{-- <td>{{ str_limit($employee->profile->department->name, 20) }}</td> --}}
+                        <td>
+                            <b>
+                            <p>{{ strtoupper($employee->profile->position->name) }}</p>
+
+                            <span>Salario base:
+                                Bs. {{ $employee->profile->position->format_salary }}
+                            </span>
+                            </b>
+                        </td>
+                        {{-- <td>{{ $employee->profile->position->format_salary }}</td> --}}
                         <form action="">
                             <fieldset>
                                 <div class="form-group col-md-2">
