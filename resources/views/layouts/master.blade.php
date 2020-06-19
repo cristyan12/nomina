@@ -46,15 +46,10 @@
         @include('layouts._sidebar')
 
         <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
-            <div class="d-flex justify-content-between align-items-end pt-5 pb-0 mb-1">
+            <div class="d-flex justify-content-between align-items-end pt-5 pb-0 mb-3">
                 @section('title')
-
                 @show
             </div>
-
-            <hr>
-
-            {{-- @include('layouts._messages') --}}
             @yield('content')
         </main>
       </div>

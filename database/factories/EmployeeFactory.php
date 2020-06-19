@@ -14,7 +14,7 @@ $factory->define(App\Employee::class, function (Faker $faker) {
         'sex' => $faker->randomElement(['F', 'M']),
         'city_of_born' => $faker->city,
         'hired_at' => $faker->date,
-        'nomina_id' => factory('App\Nomina'),
+        'nomina_id' => rand(1, 5),
         'user_id' => factory('App\User'),
     ];
 });
