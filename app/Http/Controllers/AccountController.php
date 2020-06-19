@@ -19,11 +19,11 @@ class AccountController extends Controller
     {
         $banks = Bank::orderBy('id')->get();
         $company = Company::first();
-        $auth1 = Employee::whereHas('profile.position', function ($query){
+        $auth1 = Employee::whereHas('profile.position', function ($query) {
             $query->where('position_id', Position::where('name', 'Presidente')->value('id'));
         })->get();
 
-        $auth2 = Employee::whereHas('profile.position', function ($query){
+        $auth2 = Employee::whereHas('profile.position', function ($query) {
             $query->where('position_id', Position::where('name', 'Vice Presidente')->value('id'));
         })->get();
 
