@@ -2,27 +2,35 @@
 
 @section('title')
     <h1 class="pb-1 display-4">{{ $nomina->name }}</h1>
+
+    <p>
+        <a class="btn btn-outline-secondary" href="{{ route('nomina.select') }}">
+            Ir al listado de las nóminas del sistema
+        </a>
+    </p>
 @endsection
 
 @section('content')
     @if (! $employees->isEmpty())
-    <table class="table table-bordered table-hover table-striped">
-        <thead>
-        <tr>
-            <th scope="row">Cédula</th>
-            <th>Nombre</th>
-            <th>Departamento</th>
-            <th>Cargo</th>
-            <th>Salario base</th>
-            <th scope="row">HExtras</th>
-            <th>Jornada</th>
-            <th>TViaje</th>
-            <th>&nbsp;</th>
-        </tr>
+    <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+            <tr>
+                <th scope="row">#</th>
+                <th scope="row">Cédula</th>
+                <th>Nombre</th>
+                <th>Departamento</th>
+                <th>Cargo</th>
+                <th>Salario base</th>
+                <th scope="row">HExtras</th>
+                <th>Jornada</th>
+                <th>TViaje</th>
+                <th>&nbsp;</th>
+            </tr>
         </thead>
         <tbody>
             @foreach($employees as $employee)
                 <tr>
+                    <td width="10px">{{ $employee->id }}</td>
                     <td width="10px">{{ $employee->document }}</td>
                     <td>{{ str_limit($employee->full_name, 23) }}</td>
                     <td>{{ str_limit($employee->profile->department->name, 20) }}</td>

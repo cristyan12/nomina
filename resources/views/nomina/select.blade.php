@@ -14,7 +14,7 @@
                 <th scope="col">Nombre</th>
                 <th scope="col">Tipo</th>
                 <th scope="col">Modificada</th>
-                <th colspan="2">Acciones</th>
+                <th colspan="1">&nbsp;</th>
             </tr>
             </thead>
             <tbody>

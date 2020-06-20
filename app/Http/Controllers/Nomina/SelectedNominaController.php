@@ -17,9 +17,7 @@ class SelectedNominaController extends Controller
 
     public function show(Nomina $nomina)
     {
-        $employees = $nomina->employees()
-            ->orderByDesc('id')
-            ->paginate(5);
+        $employees = $nomina->employees()->paginate(5);
 
         return view('nomina.selected', [
             'nomina' => $nomina,

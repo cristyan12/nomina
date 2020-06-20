@@ -1,14 +1,16 @@
 @extends('layouts.master')
 
 @section('title')
-<h1 class="pb-1">
-    <span class="display-4">Cargas familiares de:</span> <br>
+<h1 class="pb-1 display-4">
+    Cargas familiares de: <br>
 
     {{ strtoupper($employee->full_name) }}
 </h1>
 @can('familiars.create')
 <p>
-    <a href="{{ route('familiars.create', $employee->id) }}" class="btn btn-outline-primary">Nueva carga familiar</a>
+    <a href="{{ route('familiars.create', $employee->id) }}" class="btn btn-outline-primary">
+        Nueva carga familiar
+    </a>
 </p>
 @endcan
 @endsection
@@ -38,12 +40,14 @@
                     <td>{{ $familiar->born_at->age }} años</td>
                     @can('familiars.show')
                     <td width="10px">
-                        <a href="{{ $familiar->url() }}" class="btn btn-sm btn-success">Detalle</a>
+                        <a href="{{ $familiar->url() }}" class="btn btn-sm btn-outline-success">Detalle</a>
                     </td>
                     @endcan
                     @can('familiars.edit')
                     <td width="10px">
-                        <a href="{{ route('familiars.edit', $familiar) }}" class="btn btn-sm btn-warning">Editar</a>
+                        <a href="{{ route('familiars.edit', $familiar) }}" class="btn btn-sm btn-outline-warning">
+                            Editar
+                        </a>
                     </td>
                     @endcan
                     <td width="10px">
@@ -60,7 +64,8 @@
                 @endforeach
             </tbody>
         </table>
-    </div>
+    </div> {{-- table-responsive --}}
+
     @else
     <p class="lead">No hay cargas familiares registradas aún.</p>
     @endif
