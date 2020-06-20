@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-    @if (! $nomina->employees->isEmpty())
+    @if (! $employees->isEmpty())
     <table class="table table-hover table-striped">
         <thead class="thead-dark">
         <tr>
@@ -21,7 +21,7 @@
         </tr>
         </thead>
         <tbody>
-            @foreach($nomina->employees as $employee)
+            @foreach($employees as $employee)
                 <tr>
                     <td width="10px">{{ $employee->document }}</td>
                     <td>{{ str_limit($employee->full_name, 23) }}</td>
@@ -60,6 +60,8 @@
             @endforeach
         </tbody>
     </table>
+
+    {{ $employees->render() }}
     @else
         <p class="lead">No hay trabajadores registrados en esta nómina.</p>
     @endif
