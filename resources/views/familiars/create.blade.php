@@ -4,7 +4,6 @@
 <div class="container pt-0">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            {{-- @include('layouts._messages') --}}
 
             <div class="card">
                 <div class="card-header">
