@@ -6,8 +6,8 @@
 
 @section('content')
     @if (! $employees->isEmpty())
-    <table class="table table-hover table-striped">
-        <thead class="thead-dark">
+    <table class="table table-bordered table-hover table-striped">
+        <thead>
         <tr>
             <th scope="row">Cédula</th>
             <th>Nombre</th>
