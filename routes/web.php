@@ -33,7 +33,6 @@ Route::middleware(['auth'])->group(function() {
     Route::put('accounts/{account}', 'AccountController@update')->name('accounts.update');
     Route::get('accounts/{account}', 'AccountController@show')->name('accounts.show');
 
-
     // Companies
     Route::namespace('Company')->group(function () {
         Route::get('companies', 'CompaniesController@index')->name('companies.index');
@@ -78,6 +77,10 @@ Route::middleware(['auth'])->group(function() {
             ->name('nomina.show');
             // ->middleware('permission:nomina.show');
     });
+
+    // PreNominas
+    Route::get('pre-nominas/{nomina}/{employee}/create', 'PreNominaController@create')
+        ->name('pre-nominas.create');
 
     // Users
     Route::get('users', 'UserController@index')

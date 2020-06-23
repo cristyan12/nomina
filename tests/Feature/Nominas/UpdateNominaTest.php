@@ -33,6 +33,7 @@ class UpdateNominaTest extends TestCase
             ->assertOk()
             ->assertViewis('nomina.edit')
             ->assertSee('Editar nómina')
+            // ->assertViewHas('nomina', fn($viewNomina) => $viewNomina->id === $nomina->id); +PHP 7.4
             ->assertViewHas('nomina', function ($viewNomina) use ($nomina) {
                 return $viewNomina->id === $nomina->id;
             });

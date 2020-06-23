@@ -12,18 +12,17 @@
 
 @section('content')
     @if (! $employees->isEmpty())
-    <table class="table table-bordered table-hover">
+    <table class="table table-hover">
         <thead class="thead-light">
             <tr>
                 <th scope="row">#</th>
-                <th scope="row">Cédula</th>
-                <th>Nombre</th>
-                <th>Departamento</th>
-                <th>Cargo</th>
-                <th>Salario base</th>
-                <th scope="row">HExtras</th>
-                <th>Jornada</th>
-                <th>TViaje</th>
+                <th scope="row">CÉDULA</th>
+                <th>NOMBRE</th>
+                <th>DEPARTAMENTO</th>
+                <th>CARGO</th>
+                <th>SALARIO BASE</th>
+                <th scope="row">HEXTRAS</th>
+                <th>TVIAJE</th>
                 <th>&nbsp;</th>
             </tr>
         </thead>
@@ -36,34 +35,11 @@
                     <td>{{ str_limit($employee->profile->department->name, 20) }}</td>
                     <td>{{ strtoupper($employee->profile->position->name) }}</td>
                     <td>{{ $employee->profile->position->format_salary }}</td>
-                    <form action="">
-                        <div class="form-group col-md-2">
-                            <td width="10px">
-                                <input class="form-control form-control-sm" type="text" name="hours">
-                            </td>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <td width="10px">
-                                <select class="custom-select custom-select-sm" name="journal">
-                                    <option value="">...</option>
-                                    <option value="d">D - Diurna</option>
-                                    <option value="m">M - Mixta</option>
-                                    <option value="n">N - Nocturna</option>
-                                </select>
-                            </td>
-                        </div>
-
-                        <div class="form-group col-md-2">
-                            <td width="20px">
-                                <input class="form-control form-control-sm" type="text" name="travel">
-                            </td>
-                        </div>
-
-                        <td width="10px">
-                            <button type="submit" class="btn btn-outline-warning btn-sm">Editar</button>
-                        </td>
-                    </form>
+                    <td>Horas</td>
+                    <td>Tiempo de viaje</td>
+                    <td>
+                        <a href="#" class="btn btn-outline-warning btn-sm">Editar</a>
+                    </td>
                 </tr>
             @endforeach
         </tbody>
