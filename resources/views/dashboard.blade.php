@@ -56,7 +56,7 @@
                     </p>
                 </div>
                 <div class="card-footer">
-                    <a href="{{ route('nomina.select') }}" class="btn btn-outline-light stretched-link">
+                    <a href="{{ route('pre-nominas.index') }}" class="btn btn-outline-light stretched-link">
                         Ir
                     </a>
                 </div>

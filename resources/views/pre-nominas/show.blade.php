@@ -38,7 +38,9 @@
                     <td>Horas</td>
                     <td>Tiempo de viaje</td>
                     <td>
-                        <a href="#" class="btn btn-outline-warning btn-sm">Editar</a>
+                        <a href="{{ url("pre-nominas/{$nomina->id}/{$employee->id}/create") }}"
+                            class="btn btn-outline-warning btn-sm"
+                        >Carga de datos</a>
                     </td>
                 </tr>
             @endforeach
