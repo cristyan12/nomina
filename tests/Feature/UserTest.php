@@ -8,13 +8,13 @@ use Caffeinated\Shinobi\Models\Role;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class UserControllerTest extends TestCase
+class UserTest extends TestCase
 {
     use RefreshDatabase;
 
     /**
      * @testdox Un usuario anonimo se puede registrar en el sistema
-     * @test 
+     * @test
      */
     function a_anonimus_user_can_register()
     {
@@ -34,7 +34,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @testdox Un administrador puede crear un usuario
-     * @test 
+     * @test
      */
     function a_admin_can_create_a_user()
     {
@@ -55,7 +55,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @testdox Un usuario administrador puede ver la lista de usuarios
-     * @test 
+     * @test
      */
     function a_user_admin_can_see_the_list_of_users()
     {
@@ -76,7 +76,7 @@ class UserControllerTest extends TestCase
 
     /**
      * @testdox Un administrador puede editar los datos de un usuario
-     * @test 
+     * @test
      */
     function a_admin_can_edit_a_user()
     {

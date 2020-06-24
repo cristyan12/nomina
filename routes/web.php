@@ -49,14 +49,6 @@ Route::middleware(['auth'])->group(function() {
                 ->name('nomina.index');
                 // ->middleware('permission:nomina.index');
 
-        Route::get('nominas/select', 'SelectedNominaController@index')
-            ->name('nomina.select');
-            // ->middleware('permission:nomina.index');
-
-        Route::get('nominas/{nomina}/selected', 'SelectedNominaController@show')
-            ->name('nomina.selected');
-            // ->middleware('permission:nomina.index');
-
         Route::get('nominas/create', 'CreateNominaController@create')
             ->name('nomina.create');
             // ->middleware('permission:nomina.create');
@@ -81,6 +73,12 @@ Route::middleware(['auth'])->group(function() {
     // PreNominas
     Route::get('pre-nominas/{nomina}/{employee}/create', 'PreNominaController@create')
         ->name('pre-nominas.create');
+
+    Route::get('pre-nominas/index', 'PreNominaController@index')
+        ->name('pre-nominas.index');
+
+    Route::get('pre-nominas/{nomina}/', 'PreNominaController@show')
+        ->name('pre-nominas.show');
 
     // Users
     Route::get('users', 'UserController@index')

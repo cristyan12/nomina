@@ -6,7 +6,7 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
-class ProfessionModuleTest extends TestCase
+class ProfessionTest extends TestCase
 {
     use RefreshDatabase;
 

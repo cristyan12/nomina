@@ -4,7 +4,7 @@
     <h1 class="pb-1 display-4">{{ $nomina->name }}</h1>
 
     <p>
-        <a class="btn btn-outline-secondary" href="{{ route('nomina.select') }}">
+        <a class="btn btn-outline-secondary" href="{{ route('pre-nominas.index') }}">
             Ir al listado de las nóminas del sistema
         </a>
     </p>

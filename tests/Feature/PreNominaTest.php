@@ -1,12 +1,12 @@
 <?php
 
-namespace Tests\Feature\Nominas;
+namespace Tests\Feature;
 
-use App\{Employee, EmployeeProfile, Nomina, User};
+use App\{Employee, EmployeeProfile, Nomina};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
-class SelectNominaTest extends TestCase
+class PreNominaTest extends TestCase
 {
     use RefreshDatabase;
 
@@ -30,17 +30,17 @@ class SelectNominaTest extends TestCase
         $employee->profile()->save($this->make(EmployeeProfile::class));
 
         $response = $this->actingAs($user)
-            ->get(route('nomina.selected', $nomina));
+            ->get(route('pre-nominas.show', $nomina));
 
         $response->assertStatus(200)
-            ->assertViewIs('nomina.selected')
+            ->assertViewIs('pre-nominas.show')
             ->assertViewHas('nomina')
             ->assertSee('Nomina Semanal')
             ->assertSee('Cristyan Valera');
     }
 
     /** @test */
-    function muestra_la_pagina_de_edicion_de_los_datos_de_la_nomina()
+    function muestra_la_pagina_de_carga_de_los_datos_de_la_nomina()
     {
         $this->withoutExceptionHandling();
 
