@@ -10,6 +10,9 @@ class DaysWorkedTest extends TestCase
 {
     use RefreshDatabase;
 
+    private $position;
+    private $employee;
+
     public function setUp(): void
     {
         parent::setUp();
