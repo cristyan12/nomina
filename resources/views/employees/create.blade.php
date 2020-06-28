@@ -6,11 +6,11 @@
     <div class="card mb-3">
         <div class="card-header"><strong>Registrar Empleado</strong></div>
         <div class="card-body">
-            {{ Form::open(['route' => 'employees.store']) }}
+            <form action="{{ route('employees.store') }}" method="POST">
+                @csrf
 
                 @include('employees.partials.form')
-
-            {{ Form::close() }}
+            </form>
         </div>
         @can('employees.index')
             @component('layouts.components._card_footer')

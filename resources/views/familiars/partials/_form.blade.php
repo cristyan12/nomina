@@ -1,4 +1,3 @@
-@csrf
 <input type="hidden" name="employee_id" value="{{ $employee->id }}">
 
 <div class="form-group row">
@@ -19,9 +18,7 @@
 <div class="form-group row">
     <label for="relationship" class="col-md-2 col-form-label text-md-right">Parentezco:*</label>
     <div class="col-md-4">
-        <select
-            name="relationship"
-            id="relationship"
+        <select name="relationship" id="relationship"
             class="custom-select{{ $errors->has('relationship') ? ' is-invalid' : ''  }}"
         >
             <option value=""></option>

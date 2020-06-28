@@ -1,8 +1,9 @@
 <div class="form-row">
     <div class="form-group col-md-4">
-        <label for="code"><b>Código:*</b></label>
+        <label for="code">Código:*</label>
         <input type="text" id="code" name="code"
-            class="form-control{{ $errors->has('code') ? ' is-invalid' : '' }}" value="{{ old('code') }}"
+            class="form-control{{ $errors->has('code') ? ' is-invalid' : ''}}"
+            value="{{ $employee->code }}"
         >
         @if($errors->has('code'))
             <span class="invalid-feedback" role="alert">
@@ -10,11 +11,11 @@
             </span>
         @endif
     </div>
-
     <div class="form-group col-md-4">
-        <label for="document"><b>Documento de identidad:*</b></label>
-        <input type="text" id="document" name="document"
-            class="form-control{{ $errors->has('document') ? ' is-invalid' : '' }}" value="{{ old('document') }}"
+        <label for="document">Documento de identidad:*</label>
+        <input type="text" name="document" id="document"
+            class="form-control{{ $errors->has('document') ? ' is-invalid' : '' }}"
+            value="{{ $employee->document }}"
         >
         @if($errors->has('document'))
             <span class="invalid-feedback" role="alert">
@@ -22,25 +23,32 @@
             </span>
         @endif
     </div>
-
     <div class="form-group col-md-4">
-        <label for="nationality"><b>Nacionalidad:*</b></label>
-        <select name="nacionality" id="nacionality"
-            class="custom-select{{ $errors->has('nacionality') ? ' is-invalid' : ''  }}"
-        >
+        {{ Form::label('nacionality', 'Nacionalidad:*') }}
+        {{ Form::select('nacionality', [
+            'V' => 'Venezolano',
+            'E' => 'Extranjero',
+        ], $employee->nacionality, ['class' => 'custom-select']) }}
+
+        {{-- <label for="nacionality">Nacionalidad:*</label>
+        <select name="nacionality" id="nacionality" class="custom-select{{ $errors->has('nacionality') ? ' is-invalid' : '' }}">
             <option value=""></option>
-            @foreach(['V' => 'Venezolana', 'E' => 'Extranjera'] as $type => $nacionality)
-            <option value="{{ $type }} {{ old('nacionality', $employee->nacionality) === $nacionality ? ' selected' : '' }}">{{ $nacionality }}</option>
+            @foreach(['V' => 'Venezolano', 'E' => 'Extranjero'] as $type => $nacionality)
+            <option value="{{ $type }}"
+                {{ old('nacionality', $employee->nacionality) === $nacionality ? ' selected' : '' }}>
+                {{ $nacionality }}
+            </option>
             @endforeach
-        </select>
+        </select> --}}
     </div>
 </div>
 
 <div class="form-row">
-    <div class="form-group col-md-6">
-        <label for="last_name"><b>Apellidos:*</b></label>
+    <div class="form-group col">
+        <label for="last_name">Apellidos:*</label>
         <input type="text" id="last_name" name="last_name"
-            class="form-control{{ $errors->has('last_name') ? ' is-invalid' : ''}}" value="{{ old('last_name') }}"
+            class="form-control{{ $errors->has('last_name') ? ' is-invalid' : '' }}"
+            value="{{ $employee->last_name }}"
         >
         @if($errors->has('last_name'))
             <span class="invalid-feedback" role="alert">
@@ -48,11 +56,14 @@
             </span>
         @endif
     </div>
+</div>
 
-    <div class="form-group col-md-6">
-        <label for="first_name"><b>Nombres:*</b></label>
+<div class="form-row">
+    <div class="form-group col">
+        <label for="first_name">Nombres:*</label>
         <input type="text" id="first_name" name="first_name"
-            class="form-control{{ $errors->has('first_name') ? ' is-invalid' : ''}}" value="{{ old('first_name') }}"
+            class="form-control{{ $errors->has('first_name') ? ' is-invalid' : '' }}"
+            value="{{ $employee->first_name }}"
         >
         @if($errors->has('first_name'))
             <span class="invalid-feedback" role="alert">
@@ -64,9 +75,10 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        <label for="rif"><b>Registro de Información Fiscal (RIF):*</b></label>
+        <label for="rif">Registro de Información Fiscal (RIF):*</label>
         <input type="text" id="rif" name="rif"
-            class="form-control{{ $errors->has('rif') ? ' is-invalid' : ''}}" value="{{ old('rif') }}"
+            class="form-control{{ $errors->has('rif') ? ' is-invalid' : '' }}"
+            value="{{ $employee->rif }}"
         >
         @if($errors->has('rif'))
             <span class="invalid-feedback" role="alert">
@@ -76,9 +88,10 @@
     </div>
 
     <div class="form-group col-md-6">
-        <label for="born_at"><b>Fecha de nacimiento:*</b></label>
+        <label for="born_at">Fecha de nacimiento:*</label>
         <input type="date" id="born_at" name="born_at"
-            class="form-control{{ $errors->has('born_at') ? ' is-invalid' : '' }}" value="{{ old('born_at') }}"
+            class="form-control{{ $errors->has('born_at') ? ' is-invalid' : '' }}"
+            value="{{ $employee->born_at->format('Y-m-d') }}"
         >
         @if($errors->has('born_at'))
             <span class="invalid-feedback" role="alert">
@@ -90,18 +103,18 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        <b>{{ Form::label('civil_status', 'Estado Civil:*') }}</b>
+        {{ Form::label('civil_status', 'Estado Civil:*') }}
         {{ Form::select('civil_status', [
-            'Soltero/a' => 'Soltero/a',
             'Casado/a' => 'Casado/a',
+            'Soltero/a' => 'Soltero/a',
             'Divorciado/a' => 'Divorciado/a',
             'Viudo/a' => 'Viudo/a'
-        ], null, ['class' => 'custom-select']) }}
+        ], $employee->civil_status, ['class' => 'custom-select']) }}
     </div>
 
     <div class="form-group col-md-6">
-        <b>{{ Form::label('sex', 'Sexo:*') }}</b>
-        {{ Form::select('sex', ['M' => 'Masculino', 'F' => 'Femenino'], null, [
+        {{ Form::label('sex', 'Sexo:*') }}
+        {{ Form::select('sex', ['M' => 'Masculino', 'F' => 'Femenino'], $employee->sex, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -115,9 +128,10 @@
 
 <div class="form-row">
     <div class="form-group col-md-4">
-        <label for="city_of_born"><b>Ciudad de nacimiento:*</b></label>
+        <label for="city_of_born">Ciudad de nacimiento:*</label>
         <input type="text" id="city_of_born" name="city_of_born"
-            class="form-control{{ $errors->has('city_of_born') ? ' is-invalid' : ''}}" value="{{ old('city_of_born') }}"
+            class="form-control{{ $errors->has('city_of_born') ? ' is-invalid' : '' }}"
+            value="{{ $employee->city_of_born }}"
         >
         @if($errors->has('city_of_born'))
             <span class="invalid-feedback" role="alert">
@@ -127,9 +141,10 @@
     </div>
 
     <div class="form-group col-md-4">
-        <label for="hired_at"><b>Fecha de contratación:*</b></label>
+        <label for="hired_at">Fecha de contratación:*</label>
         <input type="date" id="hired_at" name="hired_at"
-            class="form-control{{ $errors->has('hired_at') ? ' is-invalid' : '' }}" value="{{ old('hired_at') }}"
+            class="form-control{{ $errors->has('hired_at') ? ' is-invalid' : '' }}"
+            value="{{ $employee->hired_at->format('Y-m-d') }}"
         >
         @if($errors->has('hired_at'))
             <span class="invalid-feedback" role="alert">
@@ -139,30 +154,28 @@
     </div>
 
     <div class="form-group col-md-4">
-        <label for="status"><b>Status:*</b></label>
-        <select name="status" id="status" class="custom-select">
-            @foreach(trans('statuses.status') as $type => $status)
-                <option value="{{ $type }}"
-                    {{ old('status', $profile->status) == $status ? ' selected' : '' }}>
-                    {{ $status }}
-                </option>
-            @endforeach
-        </select>
+    <label for="status">Status:*</label>
+    <select name="status" id="status" class="custom-select">
+        @foreach(trans('statuses.status') as $type => $status)
+            <option value="{{ $type }}"
+                {{ old('status', $employee->profile->status) == $status ? ' selected' : '' }}>
+                {{ $status }}
+            </option>
+        @endforeach
+    </select>
 
-        @if($errors->has('status'))
-            <span class="invalid-feedback" role="alert">
-                <strong>{{ $errors->first('status') }}</strong>
-            </span>
-        @endif
-    </div>
+    @if($errors->has('status'))
+        <span class="invalid-feedback" role="alert">
+            <strong>{{ $errors->first('status') }}</strong>
+        </span>
+    @endif
 </div>
-
-<hr>
+</div>
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        <b>{{ Form::label('profession_id', 'Profesión:*') }}</b>
-        {{ Form::select('profession_id', $professions, null, [
+        {{ Form::label('profession_id', 'Profesión:*') }}
+        {{ Form::select('profession_id', $professions, $employee->profile->profession_id, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -174,8 +187,8 @@
     </div>
 
     <div class="form-group col-md-6">
-        <b>{{ Form::label('contract', 'Tipo de contrato:*') }}</b>
-        {{ Form::select('contract', ['T' => 'Temporal', 'I' => 'Indefinido'], null, [
+        {{ Form::label('contract', 'Tipo de contrato:*') }}
+        {{ Form::select('contract', ['T' => 'Temporal', 'I' => 'Indefinido'], $employee->profile->contract, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -189,8 +202,8 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        <b>{{ Form::label('bank_id', 'Banco:*') }}</b>
-        {{ Form::select('bank_id', $banks, null, [
+        {{ Form::label('bank_id', 'Banco:*') }}
+        {{ Form::select('bank_id', $banks, $employee->profile->bank_id, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -202,24 +215,23 @@
     </div>
 
     <div class="form-group col-md-6">
-        <b>{{ Form::label('account_number', 'Número de cuenta:*') }}</b>
-        {{ Form::text('account_number', null, [
-            'class' => 'form-control'
-        ]) }}
+        <label for="account_number">Número de cuenta:*</label>
+        <input type="text" id="account_number" name="account_number"
+            class="form-control{{ $errors->has('account_number') ? ' is-invalid' : '' }}"
+            value="{{ $employee->profile->account_number }}"
+        >
         @if($errors->has('account_number'))
-            <span class="text-danger">
-                <p>{{ $errors->first('account_number') }}</p>
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('account_number') }}</strong>
             </span>
         @endif
     </div>
 </div>
 
-<hr>
-
 <div class="form-row">
-    <div class="form-group col-md-6">
-        <b>{{ Form::label('branch_id', 'Sucursal:*') }}</b>
-        {{ Form::select('branch_id', $branches, null, [
+    <div class="form-group col">
+        {{ Form::label('branch_id', 'Sucursal:*') }}
+        {{ Form::select('branch_id', $branches, $employee->profile->branch_id, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -229,10 +241,12 @@
             </span>
         @endif
     </div>
+</div>
 
-    <div class="form-group col-md-6">
-        <b>{{ Form::label('department_id', 'Departamento:*') }}</b>
-        {{ Form::select('department_id', $departments, null, [
+<div class="form-row">
+    <div class="form-group col">
+        {{ Form::label('department_id', 'Departamento:*') }}
+        {{ Form::select('department_id', $departments, $employee->profile->department->id, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -245,9 +259,9 @@
 </div>
 
 <div class="form-row">
-    <div class="form-group col-md-6">
-        <b>{{ Form::label('unit_id', 'Unidad:*') }}</b>
-        {{ Form::select('unit_id', $units, null, [
+    <div class="form-group col">
+        {{ Form::label('unit_id', 'Unidad:*') }}
+        {{ Form::select('unit_id', $units, $employee->profile->unit_id, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -257,10 +271,12 @@
             </span>
         @endif
     </div>
+</div>
 
-    <div class="form-group col-md-6">
-        <b>{{ Form::label('position_id', 'Cargo:*') }}</b>
-        {{ Form::select('position_id', $positions, null, [
+<div class="form-row">
+    <div class="form-group col">
+        {{ Form::label('position_id', 'Cargo:*') }}
+        {{ Form::select('position_id', $positions, $employee->profile->position->id, [
             'class' => 'custom-select',
             'placeholder' => 'Seleccione una opción:'
         ]) }}
@@ -272,25 +288,10 @@
     </div>
 </div>
 
-<div class="form-row">
-    <div class="form-group col">
-        <b>{{ Form::label('nomina_id', 'Nómina:*') }}</b>
-        {{ Form::select('nomina_id', $nominas, null, [
-            'class' => 'custom-select',
-            'placeholder' => 'Seleccione una opción:'
-        ]) }}
-        @if($errors->has('nomina_id'))
-            <span class="text-danger">
-                <p>{{ $errors->first('nomina_id') }}</p>
-            </span>
-        @endif
-    </div>
-</div>
-
 <hr>
 
 <div class="form-group">
     <div class="col-sm-6">
-        <button class="btn btn-primary" type="submit">Guardar</button>
+        {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
     </div>
 </div>

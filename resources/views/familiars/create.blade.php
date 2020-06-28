@@ -13,6 +13,8 @@
                 </div>
                 <div class="card-body">
                     <form action="{{ route('familiars.store') }}" method="POST">
+                        @csrf
+
                         @include('familiars.partials._form')
                     </form>
                 </div>
