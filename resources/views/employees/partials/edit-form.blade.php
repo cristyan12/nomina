@@ -24,22 +24,15 @@
         @endif
     </div>
     <div class="form-group col-md-4">
-        {{ Form::label('nacionality', 'Nacionalidad:*') }}
-        {{ Form::select('nacionality', [
-            'V' => 'Venezolano',
-            'E' => 'Extranjero',
-        ], $employee->nacionality, ['class' => 'custom-select']) }}
-
-        {{-- <label for="nacionality">Nacionalidad:*</label>
+        <label for="nacionality">Nacionalidad:*</label>
         <select name="nacionality" id="nacionality" class="custom-select{{ $errors->has('nacionality') ? ' is-invalid' : '' }}">
-            <option value=""></option>
-            @foreach(['V' => 'Venezolano', 'E' => 'Extranjero'] as $type => $nacionality)
+            @foreach(['V' => 'Venezolana', 'E' => 'Extranjera'] as $type => $nacionality)
             <option value="{{ $type }}"
-                {{ old('nacionality', $employee->nacionality) === $nacionality ? ' selected' : '' }}>
+                {{ old('nacionality', $employee->nacionality) == $type ? ' selected' : '' }}>
                 {{ $nacionality }}
             </option>
             @endforeach
-        </select> --}}
+        </select>
     </div>
 </div>
 
