@@ -2,7 +2,7 @@
     <label for="name" class="col-md-2 col-form-label text-md-right">Nombre:*</label>
     <div class="col-md-10">
         <input type="text" name="name" id="name"
-            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" 
+            class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}"
             value="{{ old('name', $nomina->name) }}"
         >
         @if($errors->has('name'))
@@ -19,7 +19,7 @@
     <div class="col-md-10 mt-2">
         @foreach(trans('nominas.types') as $type => $name)
             <div class="form-check form-check-inline">
-                <input class="form-check-input" 
+                <input class="form-check-input"
                     type="radio"
                     name="type"
                     id="type_{{ $type }}"
@@ -35,26 +35,26 @@
                 <strong>{{ $errors->first('type') }}</strong>
             </span>
         @endif
-    </div>  
+    </div>
 </div>
 <hr>
 <div class="form-group row">
-    <label for="periods" class="col-sm-2 col-form-label text-md-right">Períodos:</label>    
+    <label for="periods" class="col-sm-2 col-form-label text-md-right">Períodos:</label>
     <div class="col-md-2">
-        <input type="text" 
-            class="form-control" 
-            id="periods" 
-            name="periods" 
+        <input type="text"
+            class="form-control"
+            id="periods"
+            name="periods"
             value="{{ old('periods', $nomina->periods) }}"
         >
     </div>
 
     <label for="first_period_at" class="col-sm-3 col-form-label text-md-right">Fecha del primer período:</label>
     <div class="col-md-5">
-        <input type="date" 
-            id="first_period_at" 
-            name="first_period_at" 
-            class="form-control{{ $errors->has('first_period_at') ? ' is-invalid' : '' }}" 
+        <input type="date"
+            id="first_period_at"
+            name="first_period_at"
+            class="form-control{{ $errors->has('first_period_at') ? ' is-invalid' : '' }}"
             value="{{ old('first_period_at', $nomina->first_date_period) }}"
         >
         @if($errors->has('first_period_at'))
@@ -66,13 +66,13 @@
 </div>
 <div class="form-group row">
     <div class="col-md-4"></div>
-    
+
     <label for="last_period_at" class="col-sm-3 col-form-label text-md-right">Fecha del último período:</label>
     <div class="col-md-5">
-        <input type="date" 
-            id="last_period_at" 
-            name="last_period_at" 
-            class="form-control{{ $errors->has('last_period_at') ? ' is-invalid' : '' }}" 
+        <input type="date"
+            id="last_period_at"
+            name="last_period_at"
+            class="form-control{{ $errors->has('last_period_at') ? ' is-invalid' : '' }}"
             value="{{ old('last_period_at', $nomina->last_period_at) }}"
         >
         @if($errors->has('last_period_at'))
