@@ -20,6 +20,7 @@ class UpdateEmployeeRequest extends CreateEmployeeRequest
             'rif' => 'required',
             'born_at' => 'required|date|before:hired_at|different:hired_at',
             'sex' => 'required',
+            'nationality' => Rule::in('V', 'E'),
             'city_of_born' => 'required',
             'hired_at' => 'required|date|after:born_at|different:born_at',
             'profession_id' => 'required|integer',

@@ -25,6 +25,7 @@ class EmployeesTableSeeder extends Seeder
             'rif' => 'V-14996210-3',
             'born_at' => date('1981-12-21'),
             'sex' => 'M',
+            'nationality' => 'V',
             'city_of_born' => 'Guanare',
             'hired_at' => date('2012-08-30'),
             'nomina_id' => Nomina::where('id', 5)->first()->id,
@@ -52,7 +53,8 @@ class EmployeesTableSeeder extends Seeder
             'rif' => 'V-14996612-3',
             'born_at' => date('1981-07-18'),
             'sex' => 'F',
-            'city_of_born' => 'Guanare',
+            'nationality' => 'E',
+            'city_of_born' => 'Cartagena',
             'hired_at' => date('2012-10-30'),
             'nomina_id' => Nomina::where('id', 5)->first()->id,
         ]);

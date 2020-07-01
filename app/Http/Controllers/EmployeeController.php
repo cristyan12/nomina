@@ -42,6 +42,9 @@ class EmployeeController extends Controller
 
     public function store(CreateEmployeeRequest $request)
     {
+        // TODO: probar con transacciones (DB::transaction())
+        // TODO: probar con $data = $request->validated()
+
         $employee = new Employee($request->only(
             'code', 'document', 'last_name', 'first_name',
             'rif', 'born_at', 'civil_status', 'sex',

@@ -24,15 +24,18 @@
     </div>
 
     <div class="form-group col-md-4">
-        <label for="nationality"><b>Nacionalidad:*</b></label>
-        <select name="nacionality" id="nacionality"
-            class="custom-select{{ $errors->has('nacionality') ? ' is-invalid' : ''  }}"
-        >
-            <option value=""></option>
-            @foreach(['V' => 'Venezolana', 'E' => 'Extranjera'] as $type => $nacionality)
-            <option value="{{ $type }} {{ old('nacionality', $employee->nacionality) === $nacionality ? ' selected' : '' }}">{{ $nacionality }}</option>
-            @endforeach
+        <label for="nationality">Nacionalidad:*</label>
+        <select name="nationality" id="nationality" class="custom-select {{ $errors->has('nationality') ? 'is-invalid' : '' }}">
+            <option value="">Por favor seleccione</option>
+            {{-- https://es.stackoverflow.com/questions/217838/cómo-usar-el-old-de-un-select-laravel --}}
+            <option value="V" {{ old('nationality', $employee->nationality) == 'V' ? 'selected' : '' }}>Venezolana</option>
+            <option value="E" {{ old('nationality', $employee->nationality) == 'E' ? 'selected' : '' }}>Extranjera</option>
         </select>
+        @if($errors->has('nationality'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('nationality') }}</strong>
+            </span>
+        @endif
     </div>
 </div>
 
