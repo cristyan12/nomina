@@ -29,13 +29,12 @@ class CreateEmployeesTable extends Migration
 
             $table->enum('sex', ['M', 'F']);
 
-            $table->enum('nationality', [
-                'V', 'E'
-            ])->default('V');
+            $table->enum('nationality', ['V', 'E']);
 
             $table->string('city_of_born');
             $table->date('hired_at');
             $table->unsignedInteger('nomina_id');
+            $table->foreign('nomina_id')->references('id')->on('nominas');
 
             $table->timestamps();
         });

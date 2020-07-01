@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\{Bank, Branch, Department, EmployeeProfile,
+use App\{
+    Bank, Branch, Department, EmployeeProfile,
     Employee, Nomina, Position, Profession, Unit
 };
-use App\Http\Requests\CreateEmployeeRequest;
-use App\Http\Requests\UpdateEmployeeRequest;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Requests\{
+    CreateEmployeeRequest, UpdateEmployeeRequest
+};
 
 class EmployeeController extends Controller
 {
@@ -42,19 +44,38 @@ class EmployeeController extends Controller
 
     public function store(CreateEmployeeRequest $request)
     {
-        $employee = new Employee($request->only(
-            'code', 'document', 'last_name', 'first_name',
-            'rif', 'born_at', 'civil_status', 'sex',
-            'nationality', 'city_of_born', 'hired_at', 'nomina_id'
-        ));
+        $data = $request->validated();
 
-        auth()->user()->employees()->save($employee);
+        DB::transaction(function () use ($data) {
+            $employee = new Employee([
+                'code' => $data['code'],
+                'document' => $data['document'],
+                'nationality' => $data['nationality'],
+                'last_name' => $data['last_name'],
+                'first_name' => $data['first_name'],
+                'rif' => $data['rif'],
+                'born_at' => $data['born_at'],
+                'civil_status' => $data['civil_status'],
+                'sex' => $data['sex'],
+                'city_of_born' => $data['city_of_born'],
+                'hired_at' => $data['hired_at'],
+                'nomina_id' => $data['nomina_id']
+            ]);
 
-        $employee->profile()->create(request()->only(
-            'profession_id', 'contract', 'status', 'bank_id',
-            'account_number', 'branch_id', 'department_id', 'unit_id',
-            'position_id'
-        ));
+            auth()->user()->employees()->save($employee);
+
+            $employee->profile()->create([
+                'profession_id' => $data['profession_id'],
+                'contract' => $data['contract'],
+                'status' => $data['status'],
+                'bank_id' => $data['bank_id'],
+                'account_number' => $data['account_number'],
+                'branch_id' => $data['branch_id'],
+                'department_id' => $data['department_id'],
+                'unit_id' => $data['unit_id'],
+                'position_id' => $data['position_id'],
+            ]);
+        });
 
         return redirect()->route('employees.index')
             ->with('success', 'Empleado fue creado exitosamente');

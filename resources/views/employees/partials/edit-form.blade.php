@@ -24,15 +24,17 @@
         @endif
     </div>
     <div class="form-group col-md-4">
-        <label for="nacionality">Nacionalidad:*</label>
-        <select name="nacionality" id="nacionality" class="custom-select{{ $errors->has('nacionality') ? ' is-invalid' : '' }}">
-            @foreach(['V' => 'Venezolana', 'E' => 'Extranjera'] as $type => $nacionality)
-            <option value="{{ $type }}"
-                {{ old('nacionality', $employee->nacionality) == $type ? ' selected' : '' }}>
-                {{ $nacionality }}
-            </option>
-            @endforeach
+        <label for="nationality">Nacionalidad:*</label>
+        <select name="nationality" id="nationality" class="custom-select {{ $errors->has('nationality') ? 'is-invalid' : '' }}">
+            <option value="">Por favor seleccione</option>
+            <option value="V" {{ old('nationality', $employee->nationality) == 'V' ? 'selected' : '' }}>Venezolana</option>
+            <option value="E" {{ old('nationality', $employee->nationality) == 'E' ? 'selected' : '' }}>Extranjera</option>
         </select>
+        @if($errors->has('nationality'))
+            <span class="invalid-feedback" role="alert">
+                <strong>{{ $errors->first('nationality') }}</strong>
+            </span>
+        @endif
     </div>
 </div>
 
