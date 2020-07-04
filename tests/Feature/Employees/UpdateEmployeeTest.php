@@ -29,11 +29,12 @@ class UpdateEmployeeTest extends TestCase
             'first_name' => 'Cristyan Josuan',
             'rif' => 'V149962103',
             'born_at' => '1981-12-21',
-            'civilstatus' => 'Casado/a',
+            'civil_status' => 'Casado/a',
             'sex' => 'M',
             'nationality' => 'V',
             'city_of_born' => 'Guanare',
             'hired_at' => '2012-08-30',
+            'nomina_id' => $this->create(\App\Nomina::class)->id,
             'profession_id' => $this->create(\App\Profession::class)->id,
             'status' => 'Activo',
             'bank_id' => $this->create(\App\Bank::class)->id,
@@ -71,13 +72,11 @@ class UpdateEmployeeTest extends TestCase
     {
         $firstUser = factory('App\User')->create();
 
-        $secondUser = $this->someUser();
-
         $employee = $this->create(Employee::class, ['user_id' => $firstUser->id]);
 
         $profile = $this->create(EmployeeProfile::class, ['employee_id' => $employee->id]);
 
-        $response = $this->actingAs($secondUser)
+        $response = $this->actingAs($firstUser)
             ->put(route('employees.update', $employee), $this->attributes)
             ->assertRedirect(route('employees.index'));
 
@@ -85,7 +84,6 @@ class UpdateEmployeeTest extends TestCase
         $this->assertSame('14996210', $emp->code);
         $this->assertSame('Valera Rodriguez', $emp->last_name);
         $this->assertSame('Cristyan Josuan', $emp->first_name);
-        $this->assertEquals($secondUser->id, $emp->user_id);
 
         $employee = Employee::first();
 

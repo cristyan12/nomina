@@ -11,7 +11,7 @@
             </span>
         @endif
     </div>
-</div>
+</div>w
 <hr>
 <div class="form-group row">
     <label for="type" class="col-md-2 col-form-label text-md-right">Tipo*:</label>

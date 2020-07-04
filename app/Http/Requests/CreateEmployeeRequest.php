@@ -36,6 +36,7 @@ class CreateEmployeeRequest extends FormRequest
             'sex' => 'required',
             'city_of_born' => 'required',
             'hired_at' => 'required|date|after:born_at|different:born_at',
+            'nomina_id' => 'required',
             'profession_id' => 'required',
             'contract' => 'required',
             'status' => 'required',
@@ -45,7 +46,6 @@ class CreateEmployeeRequest extends FormRequest
             'department_id' => 'required',
             'unit_id' => 'required',
             'position_id' => 'required',
-            'nomina_id' => 'required',
         ];
     }
 
@@ -64,6 +64,7 @@ class CreateEmployeeRequest extends FormRequest
             'hired_at' => 'Fecha de contratación',
             'profession_id' => 'Profesión',
             'contract' => 'Contrato',
+            'status' => 'Status',
             'bank_id' => 'Banco',
             'account_number' => 'Número de cuenta',
             'branch_id' => 'Sucursal',

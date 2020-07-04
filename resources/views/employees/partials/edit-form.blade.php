@@ -98,13 +98,25 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        {{ Form::label('civil_status', 'Estado Civil:*') }}
-        {{ Form::select('civil_status', [
-            'Casado/a' => 'Casado/a',
-            'Soltero/a' => 'Soltero/a',
-            'Divorciado/a' => 'Divorciado/a',
-            'Viudo/a' => 'Viudo/a'
-        ], $employee->civil_status, ['class' => 'custom-select']) }}
+        <label for="civil_status"><b>Estado Civil:*</b></label>
+        <select name="civil_status"
+            id="civil_status"
+            class="custom-select {{ $errors->has('civil_status') ? 'is-invalid' : '' }}"
+        >
+        <option value="">Por favor seleccione...</option>
+        @foreach(trans('statuses.civil_statuses') as $type => $civilStatus)
+            <option value="{{ $type }}"
+                {{ old('civil_status', $employee->civil_status) == $type ? 'selected' : '' }}
+            >
+                {{ $civilStatus }}
+            </option>
+        @endforeach
+        </select>
+        @if($errors->has('civil_status'))
+            <span class="text-danger">
+                <p><b>{{ $errors->first('civil_status') }}</b></p>
+            </span>
+        @endif
     </div>
 
     <div class="form-group col-md-6">

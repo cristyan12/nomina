@@ -11,7 +11,7 @@ class SixthDayWorkedTest extends TestCase
     use RefreshDatabase;
 
     private $position;
-    private $employee;
+    public $employee;
 
     public function setUp(): void
     {

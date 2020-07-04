@@ -5,7 +5,8 @@
         <select name="bank_id" id="bank_id" class="custom-select{{ $errors->has('bank_id') ? ' is-invalid' : '' }}">
             <option></option>
             @foreach($banks as $bank)
-            <option value="{{ $bank->id }}"{{ old('bank_id', $account->bank_id) == $bank->id ? ' selected' : '' }}>{{ $bank->name }}</option>
+            <option value="{{ $bank->id }}"
+                {{ old('bank_id', $account->bank_id) == $bank->id ? ' selected' : '' }}>{{ $bank->name }}</option>
             @endforeach
         </select>
 
@@ -21,8 +22,8 @@
     <label for="name" class="col-md-4 col-form-label text-md-right">Número de cuenta:*</label>
 
     <div class="col-md-6">
-        <input type="text" name="number" 
-        class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}" 
+        <input type="text" name="number"
+        class="form-control{{ $errors->has('number') ? ' is-invalid' : '' }}"
         value="{{ old('number', $account->number) }}">
 
         @if ($errors->has('number'))
@@ -57,7 +58,7 @@
         <select name="auth_1" class="custom-select{{ $errors->has('auth_1') ? ' is-invalid' : '' }}">
             <option></option>
             @foreach($auth1 as $firstAuth)
-                <option 
+                <option
                     value="{{ $firstAuth->id }}"{{ old('auth_1', $account->auth_1) == $firstAuth->id ? ' selected' : '' }}>
                     {{ $firstAuth->full_name }}
                 </option>
@@ -79,7 +80,7 @@
         <select name="auth_2" class="custom-select">
             <option></option>
             @foreach($auth2 as $secondAuth)
-                <option 
+                <option
                     value="{{ $secondAuth->id }}"{{ old('auth_2', $account->auth_2) == $secondAuth->id ? ' selected' : '' }}>
                     {{ $secondAuth->full_name }}
                 </option>

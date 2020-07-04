@@ -114,7 +114,7 @@
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="civil_status"><b>Estado Civil:*</b></label>
-        {{-- <select name="civil_status"
+        <select name="civil_status"
             id="civil_status"
             class="custom-select {{ $errors->has('civil_status') ? 'is-invalid' : '' }}"
         >
@@ -131,27 +131,16 @@
             <span class="text-danger">
                 <p><b>{{ $errors->first('civil_status') }}</b></p>
             </span>
-        @endif --}}
-        {{ Form::select('civil_status', [
-            'Soltero/a' => 'Soltero/a',
-            'Casado/a' => 'Casado/a',
-            'Divorciado/a' => 'Divorciado/a',
-            'Viudo/a' => 'Viudo/a'
-        ], null, ['class' => 'custom-select']) }}
-
-        @if($errors->has('civil_status'))
-            <span class="text-danger">
-                <p><b>{{ $errors->first('civil_status') }}</b></p>
-            </span>
         @endif
     </div>
 
     <div class="form-group col-md-6">
-        <b>{{ Form::label('sex', 'Sexo:*') }}</b>
-        {{ Form::select('sex', ['M' => 'Masculino', 'F' => 'Femenino'], null, [
-            'class' => 'custom-select',
-            'placeholder' => 'Seleccione una opción:'
-        ]) }}
+        <b><label for="sex">Sexo:*</label></b>
+        <select name="sex" id="sex" class="custom-select {{ $errors->has('sex') ? 'is-invalid' : '' }}">
+            <option value="">Por favor seleccione...</option>
+             <option value="F" {{ old('sex', $employee->sex) == 'F' ? 'selected' : '' }}>Femenino</option>
+             <option value="M" {{ old('sex', $employee->sex) == 'M' ? 'selected' : '' }}>Masculino</option>
+        </select>
         @if($errors->has('sex'))
             <span class="text-danger">
                 <p>{{ $errors->first('sex') }}</p>
@@ -187,10 +176,11 @@
 
     <div class="form-group col-md-4">
         <label for="status"><b>Status:*</b></label>
-        <select name="status" id="status" class="custom-select">
+        <select name="status" id="status" class="custom-select {{ $errors->has('status') ? 'is-invalid' : '' }}">
+            <option value="">Por favot seleccione...</option>
             @foreach(trans('statuses.status') as $type => $status)
                 <option value="{{ $type }}"
-                    {{ old('status', $profile->status) == $status ? ' selected' : '' }}>
+                    {{ old('status', $employee->profile->status) == $status ? ' selected' : '' }}>
                     {{ $status }}
                 </option>
             @endforeach
@@ -208,11 +198,17 @@
 
 <div class="form-row">
     <div class="form-group col-md-6">
-        <b>{{ Form::label('profession_id', 'Profesión:*') }}</b>
-        {{ Form::select('profession_id', $professions, null, [
-            'class' => 'custom-select',
-            'placeholder' => 'Seleccione una opción:'
-        ]) }}
+        <label for="profession_id">Profesión</label>
+        <select name="profession_id" id="profession_id" class="form-control">
+            <option value="">Selecciona una profesión</option>
+            @foreach($professions as $profession)
+                <option value="{{ $profession->id }}"
+                    {{ old('profession_id', $employee->profile->profession_id) == $profession->id ? ' selected' : '' }}
+                >
+                    {{ $profession->title }}
+                </option>
+            @endforeach
+        </select>
         @if($errors->has('profession_id'))
             <span class="text-danger">
                 <p>{{ $errors->first('profession_id') }}</p>
