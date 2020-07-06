@@ -40,7 +40,7 @@ class Nomina extends Model
     public function getFirstDatePeriodAttribute()
     {
         if (! $this->first_period_at == '' ) {
-            return $this->first_period_at->format('d-m-Y');
+            return $this->first_period_at->format('Y-m-d');
         }
 
         return 'N/D';
@@ -49,7 +49,7 @@ class Nomina extends Model
     public function getLastDatePeriodAttribute()
     {
         if (! $this->last_period_at == '' ) {
-            return $this->last_period_at->format('d-m-Y');
+            return $this->last_period_at->format('Y-m-d');
         }
 
         return 'N/D';

@@ -86,7 +86,7 @@ class EmployeeController extends Controller
             'employee' => $employee,
             'professions' => Profession::orderBy('title', 'ASC')->get(),
             'branches' => Branch::orderBy('name', 'ASC')->get(),
-            'banks' => Bank::orderBy('name', 'ASC')->get(),
+            'banks' => Bank::orderBy('code', 'ASC')->get(),
             'departments' => Department::orderBy('name', 'ASC')->get(),
             'units' => Unit::orderBy('name', 'ASC')->get(),
             'positions' => Position::orderBy('name', 'ASC')->get(),

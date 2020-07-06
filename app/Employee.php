@@ -41,6 +41,24 @@ class Employee extends Model
     	return $this->hasOne(EmployeeProfile::class)->withDefault();
     }
 
+    public function getDayOfBornAttribute()
+    {
+        if ($this->born_at == '') {
+            return '';
+        }
+
+        return $this->born_at->format('Y-m-d');
+    }
+
+    public function getDayOfHiredAttribute()
+    {
+        if ($this->hired_at == '') {
+            return '';
+        }
+
+        return $this->hired_at->format('Y-m-d');
+    }
+
     public function getFullNameAttribute()
     {
         return "{$this->first_name} {$this->last_name}";
@@ -48,7 +66,7 @@ class Employee extends Model
 
     public function getFullDocumentAttribute()
     {
-        return "{$this->nationality}-{$this->document}";
+        return "{$this->nationality}{$this->document}";
     }
 
     public function getFullNationalityAttribute()

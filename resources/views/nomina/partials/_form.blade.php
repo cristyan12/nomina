@@ -11,7 +11,7 @@
             </span>
         @endif
     </div>
-</div>w
+</div>
 <hr>
 <div class="form-group row">
     <label for="type" class="col-md-2 col-form-label text-md-right">Tipo*:</label>
@@ -73,7 +73,7 @@
             id="last_period_at"
             name="last_period_at"
             class="form-control{{ $errors->has('last_period_at') ? ' is-invalid' : '' }}"
-            value="{{ old('last_period_at', $nomina->last_period_at) }}"
+            value="{{ old('last_period_at', $nomina->last_date_period) }}"
         >
         @if($errors->has('last_period_at'))
             <span class="text-danger">
