@@ -83,13 +83,14 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         return view('employees.edit', [
-            'employee'      => $employee,
-            'professions'   => Profession::orderBy('id')->pluck('title', 'id'),
-            'branches'      => Branch::orderBy('id')->pluck('name', 'id'),
-            'banks'         => Bank::orderBy('id')->pluck('name', 'id'),
-            'departments'   => Department::orderBy('id')->pluck('name', 'id'),
-            'units'         => Unit::orderBy('id')->pluck('name', 'id'),
-            'positions'     => Position::orderBy('id')->pluck('name', 'id'),
+            'employee' => $employee,
+            'professions' => Profession::orderBy('title', 'ASC')->get(),
+            'branches' => Branch::orderBy('name', 'ASC')->get(),
+            'banks' => Bank::orderBy('name', 'ASC')->get(),
+            'departments' => Department::orderBy('name', 'ASC')->get(),
+            'units' => Unit::orderBy('name', 'ASC')->get(),
+            'positions' => Position::orderBy('name', 'ASC')->get(),
+            'nominas' => Nomina::orderBy('name', 'ASC')->get(),
         ]);
     }
 

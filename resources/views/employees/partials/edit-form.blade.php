@@ -25,10 +25,24 @@
     </div>
     <div class="form-group col-md-4">
         <label for="nationality">Nacionalidad:*</label>
-        <select name="nationality" id="nationality" class="custom-select {{ $errors->has('nationality') ? 'is-invalid' : '' }}">
+        <select
+            name="nationality"
+            id="nationality"
+            class="custom-select {{ $errors->has('nationality') ? 'is-invalid' : '' }}"
+        >
             <option value="">Por favor seleccione</option>
-            <option value="V" {{ old('nationality', $employee->nationality) == 'V' ? 'selected' : '' }}>Venezolana</option>
-            <option value="E" {{ old('nationality', $employee->nationality) == 'E' ? 'selected' : '' }}>Extranjera</option>
+            <option
+                value="V"
+                {{ old('nationality', $employee->nationality) == 'V' ? 'selected' : '' }}
+            >
+                Venezolana
+            </option>
+            <option
+                value="E"
+                {{ old('nationality', $employee->nationality) == 'E' ? 'selected' : '' }}
+            >
+                Extranjera
+            </option>
         </select>
         @if($errors->has('nationality'))
             <span class="invalid-feedback" role="alert">
@@ -99,7 +113,8 @@
 <div class="form-row">
     <div class="form-group col-md-6">
         <label for="civil_status"><b>Estado Civil:*</b></label>
-        <select name="civil_status"
+        <select
+            name="civil_status"
             id="civil_status"
             class="custom-select {{ $errors->has('civil_status') ? 'is-invalid' : '' }}"
         >

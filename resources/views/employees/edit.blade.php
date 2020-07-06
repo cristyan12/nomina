@@ -10,7 +10,7 @@
                 @csrf
                 @method('PUT')
 
-                @include('employees.partials.edit-form')
+                @include('employees.partials.form')
             </form>
         </div> {{-- .card-body --}}
         @can('employees.index')
