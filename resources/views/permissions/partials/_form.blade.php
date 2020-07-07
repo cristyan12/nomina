@@ -1,14 +1,14 @@
 <div class="form-group">
     <label for="name">Nombre:*</label>
-    {{ Form::text('name', null, ['class' => 'form-control']) }}
+    <input type="text" name="name" class="form-control" value="{{ old('name', $permission->name) }}">
 </div>
 <div class="form-group">
     <label for="slug">URL Amigable:*</label>
-    {{ Form::text('slug', null, ['class' => 'form-control']) }}
+    <input type="text" name="slug" class="form-control" value="{{ old('slug', $permission->slug) }}">
 </div>
 <div class="form-group">
     <label for="description">Descripción:*</label>
-    {{ Form::textarea('description', null, ['class' => 'form-control', 'rows' => '3']) }}
+    <textarea name="description" class="form-control">{{ old('description', $permission->description) }}</textarea>
 </div>
 <hr>
 <div class="form-group">
