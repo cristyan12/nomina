@@ -88,13 +88,11 @@ class CreateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_show_a_details_employee_data()
     {
-        $this->withoutExceptionHandling();
-
         $employee = $this->create(Employee::class, [
         	'first_name' => 'EMPLEADO',
         	'last_name' => 'DE PRUEBA',
         ]);
-        $perfil = $this->create(EmployeeProfile::class, ['employee_id' => $employee->id]);
+        $perfil = $employee->profile()->save($this->make(EmployeeProfile::class));
 
         $this->get(route('employees.show', $employee->id))
             ->assertStatus(200)
