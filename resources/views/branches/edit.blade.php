@@ -7,11 +7,12 @@
             <div class="card">
                 <div class="card-header"><strong>Sucursales</strong></div>
                 <div class="card-body">
-                    {!! Form::model($branch, ['route' => ['branches.update', $branch->id], 'method' => 'PUT']) !!}
+                    <form action="{{ route('branches.update', $branch->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
                         @include('branches.partials.form')
-
-                    {!! Form::close() !!}
+                    </form>
                 </div>
                 @can('branches.index')
                     @component('layouts.components._card_footer')

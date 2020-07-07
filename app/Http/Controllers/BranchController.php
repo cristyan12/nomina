@@ -16,7 +16,7 @@ class BranchController extends Controller
 
     public function create()
     {
-        return view('branches.create');
+        return view('branches.create', ['branch' => new Branch]);
     }
 
     public function store(Request $request)

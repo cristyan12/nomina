@@ -1,9 +1,7 @@
 <div class="form-group row">
-    {{ Form::label('name', 'Nombre de Sucursal:*', ['class' => 'col-md-4 col-form-label text-md-right']) }}
-
+    <label for="name" class="col-md-4 col-form-label text-md-right">Nombre de Sucursal:*</label>
     <div class="col-md-6">
-        {{ Form::text('name', null, ['class' => 'form-control']) }}
-        
+        <input type="text" name="name" class="form-control" value="{{ old('name', $branch->name) }}">
         @if($errors->has('name'))
             <span class="text-danger">
                 <strong>{{ $errors->first('name') }}</strong>
@@ -11,11 +9,9 @@
         @endif
     </div>
 </div>
-
 <hr>
-
 <div class="form-group row mb-0">
     <div class="col-md-8 offset-md-4">
-        {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
+        <button type="submit" class="btn btn-primary btn-block">Guardar</button>
     </div>
 </div>
