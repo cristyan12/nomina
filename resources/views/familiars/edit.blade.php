@@ -4,8 +4,6 @@
 <div class="container pt-0">
     <div class="row justify-content-center">
         <div class="col-md-10">
-            {{-- @include('layouts._messages') --}}
-
             <div class="card">
                 <div class="card-header">
                     <span class="lead"><strong>
@@ -14,6 +12,7 @@
                 </div>
                 <div class="card-body">
                     <form action="{{ route('familiars.update', $familiar) }}" method="POST">
+                        @csrf
                         @method('PUT')
 
                         @include('familiars.partials._form')
