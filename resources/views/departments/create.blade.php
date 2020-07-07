@@ -7,11 +7,11 @@
             <div class="card">
                 <div class="card-header"><strong>Departamentos</strong></div>
 		        <div class="card-body">
-		            {{ Form::open(['route' => 'departments.store']) }}
+                    <form action="{{ route('departments.store') }}" method="POST">
+                        @csrf
 
 		                @include('departments.partials.form')
-
-		            {{ Form::close() }}
+                    </form>
 		        </div>
                 @can('departments.index')
                     @component('layouts.components._card_footer')

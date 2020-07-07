@@ -15,6 +15,8 @@ class DepartmentTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_department_office()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->actingAs($this->someUser())
             ->get(route('departments.create'))
             ->assertStatus(200)

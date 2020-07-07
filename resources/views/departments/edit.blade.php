@@ -7,11 +7,12 @@
             <div class="card">
                 <div class="card-header"><strong>Departamentos</strong></div>
 		        <div class="card-body">
-		            {!! Form::model($department, ['route' => ['departments.update', $department->id], 'method' => 'PUT']) !!}
+                    <form action="{{ route('departments.update', $department->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-		                @include('departments.partials.form')
-
-		            {!! Form::close() !!}
+                        @include('departments.partials.form')
+                    </form>
 		        </div>
                 @can('departments.index')
                     @component('layouts.components._card_footer')

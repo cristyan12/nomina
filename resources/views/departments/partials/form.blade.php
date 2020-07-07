@@ -1,9 +1,9 @@
 <div class="form-group row">
-    {{ Form::label('name', 'Departamento:*', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+    <label for="name" class="col-md-4 col-form-label text-md-right">Departamento:*</label>
 
     <div class="col-md-6">
-        {{ Form::text('name', null, ['class' => 'form-control']) }}
-        
+        <input type="text" name="name" class="form-control" value="{{ old('name', $department->name) }}">
+
         @if($errors->has('name'))
             <span class="text-danger">
                 <strong>{{ $errors->first('name') }}</strong>

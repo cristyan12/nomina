@@ -53,6 +53,6 @@ class ListNominaTest extends TestCase
             ->assertViewIs('nomina.show')
             ->assertViewHas('nomina')
             ->assertSee('Nómina Confidencial')
-            ->assertSee($user->name);
+            ->assertSee(e($user->name));
     }
 }
