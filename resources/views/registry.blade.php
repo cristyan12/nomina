@@ -4,35 +4,16 @@
 <div class="row justify-content-center">
     <div class="col">
         <div class="card-deck">
-            @can('concepts.index')
-                <div class="card text-white bg-primary mb-3">
+            @can('companies.index')
+                <div class="card text-white bg-danger mb-3">
                     <div class="card-header">
-                        <strong>Conceptos</strong>
+                        <strong>Compañías</strong>
                     </div>
                     <div class="card-body">
-                        <p class="card-text lead">
-                            Conceptos
-                        </p>
+                        <p class="card-text lead">Compañías</p>
                     </div>
                     <div class="card-footer">
-                        <a href="{{ route('concepts.index') }}" class="btn btn-outline-light stretched-link">
-                            Ver lista
-                        </a>
-                    </div>
-                </div>
-            @endcan
-            @can('positions.index')
-                <div class="card text-white bg-secondary mb-3" >
-                    <div class="card-header">
-                        <strong>Tabulador CCP 2017-2019</strong>
-                    </div>
-                    <div class="card-body">
-                        <p class="card-text lead">
-                            Escala salarial de los diferentes cargos
-                        </p>
-                    </div>
-                    <div class="card-footer">
-                        <a href="{{ route('positions.index') }}" class="btn btn-outline-light stretched-link">
+                        <a href="{{ route('companies.index') }}" class="btn btn-outline-light stretched-link">
                             Ver lista
                         </a>
                     </div>
@@ -57,12 +38,28 @@
                 </div>
             @endcan
 
+            @can('positions.index')
+                <div class="card text-white bg-secondary mb-3" >
+                    <div class="card-header">
+                        <strong>Tabulador CCP 2017-2019</strong>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text lead">
+                            Escala salarial de los diferentes cargos
+                        </p>
+                    </div>
+                    <div class="card-footer">
+                        <a href="{{ route('positions.index') }}" class="btn btn-outline-light stretched-link">
+                            Ver lista
+                        </a>
+                    </div>
+                </div>
+            @endcan
         </div>
 
         <div class="card-deck">
-
             @can('branches.index')
-                <div class="card bg-warning mb-3">
+                <div class="card text-white bg-warning mb-3">
                     <div class="card-header">
                         <strong>Sucursales</strong>
                     </div>
@@ -114,7 +111,6 @@
                     </div>
                 </div>
             @endcan
-
         </div>
 
         <div class="card-deck">
