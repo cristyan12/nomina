@@ -109,7 +109,7 @@ class UnitTest extends TestCase
             ->assertStatus(200)
             ->assertViewIs('units.edit')
             ->assertViewHas('unit')
-            ->assertSee('Tecnología');
+            ->assertSee(e('Tecnología'));
     }
 
     /** @test */

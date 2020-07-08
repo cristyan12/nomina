@@ -16,7 +16,7 @@ class UnitController extends Controller
 
     public function create()
     {
-        return view('units.create');
+        return view('units.create', ['unit' => new Unit]);
     }
 
     public function store()

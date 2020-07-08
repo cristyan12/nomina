@@ -37,18 +37,18 @@
 <div class="form-group">
     <ul class="list-unstyled">
     @foreach($permissions as $permission)
-        <li>
-            <label>
-                <input type="checkbox"
-                    name="permissions[{{ $permission->id }}]"
-                    id="type_{{ $permission->id }}"
-                    value="{{ $permission->id }}"
-                    {{ $errors->any() ? old("permissions.{$permission->id}") : $role->permissions->contains($permission) ? 'checked' : '' }}
-                >
-                {{ $permission->name }}
-                <em class="text-muted">({{ $permission->description ?: 'Sin Descripción' }})</em>
-            </label>
-        </li>
+    <li>
+        <label>
+            <input type="checkbox"
+                name="permissions[{{ $permission->id }}]"
+                id="type_{{ $permission->id }}"
+                value="{{ $permission->id }}"
+                {{ $errors->any() ? old("permissions.{$permission->id}") : $role->permissions->contains($permission) ? 'checked' : '' }}
+            >
+            {{ $permission->name }}
+            <em class="text-muted">({{ $permission->description ?: 'Sin Descripción' }})</em>
+        </label>
+    </li>
     @endforeach
     </ul>
 </div>

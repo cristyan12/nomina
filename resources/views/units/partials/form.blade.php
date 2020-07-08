@@ -1,8 +1,8 @@
 <div class="form-group row">
-    {{ Form::label('name', 'Nombre de la Unidad:*', ['class' => 'col-md-4 col-form-label text-md-right']) }}
+    <label for="name" class="col-md-4 col-form-label text-md-right">Nombre de la Unidad:*</label>
 
     <div class="col-md-6">
-        {{ Form::text('name', null, ['class' => 'form-control']) }}
+        <input type="text" class="form-control" value="{{ old('name', $unit->name) }}">
 
         @if($errors->has('name'))
             <span class="text-danger">
@@ -16,6 +16,6 @@
 
 <div class="form-group row mb-0">
     <div class="col-md-8 offset-md-4">
-        {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
+        <button class="btn btn-primary">Guardar</button>
     </div>
 </div>

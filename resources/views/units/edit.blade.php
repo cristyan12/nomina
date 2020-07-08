@@ -7,11 +7,12 @@
             <div class="card">
 		        <div class="card-header"><strong>Unidades</strong></div>
 		        <div class="card-body">
-		            {!! Form::model($unit, ['route' => ['units.update', $unit->id], 'method' => 'PUT']) !!}
+		            <form action="{{ route('units.update', $unit->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
-		                @include('units.partials.form')
-
-		            {!! Form::close() !!}
+                        @include('units.partials.form')
+                    </form>
 		        </div>
                 @can('units.index')
                     @component('layouts.components._card_footer')

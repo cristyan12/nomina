@@ -7,11 +7,11 @@
             <div class="card">
 		        <div class="card-header"><strong>Unidades</strong></div>
 		        <div class="card-body">
-		            {{ Form::open(['route' => 'units.store']) }}
+                    <form action="{{ route('units.store') }}">
+                        @csrf
 
-		                @include('units.partials.form')
-
-		            {{ Form::close() }}
+                        @include('units.partials.form')
+                    </form>
 		        </div>
                 @can('units.index')
                     @component('layouts.components._card_footer')
