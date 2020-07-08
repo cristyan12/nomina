@@ -7,11 +7,11 @@
             <div class="card">
                 <div class="card-header"><strong>Profesiones</strong></div>
 		        <div class="card-body">
-		            {{ Form::open(['route' => 'professions.store']) }}
+                    <form action="{{ route('professions.store') }}" method="POST">
+                        @csrf
 
-		                @include('professions.partials.form')
-
-		            {{ Form::close() }}
+                        @include('professions.partials.form')
+                    </form>
         		</div>
                 <div class="card-footer">
                     <div class="btn-group float-right">

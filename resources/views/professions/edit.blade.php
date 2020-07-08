@@ -7,11 +7,12 @@
             <div class="card">
                 <div class="card-header"><strong>Editar profesión #{{ $profession->id }}</strong></div>
                 <div class="card-body">
-                    {!! Form::model($profession, ['route' => ['professions.update', $profession], 'method' => 'PUT']) !!}
+                    <form action="{{ route('professions.update', $profession->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
                         @include('professions.partials.form')
-
-                    {!! Form::close() !!}
+                    </form>
                 </div>
                 <div class="card-footer">
                     <div class="btn-group float-right">

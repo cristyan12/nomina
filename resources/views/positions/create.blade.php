@@ -7,11 +7,11 @@
             <div class="card">
                 <div class="card-header"><strong>Tabulador de cargos CCP 2017-2019</strong></div>
 		        <div class="card-body">
-		            {{ Form::open(['route' => 'positions.store']) }}
+		            <form action="{{ route('positions.store') }}" method="POST">
+                        @csrf
 
 		                @include('positions.partials.form')
-
-		            {{ Form::close() }}
+                    </form>
 		        </div>
                 @can('positions.index')
                     @component('layouts.components._card_footer')

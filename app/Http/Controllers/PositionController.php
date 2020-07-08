@@ -20,7 +20,7 @@ class PositionController extends Controller
 
     public function create()
     {
-        return view('positions.create');
+        return view('positions.create', ['position' => new Position]);
     }
 
     public function store(CreatePositionRequest $request)

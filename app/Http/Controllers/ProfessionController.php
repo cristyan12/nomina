@@ -17,7 +17,7 @@ class ProfessionController extends Controller
 
     public function create()
     {
-        return view('professions.create');
+        return view('professions.create', ['profession' => new Profession]);
     }
 
     public function store()
