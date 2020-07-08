@@ -13,7 +13,7 @@ class BankSeeder extends Seeder
     public function run()
     {
         $banks = [
-            Bank::create(['code' => '0101', 'name' => 'Banco Central de Venezuela']),
+            Bank::create(['code' => '0001', 'name' => 'Banco Central de Venezuela']),
             Bank::create(['code' => '0102', 'name' => 'Banco de Venezuela']),
             Bank::create(['code' => '0104', 'name' => 'Venezolano de Crédito']),
             Bank::create(['code' => '0105', 'name' => 'Banco Mercantil']),

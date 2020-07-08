@@ -6,10 +6,11 @@ use App\{
     Bank, Branch, Department, EmployeeProfile,
     Employee, Nomina, Position, Profession, Unit
 };
-use Illuminate\Support\Facades\DB;
 use App\Http\Requests\{
     CreateEmployeeRequest, UpdateEmployeeRequest
 };
+use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 
 class EmployeeController extends Controller
 {
@@ -28,16 +29,7 @@ class EmployeeController extends Controller
 
     public function create()
     {
-        return view('employees.create', [
-            'employee' => new Employee(),
-            'professions' => Profession::orderBy('title', 'ASC')->get(),
-            'branches' => Branch::orderBy('name', 'ASC')->get(),
-            'banks' => Bank::orderBy('name', 'ASC')->get(),
-            'departments' => Department::orderBy('name', 'ASC')->get(),
-            'units' => Unit::orderBy('name', 'ASC')->get(),
-            'positions' => Position::orderBy('name', 'ASC')->get(),
-            'nominas' => Nomina::orderBy('name', 'ASC')->get(),
-        ]);
+        return $this->fillView('employees.create', new Employee);
     }
 
     public function show(Employee $employee)
@@ -86,50 +78,43 @@ class EmployeeController extends Controller
 
     public function edit(Employee $employee)
     {
-        return view('employees.edit', [
-            'employee' => $employee,
-            'professions' => Profession::orderBy('title', 'ASC')->get(),
-            'branches' => Branch::orderBy('name', 'ASC')->get(),
-            'banks' => Bank::orderBy('code', 'ASC')->get(),
-            'departments' => Department::orderBy('name', 'ASC')->get(),
-            'units' => Unit::orderBy('name', 'ASC')->get(),
-            'positions' => Position::orderBy('name', 'ASC')->get(),
-            'nominas' => Nomina::orderBy('name', 'ASC')->get(),
-        ]);
+        return $this->fillView('employees.edit', $employee);
     }
 
     public function update(Employee $employee, UpdateEmployeeRequest $request)
     {
         $data = $request->validated();
 
-        $employee->fill([
-            'code' => $data['code'],
-            'document' => $data['document'],
-            'last_name' => $data['last_name'],
-            'first_name' => $data['first_name'],
-            'rif' => $data['rif'],
-            'born_at' => $data['born_at'],
-            'civil_status' => $data['civil_status'],
-            'sex' => $data['sex'],
-            'nationality' => $data['nationality'],
-            'city_of_born' => $data['city_of_born'],
-            'hired_at' => $data['hired_at'],
-            'nomina_id' => $data['nomina_id'],
-        ]);
+        DB::transaction(function () use ($employee, $data) {
+            $employee->fill([
+                'code' => $data['code'],
+                'document' => $data['document'],
+                'last_name' => $data['last_name'],
+                'first_name' => $data['first_name'],
+                'rif' => $data['rif'],
+                'born_at' => $data['born_at'],
+                'civil_status' => $data['civil_status'],
+                'sex' => $data['sex'],
+                'nationality' => $data['nationality'],
+                'city_of_born' => $data['city_of_born'],
+                'hired_at' => $data['hired_at'],
+                'nomina_id' => $data['nomina_id'],
+            ]);
 
-        auth()->user()->employees()->save($employee);
+            auth()->user()->employees()->save($employee);
 
-        $employee->profile()->update([
-            'profession_id' => $data['profession_id'],
-            'contract' => $data['contract'],
-            'status' => $data['status'],
-            'bank_id' => $data['bank_id'],
-            'account_number' => $data['account_number'],
-            'branch_id' => $data['branch_id'],
-            'department_id' => $data['department_id'],
-            'unit_id' => $data['unit_id'],
-            'position_id' => $data['position_id'],
-        ]);
+            $employee->profile()->update([
+                'profession_id' => $data['profession_id'],
+                'contract' => $data['contract'],
+                'status' => $data['status'],
+                'bank_id' => $data['bank_id'],
+                'account_number' => $data['account_number'],
+                'branch_id' => $data['branch_id'],
+                'department_id' => $data['department_id'],
+                'unit_id' => $data['unit_id'],
+                'position_id' => $data['position_id'],
+            ]);
+        });
 
         return redirect()->route('employees.index')
             ->with('success', 'Empleado editado exitosamente.');
@@ -140,5 +125,19 @@ class EmployeeController extends Controller
         $employee->delete();
 
         return back()->with('info', 'Registro eliminado correctamente');
+    }
+
+    protected function fillView(string $view, Employee $employee): View
+    {
+        return view($view, [
+            'employee' => $employee,
+            'professions' => Profession::orderBy('id')->get(),
+            'branches' => Branch::orderBy('id')->get(),
+            'banks' => Bank::orderBy('code')->get(),
+            'departments' => Department::orderBy('id')->get(),
+            'units' => Unit::orderBy('id')->get(),
+            'positions' => Position::orderBy('id')->get(),
+            'nominas' => Nomina::orderBy('id')->get(),
+        ]);
     }
 }

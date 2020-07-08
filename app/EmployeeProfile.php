@@ -11,11 +11,6 @@ class EmployeeProfile extends Model
 
     protected $guarded = [];
 
-    public function scopeByStatus($query, $type)
-    {
-        return $query->where('status', $type);
-    }
-
     public function bank()
     {
         return $this->belongsTo(Bank::class);
