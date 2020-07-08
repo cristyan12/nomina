@@ -7,11 +7,12 @@
             <div class="card">
                 <div class="card-header"><strong>Editar role #{{ $role->id }}</strong></div>
                 <div class="card-body">
-                    {!! Form::model($role, ['route' => ['roles.update', $role->id], 'method' => 'PUT']) !!}
+                    <form action="{{ route('roles.update', $role->id) }}" method="POST">
+                        @csrf
+                        @method('PUT')
 
                         @include('roles.partials._form')
-
-                    {!! Form::close() !!}
+                    </form>
                 </div>
                 @can('roles.index')
                     @component('layouts.components._card_footer')

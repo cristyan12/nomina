@@ -17,6 +17,7 @@ class RoleController extends Controller
     public function create()
     {
         return view('roles.create', [
+            'role' => new Role,
             'permissions' => Permission::orderBy('slug')->get(),
         ]);
     }

@@ -32,7 +32,7 @@
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
                     <span class="lead">Permiso especial:</span>
-                    <span class="lead"><strong>{{ $role->special }}</strong></span>
+                    <span class="lead"><strong>{{ $role->special ?: 'N/D' }}</strong></span>
                 </div>
             </li>
             <li class="list-group-item">

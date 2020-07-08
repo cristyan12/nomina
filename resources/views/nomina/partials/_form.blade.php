@@ -24,7 +24,7 @@
                     name="type"
                     id="type_{{ $type }}"
                     value="{{ $type }}"
-                     {{ old('type', $nomina->type) == $type ? 'checked' : '' }}>
+                    {{ old('type', $nomina->type) == $type ? 'checked' : '' }}>
                 <label class="form-check-label" for="type_{{ $type }}">{{ $name }}</label>
             </div>
         @endforeach

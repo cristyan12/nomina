@@ -29,7 +29,7 @@
                 <th scope="row">{{ $role->id }}</th>
                 <td>{{ $role->name }}</td>
                 <td>{{ $role->slug }}</td>
-                <td>{{ $role->special }}</td>
+                <td>{{ $role->special ?: 'N/D' }}</td>
                 <td>{{ $role->updated_at->diffForHumans() }}</td>
                 <td width="10px">
                     @can('roles.show')
