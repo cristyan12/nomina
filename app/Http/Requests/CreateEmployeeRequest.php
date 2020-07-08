@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Employee;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 
 class CreateEmployeeRequest extends FormRequest
@@ -81,5 +83,41 @@ class CreateEmployeeRequest extends FormRequest
             'code.same' => 'El código y la cédula de identidad deben coincidir',
             'document.unique' => 'La Cédula de identidad ya está en uso',
         ];
+    }
+
+    public function save()
+    {
+        DB::transaction(function () {
+            $data = $this->validated();
+
+            $employee = new Employee([
+                'code' => $data['code'],
+                'document' => $data['document'],
+                'nationality' => $data['nationality'],
+                'last_name' => $data['last_name'],
+                'first_name' => $data['first_name'],
+                'rif' => $data['rif'],
+                'born_at' => $data['born_at'],
+                'civil_status' => $data['civil_status'],
+                'sex' => $data['sex'],
+                'city_of_born' => $data['city_of_born'],
+                'hired_at' => $data['hired_at'],
+                'nomina_id' => $data['nomina_id']
+            ]);
+
+            auth()->user()->employees()->save($employee);
+
+            $employee->profile()->create([
+                'profession_id' => $data['profession_id'],
+                'contract' => $data['contract'],
+                'status' => $data['status'],
+                'bank_id' => $data['bank_id'],
+                'account_number' => $data['account_number'],
+                'branch_id' => $data['branch_id'],
+                'department_id' => $data['department_id'],
+                'unit_id' => $data['unit_id'],
+                'position_id' => $data['position_id'],
+            ]);
+        });
     }
 }
