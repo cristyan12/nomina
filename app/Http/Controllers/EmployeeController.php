@@ -6,10 +6,9 @@ use App\{
     Bank, Branch, Department, EmployeeProfile,
     Employee, Nomina, Position, Profession, Unit
 };
-use App\Http\Requests\{
-    CreateEmployeeRequest, UpdateEmployeeRequest
-};
 use Illuminate\Contracts\View\View;
+use App\Http\Requests\CreateEmployeeRequest;
+use App\Http\Requests\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {
