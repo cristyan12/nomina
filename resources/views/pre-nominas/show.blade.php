@@ -12,8 +12,8 @@
 
 @section('content')
     @if (! $employees->isEmpty())
-    <table class="table table-hover">
-        <thead class="thead-light">
+    <table class="table table-hover table-striped">
+        <thead class="thead-dark">
             <tr>
                 <th scope="row">#</th>
                 <th scope="row">CÉDULA</th>
