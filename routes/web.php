@@ -6,7 +6,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 // Rutas con permisos
 Route::middleware(['auth'])->group(function() {
-
     Route::view('/', 'dashboard')->name('dashboard');
     Route::view('/archivos', 'registry')->name('records');
     Route::view('/security', 'security')->name('security');
