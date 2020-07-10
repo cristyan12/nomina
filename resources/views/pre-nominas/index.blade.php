@@ -13,8 +13,10 @@
                 <th scope="col">#</th>
                 <th scope="col">Nombre</th>
                 <th scope="col">Tipo</th>
-                <th scope="col">Modificada</th>
-                <th colspan="1">&nbsp;</th>
+                <th scope="col">Número de perídos</th>
+                <th scope="col">Desde</th>
+                <th scope="col">Hasta</th>
+                <th colspan="2">&nbsp;</th>
             </tr>
             </thead>
             <tbody>
@@ -23,11 +25,16 @@
                 <th scope="row">{{ $nomina->id }}</th>
                 <td>{{ $nomina->name }}</td>
                 <td>{{ $nomina->type }}</td>
-                <td>{{ $nomina->updated_at->diffForHumans() }} </td>
+                <td>{{ $nomina->periods ?: 'No/D' }}</td>
+                <td>{{ $nomina->first_date_period }}</td>
+                <td>{{ $nomina->last_date_period }}</td>
                 <td width="10px">
-                    <a href="{{ route('pre-nominas.show', $nomina) }}"
-                        class="btn btn-sm btn-outline-info"
-                    >
+                    <a href="{{ route('nomina.edit', $nomina) }}" class="btn btn-sm btn-outline-warning">
+                        Editar
+                    </a>
+                </td>
+                <td width="10px">
+                    <a href="{{ route('pre-nominas.show', $nomina) }}" class="btn btn-sm btn-outline-info">
                         Seleccionar
                     </a>
                 </td>

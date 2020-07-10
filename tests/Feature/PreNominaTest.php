@@ -55,4 +55,26 @@ class PreNominaTest extends TestCase
             ->assertSee($this->nomina->name)
             ->assertSee($this->employee->full_name);
     }
+
+    /** @test */
+    function puede_mostrar_las_fechas_de_los_ciclos_de_la_nomina()
+    {
+        $this->nomina = $this->create(Nomina::class, [
+            'type' => 'Semanal',
+            'periods' => '52',
+            'first_period_at' => '2020-01-01',
+            'last_period_at' => '2021-01-01',
+        ]);
+
+        $this->employee = $this->create(Employee::class, [
+            'nomina_id' => $this->nomina->id,
+        ]);
+
+        $response = $this->get("pre-nominas/{$this->nomina->id}/{$this->employee->id}/create")
+            ->assertOk()
+            ->assertViewIs('pre-nominas.create')
+            ->assertSee($this->nomina->periods)
+            ->assertSee($this->nomina->first_period_at->format('d-m-Y'))
+            ->assertSee($this->nomina->last_period_at->format('d-m-Y'));
+    }
 }

@@ -7,6 +7,9 @@ use App\EmployeeProfile;
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 use Tests\TestCase;
 
+use PharIo\Manifest\ManifestLoader;
+use PharIo\Manifest\ManifestSerializer;
+
 class EmployeeTest extends TestCase
 {
 	use RefreshDatabase;

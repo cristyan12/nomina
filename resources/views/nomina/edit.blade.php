@@ -10,15 +10,15 @@
                     <form action="{{ route('nomina.update', $nomina->id) }}" method="POST">
                         @csrf
                         @method('PUT')
-                        
+
                         @include('nomina.partials._form')
                     </form>
                 </div>
-                {{-- @can('users.index') --}}
+                @can('nomina.index')
                     @component('layouts.components._card_footer')
                         {{ route('nomina.index') }}
                     @endcomponent
-                {{-- @endcan --}}
+                @endcan
             </div>
         </div>
     </div>
