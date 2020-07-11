@@ -4,8 +4,9 @@ namespace App;
 
 trait CalculatePay
 {
-    protected $MIXED_JOURNAL_HOURS = 7.5;
-    protected $NIGTH_JOURNAL_HOURS = 7;
+    protected $dayJournalHours = 8;
+    protected $mixedJournalHours = 7.5;
+    protected $nigthJournalHours = 7;
 
     protected $bonusSixthDayWorked;
 
@@ -54,6 +55,10 @@ trait CalculatePay
     protected $hoursMixedTravelTime77;
 
     protected $hoursNigthTravelTime77;
+
+    protected $percent50 = 0.5;
+
+    protected $percent15 = 1.5;
 
     /**
      * Permiso remunerado.
@@ -248,9 +253,9 @@ trait CalculatePay
     public function hoursBonusTravelTimeNight(): self
     {
         $this->hoursBonusNigthTravelTime =
-            (($this->dayWorkedDays + $this->sixthDayWorkedDay) * 0.5)
-            + (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * 1.5)
-            + (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * 1.5);
+            (($this->dayWorkedDays + $this->sixthDayWorkedDay) * $this->percent50)
+            + (($this->mixedWorkedDays + $this->sixthDayWorkedMixed) * $this->percent15)
+            + (($this->nightWorkedDays + $this->sixthDayWorkedNigth) * $this->percent15);
 
         return $this;
     }
@@ -276,14 +281,14 @@ trait CalculatePay
 
     public function mixedTravelTime52(): float
     {
-        return $this->salaryHour($this->MIXED_JOURNAL_HOURS)
+        return $this->salaryHour($this->mixedJournalHours)
             * $this->factorTravelTime52
             * $this->hoursMixedTravelTime52;
     }
 
-    public function nigthTravelTime52(): float
+    public function nigthTravelTime52(float $hours = 7): float
     {
-        return $this->salaryHour(7)
+        return $this->salaryHour($hours)
             * $this->factorTravelTime52
             * $this->hoursNigthTravelTime52;
     }
@@ -297,14 +302,14 @@ trait CalculatePay
 
     public function mixedTravelTime77(): float
     {
-        return $this->salaryHour($this->MIXED_JOURNAL_HOURS)
+        return $this->salaryHour($this->mixedJournalHours)
             * $this->factorTravelTime77
             * $this->hoursMixedTravelTime77;
     }
 
-    public function nigthTravelTime77(): float
+    public function nigthTravelTime77(float $hours = 7): float
     {
-        return $this->salaryHour(7)
+        return $this->salaryHour($hours)
             * $this->factorTravelTime77
             * $this->hoursNigthTravelTime77;
     }
@@ -372,7 +377,7 @@ trait CalculatePay
 
     public function nightBonus(): float
     {
-        return $this->normalSalaryForNigthBonus() / 8
+        return $this->normalSalaryForNigthBonus() / $this->dayJournalHours
             * $this->percent38
             * $this->hoursForNigthBonus;
     }
@@ -382,23 +387,24 @@ trait CalculatePay
         return ($this->salaryHour() * $this->percent38)
             * ($this->hoursForNigthBonus
                 + $this->nightBonusDayOvertime
-                + $this->nightBonusMixedOvertime
-        );
+                + $this->nightBonusMixedOvertime);
     }
 
     public function mixedWatchExtraTime(): float
     {
-        $mixedWatchExtraTime = 0.5 * ($this->mixedWorkedDays + $this->sixthDayWorkedMixed);
+        $mixedWatchExtraTime = $this->percent50 * (
+            $this->mixedWorkedDays + $this->sixthDayWorkedMixed
+        );
 
-        return $this->salaryHour($this->MIXED_JOURNAL_HOURS)
-            * $mixedWatchExtraTime
+        return $mixedWatchExtraTime
+            * $this->salaryHour($this->mixedJournalHours)
             * $this->factorWathExtraTimeSB;
     }
 
     public function mixedWatchExtraTimeSN(float $hours): float
     {
         return $this->normalSalary()
-            / $this->MIXED_JOURNAL_HOURS
+            / $this->mixedJournalHours
             * $this->percent66
             * $hours;
     }
@@ -406,7 +412,7 @@ trait CalculatePay
     public function nightWatchExtraTimeSN(float $hours): float
     {
         return $this->normalSalary()
-            / $this->NIGTH_JOURNAL_HOURS
+            / $this->nigthJournalHours
             * $this->percent66
             * $hours;
     }
@@ -470,7 +476,7 @@ trait CalculatePay
     public function mixedExtraHrsDelayTransport(float $hours = 1): float
     {
         return ($this->contractualRest()
-            / $this->MIXED_JOURNAL_HOURS)
+            / $this->mixedJournalHours)
             * $this->percent66
             * $hours;
     }
@@ -478,7 +484,7 @@ trait CalculatePay
     public function nightExtraHrsDelayTransport(float $hours = 1): float
     {
         return ($this->contractualRest()
-            / $this->NIGTH_JOURNAL_HOURS)
+            / $this->nigthJournalHours)
             * $this->percent66
             * $hours;
     }
@@ -514,22 +520,22 @@ trait CalculatePay
             return 0;
         }
 
-        return $this->basicSalary() * 1.5;
+        return $this->basicSalary() * $this->percent15;
     }
 
     public function sundayPremium(): float
     {
-        return $this->basicSalary() * 1.5;
+        return $this->basicSalary() * $this->percent15;
     }
 
     public function sundayPremiumSN(): float
     {
-        return $this->normalSalaryForSundayPremium() * 1.5;
+        return $this->normalSalaryForSundayPremium() * $this->percent15;
     }
 
-    protected function salaryHour(float $journal = 8): float
+    protected function salaryHour(float $hours = 8): float
     {
-        return $this->basicSalary() / $journal;
+        return $this->basicSalary() / $hours;
     }
 
     protected function basicSalary(): float
