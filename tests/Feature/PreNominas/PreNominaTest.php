@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\PreNomina;
 
 use App\{Employee, EmployeeProfile, Nomina};
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -13,6 +13,7 @@ class PreNominaTest extends TestCase
     protected $user;
     protected $employee;
     protected $nomina;
+    protected $attributes = [];
 
     public function setUp(): void
     {
@@ -57,24 +58,15 @@ class PreNominaTest extends TestCase
     }
 
     /** @test */
-    function puede_mostrar_las_fechas_de_los_ciclos_de_la_nomina()
+    function un_administrador_puede_realizar_prenomina_de_semana()
     {
-        $this->nomina = $this->create(Nomina::class, [
-            'type' => 'Semanal',
-            'periods' => '52',
-            'first_period_at' => '2020-01-01',
-            'last_period_at' => '2021-01-01',
-        ]);
+        $this->markTestIncomplete();
+        return;
 
-        $this->employee = $this->create(Employee::class, [
-            'nomina_id' => $this->nomina->id,
-        ]);
+        // TODO: revisar documento de carga de datos
+        $this->employee = $this->create(Employee::class);
 
-        $response = $this->get("pre-nominas/{$this->nomina->id}/{$this->employee->id}/create")
-            ->assertOk()
-            ->assertViewIs('pre-nominas.create')
-            ->assertSee($this->nomina->periods)
-            ->assertSee($this->nomina->first_period_at->format('d-m-Y'))
-            ->assertSee($this->nomina->last_period_at->format('d-m-Y'));
+        $response = $this->from("pre-nominas/{$this->nomina->id}/{$this->employee->id}/create")
+            ->post(route('pre-nominas.store', $this->attributes));
     }
 }

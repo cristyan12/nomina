@@ -1,0 +1,18 @@
+carga de datos: semanal
+---
+- horas extras
+- tiempo de viaje: (52%, 77%)
+- jornada: (Diurna, Mixta o Nocturna)
+- conceptos variables: dias libres por (Descanso Legal, Contractual, o Semanal?), Reposos, Permisos)
+- suma de conceptos
+
+OBSERVACIONES:
+- El tiempo de viaje se computa ida y vuelta, de modo que si es 3 hrs, el total sería 6 hrs
+- Dependiendo de la jornada, el factor para el tiempo de viaje sera de 52% o 77% según sea el caso
+
+ejemplo:
+                    L   M   M   J   V   S   D
+                    =========================
+JORNADAS            D   M   M   DN  N   N   N
+TIEMPO DE VIAJE     3   3   3   3   3   3   3
+HORAS EXTRAS        2   2           2
