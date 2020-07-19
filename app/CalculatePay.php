@@ -4,61 +4,35 @@ namespace App;
 
 trait CalculatePay
 {
+    protected $bonusSixthDayWorked;
+    protected $daysWorked;
+    protected $dayWorkedDays;
+    protected $mixedWorkedDays;
+    protected $nightWorkedDays;
+    protected $sixthDayWorked;
+    protected $sixthDayWorkedDay;
+    protected $sixthDayWorkedMixed;
+    protected $sixthDayWorkedNigth;
+    protected $hoursDayTravelTime52;
+    protected $hoursMixedTravelTime52;
+    protected $hoursNigthTravelTime52;
+    protected $hoursDayTravelTime77;
+    protected $hoursMixedTravelTime77;
+    protected $hoursNigthTravelTime77;
     protected $dayJournalHours = 8;
     protected $mixedJournalHours = 7.5;
     protected $nigthJournalHours = 7;
-
-    protected $bonusSixthDayWorked;
-
-    protected $daysWorked;
-
-    protected $dayWorkedDays;
-
     protected $percent38 = 0.38;
-
-    protected $factorTravelTime52 = 1.52;
-
-    protected $factorTravelTime77 = 1.77;
-
-    protected $factorWathExtraTimeSB = 1.81;
-
     protected $percent66 = 1.66;
-
-    protected $mixedWorkedDays;
-
-    protected $nightWorkedDays;
-
-    protected $sixthDayWorked;
-
-    protected $sixthDayWorkedDay;
-
-    protected $sixthDayWorkedMixed;
-
-    protected $sixthDayWorkedNigth;
-
-    protected $hoursBonusNigthTravelTime = 0;
-
-    protected $nightBonusDayOvertime = 0;
-
-    protected $nightBonusMixedOvertime = 0;
-
-    protected $hoursForNigthBonus = 0;
-
-    protected $hoursDayTravelTime52;
-
-    protected $hoursMixedTravelTime52;
-
-    protected $hoursNigthTravelTime52;
-
-    protected $hoursDayTravelTime77;
-
-    protected $hoursMixedTravelTime77;
-
-    protected $hoursNigthTravelTime77;
-
     protected $percent50 = 0.5;
-
     protected $percent15 = 1.5;
+    protected $factorTravelTime52 = 1.52;
+    protected $factorTravelTime77 = 1.77;
+    protected $factorWathExtraTimeSB = 1.81;
+    protected $hoursBonusNigthTravelTime = 0;
+    protected $hoursForNigthBonus = 0;
+    protected $nightBonusDayOvertime = 0;
+    protected $nightBonusMixedOvertime = 0;
 
     /**
      * Permiso remunerado.
@@ -205,49 +179,6 @@ trait CalculatePay
         $this->hoursNigthTravelTime77 = $hours;
 
         return $this;
-    }
-
-    protected function getMethodConcepts(): array
-    {
-        return [
-            'daysWorkedDays' => $this->dayWorkedDays(),
-            'mixedWorkedDays' => $this->mixedWorkedDays(),
-            'nightWorkedDays' => $this->nightWorkedDays(),
-            'dayTravelTime52' => $this->dayTravelTime52(),
-            'dayTravelTime77' => $this->dayTravelTime77(),
-            'mixedTravelTime52' => $this->mixedTravelTime52(),
-            'mixedTravelTime77' => $this->mixedTravelTime77(),
-            'nigthTravelTime52' => $this->nigthTravelTime52(),
-            'nigthTravelTime77' => $this->nigthTravelTime77(),
-            'bonusTravelTimeNight' => $this->bonusTravelTimeNight(),
-            'sixthDayWorkedDay' => $this->sixthDayWorkedDay(),
-            'sixthDayWorkedMixed' => $this->sixthDayWorkedMixed(),
-            'sixthDayWorkedNigth' => $this->sixthDayWorkedNigth(),
-            'sixthDayWorkedPremium' => $this->sixthDayWorkedPremium(),
-            'sundayPremium' => $this->sundayPremium(),
-            'nightBonusSB' => $this->nightBonusSB(),
-            'mixedWatchExtraTime' => $this->mixedWatchExtraTime(),
-            'nigthWatchExtraTime' => $this->nigthWatchExtraTime(),
-        ];
-    }
-
-    protected function getDivisors(): array
-    {
-        return [
-            $this->dayWorkedDays,
-            $this->mixedWorkedDays,
-            $this->nightWorkedDays,
-            $this->sixthDayWorkedDay,
-            $this->sixthDayWorkedMixed,
-            $this->sixthDayWorkedNigth,
-            $this->paidPermit,
-            $this->unexcusedAbsence,
-            $this->unpaidPermit,
-            $this->outpatientDisease,
-            $this->occupationalDisease,
-            $this->industrialAccident,
-            $this->unionPermit
-        ];
     }
 
     public function hoursBonusTravelTimeNight(): self
@@ -510,5 +441,48 @@ trait CalculatePay
     protected function basicSalary(): float
     {
         return $this->position->basic_salary;
+    }
+
+    protected function getMethodConcepts(): array
+    {
+        return [
+            'daysWorkedDays' => $this->dayWorkedDays(),
+            'mixedWorkedDays' => $this->mixedWorkedDays(),
+            'nightWorkedDays' => $this->nightWorkedDays(),
+            'dayTravelTime52' => $this->dayTravelTime52(),
+            'dayTravelTime77' => $this->dayTravelTime77(),
+            'mixedTravelTime52' => $this->mixedTravelTime52(),
+            'mixedTravelTime77' => $this->mixedTravelTime77(),
+            'nigthTravelTime52' => $this->nigthTravelTime52(),
+            'nigthTravelTime77' => $this->nigthTravelTime77(),
+            'bonusTravelTimeNight' => $this->bonusTravelTimeNight(),
+            'sixthDayWorkedDay' => $this->sixthDayWorkedDay(),
+            'sixthDayWorkedMixed' => $this->sixthDayWorkedMixed(),
+            'sixthDayWorkedNigth' => $this->sixthDayWorkedNigth(),
+            'sixthDayWorkedPremium' => $this->sixthDayWorkedPremium(),
+            'sundayPremium' => $this->sundayPremium(),
+            'nightBonusSB' => $this->nightBonusSB(),
+            'mixedWatchExtraTime' => $this->mixedWatchExtraTime(),
+            'nigthWatchExtraTime' => $this->nigthWatchExtraTime(),
+        ];
+    }
+
+    protected function getDivisors(): array
+    {
+        return [
+            $this->dayWorkedDays,
+            $this->mixedWorkedDays,
+            $this->nightWorkedDays,
+            $this->sixthDayWorkedDay,
+            $this->sixthDayWorkedMixed,
+            $this->sixthDayWorkedNigth,
+            $this->paidPermit,
+            $this->unexcusedAbsence,
+            $this->unpaidPermit,
+            $this->outpatientDisease,
+            $this->occupationalDisease,
+            $this->industrialAccident,
+            $this->unionPermit
+        ];
     }
 }
