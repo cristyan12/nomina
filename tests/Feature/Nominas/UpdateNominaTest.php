@@ -63,7 +63,7 @@ class UpdateNominaTest extends TestCase
         $nomina = Nomina::first();
         $this->assertSame('Quincenal', $nomina->name);
         $this->assertSame('Quincenal', $nomina->type);
-        $this->assertSame('24', $nomina->periods);
+        $this->assertEquals(24, $nomina->periods);
         $this->assertSame('2020-01-01', $nomina->first_period_at->toDateString());
         $this->assertSame('2021-01-01', $nomina->last_period_at->toDateString());
         $this->assertEquals($user->id, $nomina->user_id);
