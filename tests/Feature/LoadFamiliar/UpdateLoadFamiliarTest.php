@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Feature;
+namespace Tests\Feature\LoadFamiliar;
 
 use App\LoadFamiliar;
 use Illuminate\Foundation\Testing\WithFaker;

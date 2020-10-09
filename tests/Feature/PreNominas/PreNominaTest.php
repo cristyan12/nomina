@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\PreNomina;
+namespace Tests\Feature\PreNominas;
 
 use App\{Employee, EmployeeProfile, Nomina};
 use Illuminate\Foundation\Testing\RefreshDatabase;

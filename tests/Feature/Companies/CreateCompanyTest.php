@@ -1,12 +1,11 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Companies;
 
 use App\Company;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateCompanyTest extends TestCase
 {

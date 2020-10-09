@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Nominas;
 
 use App\Nomina;
 use Tests\TestCase;
