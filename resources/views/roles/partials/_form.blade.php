@@ -43,7 +43,7 @@
                 name="permissions[{{ $permission->id }}]"
                 id="type_{{ $permission->id }}"
                 value="{{ $permission->id }}"
-                {{ $errors->any() ? old("permissions.{$permission->id}") : $role->permissions->contains($permission) ? 'checked' : '' }}
+                {{ ($errors->any() ? old("permissions.{$permission->id}") : $role->permissions->contains($permission)) ? 'checked' : '' }}
             >
             {{ $permission->name }}
             <em class="text-muted">({{ $permission->description ?: 'Sin Descripción' }})</em>
