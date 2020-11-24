@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Accounts;
 
-use App\Account;
+use App\Models\Account;
+use App\Models\Company;
+use App\Models\Employee;
+use App\Models\EmployeeProfile;
+use App\Models\Position;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
 
 class UpdateAccountTest extends TestCase
 {
@@ -29,7 +31,7 @@ class UpdateAccountTest extends TestCase
     */
     function a_user_can_load_the_edit_accounts_page()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $account = $this->create(Account::class);
 
@@ -46,19 +48,19 @@ class UpdateAccountTest extends TestCase
     */
     function a_user_can_edit_accounts()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
         $account = $this->create(Account::class);
 
-        $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
-        $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
+        $president = $this->make(Position::class, ['name' => 'PRESIDENTE']);
+        $vicePresident = $this->make(Position::class, ['name' => 'VICE-PRESIDENTE']);
 
         $this->user->positions()->saveMany([$president, $vicePresident]);
 
-        $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
-        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
+        $auth1 = $this->make(EmployeeProfile::class, ['position_id' => $president->id]);
+        $auth2 = $this->make(EmployeeProfile::class, ['position_id' => $vicePresident->id]);
 
-        $emp1 = $this->create('App\Employee');
-        $emp2 = $this->create('App\Employee');
+        $emp1 = $this->create(Employee::class);
+        $emp2 = $this->create(Employee::class);
 
         $emp1->profile()->save($auth1);
         $emp2->profile()->save($auth2);
@@ -82,7 +84,7 @@ class UpdateAccountTest extends TestCase
     {
         // $this->withoutExceptionHandling();
 
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
         $account = $this->create(Account::class);
 
         $response = $this->from(route('accounts.edit', $account))

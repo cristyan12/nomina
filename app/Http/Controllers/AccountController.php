@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\{Account, Bank, Company, Employee, Position};
+use App\Models\{Account, Bank, Company, Employee, Position};
 use App\Http\Requests\CreateAccountRequest;
 
 class AccountController extends Controller

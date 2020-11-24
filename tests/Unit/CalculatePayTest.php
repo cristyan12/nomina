@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\{TestCase, TestHelpers};
-use App\{EmployeeProfile, Position};
+use App\Models\{EmployeeProfile, Position};
 use Illuminate\Foundation\Testing\{
     DatabaseTransactions, RefreshDatabase
 };
@@ -19,11 +19,11 @@ class CalculatePayTest extends TestCase
     {
         parent::setUp();
 
-        $this->position = $this->create(Position::class, [
+        $this->position = factory(Position::class)->create([
             'basic_salary' => 1735.00
         ]);
 
-        $this->employee = $this->create(EmployeeProfile::class, [
+        $this->employee = factory(EmployeeProfile::class)->create([
             'position_id' => $this->position->id
         ]);
     }

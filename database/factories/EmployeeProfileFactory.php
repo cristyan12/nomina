@@ -2,15 +2,15 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\EmployeeProfile::class, function (Faker $faker) {
+$factory->define(App\Models\EmployeeProfile::class, function (Faker $faker) {
     return [
-        'employee_id'       => factory(App\Employee::class),
-        'profession_id'     => factory(App\Profession::class),
-        'bank_id'           => factory(App\Bank::class),
+        'employee_id'       => factory(App\Models\Employee::class),
+        'profession_id'     => factory(App\Models\Profession::class),
+        'bank_id'           => factory(App\Models\Bank::class),
         'account_number'    => $faker->bankAccountNumber,
-        'branch_id'         => factory(App\Branch::class),
-        'department_id'     => factory(App\Department::class),
-        'unit_id'           => factory(App\Unit::class),
-        'position_id'       => factory(App\Position::class),
+        'branch_id'         => factory(App\Models\Branch::class),
+        'department_id'     => factory(App\Models\Department::class),
+        'unit_id'           => factory(App\Models\Unit::class),
+        'position_id'       => factory(App\Models\Position::class),
     ];
 });

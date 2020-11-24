@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\Companies;
 
-use App\Company;
+use App\Models\Company;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\{
     DatabaseTransactions, RefreshDatabase
@@ -39,7 +39,9 @@ class UpdateCompanyTest extends TestCase
     */
     function a_user_can_load_the_page_of_edit_a_company()
     {
-        $company = $this->create('App\Company');
+        $this->withoutExceptionHandling();
+
+        $company = $this->create(Company::class);
 
         $response = $this->get(route('companies.edit', $company))
             ->assertOk()
@@ -53,7 +55,9 @@ class UpdateCompanyTest extends TestCase
     */
     function a_user_can_update_a_company()
     {
-        $company = $this->create('App\Company');
+        $this->withoutExceptionHandling();
+
+        $company = $this->create(Company::class);
 
         $response = $this->put(route('companies.update', $company), $this->attributes)
             ->assertRedirect(route('companies.show', $company));
@@ -67,7 +71,7 @@ class UpdateCompanyTest extends TestCase
     */
     function the_field_name_is_required_when_updated()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $replace = array_replace($this->attributes, ['name' => '']);
 
@@ -86,9 +90,9 @@ class UpdateCompanyTest extends TestCase
     */
     function the_field_name_must_be_unique_when_updated()
     {
-        $this->create('App\Company', ['name' => 'Acme, Ltd']);
+        $this->create(Company::class, ['name' => 'Acme, Ltd']);
 
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $response = $this->from(route('companies.edit', $company->id))
             ->put(route('companies.update', $company->id), $this->attributes)
@@ -104,7 +108,7 @@ class UpdateCompanyTest extends TestCase
     */
     function the_field_rif_is_required_when_updating()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $replace = array_replace($this->attributes, ['rif' => '']);
 
@@ -122,7 +126,7 @@ class UpdateCompanyTest extends TestCase
     */
     function the_field_address_is_optional_when_updating()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $replace = array_replace($this->attributes, ['address' => '']);
 
@@ -139,7 +143,7 @@ class UpdateCompanyTest extends TestCase
     */
     function the_field_phone_number_is_optional_when_updating()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $replace = array_replace($this->attributes, ['phone_number' => '']);
 

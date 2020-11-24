@@ -1,42 +1,43 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use App\CalculatePay;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class Profile extends Model
+class EmployeeProfile extends Model
 {
     use CalculatePay;
 
     protected $guarded = [];
 
-    public function bank()
+    public function bank(): BelongsTo
     {
         return $this->belongsTo(Bank::class);
     }
 
-    public function employees()
+    public function employees(): BelongsTo
     {
     	return $this->belongsTo(Employee::class);
     }
 
-    public function branch()
+    public function branch(): BelongsTo
     {
         return $this->belongsTo(Branch::class);
     }
 
-    public function department()
+    public function department(): BelongsTo
     {
         return $this->belongsTo(Department::class);
     }
 
-    public function position()
+    public function position(): BelongsTo
     {
     	return $this->belongsTo(Position::class);
     }
 
-    public function profession()
+    public function profession(): BelongsTo
     {
         return $this->belongsTo(Profession::class);
     }

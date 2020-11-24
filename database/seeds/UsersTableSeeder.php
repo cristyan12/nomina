@@ -1,8 +1,7 @@
 <?php
 
-use App\{RoleUser, User};
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use Caffeinated\Shinobi\Models\Role;
 
 class UsersTableSeeder extends Seeder
 {
@@ -18,17 +17,5 @@ class UsersTableSeeder extends Seeder
     		'email' => 'numenor21@gmail.com',
     		'password' => bcrypt('123456'),
     	]);
-    	
-        $role = Role::create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'description' => 'Usuario administador',
-            'special' => 'all-access',
-        ]);
-
-        RoleUser::create([
-            'role_id' => $role->id,
-            'user_id' => $user->id,
-        ]);
     }
 }

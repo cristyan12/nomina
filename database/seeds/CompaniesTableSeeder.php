@@ -1,6 +1,5 @@
 <?php
 
-use App\Company;
 use Illuminate\Database\Seeder;
 
 class CompaniesTableSeeder extends Seeder
@@ -12,11 +11,11 @@ class CompaniesTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = factory('App\User')->create();
-        
+        $user = factory(App\Models\User::class)->create();
+
         auth()->loginUsingId($user->id);
 
-        Company::create([
+        App\Models\Company::create([
             'name' => 'Beleriand Services, C.A.',
             'rif' => 'V-14996210-3',
             'address' => 'Calle principal del barrio Buenos Aires, S/N',

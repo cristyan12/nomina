@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Concept;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use App\Models\Concept;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ConceptTest extends TestCase
 {

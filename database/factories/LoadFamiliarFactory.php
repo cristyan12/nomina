@@ -2,10 +2,10 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\LoadFamiliar::class, function (Faker $faker) {
+$factory->define(App\Models\LoadFamiliar::class, function (Faker $faker) {
     return [
-        'user_id' => factory('App\User'),
-        'employee_id' => factory('App\Employee'),
+        'user_id' => factory(App\Models\User::class),
+        'employee_id' => factory(App\Models\Employee::class),
         'name' => $faker->name,
         'relationship' => $faker->randomElement([
             'Hijo', 'Hija', 'Pareja', 'Madre', 'Padre'

@@ -1,10 +1,9 @@
 <?php
 
-use App\Nomina;
-use App\User;
+use App\Models\{Employee, Nomina, User};
 use Faker\Generator as Faker;
 
-$factory->define(App\Employee::class, function (Faker $faker) {
+$factory->define(Employee::class, function (Faker $faker) {
     return [
         'code' => $faker->randomNumber,
         'document' => $faker->randomNumber,

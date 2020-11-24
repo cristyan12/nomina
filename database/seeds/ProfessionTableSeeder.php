@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 
-use App\Profession;
+use App\Models\Profession;
 
 class ProfessionTableSeeder extends Seeder
 {

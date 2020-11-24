@@ -2,7 +2,7 @@
 
 use Faker\Generator as Faker;
 
-$factory->define(App\Nomina::class, function (Faker $faker) {
+$factory->define(App\Models\Nomina::class, function (Faker $faker) {
     return [
         'name' => $faker->name,
         'type' => $faker->randomElement([
@@ -11,6 +11,6 @@ $factory->define(App\Nomina::class, function (Faker $faker) {
         'periods' => $faker->randomNumber(2),
         'first_period_at' => $faker->date(),
         'last_period_at' => $faker->date(),
-        'user_id' => factory('App\User'),
+        'user_id' => factory(App\Models\User::class),
     ];
 });

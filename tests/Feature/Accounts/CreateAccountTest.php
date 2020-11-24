@@ -2,11 +2,14 @@
 
 namespace Tests\Feature\Accounts;
 
-use App\Account;
+use App\Models\Account;
+use App\Models\Bank;
+use App\Models\Company;
+use App\Models\Employee;
+use App\Models\EmployeeProfile;
+use App\Models\Position;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
 
 class CreateAccountTest extends TestCase
 {
@@ -31,19 +34,19 @@ class CreateAccountTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $bank = $this->create('App\Bank');
-        $company = $this->create('App\Company');
+        $bank = $this->create(Bank::class);
+        $company = $this->create(Company::class);
 
-        $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
-        $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
+        $president = $this->make(Position::class, ['name' => 'PRESIDENTE']);
+        $vicePresident = $this->make(Position::class, ['name' => 'VICE-PRESIDENTE']);
 
         $this->user->positions()->saveMany([$president, $vicePresident]);
 
-        $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
-        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
+        $auth1 = $this->make(EmployeeProfile::class, ['position_id' => $president->id]);
+        $auth2 = $this->make(EmployeeProfile::class, ['position_id' => $vicePresident->id]);
 
-        $emp1 = $this->create('App\Employee');
-        $emp2 = $this->create('App\Employee');
+        $emp1 = $this->create(Employee::class);
+        $emp2 = $this->create(Employee::class);
 
         $emp1->profile()->save($auth1);
         $emp2->profile()->save($auth2);
@@ -60,19 +63,19 @@ class CreateAccountTest extends TestCase
     */
     function a_user_can_create_a_new_bank_account_of_the_company()
     {
-        $bank = $this->create('App\Bank');
-        $company = $this->create('App\Company');
+        $bank = $this->create(Bank::class);
+        $company = $this->create(Company::class);
 
-        $president = $this->make('App\Position', ['name' => 'PRESIDENTE']);
-        $vicePresident = $this->make('App\Position', ['name' => 'VICE-PRESIDENTE']);
+        $president = $this->make(Position::class, ['name' => 'PRESIDENTE']);
+        $vicePresident = $this->make(Position::class, ['name' => 'VICE-PRESIDENTE']);
 
         $this->user->positions()->saveMany([$president, $vicePresident]);
 
-        $auth1 = $this->make('App\EmployeeProfile', ['position_id' => $president->id]);
-        $auth2 = $this->make('App\EmployeeProfile', ['position_id' => $vicePresident->id]);
+        $auth1 = $this->make(EmployeeProfile::class, ['position_id' => $president->id]);
+        $auth2 = $this->make(EmployeeProfile::class, ['position_id' => $vicePresident->id]);
 
-        $emp1 = $this->create('App\Employee');
-        $emp2 = $this->create('App\Employee');
+        $emp1 = $this->create(Employee::class);
+        $emp2 = $this->create(Employee::class);
 
         $emp1->profile()->save($auth1);
         $emp2->profile()->save($auth2);
@@ -103,7 +106,7 @@ class CreateAccountTest extends TestCase
     */
     function the_bank_id_is_required()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $response = $this->post(route('accounts.store'), [
             'bank_id' => '',
@@ -123,7 +126,7 @@ class CreateAccountTest extends TestCase
     */
     function the_number_is_required()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $response = $this->post(route('accounts.store'), [
             'bank_id' => '1',
@@ -143,8 +146,8 @@ class CreateAccountTest extends TestCase
     */
     function the_number_must_be_unique()
     {
-        $company = $this->create('App\Company');
-        $account = $this->create('App\Account', [
+        $company = $this->create(Company::class);
+        $account = $this->create(Account::class, [
             'number' => '12345678912345678912'
         ]);
 
@@ -166,7 +169,7 @@ class CreateAccountTest extends TestCase
     */
     function the_number_must_be_20_chars()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $response = $this->post(route('accounts.store'), [
             'bank_id' => '1',
@@ -186,7 +189,7 @@ class CreateAccountTest extends TestCase
     */
     function the_number_must_be_20_chars_max()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $response = $this->post(route('accounts.store'), [
             'bank_id' => '1',
@@ -206,7 +209,7 @@ class CreateAccountTest extends TestCase
     */
     function the_auth_sign_1_is_required()
     {
-        $company = $this->create('App\Company');
+        $company = $this->create(Company::class);
 
         $response = $this->post(route('accounts.store'), [
             'bank_id' => '1',

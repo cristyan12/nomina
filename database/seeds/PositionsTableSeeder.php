@@ -1,6 +1,6 @@
 <?php
 
-use App\Position;
+use App\Models\{Position, User};
 use Illuminate\Database\Seeder;
 
 class PositionsTableSeeder extends Seeder
@@ -12,7 +12,7 @@ class PositionsTableSeeder extends Seeder
      */
     public function run()
     {
-        $user = App\User::first();
+        $user = User::first();
         $user->positions()->createMany([
             ['code' => 'OOO1PRES', 'name' => 'Presidente', 'basic_salary' => '235689.43'],
             ['code' => 'OO2VPRES', 'name' => 'Vice Presidente', 'basic_salary' => '180689.43'],

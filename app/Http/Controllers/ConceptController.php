@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Concept;
+use App\Models\Concept;
 use App\Http\Requests\CreateConceptRequest;
 
 class ConceptController extends Controller

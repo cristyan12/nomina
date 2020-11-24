@@ -1,11 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Support\Str;
-
 class Company extends Model
 {
     protected $fillable = [
@@ -16,10 +14,5 @@ class Company extends Model
     public function accounts(): HasMany
     {
         return $this->hasMany(Account::class);
-    }
-
-    public function getLimitAddressAttribute(): string
-    {
-        return Str::limit($this->address, 50);
     }
 }

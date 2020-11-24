@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\{
+use App\Models\{
     Bank, Branch, Department, Employee, EmployeeProfile,
     Nomina, Position, Profession, Unit, User
 };

@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Companies;
 
+use App\Models\Company;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\{
     DatabaseTransactions, RefreshDatabase
@@ -24,7 +25,7 @@ class ShowCompaniesTest extends TestCase
     */
     function a_user_can_view_the_list_of_companies()
     {
-        $companies = factory('App\Company', 10)->create();
+        $companies = factory(Company::class, 10)->create();
 
         $response = $this->get(route('companies.index'))
             ->assertOk()
@@ -45,7 +46,7 @@ class ShowCompaniesTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $company = $this->create('App\Company', [
+        $company = $this->create(Company::class, [
             'name' => 'Servicios Beleriand',
             'rif' => 'V-14996210-3',
         ]);

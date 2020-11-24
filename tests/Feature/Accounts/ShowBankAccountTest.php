@@ -2,10 +2,11 @@
 
 namespace Tests\Feature\Accounts;
 
+use App\Models\Account;
+use App\Models\Employee;
+use App\Models\EmployeeProfile;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
 
 class ShowBankAccountTest extends TestCase
 {
@@ -24,7 +25,7 @@ class ShowBankAccountTest extends TestCase
     */
     function a_user_can_load_the_index_page()
     {
-        $accounts = factory('App\Account', 3)->create();
+        $accounts = factory(Account::class, 3)->create();
 
         $response = $this->actingAs($this->someUser())
             ->get(route('accounts.index'))
@@ -45,9 +46,9 @@ class ShowBankAccountTest extends TestCase
     */
     function a_user_can_view_the_details_page_of_bank_accounts()
     {
-        $account = factory('App\Account')->create();
-        $employee = factory('App\Employee')->create();
-        $profile = factory('App\EmployeeProfile')->create(['employee_id' => $employee->id]);
+        $account = factory(Account::class)->create();
+        $employee = factory(Employee::class)->create();
+        $profile = factory(EmployeeProfile::class)->create(['employee_id' => $employee->id]);
 
         $response = $this->actingAs($this->someUser())
             ->get(route('accounts.show', $account))
