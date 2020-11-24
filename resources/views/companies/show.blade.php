@@ -26,7 +26,7 @@
             <li class="list-group-item">
                 <div class="d-flex justify-content-between">
                     <span class="lead">Dirección:</span>
-                    <span class="lead text-right"><strong>{{ str_limit($company->address, 50) }}</strong></span>
+                    <span class="lead text-right"><strong>{{ Str::limit($company->address) }}</strong></span>
                 </div>
             </li>
             <li class="list-group-item">

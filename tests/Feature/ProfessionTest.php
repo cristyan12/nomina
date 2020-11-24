@@ -13,6 +13,8 @@ class ProfessionTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_profession_page()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->actingAs($this->someUser())
             ->get(route('professions.create'))
             ->assertStatus(200)

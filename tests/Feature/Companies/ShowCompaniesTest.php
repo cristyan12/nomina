@@ -43,6 +43,8 @@ class ShowCompaniesTest extends TestCase
     */
     function a_user_can_view_the_details_page_of_companies()
     {
+        $this->withoutExceptionHandling();
+
         $company = $this->create('App\Company', [
             'name' => 'Servicios Beleriand',
             'rif' => 'V-14996210-3',

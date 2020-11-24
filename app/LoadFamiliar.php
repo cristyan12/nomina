@@ -11,7 +11,7 @@ class LoadFamiliar extends Model
     protected $guarded = [];
 
     protected $casts = [
-        'born_at' => 'datetime',
+        'born_at' => 'date',
     ];
 
     public function employee()

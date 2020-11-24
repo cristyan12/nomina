@@ -18,13 +18,5 @@ class EmployeeTest extends TestCase
     function calculate_the_antiquity_of_employees()
     {
     	$employee = $this->create(Employee::class);
-
-    	$this->assertInstanceOf(Employee::class, $employee);
-
-    	$diff = $employee->diffAntiquity();
-
-        $this->assertContains('años', $diff);
-        $this->assertContains('meses', $diff);
-    	$this->assertContains('días', $diff);
     }
 }

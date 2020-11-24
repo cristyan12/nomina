@@ -51,6 +51,8 @@ class CreateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_employee_page()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get(route('employees.create'))
             ->assertStatus(200)
             ->assertViewIs('employees.create')

@@ -2,16 +2,18 @@
 
 namespace Tests;
 
+use Illuminate\Database\Eloquent\Model;
+
 trait TestHelpers
 {
     protected $someUser;
 
-    protected function create($class, $attributes = [])
+    protected function create(string $class, array $attributes = []): Model
     {
         return factory($class)->create($attributes);
     }
 
-    protected function make($class, $attributes = [])
+    protected function make(string $class, array $attributes = []): Model
     {
         return factory($class)->make($attributes);
     }
@@ -55,6 +57,6 @@ trait TestHelpers
             ->setHoursNigthTravelTime77(6);
 
         $nightBonusSB = $this->employee->hoursBonusTravelTimeNight()
-            ->hoursForNigthBonus();
+                                    ->hoursForNigthBonus();
     }
 }

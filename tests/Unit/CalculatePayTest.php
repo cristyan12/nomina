@@ -4,7 +4,9 @@ namespace Tests\Unit;
 
 use Tests\{TestCase, TestHelpers};
 use App\{EmployeeProfile, Position};
-use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
+use Illuminate\Foundation\Testing\{
+    DatabaseTransactions, RefreshDatabase
+};
 
 class CalculatePayTest extends TestCase
 {

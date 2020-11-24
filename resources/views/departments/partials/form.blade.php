@@ -16,6 +16,8 @@
 
 <div class="form-group row mb-0">
     <div class="col-md-8 offset-md-4">
-        {{ Form::submit('Guardar', ['class' => 'btn btn-primary']) }}
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
     </div>
 </div>

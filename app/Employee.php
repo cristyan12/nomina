@@ -88,10 +88,8 @@ class Employee extends Model
     /**
     * Calcula la diferncia entre las fechas de contratación
     * y la fecha actual en formato leíble para los humanos.
-    *
-    * @return string
     */
-    public function diffAntiquity()
+    public function diffAntiquity(): string
     {
         $interval = now()->diff($this->hired_at);
 

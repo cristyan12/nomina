@@ -85,7 +85,7 @@ class UserController extends Controller
 
         $user->save();
 
-        $user->roles()->sync($request->get('roles'));
+        // $user->roles()->sync($request->get('roles'));
 
         return redirect()->route('users.show', $user)
             ->with('info', 'Actualizado correctamente');

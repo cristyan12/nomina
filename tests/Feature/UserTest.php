@@ -60,16 +60,8 @@ class UserTest extends TestCase
     function a_user_admin_can_see_the_list_of_users()
     {
         $user = factory(User::class)->create();
-        $role = factory(Role::class)->create([
-            'name' => 'admin',
-            'special' => 'all-access',
-        ]);
-        $admin = factory(RoleUser::class)->create([
-            'role_id' => $role->id,
-            'user_id' => $user->id,
-        ]);
 
-        $this->actingAs($admin)->assertAuthenticated();
+        $this->actingAs($user)->assertAuthenticated();
 
         $response = $this->get(route('users.index'))->assertOk();
     }
@@ -80,6 +72,8 @@ class UserTest extends TestCase
      */
     function a_admin_can_edit_a_user()
     {
+        $this->withoutExceptionHandling();
+
         $user = $this->create(User::class);
 
         $this->be($this->someUser());

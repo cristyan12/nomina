@@ -10,10 +10,6 @@ class Position extends Model
         'code', 'name', 'basic_salary'
     ];
 
-    protected $casts = [
-        'basic_salary' => 'float'
-    ];
-
     public function profile()
     {
     	return $this->hasMany(EmployeeProfile::class);

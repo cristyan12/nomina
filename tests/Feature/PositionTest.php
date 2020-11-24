@@ -229,7 +229,7 @@ class PositionTest extends TestCase
         $position = Position::first();
         $this->assertSame('OPE01', $position->code);
         $this->assertSame('PERFORADOR', $position->name);
-        $this->assertSame(123456.56, $position->basic_salary);
+        $this->assertSame('123456.56', $position->basic_salary);
         $this->assertEquals($user->id, $position->user_id);
     }
 
