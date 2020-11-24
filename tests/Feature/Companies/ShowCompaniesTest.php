@@ -32,7 +32,7 @@ class ShowCompaniesTest extends TestCase
             ->assertViewHas('companies');
 
         foreach ($companies as $company) {
-            $response->assertSee(e($company->name))
+            $response->assertSee(htmlspecialchars($company->name))
                 ->assertSee(e($company->rif));
         }
     }
@@ -54,7 +54,7 @@ class ShowCompaniesTest extends TestCase
             ->assertOk()
             ->assertViewIs('companies.show')
             ->assertViewHas('company')
-            ->assertSee('Servicios Beleriand')
-            ->assertSee('V-14996210-3');
+            ->assertSee(e('Servicios Beleriand'))
+            ->assertSee(e('V-14996210-3'));
     }
 }
