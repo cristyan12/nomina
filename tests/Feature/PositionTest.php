@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Position;
+use App\Models\Position;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class PositionTest extends TestCase
 {
@@ -15,6 +13,8 @@ class PositionTest extends TestCase
     /** @test */
     function a_user_can_load_the_creation_of_position_page()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->actingAs($this->someUser())
             ->get(route('positions.create'))
             ->assertStatus(200)
@@ -24,7 +24,7 @@ class PositionTest extends TestCase
     /** @test */
     function a_user_can_show_a_list_of_positions()
     {
-        $positions = factory(Position::class, 10)->create();
+        $positions = Position::factory()->count(10)->create();
 
         $response = $this->actingAs($this->someUser())
             ->get(route('positions.index'))

@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Nominas;
 
-use App\Nomina;
+use App\Models\Nomina;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CreateNominaTest extends TestCase
 {
@@ -82,7 +80,7 @@ class CreateNominaTest extends TestCase
     */
     function field_name_must_be_unique()
     {
-        $nomina = $this->create('App\Nomina', [
+        $nomina = $this->create(Nomina::class, [
             'name' => 'NOMINA 1',
         ]);
 

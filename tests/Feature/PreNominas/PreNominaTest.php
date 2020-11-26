@@ -2,7 +2,7 @@
 
 namespace Tests\Feature\PreNominas;
 
-use App\{Employee, EmployeeProfile, Nomina};
+use App\Models\{Employee, EmployeeProfile, Nomina};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -33,6 +33,8 @@ class PreNominaTest extends TestCase
     /** @test */
     function a_admin_can_select_a_type_of_nomina_from_a_list()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get(route('pre-nominas.show', $this->nomina));
 
         $response->assertStatus(200)

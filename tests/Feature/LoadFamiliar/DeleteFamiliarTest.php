@@ -3,8 +3,8 @@
 namespace Tests\Feature\LoadFamiliar;
 
 use Tests\TestCase;
-use App\{Employee, LoadFamiliar};
-use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
+use App\Models\{Employee, LoadFamiliar};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DeleteFamiliarTest extends TestCase
 {

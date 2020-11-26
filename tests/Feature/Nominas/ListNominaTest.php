@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Nominas;
 
-use App\Nomina;
+use App\Models\Nomina;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ListNominaTest extends TestCase
 {

@@ -3,10 +3,8 @@
 namespace Tests\Feature;
 
 use Tests\TestCase;
-use App\{User, RoleUser};
-use Caffeinated\Shinobi\Models\Role;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class UserTest extends TestCase
 {
@@ -26,7 +24,7 @@ class UserTest extends TestCase
         ]))
         ->assertRedirect('/home');
 
-        $user = \App\User::first();
+        $user = User::first();
 
         $this->assertSame('Cristyan Valera', $user->name);
         $this->assertSame('numenor21@gmail.com', $user->email);
@@ -41,11 +39,11 @@ class UserTest extends TestCase
         $this->be($this->someUser());
 
         $response = $this->post(route('users.store'), [
-                'name' => 'UN USUARIO',
-                'email' => 'UN_USUARIO@MAIL.COM',
-                'password' => '123456',
-            ])
-            ->assertRedirect(route('users.index'));
+            'name' => 'UN USUARIO',
+            'email' => 'UN_USUARIO@MAIL.COM',
+            'password' => '123456',
+        ])
+        ->assertRedirect(route('users.index'));
 
         $this->assertDatabaseHas('users', [
             'name' => 'UN USUARIO',
@@ -59,7 +57,7 @@ class UserTest extends TestCase
      */
     function a_user_admin_can_see_the_list_of_users()
     {
-        $user = factory(User::class)->create();
+        $user = $this->create(User::class);
 
         $this->actingAs($user)->assertAuthenticated();
 
@@ -79,11 +77,11 @@ class UserTest extends TestCase
         $this->be($this->someUser());
 
         $response = $this->put(route('users.update', $user->id), [
-                'name' => 'OTRO USUARIO',
-                'email' => 'OTRO_CORREO@MAIL.COM',
-                'password' => '',
-            ])
-            ->assertRedirect(route('users.show', $user->id));
+            'name' => 'OTRO USUARIO',
+            'email' => 'OTRO_CORREO@MAIL.COM',
+            'password' => '',
+        ])
+        ->assertRedirect(route('users.show', $user->id));
 
         $user = User::find($user->id);
 

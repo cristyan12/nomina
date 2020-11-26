@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Employee, Nomina};
+use App\Models\{Employee, Nomina};
 use Illuminate\Http\Request;
 
 class PreNominaController extends Controller

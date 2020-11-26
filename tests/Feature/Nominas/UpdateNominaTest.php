@@ -2,11 +2,9 @@
 
 namespace Tests\Feature\Nominas;
 
-use App\Nomina;
+use App\Models\Nomina;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class UpdateNominaTest extends TestCase
 {
@@ -27,7 +25,7 @@ class UpdateNominaTest extends TestCase
     */
     function a_user_can_loads_the_edit_page()
     {
-        $nomina = $this->create('App\Nomina');
+        $nomina = $this->create(Nomina::class);
 
         $response = $this->get(route('nomina.edit', $nomina->id))
             ->assertOk()
@@ -48,7 +46,7 @@ class UpdateNominaTest extends TestCase
         $this->withoutExceptionHandling();
 
         $user = $this->someUser();
-        $nomina = $this->create('App\Nomina');
+        $nomina = $this->create(Nomina::class);
 
         $response = $this->actingAs($user)
             ->put(route('nomina.update', $nomina->id), [
@@ -75,7 +73,7 @@ class UpdateNominaTest extends TestCase
     */
     function field_name_must_require_when_updating()
     {
-        $nomina = $this->create('App\Nomina');
+        $nomina = $this->create(Nomina::class);
 
         $response = $this->from(route('nomina.edit', $nomina->id))
             ->put(route('nomina.update', $nomina->id), [
@@ -94,11 +92,11 @@ class UpdateNominaTest extends TestCase
     */
     function field_name_must_be_unique_when_updating()
     {
-        $this->create('App\Nomina', [
+        $this->create(Nomina::class, [
             'name' => 'NOMBRE INICIAL',
         ]);
 
-        $nomina = $this->create('App\Nomina', [
+        $nomina = $this->create(Nomina::class, [
             'name' => 'OTRO NOMBRE',
         ]);
 
@@ -120,7 +118,7 @@ class UpdateNominaTest extends TestCase
     */
     function field_type_must_require_when_updating()
     {
-        $nomina = $this->create('App\Nomina');
+        $nomina = $this->create(Nomina::class);
 
         $response = $this->from(route('nomina.edit', $nomina->id))
             ->put(route('nomina.update', $nomina->id), [

@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\LoadFamiliar;
 
-use App\LoadFamiliar;
+use App\Models\Employee;
+use App\Models\LoadFamiliar;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 use Tests\TestCase;
 
 class UpdateLoadFamiliarTest extends TestCase
@@ -45,12 +46,12 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function a_user_can_show_the_edit_page_of_familiar()
     {
-        $employee = $this->create('App\Employee', [
+        $employee = $this->create(Employee::class, [
             'first_name' => 'Cristyan Josuan',
             'last_name' => 'Valera Rodriguez'
         ]);
 
-        $familiar = $this->create('App\LoadFamiliar', [
+        $familiar = $this->create(LoadFamiliar::class, [
             'employee_id' => $employee->id,
             'name' => 'Crismely Sarai Valera Garcia'
         ]);
@@ -74,7 +75,7 @@ class UpdateLoadFamiliarTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $response = $this->put(route('familiars.update', $familiar),
             $this->withData([
@@ -94,7 +95,7 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_name_of_the_load_familiar_is_required_when_updating()
     {
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $response = $this->put(route('familiars.update', $familiar),
             $this->withData(['name' => ''])
@@ -109,7 +110,7 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_relationship_of_the_load_familiar_is_required_when_updating()
     {
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $response = $this->put(route('familiars.update', $familiar),
             $this->withData(['relationship' => ''])
@@ -124,7 +125,7 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_document_of_the_load_familiar_is_required_when_updating()
     {
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $this->put(route('familiars.update', $familiar),
             $this->withData(['document' => ''])
@@ -139,9 +140,9 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_document_of_the_load_familiar_must_be_unique_when_updating()
     {
-        $this->create('App\LoadFamiliar', ['document' => 'V11223345']);
+        $this->create(LoadFamiliar::class, ['document' => 'V11223345']);
 
-        $familiar = $this->create('App\LoadFamiliar', ['document' => 'V14996612']);
+        $familiar = $this->create(LoadFamiliar::class, ['document' => 'V14996612']);
 
         $this->put(route('familiars.update', $familiar),
             $this->withData(['document' => 'V11223345'])
@@ -158,11 +159,11 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_load_familiar_document_can_stay_the_same_if_other_fields_are_updated()
     {
-        $randomFamiliar = $this->create('App\LoadFamiliar', [
+        $randomFamiliar = $this->create(LoadFamiliar::class, [
             'document' => 'V14996612',
         ]);
 
-        $familiar = $this->create('App\LoadFamiliar', [
+        $familiar = $this->create(LoadFamiliar::class, [
             'document' => 'V14996210',
         ]);
 
@@ -181,7 +182,7 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_sex_of_the_load_familiar_is_required_when_updating()
     {
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $response = $this->put(route('familiars.update', $familiar),
             $this->withData(['sex' => ''])
@@ -196,7 +197,7 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_born_at_of_the_load_familiar_is_required_when_updating()
     {
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $response = $this->put(route('familiars.update', $familiar),
             $this->withData(['born_at' => ''])
@@ -211,7 +212,7 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_born_at_of_the_load_familiar_must_be_valid_when_updating()
     {
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $this->put(route('familiars.update', $familiar),
             $this->withData(['born_at' => 'DATE-NO-VALID'])
@@ -226,7 +227,7 @@ class UpdateLoadFamiliarTest extends TestCase
     */
     function the_instruction_of_the_load_familiar_is_required_when_updating()
     {
-        $familiar = $this->create('App\LoadFamiliar');
+        $familiar = $this->create(LoadFamiliar::class);
 
         $response = $this->put(route('familiars.update', $familiar),
             $this->withData(['instruction' => ''])

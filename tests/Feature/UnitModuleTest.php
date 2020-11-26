@@ -2,10 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Department;
-use App\Unit;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\{Department, Unit};
+use Illuminate\Foundation\Testing\{RefreshDatabase, WithFaker};
 use Tests\TestCase;
 
 class UnitModuleTest extends TestCase
@@ -41,7 +39,7 @@ class UnitModuleTest extends TestCase
     function a_user_can_see_a_list_of_a_units()
     {
         // Arrange
-        $units = factory(Unit::class, 10)->create();
+        $units = Unit::factory()->count(10)->create();
 
         // Act
         $response = $this->actingAs($user = $this->someUser())
@@ -53,7 +51,7 @@ class UnitModuleTest extends TestCase
             ->assertViewHas('units');
 
         foreach ($units as $unit) {
-            $response->assertSee(e($unit->name));
+            $response->assertSee($unit->name);
         }
     }
 

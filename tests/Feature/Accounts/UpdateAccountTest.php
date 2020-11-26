@@ -2,11 +2,7 @@
 
 namespace Tests\Feature\Accounts;
 
-use App\Models\Account;
-use App\Models\Company;
-use App\Models\Employee;
-use App\Models\EmployeeProfile;
-use App\Models\Position;
+use App\Models\{Account, Company, Employee, EmployeeProfile, Position};
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -39,7 +35,7 @@ class UpdateAccountTest extends TestCase
             ->assertOk()
             ->assertViewIs('accounts.edit')
             ->assertViewHas('account')
-            ->assertSee(e($account->bank->name));
+            ->assertSee($account->bank->name);
     }
 
     /**
