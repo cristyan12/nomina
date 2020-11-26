@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Nomina;
 
-use App\Nomina;
+use App\Models\Nomina;
 use App\Http\Controllers\Controller;
 
 class ShowNominaController extends Controller

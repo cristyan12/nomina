@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Accounts;
 
+use App\Models\{Account, Employee, EmployeeProfile};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
 
 class ShowBankAccountTest extends TestCase
 {
@@ -24,7 +23,7 @@ class ShowBankAccountTest extends TestCase
     */
     function a_user_can_load_the_index_page()
     {
-        $accounts = factory('App\Account', 3)->create();
+        $accounts = Account::factory()->count(3)->create();
 
         $response = $this->actingAs($this->someUser())
             ->get(route('accounts.index'))
@@ -33,9 +32,9 @@ class ShowBankAccountTest extends TestCase
             ->assertViewHas('accounts');
 
         foreach ($accounts as $account) {
-            $response->assertSee(e($account->bank->name))
-                ->assertSee(e($account->type))
-                ->assertSee(e($account->number));
+            $response->assertSee(htmlspecialchars($account->bank->name))
+                ->assertSee(htmlspecialchars($account->type))
+                ->assertSee(htmlspecialchars($account->number));
         }
     }
 
@@ -45,9 +44,10 @@ class ShowBankAccountTest extends TestCase
     */
     function a_user_can_view_the_details_page_of_bank_accounts()
     {
-        $account = factory('App\Account')->create();
-        $employee = factory('App\Employee')->create();
-        $profile = factory('App\EmployeeProfile')->create(['employee_id' => $employee->id]);
+        $account = Account::factory()->create();
+        $employee = Employee::factory()->create();
+        $profile = EmployeeProfile::factory()
+            ->create(['employee_id' => $employee->id]);
 
         $response = $this->actingAs($this->someUser())
             ->get(route('accounts.show', $account))

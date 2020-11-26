@@ -3,10 +3,8 @@
 namespace Tests\Unit;
 
 use Tests\{TestCase, TestHelpers};
-use App\{EmployeeProfile, Position};
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use App\Models\{EmployeeProfile, Position};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class CalculatePayTest extends TestCase
 {

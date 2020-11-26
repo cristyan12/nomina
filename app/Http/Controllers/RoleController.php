@@ -1,5 +1,5 @@
 <?php
-
+// Por eliminar
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;

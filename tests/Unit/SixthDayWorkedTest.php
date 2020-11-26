@@ -3,7 +3,7 @@
 namespace Tests\Unit;
 
 use Tests\{TestCase, TestHelpers};
-use App\{EmployeeProfile, Position};
+use App\Models\{EmployeeProfile, Position};
 use Illuminate\Foundation\Testing\{DatabaseTransactions, RefreshDatabase};
 
 class SixthDayWorkedTest extends TestCase

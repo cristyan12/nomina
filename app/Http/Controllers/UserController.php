@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use Caffeinated\Shinobi\Models\Role;
+use App\Models\User;
 use App\Http\Requests\SaveUserRequest;
 
 class UserController extends Controller

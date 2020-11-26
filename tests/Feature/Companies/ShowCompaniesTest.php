@@ -2,10 +2,9 @@
 
 namespace Tests\Feature\Companies;
 
+use App\Models\Company;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class ShowCompaniesTest extends TestCase
 {
@@ -24,7 +23,7 @@ class ShowCompaniesTest extends TestCase
     */
     function a_user_can_view_the_list_of_companies()
     {
-        $companies = factory('App\Company', 10)->create();
+        $companies = Company::factory()->count(10)->create();
 
         $response = $this->get(route('companies.index'))
             ->assertOk()
@@ -32,8 +31,8 @@ class ShowCompaniesTest extends TestCase
             ->assertViewHas('companies');
 
         foreach ($companies as $company) {
-            $response->assertSee(htmlspecialchars($company->name))
-                ->assertSee(e($company->rif));
+            $response->assertSee($company->name)
+                ->assertSee($company->rif);
         }
     }
 
@@ -45,7 +44,7 @@ class ShowCompaniesTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $company = $this->create('App\Company', [
+        $company = $this->create(Company::class, [
             'name' => 'Servicios Beleriand',
             'rif' => 'V-14996210-3',
         ]);
@@ -54,7 +53,7 @@ class ShowCompaniesTest extends TestCase
             ->assertOk()
             ->assertViewIs('companies.show')
             ->assertViewHas('company')
-            ->assertSee(e('Servicios Beleriand'))
-            ->assertSee(e('V-14996210-3'));
+            ->assertSee('Servicios Beleriand')
+            ->assertSee('V-14996210-3');
     }
 }

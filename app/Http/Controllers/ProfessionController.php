@@ -2,9 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Profession;
-use Illuminate\Http\Request;
-use Illuminate\Validation\Rule;
+use App\Models\Profession;
 
 class ProfessionController extends Controller
 {

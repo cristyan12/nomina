@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers\Nomina;
 
-use App\Nomina;
-use Illuminate\Http\Request;
+use App\Models\Nomina;
 use App\Http\Controllers\Controller;
 
 class ListNominaController extends Controller

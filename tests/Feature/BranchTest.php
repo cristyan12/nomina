@@ -2,7 +2,7 @@
 
 namespace Tests\Feature;
 
-use App\Branch;
+use App\Models\Branch;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -21,6 +21,8 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_branch_office()
     {
+        $this->withoutExceptionHandling();
+
         $response = $this->get(route('branches.create'))
             ->assertStatus(200)
             ->assertViewIs('branches.create')
@@ -40,13 +42,13 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_can_show_a_list_of_branch_offices()
     {
-        $branches = factory(Branch::class, 10)->create();
+        $branches = Branch::factory()->count(10)->create();
 
         $response = $this->get(route('branches.index'))
             ->assertStatus(200);
 
         foreach ($branches as $branch) {
-            $response->assertSee(htmlspecialchars($branch->name));
+            $response->assertSee($branch->name);
         }
     }
 

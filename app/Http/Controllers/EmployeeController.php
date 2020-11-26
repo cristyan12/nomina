@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\{
-    Bank, Branch, Department, EmployeeProfile,
-    Employee, Nomina, Position, Profession, Unit
+use App\Http\Requests\{
+    CreateEmployeeRequest, UpdateEmployeeRequest
+};
+use App\Models\{
+    Bank, Branch, Department, Employee,
+    Nomina, Position, Profession, Unit
 };
 use Illuminate\Contracts\View\View;
-use App\Http\Requests\CreateEmployeeRequest;
-use App\Http\Requests\UpdateEmployeeRequest;
 
 class EmployeeController extends Controller
 {

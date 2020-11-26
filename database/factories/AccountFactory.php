@@ -1,15 +1,34 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Account::class, function (Faker $faker) {
-    return [
-        'company_id' => factory('App\Company'),
-        'bank_id' => factory('App\Bank'),
-        'number' => $faker->unique()->bankAccountNumber,
-        'type' => $faker->randomElement(['Ahorro', 'Corriente']),
-        'auth_1' => factory('App\EmployeeProfile'),
-        'auth_2' => factory('App\EmployeeProfile'),
-        'user_id' => factory('App\User'),
-    ];
-});
+use App\Models\{Account, Bank, Company, EmployeeProfile, User};
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class AccountFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Account::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'company_id' => Company::factory(),
+            'bank_id' => Bank::factory(),
+            'number' => $this->faker->unique()->bankAccountNumber,
+            'type' => $this->faker->randomElement(['Ahorro', 'Corriente']),
+            'auth_1' => EmployeeProfile::factory(),
+            'auth_2' => EmployeeProfile::factory(),
+            'user_id' => User::factory(),
+        ];
+    }
+}

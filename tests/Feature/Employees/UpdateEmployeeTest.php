@@ -2,11 +2,13 @@
 
 namespace Tests\Feature\Employees;
 
-use Tests\TestCase;
-use App\{Employee, EmployeeProfile};
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
+use App\Models\{
+    Bank, Branch, Department, Employee,
+    EmployeeProfile, Nomina, Position, Profession,
+    Unit, User
 };
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
 
 class UpdateEmployeeTest extends TestCase
 {
@@ -34,16 +36,16 @@ class UpdateEmployeeTest extends TestCase
             'nationality' => 'V',
             'city_of_born' => 'Guanare',
             'hired_at' => '2012-08-30',
-            'nomina_id' => $this->create(\App\Nomina::class)->id,
-            'profession_id' => $this->create(\App\Profession::class)->id,
+            'nomina_id' => $this->create(Nomina::class)->id,
+            'profession_id' => $this->create(Profession::class)->id,
             'status' => 'Activo',
-            'bank_id' => $this->create(\App\Bank::class)->id,
+            'bank_id' => $this->create(Bank::class)->id,
             'account_number' => '01750107160071661898',
             'contract' => 'I',
-            'branch_id' => $this->create(\App\Branch::class)->id,
-            'department_id' => $this->create(\App\Department::class)->id,
-            'unit_id' => $this->create(\App\Unit::class)->id,
-            'position_id' => $this->create(\App\Position::class)->id,
+            'branch_id' => $this->create(Branch::class)->id,
+            'department_id' => $this->create(Department::class)->id,
+            'unit_id' => $this->create(Unit::class)->id,
+            'position_id' => $this->create(Position::class)->id,
         ];
 
         // $this->withoutExceptionHandling();
@@ -70,7 +72,7 @@ class UpdateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_update_a_employee()
     {
-        $firstUser = factory('App\User')->create();
+        $firstUser = $this->create(User::class);
 
         $employee = $this->create(Employee::class, ['user_id' => $firstUser->id]);
 

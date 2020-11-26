@@ -5,7 +5,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 // Rutas con permisos
-Route::middleware(['auth'])->group(function() {
+Route::middleware(['auth'])->group(function () {
     Route::view('/', 'dashboard')->name('dashboard');
     Route::view('/archivos', 'registry')->name('records');
     Route::view('/security', 'security')->name('security');
@@ -44,29 +44,12 @@ Route::middleware(['auth'])->group(function() {
 
     // Nominas
     Route::namespace('Nomina')->group(function () {
-        Route::get('nominas', 'ListNominaController')
-                ->name('nomina.index');
-                // ->middleware('permission:nomina.index');
-
-        Route::get('nominas/create', 'CreateNominaController@create')
-            ->name('nomina.create');
-            // ->middleware('permission:nomina.create');
-
-        Route::post('nominas/store', 'CreateNominaController@store')
-            ->name('nomina.store');
-            // ->middleware('permission:nomina.create');
-
-        Route::get('nominas/{nomina}/edit', 'CreateNominaController@edit')
-            ->name('nomina.edit');
-            // ->middleware('permission:nomina.edit');
-
-        Route::put('nominas/{nomina}', 'CreateNominaController@update')
-            ->name('nomina.update');
-            // ->middleware('permission:nomina.edit');
-
-        Route::get('nominas/{nomina}', 'ShowNominaController')
-            ->name('nomina.show');
-            // ->middleware('permission:nomina.show');
+        Route::get('nominas', 'ListNominaController')->name('nomina.index');
+        Route::get('nominas/create', 'CreateNominaController@create')->name('nomina.create');
+        Route::post('nominas/store', 'CreateNominaController@store')->name('nomina.store');
+        Route::get('nominas/{nomina}/edit', 'CreateNominaController@edit')->name('nomina.edit');
+        Route::put('nominas/{nomina}', 'CreateNominaController@update')->name('nomina.update');
+        Route::get('nominas/{nomina}', 'ShowNominaController')->name('nomina.show');
     });
 
     // PreNominas
@@ -80,237 +63,77 @@ Route::middleware(['auth'])->group(function() {
         ->name('pre-nominas.show');
 
     // Users
-    Route::get('users', 'UserController@index')
-        ->name('users.index');
-        // ->middleware('permission:users.index');
-
-    Route::get('users/create', 'UserController@create')->name('users.create');
-        // ->middleware('permission:users.create');
-
+    Route::get('users', 'UserController@index')->name('users.index');
+    Route::get('users/create', 'UserController@crete')->name('users.create');
     Route::post('users/store', 'UserController@store')->name('users.store');
-        // ->middleware('permission:users.create');
-
-    Route::get('users/{user}/edit', 'UserController@edit')
-        ->name('users.edit');
-        // ->middleware('permission:users.edit');
-
-    Route::get('users/{user}', 'UserController@show')
-        ->name('users.show');
-        // ->middleware('permission:users.show');
-
-    Route::put('users/{user}', 'UserController@update')
-        ->name('users.update');
-        // ->middleware('permission:users.edit');
-
-    Route::delete('users/{user}', 'UserController@destroy')
-        ->name('users.destroy');
-        // ->middleware('permission:users.destroy');
+    Route::get('users/{user}/edit', 'UserController@edit')->name('users.edit');
+    Route::get('users/{user}', 'UserController@show')->name('users.show');
+    Route::put('users/{user}', 'UserController@update')->name('users.update');
+    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
 
     // Roles
-    Route::post('roles/store', 'RoleController@store')
-        ->name('roles.store');
-        // ->middleware('permission:roles.create');
-
-    Route::get('roles', 'RoleController@index')
-        ->name('roles.index');
-        // ->middleware('permission:roles.index');
-
-    Route::get('roles/create', 'RoleController@create')
-        ->name('roles.create');
-        // ->middleware('permission:roles.create');
-
-    Route::put('roles/{role}', 'RoleController@update')
-        ->name('roles.update');
-        // ->middleware('permission:roles.edit');
-
-    Route::get('roles/{role}', 'RoleController@show')
-        ->name('roles.show');
-        // ->middleware('permission:roles.show');
-
-    Route::delete('roles/{role}', 'RoleController@destroy')
-        ->name('roles.destroy');
-        // ->middleware('permission:roles.destroy');
-
-    Route::get('roles/{role}/edit', 'RoleController@edit')
-        ->name('roles.edit');
-        // ->middleware('permission:roles.edit');
+    Route::post('roles/store', 'RoleController@store')->name('roles.store');
+    Route::get('roles', 'RoleController@index')->name('roles.index');
+    Route::get('roles/create', 'RoleController@create')->name('roles.create');
+    Route::put('roles/{role}', 'RoleController@update')->name('roles.update');
+    Route::get('roles/{role}', 'RoleController@show')->name('roles.show');
+    Route::delete('roles/{role}', 'RoleController@destroy')->name('roles.destroy');
+    Route::get('roles/{role}/edit', 'RoleController@edit')->name('roles.edit');
 
     // Permissions
-    Route::get('permissions', 'PermissionController@index')
-        ->name('permissions.index');
-        // ->middleware('permission:permissions.index');
-
-    Route::get('permissions/create', 'PermissionController@create')
-        ->name('permissions.create');
-        // ->middleware('permission:permissions.create');
-
-    Route::post('permissions/store', 'PermissionController@store')
-        ->name('permissions.store');
-        // ->middleware('permission:permissions.create');
-
-    Route::get('permissions/{permission}/edit', 'PermissionController@edit')
-        ->name('permissions.edit');
-        // ->middleware('permission:permissions.edit');
-
-    Route::put('permissions/{permission}', 'PermissionController@update')
-        ->name('permissions.update');
-        // ->middleware('permission:permissions.edit');
-
-    Route::get('permissions/{permission}', 'PermissionController@show')
-        ->name('permissions.show');
-        // ->middleware('permission:permissions.show');
+    Route::get('permissions', 'PermissionController@index')->name('permissions.index');
+    Route::get('permissions/create', 'PermissionController@create')->name('permissions.create');
+    Route::post('permissions/store', 'PermissionController@store')->name('permissions.store');
+    Route::get('permissions/{permission}/edit', 'PermissionController@edit')->name('permissions.edit');
+    Route::put('permissions/{permission}', 'PermissionController@update')->name('permissions.update');
+    Route::get('permissions/{permission}', 'PermissionController@show')->name('permissions.show');
 
     // Positions (Cargos)
-    Route::get('/positions', 'PositionController@index')
-        ->name('positions.index');
-        // ->middleware('permission:positions.index');
-
-    Route::get('/positions/create', 'PositionController@create')
-        ->name('positions.create');
-        // ->middleware('permission:positions.create');
-
-    Route::post('/positions', 'PositionController@store')
-        ->name('positions.store');
-        // ->middleware('permission:positions.create');
-
-    Route::get('/positions/{position}', 'PositionController@show')
-        ->name('positions.show');
-        // ->middleware('permission:positions.show');
-
-    Route::get('positions/{position}/edit', 'PositionController@edit')
-        ->name('positions.edit');
-        // ->middleware('permission:positions.edit');
-
-    Route::put('/positions/{position}', 'PositionController@update')
-        ->name('positions.update');
-        // ->middleware('permission:positions.edit');
+    Route::get('/positions', 'PositionController@index')->name('positions.index');
+    Route::get('/positions/create', 'PositionController@create')->name('positions.create');
+    Route::post('/positions', 'PositionController@store')->name('positions.store');
+    Route::get('/positions/{position}', 'PositionController@show')->name('positions.show');
+    Route::get('positions/{position}/edit', 'PositionController@edit')->name('positions.edit');
+    Route::put('/positions/{position}', 'PositionController@update')->name('positions.update');
 
     // Branchs (Sucursales)
-    Route::get('/branches', 'BranchController@index')
-        ->name('branches.index');
-        // ->middleware('permission:branches.index');
-
-    Route::get('/branches/create', 'BranchController@create')
-        ->name('branches.create');
-        // ->middleware('permission:branches.create');
-
-    Route::post('/branches', 'BranchController@store')
-        ->name('branches.store');
-        // ->middleware('permission:branches.create');
-
-    Route::get('branches/{branch}/edit', 'BranchController@edit')
-        ->name('branches.edit');
-        // ->middleware('permission:branches.edit');
-
-    Route::put('/branches/{branch}', 'BranchController@update')
-        ->name('branches.update');
-        // ->middleware('permission:branches.edit');
-
-    Route::get('/branches/{branch}', 'BranchController@show')
-        ->name('branches.show');
-        // ->middleware('permission:branches.show');
+    Route::get('/branches', 'BranchController@index')->name('branches.index');
+    Route::get('/branches/create', 'BranchController@create')->name('branches.create');
+    Route::post('/branches', 'BranchController@store')->name('branches.store');
+    Route::get('branches/{branch}/edit', 'BranchController@edit')->name('branches.edit');
+    Route::put('/branches/{branch}', 'BranchController@update')->name('branches.update');
+    Route::get('/branches/{branch}', 'BranchController@show')->name('branches.show');
 
     // Departments (Departamentos)
-    Route::get('/departments', 'DepartmentController@index')
-        ->name('departments.index');
-        // ->middleware('permission:departments.index');
-
-    Route::get('/departments/create', 'DepartmentController@create')
-        ->name('departments.create');
-        // ->middleware('permission:departments.create');
-
-    Route::post('/departments', 'DepartmentController@store')
-        ->name('departments.store');
-        // ->middleware('permission:departments.create');
-
-    Route::get('departments/{department}/edit', 'DepartmentController@edit')
-        ->name('departments.edit');
-        // ->middleware('permission:departments.edit');
-
-    Route::put('/departments/{department}', 'DepartmentController@update')
-        ->name('departments.update');
-        // ->middleware('permission:departments.edit');
-
-    Route::get('/departments/{department}', 'DepartmentController@show')
-        ->name('departments.show');
-        // ->middleware('permission:departments.show');
+    Route::get('/departments', 'DepartmentController@index')->name('departments.index');
+    Route::get('/departments/create', 'DepartmentController@create')->name('departments.create');
+    Route::post('/departments', 'DepartmentController@store')->name('departments.store');
+    Route::get('departments/{department}/edit', 'DepartmentController@edit')->name('departments.edit');
+    Route::put('/departments/{department}', 'DepartmentController@update')->name('departments.update');
+    Route::get('/departments/{department}', 'DepartmentController@show')->name('departments.show');
 
     // Units (Unidades de producción)
-    Route::get('/units', 'UnitController@index')
-        ->name('units.index');
-        // ->middleware('permission:units.index');
-
-    Route::get('units/create', 'UnitController@create')
-        ->name('units.create');
-        // ->middleware('permission:units.create');
-
-    Route::post('/units', 'UnitController@store')
-        ->name('units.store');
-        // ->middleware('permission:units.create');
-
-    Route::get('units/{unit}/edit', 'UnitController@edit')
-        ->name('units.edit');
-        // ->middleware('permission:units.edit');
-
-    Route::put('/units/{unit}', 'UnitController@update')
-        ->name('units.update');
-        // ->middleware('permission:units.edit');
-
-    Route::get('/units/{unit}', 'UnitController@show')
-        ->name('units.show');
-        // ->middleware('permission:units.show');
+    Route::get('/units', 'UnitController@index')->name('units.index');
+    Route::get('units/create', 'UnitController@create')->name('units.create');
+    Route::post('/units', 'UnitController@store')->name('units.store');
+    Route::get('units/{unit}/edit', 'UnitController@edit')->name('units.edit');
+    Route::put('/units/{unit}', 'UnitController@update')->name('units.update');
+    Route::get('/units/{unit}', 'UnitController@show')->name('units.show');
 
     // Professions
-    Route::get('/professions/create', 'ProfessionController@create')
-        ->name('professions.create');
-        // ->middleware('permission:professions.create');
-
-    Route::post('/professions', 'ProfessionController@store')
-        ->name('professions.store');
-        // ->middleware('permission:professions.create');
-
-    Route::get('/professions', 'ProfessionController@index')
-        ->name('professions.index');
-        // ->middleware('permission:professions.index');
-
-    Route::get('/professions/{profession}', 'ProfessionController@show')
-        ->name('professions.show');
-        // ->middleware('permission:professions.show');
-
-    Route::get('/professions/{profession}/edit', 'ProfessionController@edit')
-        ->name('professions.edit');
-        // ->middleware('permission:professions.edit');
-
-    Route::put('/professions/{profession}', 'ProfessionController@update')
-        ->name('professions.update');
-        // ->middleware('permission:professions.edit');
+    Route::get('/professions/create', 'ProfessionController@create')->name('professions.create');
+    Route::post('/professions', 'ProfessionController@store')->name('professions.store');
+    Route::get('/professions', 'ProfessionController@index')->name('professions.index');
+    Route::get('/professions/{profession}', 'ProfessionController@show')->name('professions.show');
+    Route::get('/professions/{profession}/edit', 'ProfessionController@edit')->name('professions.edit');
+    Route::put('/professions/{profession}', 'ProfessionController@update')->name('professions.update');
 
     // Employees
-    Route::get('/employees/create', 'EmployeeController@create')
-        ->name('employees.create');
-        // ->middleware('permission:employees.create');
-
-    Route::post('/employees', 'EmployeeController@store')
-        ->name('employees.store');
-        // ->middleware('permission:employees.create');
-
-    Route::get('/employees', 'EmployeeController@index')
-        ->name('employees.index');
-        // ->middleware('permission:employees.index');
-
-    Route::get('/employees/{employee}', 'EmployeeController@show')
-        ->name('employees.show');
-        // ->middleware('permission:employees.show');
-
-    Route::get('/employees/{employee}/edit', 'EmployeeController@edit')
-        ->name('employees.edit');
-        // ->middleware('permission:employees.edit');
-
-    Route::put('/employees/{employee}', 'EmployeeController@update')
-        ->name('employees.update');
-        // ->middleware('permission:employees.edit');
-
-    Route::delete('employees/{employee}', 'EmployeeController@destroy')
-        ->name('employees.destroy');
-        // ->middleware('permission:employees.destroy');
+    Route::get('/employees/create', 'EmployeeController@create')->name('employees.create');
+    Route::post('/employees', 'EmployeeController@store')->name('employees.store');
+    Route::get('/employees', 'EmployeeController@index')->name('employees.index');
+    Route::get('/employees/{employee}', 'EmployeeController@show')->name('employees.show');
+    Route::get('/employees/{employee}/edit', 'EmployeeController@edit')->name('employees.edit');
+    Route::put('/employees/{employee}', 'EmployeeController@update')->name('employees.update');
+    Route::delete('employees/{employee}', 'EmployeeController@destroy')->name('employees.destroy');
 });
