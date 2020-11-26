@@ -42,13 +42,13 @@ class BranchTest extends TestCase
     /** @test */
     function a_user_can_can_show_a_list_of_branch_offices()
     {
-        $branches = factory(Branch::class, 10)->create();
+        $branches = Branch::factory()->count(10)->create();
 
         $response = $this->get(route('branches.index'))
             ->assertStatus(200);
 
         foreach ($branches as $branch) {
-            $response->assertSee(htmlspecialchars($branch->name));
+            $response->assertSee($branch->name);
         }
     }
 

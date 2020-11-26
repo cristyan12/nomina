@@ -1,5 +1,7 @@
 <?php
 
+namespace Database\Seeders;
+
 use App\Models\{Position, User};
 use Illuminate\Database\Seeder;
 

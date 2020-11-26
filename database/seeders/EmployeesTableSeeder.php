@@ -1,6 +1,9 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
+
 use App\Models\{
     Bank, Branch, Department, Employee, EmployeeProfile,
     Nomina, Position, Profession, Unit, User

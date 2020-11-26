@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Nomina;
 
-use App\Nomina;
+use App\Models\Nomina;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\{
     CreateNominaRequest, UpdateNominaRequest
@@ -37,7 +37,7 @@ class CreateNominaController extends Controller
         $nomina->fill($request->validated());
 
         auth()->user()->nominas()->save($nomina);
-        
+
         return redirect()->route('nomina.index')
             ->with('info', 'Nómina actualizada correctamente');;
     }

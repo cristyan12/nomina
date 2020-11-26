@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\{Employee, LoadFamiliar};
+use App\Models\{Employee, LoadFamiliar};
 use App\Http\Requests\{
     CreateLoadFamiliarRequest, UpdateLoadFamiliarRequest
 };

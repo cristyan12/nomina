@@ -2,12 +2,17 @@
 
 namespace Tests\Feature\Employees;
 
-use App\{Employee, EmployeeProfile};
-
+use App\Models\Bank;
+use App\Models\Branch;
+use App\Models\Department;
+use App\Models\Employee;
+use App\Models\EmployeeProfile;
+use App\Models\Nomina;
+use App\Models\Position;
+use App\Models\Profession;
+use App\Models\Unit;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
 
 class CreateEmployeeTest extends TestCase
 {
@@ -19,7 +24,7 @@ class CreateEmployeeTest extends TestCase
     {
         parent::setUp();
 
-        $this->actingAs($this->someuser());
+        $this->actingAs($this->someUser());
 
         $this->attributes = [
             'code' => '14996210',
@@ -33,16 +38,16 @@ class CreateEmployeeTest extends TestCase
             'nationality' => 'V',
             'city_of_born' => 'Guanare',
             'hired_at' => '2012-08-30',
-            'profession_id' => $this->create(\App\Profession::class)->id,
+            'profession_id' => Profession::factory()->create()->id,
             'status' => 'Activo',
-            'bank_id' => $this->create(\App\Bank::class)->id,
+            'bank_id' => Bank::factory()->create()->id,
             'account_number' => '01750107160071661898',
             'contract' => 'I',
-            'branch_id' => $this->create(\App\Branch::class)->id,
-            'department_id' => $this->create(\App\Department::class)->id,
-            'unit_id' => $this->create(\App\Unit::class)->id,
-            'position_id' => $this->create(\App\Position::class)->id,
-            'nomina_id' => $this->create(\App\Nomina::class)->id,
+            'branch_id' => Branch::factory()->create()->id,
+            'department_id' => Department::factory()->create()->id,
+            'unit_id' => Unit::factory()->create()->id,
+            'position_id' => Position::factory()->create()->id,
+            'nomina_id' => Nomina::factory()->create()->id,
         ];
 
         // $this->withoutExceptionHandling();
@@ -51,7 +56,7 @@ class CreateEmployeeTest extends TestCase
     /** @test */
     function a_user_can_load_the_new_employee_page()
     {
-        $this->withoutExceptionHandling();
+        // $this->withoutExceptionHandling();
 
         $response = $this->get(route('employees.create'))
             ->assertStatus(200)

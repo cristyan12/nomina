@@ -1,16 +1,42 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\EmployeeProfile::class, function (Faker $faker) {
-    return [
-        'employee_id'       => factory(App\Models\Employee::class),
-        'profession_id'     => factory(App\Models\Profession::class),
-        'bank_id'           => factory(App\Models\Bank::class),
-        'account_number'    => $faker->bankAccountNumber,
-        'branch_id'         => factory(App\Models\Branch::class),
-        'department_id'     => factory(App\Models\Department::class),
-        'unit_id'           => factory(App\Models\Unit::class),
-        'position_id'       => factory(App\Models\Position::class),
-    ];
-});
+use App\Models\Bank;
+use App\Models\Branch;
+use App\Models\Department;
+use App\Models\Employee;
+use App\Models\EmployeeProfile;
+use App\Models\Position;
+use App\Models\Profession;
+use App\Models\Unit;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class EmployeeProfileFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = EmployeeProfile::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'employee_id'       => Employee::factory(),
+            'profession_id'     => Profession::factory(),
+            'bank_id'           => Bank::factory(),
+            'account_number'    => $this->faker->bankAccountNumber,
+            'branch_id'         => Branch::factory(),
+            'department_id'     => Department::factory(),
+            'unit_id'           => Unit::factory(),
+            'position_id'       => Position::factory(),
+        ];
+    }
+}

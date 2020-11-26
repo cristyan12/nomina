@@ -2,11 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Department;
+use App\Models\Department;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\{
-    DatabaseTransactions, RefreshDatabase
-};
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class DepartmentTest extends TestCase
 {
@@ -38,7 +36,7 @@ class DepartmentTest extends TestCase
     /** @test */
     function a_user_can_can_show_a_list_of_department()
     {
-        $departments = factory(Department::class, 10)->create();
+        $departments = Department::factory()->count(10)->create();
 
         $response = $this->actingAs($this->someUser())
             ->get(route('departments.index'))

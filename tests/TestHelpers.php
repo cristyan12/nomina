@@ -9,14 +9,14 @@ trait TestHelpers
 {
     protected $someUser;
 
-    protected function create($class, array $attributes = []): Model
+    protected function create(string $class, array $attributes = []): Model
     {
-        return factory($class)->create($attributes);
+        return $class::factory()->create($attributes);
     }
 
     protected function make(string $class, array $attributes = []): Model
     {
-        return factory($class)->make($attributes);
+        return $class::factory()->make($attributes);
     }
 
     protected function someUser(array $attributes = [])
@@ -25,7 +25,7 @@ trait TestHelpers
             return $this->someUser;
         }
 
-        return $this->someUser = factory(User::class)->create($attributes);
+        return $this->someUser = User::factory()->create($attributes);
     }
 
     protected function withData(array $custom = [])

@@ -2,11 +2,20 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
 {
-    protected $fillable = ['company_id', 'bank_id', 'number', 'auth_1', 'auth_2'];
+    use HasFactory;
+
+    protected $fillable = [
+        'company_id',
+        'bank_id',
+        'number',
+        'auth_1',
+        'auth_2'
+    ];
 
     public function auth1()
     {

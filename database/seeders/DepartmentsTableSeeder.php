@@ -1,8 +1,10 @@
 <?php
 
+namespace Database\Seeders;
+
 use Illuminate\Database\Seeder;
 
-class BranchesTableSeeder extends Seeder
+class DepartmentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -11,6 +13,6 @@ class BranchesTableSeeder extends Seeder
      */
     public function run()
     {
-        factory(App\Models\Branch::class, 20)->create();
+        factory(App\Models\Department::class, 20)->create();
     }
 }

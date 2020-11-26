@@ -1,15 +1,34 @@
 <?php
 
-use Faker\Generator as Faker;
+namespace Database\Factories;
 
-$factory->define(App\Models\Concept::class, function (Faker $faker) {
-    return [
-        'name' => $faker->word,
-        'type' => $faker->randomElement(['asignacion', 'deduccion']),
-        'description' => $faker->text,
-        'quantity' => $faker->randomFloat(2),
-        'calculation_salary' => $faker->word,
-        'formula' => $faker->sentence,
-        'user_id' => factory(App\Models\User::class),
-    ];
-});
+use App\Models\{Concept, User};
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class ConceptFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = Concept::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'name' => $this->faker->word,
+            'type' => $this->faker->randomElement(['asignacion', 'deduccion']),
+            'description' => $this->faker->text,
+            'quantity' => $this->faker->randomFloat(2),
+            'calculation_salary' => $this->faker->word,
+            'formula' => $this->faker->sentence,
+            'user_id' => User::factory(),
+        ];
+    }
+}
